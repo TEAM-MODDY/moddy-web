@@ -1,4 +1,4 @@
-import { createGlobalStyle, css } from "styled-components";
+import { createGlobalStyle, css } from 'styled-components';
 
 export const reset = css`
   html,
@@ -47,7 +47,6 @@ export const reset = css`
   dl,
   dt,
   dd,
-  menu,
   ol,
   ul,
   li,
@@ -87,6 +86,7 @@ export const reset = css`
     margin: 0;
     padding: 0;
     border: 0;
+
     font-size: 62.5%;
     vertical-align: baseline;
   }
@@ -106,58 +106,74 @@ export const reset = css`
   section {
     display: block;
   }
+
   /* HTML5 hidden-attribute fix for newer browsers */
   *[hidden] {
     display: none;
   }
+
   body {
     line-height: 1;
   }
+
   menu,
   ol,
   ul {
     list-style: none;
   }
+
   blockquote,
   q {
     quotes: none;
   }
-  blockquote:before,
-  blockquote:after,
-  q:before,
-  q:after {
-    content: "";
+
+  blockquote::before,
+  blockquote::after,
+  q::before,
+  q::after {
+    content: '';
     content: none;
   }
+
   table {
     border-collapse: collapse;
     border-spacing: 0;
   }
+
   button {
-    cursor: pointer;
-    background: transparent;
     border: none;
+
+    background: transparent;
+
+    cursor: pointer;
   }
 `;
-export const GlobalStyle = createGlobalStyle`
-
+const GlobalStyle = createGlobalStyle`
 ${reset}
 
+#root, body, html {
+
+    max-width: 37.5rem;
+    margin: 0 auto;
+    -ms-overflow-style: none; /* 인터넷 익스플로러 */
+    scrollbar-width: none; /* 파이어폭스 */
+}
+
+#root::-webkit-scrollbar {
+
+    display: none; /* 크롬, 사파리, 오페라, 엣지 */
+}
+
 * {
+
     box-sizing: border-box;
 }
 
-
-
 // 사파리 웹 뷰 브라우저 상속 스타일 제거
 input, textarea,button {
-    appearance: none;
-    -moz-appearance: none;
-    -webkit-appearance: none;
+
     border-radius: 0;
-    -webkit-border-radius: 0;
-    -moz-border-radius: 0;
-}
-`;
+    appearance: none;
+}`;
 
 export default GlobalStyle;

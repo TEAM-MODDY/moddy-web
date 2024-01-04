@@ -1,4 +1,5 @@
-import GlobalStyle from "./styles/GlobalStyle";
+/* eslint-disable react/react-in-jsx-scope */
+import GlobalStyle from './styles/GlobalStyle';
 
 const App = () => {
   return (
