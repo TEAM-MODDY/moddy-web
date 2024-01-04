@@ -152,7 +152,6 @@ const GlobalStyle = createGlobalStyle`
 ${reset}
 
 #root, body, html {
-
     max-width: 43rem;
     margin: 0 auto;
     -ms-overflow-style: none; /* 인터넷 익스플로러 */
@@ -160,7 +159,6 @@ ${reset}
 }
 
 #root::-webkit-scrollbar {
-
     display: none; /* 크롬, 사파리, 오페라, 엣지 */
 }
 
@@ -169,9 +167,8 @@ ${reset}
     box-sizing: border-box;
 }
 
-// 사파리 웹 뷰 브라우저 상속 스타일 제거
+ /* 사파리 웹 뷰 브라우저 상속 스타일 제거 */
 input, textarea,button {
-
     border-radius: 0;
     appearance: none;
 }`;
