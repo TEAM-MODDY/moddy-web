@@ -53,8 +53,9 @@
     "eol-last": ["error", "always"],
     "react-hooks/rules-of-hooks": "error", // Checks rules of Hooks
     "react-hooks/exhaustive-deps": "off", // Checks effect dependencies
-    // import React from "react"가 필수였던 시기에 필요한 규칙이므로 off
-    "react/react-in-jsx-scope": "off",
+    // import React from "react" 필수 (단, 상위에 포함시 하위는 생략)
+    "react/jsx-uses-react": "error",
+    "react/jsx-uses-vars": "error",
     //안 쓰는 변수들에 대해 경고 표시
     "no-unused-vars": "off",
     "@typescript-eslint/no-unused-vars": "warn",
