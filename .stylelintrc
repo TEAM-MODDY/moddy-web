@@ -1,7 +1,12 @@
 {
   "extends": ["stylelint-config-standard"],
   "plugins": ["stylelint-order"],
-  "customSyntax": "postcss-styled-syntax",
+  "overrides": [
+    {
+      "customSyntax": "@stylelint/postcss-css-in-js",
+      "files": ["**/*.tsx"]
+    }
+  ],
   "rules": {
     "declaration-property-unit-allowed-list": {
       "/^border/": ["px"],
