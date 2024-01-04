@@ -153,7 +153,7 @@ ${reset}
 
 #root, body, html {
 
-    max-width: 37.5rem;
+    max-width: 43rem;
     margin: 0 auto;
     -ms-overflow-style: none; /* 인터넷 익스플로러 */
     scrollbar-width: none; /* 파이어폭스 */
