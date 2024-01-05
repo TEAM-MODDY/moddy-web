@@ -1,11 +1,15 @@
-/* eslint-disable react/react-in-jsx-scope */
+import { ThemeProvider } from 'styled-components';
+
 import GlobalStyle from './styles/GlobalStyle';
+import theme from './styles/Theme';
 
 const App = () => {
   return (
-    <div>
-      <GlobalStyle />
-    </div>
+    <>
+      <ThemeProvider theme={theme}>
+        <GlobalStyle />
+      </ThemeProvider>
+    </>
   );
 };
 
