@@ -9,14 +9,28 @@ declare module 'styled-components' {
       ModdyBlue4: string;
       ModdySky: string;
       ModdyPurple: string;
+      Kakao: string;
+      ModdyGradient3: string;
       ModdyBk: string;
       ModdyWt: string;
-      ModdyGray100: string;
       ModdyGray50: string;
       ModdyGray20: string;
       ModdyGray10: string;
       ModdyGray05: string;
+      ModdyBk50: string;
+      ModdyWt30: string;
     };
+    effects: {
+      Shadow1: string;
+      Shadow2: string;
+      Shadow3: string;
+      Shadow4: string;
+      ShadowHome: string;
+      MainCtaShadow: string;
+      MainCtaBlur: string;
+      Graphic: string;
+    };
+
     fonts: {
       Title01: SerializedStyles;
       Title02: SerializedStyles;
