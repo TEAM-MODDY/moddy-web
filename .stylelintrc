@@ -42,6 +42,8 @@
           "visibility",
 
           "overflow",
+          "overflow-x",
+          "overflow-y",
 
           "float",
           "clear",
