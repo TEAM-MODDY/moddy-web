@@ -4,6 +4,7 @@ import Header from '../views/@common/components/Header';
 const MainPage = () => {
   return (
     <div>
+      <Header />
       <Button />
     </div>
   );
