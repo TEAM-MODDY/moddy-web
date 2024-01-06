@@ -6,10 +6,9 @@ const ApplicationInfo = () => {
   return (
     <S.ApplicationInfoLayout>
       <S.ContentBox>
-        <S.DivideBox>
-          <h2>모델 정보</h2>
-          <ImgLogoBlue />
-        </S.DivideBox>
+        <h2>
+          모델 정보 <ImgLogoBlue />
+        </h2>
         <S.DivideBox>
           <img alt="profile" src="src/views/@common/assets/images/img_samplemodel.png" />
           <S.Info>
@@ -99,12 +98,20 @@ const S = {
     width: 100%;
 
     & > h2 {
+      display: flex;
+      justify-content: space-between;
+
       padding-bottom: 0.6rem;
       border-bottom: 0.1px solid ${({ theme }) => theme.colors.moddy_blue};
 
       color: ${({ theme }) => theme.colors.moddy_blue};
 
       ${({ theme }) => theme.fonts.Body01};
+
+      & > svg {
+        width: 5.9rem;
+        height: 1.8rem;
+      }
     }
   `,
 
@@ -118,8 +125,9 @@ const S = {
     & > img {
       overflow: hidden;
 
-      height: 100%;
+      width: 9rem;
       margin-right: 0.2rem;
+      border-radius: 6px;
       object-fit: cover;
     }
   `,
@@ -127,7 +135,7 @@ const S = {
   Info: styled.ul`
     display: flex;
     flex-direction: column;
-    gap: 1.2rem;
+    gap: 0.6rem;
     flex: 1;
 
     & > li {
