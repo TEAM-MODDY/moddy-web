@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import { styled } from 'styled-components';
 
 import { IcCloseBlack, IcLeftBlack } from '../assets/icons';
 

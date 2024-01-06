@@ -23,7 +23,7 @@ const S = {
     justify-content: space-between;
     list-style: none;
 
-    width: 34.4rem;
+    width: 100%;
     margin: 0.6rem 0;
 
     & > h2 {
