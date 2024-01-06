@@ -2,9 +2,9 @@ import { styled } from 'styled-components';
 
 import { ImgLogoBlue } from '../../@common/assets/images';
 
-const ApplicationInfo = () => {
+const ApplicationResult = () => {
   return (
-    <S.ApplicationInfoLayout>
+    <S.ApplicationResultLayout>
       <S.ContentBox>
         <h2>
           모델 정보 <ImgLogoBlue />
@@ -71,14 +71,14 @@ const ApplicationInfo = () => {
         <h2>상세 희망 스타일</h2>
         <S.InfoText />
       </S.ContentBox>
-    </S.ApplicationInfoLayout>
+    </S.ApplicationResultLayout>
   );
 };
 
-export default ApplicationInfo;
+export default ApplicationResult;
 
 const S = {
-  ApplicationInfoLayout: styled.main`
+  ApplicationResultLayout: styled.main`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
