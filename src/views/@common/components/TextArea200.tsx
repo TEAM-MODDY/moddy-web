@@ -8,7 +8,7 @@ const TextArea200 = () => {
     <S.TextAreaLayout>
       <S.TextArea placeholder={PLACE_HOLDER} onChange={(e) => setTextLength(e.target.value.length)} maxLength={200} />
       <S.TextAreaSpan>
-        <S.TextAreaCountSpan>{textLength}</S.TextAreaCountSpan> / 200
+        <S.TextAreaCountSpan $isZero={textLength === 0}>{textLength}</S.TextAreaCountSpan> / 200
       </S.TextAreaSpan>
     </S.TextAreaLayout>
   );
@@ -29,8 +29,8 @@ const S = {
     color: ${({ theme }) => theme.colors.moddy_gray20};
     ${({ theme }) => theme.fonts.Body04};
   `,
-  TextAreaCountSpan: styled.span`
-    color: ${({ theme }) => theme.colors.moddy_blue2};
+  TextAreaCountSpan: styled.span<{ $isZero: boolean }>`
+    color: ${({ theme, $isZero }) => ($isZero ? theme.colors.moddy_gray20 : theme.colors.moddy_blue2)};
     ${({ theme }) => theme.fonts.Body04};
   `,
   TextArea: styled.textarea`
