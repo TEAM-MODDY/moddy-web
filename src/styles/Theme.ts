@@ -1,34 +1,34 @@
 import { css, DefaultTheme } from 'styled-components';
 
 const colors = {
-  ModdyBlue: '#236fff',
-  ModdyBlue2: '#91b7ff',
-  ModdyBlue3: '#d3e2ff',
-  ModdyBlue4: '#F4f8ff',
-  ModdySky: '#6ae4ff',
-  ModdyPurple: '#a38eff',
-  Kakao: '#f3dd24',
-  ModdyGradient3: 'linear-gradient(152deg, #6AE4FF -45.76%, #236FFF 25.9%, #236FFF 50.94%, #A38EFF 120.01%)',
+  moddy_blue: '#236fff',
+  moddy_blue2: '#91b7ff',
+  moddy_blue3: '#d3e2ff',
+  moddy_blue4: '#F4f8ff',
+  moddy_sky: '#6ae4ff',
+  moddy_purple: '#a38eff',
+  kakao: '#f3dd24',
+  moddy_gradient3: 'linear-gradient(152deg, #6AE4FF -45.76%, #236FFF 25.9%, #236FFF 50.94%, #A38EFF 120.01%)',
 
-  ModdyBk: '#1d2330',
-  ModdyWt: '#ffffff',
-  ModdyGray50: '#8e9197',
-  ModdyGray20: '#d2d3d6',
-  ModdyGray10: '#e8e9ea',
-  ModdyGray05: '#f4f4f5',
-  ModdyBk50: 'rgba(0, 0, 0, 0.50)',
-  ModdyWt30: 'rgba(255, 255, 255, 0.30)',
+  moddy_bk: '#1d2330',
+  moddy_wt: '#ffffff',
+  moddy_gray50: '#8e9197',
+  moddy_gray20: '#d2d3d6',
+  moddy_gray10: '#e8e9ea',
+  moddy_gray05: '#f4f4f5',
+  moddy_bk50: 'rgba(0, 0, 0, 0.50)',
+  moddy_wt30: 'rgba(255, 255, 255, 0.30)',
 };
 
 const effects = {
-  Shadow1: '0px 0px 8px 0px rgba(0, 0, 0, 0.24)',
-  Shadow2: '0px 0px 8px 0px rgba(35, 111, 255, 0.24)',
-  Shadow3: '0px 0px 4px 0px rgba(35, 111, 255, 0.24)',
-  Shadow4: '0px 0px 4px 0px rgba(0, 0, 0, 0.24)',
-  ShadowHome: '0px 3px 10px 0px rgba(0, 0, 0, 0.20)',
-  MainCtaShadow: '0px 0px 8px 0px rgba(0, 0, 0, 0.24)',
-  MainCtaBlur: 'blur(5px);',
-  Graphic: '0px 0px 30px 0px rgba(35, 111, 255, 0.70)',
+  shadow1: '0px 0px 8px 0px rgba(0, 0, 0, 0.24)',
+  shadow2: '0px 0px 8px 0px rgba(35, 111, 255, 0.24)',
+  shadow3: '0px 0px 4px 0px rgba(35, 111, 255, 0.24)',
+  shadow4: '0px 0px 4px 0px rgba(0, 0, 0, 0.24)',
+  shadow_home: '0px 3px 10px 0px rgba(0, 0, 0, 0.20)',
+  main_cta_shadow: '0px 0px 8px 0px rgba(0, 0, 0, 0.24)',
+  main_cta_blur: 'blur(5px);',
+  graphic: '0px 0px 30px 0px rgba(35, 111, 255, 0.70)',
 };
 
 const fonts = {
@@ -377,6 +377,7 @@ const fonts = {
 
 const theme: DefaultTheme = {
   colors,
+  effects,
   fonts,
   effects,
 };
