@@ -1,12 +1,13 @@
-import { styled } from 'styled-components';
+import styled from 'styled-components';
 
 import ApplicationInfo from '../views/ApplicationPage/components/ApplicationInfo';
+import ConfirmPage from '../views/ApplicationPage/pages/ConfirmPage';
 
 const ApplicationPage = () => {
   return (
-    <ApplicationPagSection>
-      <ApplicationInfo />
-    </ApplicationPagSection>
+    <>
+      <ConfirmPage />
+    </>
   );
 };
 
