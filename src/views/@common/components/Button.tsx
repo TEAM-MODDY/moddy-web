@@ -11,7 +11,6 @@ const Button = ({ text, isFixed, onClickFn }: ButtonProps) => {
       <button type="button" onClick={onClickFn}>
         {text}
       </button>
-    </S.ButtonLayout>
   );
 };
 
