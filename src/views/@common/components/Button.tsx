@@ -6,7 +6,7 @@ interface ButtonProps {
 }
 const Button = ({ text, isFixed }: ButtonProps) => {
   return (
-    <S.ButtonLayout className="footer" $isFixed={isFixed}>
+    <S.ButtonLayout $isFixed={isFixed}>
       <button type="button">{text}</button>
     </S.ButtonLayout>
   );
