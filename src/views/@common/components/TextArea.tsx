@@ -1,11 +1,15 @@
+import { useState } from 'react';
 import styled from 'styled-components';
 
 const TextArea = () => {
+  const [textLength, setTextLength] = useState(0);
   const PLACE_HOLDER = '자신에 대한 소개를 입력해주세요\n예시) 경력, 자격증, 강점 등';
   return (
     <S.TextAreaLayout>
-      <S.TextArea placeholder={PLACE_HOLDER} />
-      <S.TextAreaSpan>0 / 200</S.TextAreaSpan>
+      <S.TextArea placeholder={PLACE_HOLDER} onChange={(e) => setTextLength(e.target.value.length)} maxLength={200} />
+      <S.TextAreaSpan>
+        <S.TextAreaCountSpan>{textLength}</S.TextAreaCountSpan> / 200
+      </S.TextAreaSpan>
     </S.TextAreaLayout>
   );
 };
@@ -22,9 +26,12 @@ const S = {
     width: 100%;
   `,
   TextAreaSpan: styled.span`
-    ${({ theme }) => theme.fonts.Body04};
-
     color: ${({ theme }) => theme.colors.moddy_gray20};
+    ${({ theme }) => theme.fonts.Body04};
+  `,
+  TextAreaCountSpan: styled.span`
+    color: ${({ theme }) => theme.colors.moddy_blue2};
+    ${({ theme }) => theme.fonts.Body04};
   `,
   TextArea: styled.textarea`
     width: 100%;
