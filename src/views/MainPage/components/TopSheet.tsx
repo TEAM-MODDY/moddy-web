@@ -84,7 +84,7 @@ const TopSheetLayout = styled.div`
   padding: 1.9rem 1.6rem 2rem;
   border-radius: 0 0 12px 12px;
 
-  background: ${({ theme }) => theme.colors.moddy_gradient3};
+  background: ${({ theme }) => theme.colors.moddy_gradient4};
   box-shadow: 0 3px 10px 0 rgb(0 0 0 / 20%);
 `;
 const HeaderBox = styled.div`
