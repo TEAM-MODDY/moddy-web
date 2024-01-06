@@ -6,15 +6,17 @@ interface HeaderProps {
   isBackBtnExist?: boolean;
   isCloseBtnExist?: boolean;
   title: string;
+  backFn?: () => void;
+  closeFn?: () => void;
 }
 
-const Header = ({ isBackBtnExist, isCloseBtnExist, title }: HeaderProps) => {
+const Header = ({ isBackBtnExist, isCloseBtnExist, title, backFn, closeFn }: HeaderProps) => {
   return (
     <S.HeaderLayout>
       <S.HeaderBox>
-        {isBackBtnExist ? <IcLeftBlack /> : <S.HeaderBlankBox />}
+        <button onClick={backFn}>{isBackBtnExist ? <IcLeftBlack /> : <S.HeaderBlankBox />}</button>
         <S.HeaderH1>{title}</S.HeaderH1>
-        {isCloseBtnExist ? <IcCloseBlack /> : <S.HeaderBlankBox />}
+        <button onClick={closeFn}>{isCloseBtnExist ? <IcCloseBlack /> : <S.HeaderBlankBox />}</button>
       </S.HeaderBox>
     </S.HeaderLayout>
   );
