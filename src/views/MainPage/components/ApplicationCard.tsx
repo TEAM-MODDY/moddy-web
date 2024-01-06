@@ -1,10 +1,14 @@
 import { styled } from 'styled-components';
 
+import { ImgNew } from '../assets/images';
 import profileImg from '../assets/images/img_homecontents1.png';
 
 const ApplicationCard = () => {
   return (
     <S.ApplicationCardLayout>
+      <S.NewTagBox>
+        <ImgNew />
+      </S.NewTagBox>
       <S.ProfileImageBox></S.ProfileImageBox>
       <S.ModelInfoBox>
         <S.PersonalInfoBox>
@@ -23,7 +27,7 @@ export default ApplicationCard;
 
 const ApplicationCardLayout = styled.div`
   flex-grow: 1;
-  overflow: hidden;
+  position: relative;
 
   max-width: calc(100% / 2 - 0.75rem);
   height: 22rem;
@@ -36,6 +40,7 @@ const ProfileImageBox = styled.div`
   overflow: hidden;
 
   height: 16.4rem;
+  border-radius: 12px 12px 0 0;
 
   background: center/cover url(${profileImg});
 `;
@@ -86,6 +91,11 @@ const PreferStyleTagBox = styled.div`
   ${({ theme }) => theme.fonts.Caption03};
 `;
 
+const NewTagBox = styled.div`
+  position: absolute;
+  top: -0.6rem;
+  right: 2rem;
+`;
 const S = {
   ApplicationCardLayout,
   ProfileImageBox,
@@ -95,4 +105,5 @@ const S = {
   AgeGenderSpan,
   PreferStyleWrapperBox,
   PreferStyleTagBox,
+  NewTagBox,
 };
