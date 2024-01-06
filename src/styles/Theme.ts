@@ -50,8 +50,8 @@ const fonts = {
       'Segoe UI Symbol',
       sans-serif;
     font-style: normal;
-    font-size: 2.2rem;
     font-weight: 700;
+    font-size: 2.2rem;
     line-height: 2.8rem;
   `,
   Title02: css`
@@ -72,8 +72,8 @@ const fonts = {
       'Segoe UI Symbol',
       sans-serif;
     font-style: normal;
-    font-size: 2.2rem;
     font-weight: 400;
+    font-size: 2.2rem;
     line-height: 2.8rem;
   `,
   Title03: css`
@@ -94,8 +94,8 @@ const fonts = {
       'Segoe UI Symbol',
       sans-serif;
     font-style: normal;
-    font-size: 2rem;
     font-weight: 700;
+    font-size: 2rem;
     line-height: 2.8rem;
   `,
   Title04: css`
@@ -116,8 +116,8 @@ const fonts = {
       'Segoe UI Symbol',
       sans-serif;
     font-style: normal;
-    font-size: 2rem;
     font-weight: 400;
+    font-size: 2rem;
     line-height: 2.8rem;
   `,
 
@@ -139,8 +139,8 @@ const fonts = {
       'Segoe UI Symbol',
       sans-serif;
     font-style: normal;
-    font-size: 1.8rem;
     font-weight: 600;
+    font-size: 1.8rem;
   `,
 
   Headline02: css`
@@ -161,8 +161,8 @@ const fonts = {
       'Segoe UI Symbol',
       sans-serif;
     font-style: normal;
-    font-size: 1.6rem;
     font-weight: 700;
+    font-size: 1.6rem;
   `,
   Headline03: css`
     font-family:
@@ -182,8 +182,8 @@ const fonts = {
       'Segoe UI Symbol',
       sans-serif;
     font-style: normal;
-    font-size: 1.6rem;
     font-weight: 600;
+    font-size: 1.6rem;
   `,
   Headline04: css`
     font-family:
@@ -203,8 +203,8 @@ const fonts = {
       'Segoe UI Symbol',
       sans-serif;
     font-style: normal;
-    font-size: 1.6rem;
     font-weight: 400;
+    font-size: 1.6rem;
     line-height: 1.8rem;
   `,
 
@@ -226,8 +226,8 @@ const fonts = {
       'Segoe UI Symbol',
       sans-serif;
     font-style: normal;
-    font-size: 1.4rem;
     font-weight: 600;
+    font-size: 1.4rem;
     line-height: 1.8rem;
   `,
   Body02: css`
@@ -248,15 +248,15 @@ const fonts = {
       'Segoe UI Symbol',
       sans-serif;
     font-style: normal;
-    font-size: 1.4rem;
     font-weight: 400;
+    font-size: 1.4rem;
     line-height: 1.8rem;
   `,
   Body02_En: css`
-    font-family: MuseoModerno, sans-serif;
+    font-family: 'MuseoModerno', sans-serif;
     font-style: italic;
-    font-size: 1.4rem;
     font-weight: 300;
+    font-size: 1.4rem;
     line-height: 1.8rem;
   `,
   Body03: css`
@@ -277,8 +277,8 @@ const fonts = {
       'Segoe UI Symbol',
       sans-serif;
     font-style: normal;
-    font-size: 1.2rem;
     font-weight: 600;
+    font-size: 1.2rem;
     line-height: 1.6rem;
   `,
   Body04: css`
@@ -299,8 +299,8 @@ const fonts = {
       'Segoe UI Symbol',
       sans-serif;
     font-style: normal;
-    font-size: 1.2rem;
     font-weight: 400;
+    font-size: 1.2rem;
     line-height: 1.8rem;
   `,
 
@@ -322,8 +322,8 @@ const fonts = {
       'Segoe UI Symbol',
       sans-serif;
     font-style: normal;
-    font-size: 1rem;
     font-weight: 600;
+    font-size: 1rem;
   `,
   Caption02: css`
     font-family:
@@ -343,8 +343,8 @@ const fonts = {
       'Segoe UI Symbol',
       sans-serif;
     font-style: normal;
-    font-size: 1rem;
     font-weight: 500;
+    font-size: 1rem;
   `,
   Caption03: css`
     font-family:
@@ -364,14 +364,14 @@ const fonts = {
       'Segoe UI Symbol',
       sans-serif;
     font-style: normal;
-    font-size: 1rem;
     font-weight: 400;
+    font-size: 1rem;
   `,
   Caption03_En: css`
-    font-family: MuseoModerno, sans-serif;
+    font-family: 'MuseoModerno', sans-serif;
     font-style: italic;
-    font-size: 1rem;
     font-weight: 400;
+    font-size: 1rem;
   `,
 };
 
