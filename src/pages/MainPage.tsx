@@ -3,7 +3,7 @@ import ProgressBar from '../views/@common/components/ProgressBar';
 const MainPage = () => {
   return (
     <div>
-      <ProgressBar />
+      <ProgressBar whole={5} current={3} />
     </div>
   );
 };

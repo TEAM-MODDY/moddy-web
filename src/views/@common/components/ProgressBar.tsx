@@ -2,13 +2,25 @@ import styled from 'styled-components';
 
 import { IcStepDone, IcStepOngoing, IcStepWaiting } from '../assets/icons';
 
-const ProgressBar = () => {
+interface ProgressBarProps {
+  whole: number;
+  current: number;
+}
+const ProgressBar = ({ whole, current }: ProgressBarProps) => {
+  const arr = new Array(whole).fill(0);
+
   return (
     <S.ProgressBarLayout>
       <S.ProgressBarBox>
-        <IcStepDone />
-        <IcStepOngoing />
-        <IcStepWaiting />
+        {arr.map((_, idx) =>
+          idx < current - 1 ? (
+            <IcStepDone key={idx} />
+          ) : idx === current - 1 ? (
+            <IcStepOngoing key={idx} />
+          ) : (
+            <IcStepWaiting key={idx} />
+          ),
+        )}
       </S.ProgressBarBox>
     </S.ProgressBarLayout>
   );
