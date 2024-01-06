@@ -1,10 +1,15 @@
 import { styled } from 'styled-components';
 
+import { ImgLogoBlue } from '../../@common/assets/images';
+
 const ApplicationInfo = () => {
   return (
     <S.ApplicationInfoLayout>
       <S.ContentBox>
-        <h2>모델 정보</h2>
+        <S.DivideBox>
+          <h2>모델 정보</h2>
+          <ImgLogoBlue />
+        </S.DivideBox>
         <S.DivideBox>
           <img alt="profile" src="src/views/@common/assets/images/img_samplemodel.png" />
           <S.Info>
