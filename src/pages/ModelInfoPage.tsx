@@ -1,5 +1,5 @@
-/* eslint-disable import/no-named-as-default */
-import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
+import { styled } from 'styled-components';
 
 import Button from '../views/@common/components/Button';
 import Header from '../views/@common/components/Header';
@@ -43,6 +43,10 @@ const DUMMY_DATA = {
 const ModelInfoPage = () => {
   const ApplicationInfo = DUMMY_DATA.data.applicationInfo;
   const ModelInfo = DUMMY_DATA.data.modelInfo;
+  const navigate = useNavigate();
+  const handleOnClickOffer = () => {
+    navigate('/offerpage');
+  };
 
   return (
     <>
@@ -76,7 +80,7 @@ const ModelInfoPage = () => {
           <CopyButton />
         </S.OfferDetailsBox>
       </S.ModelInfoLayout>
-      <Button text="제안하기" isFixed={false} />
+      <Button text="제안하기" isFixed={false} onClickFn={handleOnClickOffer} />
     </>
   );
 };

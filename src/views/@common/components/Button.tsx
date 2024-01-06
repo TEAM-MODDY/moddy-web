@@ -3,11 +3,14 @@ import { styled } from 'styled-components';
 interface ButtonProps {
   text: string;
   isFixed: boolean;
+  onClickFn: () => void;
 }
-const Button = ({ text, isFixed }: ButtonProps) => {
+const Button = ({ text, isFixed, onClickFn }: ButtonProps) => {
   return (
     <S.ButtonLayout $isFixed={isFixed}>
-      <button type="button">{text}</button>
+      <button type="button" onClick={onClickFn}>
+        {text}
+      </button>
     </S.ButtonLayout>
   );
 };
