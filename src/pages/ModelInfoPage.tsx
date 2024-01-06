@@ -43,9 +43,10 @@ const DUMMY_DATA = {
 const ModelInfoPage = () => {
   const ApplicationInfo = DUMMY_DATA.data.applicationInfo;
   const ModelInfo = DUMMY_DATA.data.modelInfo;
+
   const navigate = useNavigate();
   const handleOnClickOffer = () => {
-    navigate('/offerpage');
+    navigate('/model-info/model-offer');
   };
 
   return (

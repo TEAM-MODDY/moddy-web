@@ -16,12 +16,12 @@ import ModelOffer from './views/@common/components/ModelOffer';
 const router = createBrowserRouter([
   { path: '/', element: <MainPage /> },
   { path: '/login', element: <LoginPage /> },
-  { path: '/signup', element: <SignUpPage /> },
-  { path: '/modelinfo', element: <ModelInfoPage /> },
+  { path: '/sign-up', element: <SignUpPage /> },
+  { path: '/model-info', element: <ModelInfoPage /> },
   { path: '/application', element: <ApplicationPage /> },
-  { path: '/offerinfo', element: <OfferInfoPage /> },
-  { path: '/mypage', element: <MyPage /> },
-  { path: '/modelinfo/offerpage', element: <ModelOffer /> },
+  { path: '/offer-info', element: <OfferInfoPage /> },
+  { path: '/my-page', element: <MyPage /> },
+  { path: '/model-info/model-offer', element: <ModelOffer /> },
 ]);
 
 const App = () => {
