@@ -34,12 +34,19 @@ const S = {
     border-radius: 8px;
     resize: none;
 
+    color: ${({ theme }) => theme.colors.moddy_bk};
+
+    ${({ theme }) => theme.fonts.Body02};
+
     &:focus {
       outline: none;
+
+      border: 1.5px solid ${({ theme }) => theme.colors.moddy_blue};
     }
 
     &::placeholder {
       color: ${({ theme }) => theme.colors.moddy_gray20};
+
       ${({ theme }) => theme.fonts.Body02};
     }
   `,
