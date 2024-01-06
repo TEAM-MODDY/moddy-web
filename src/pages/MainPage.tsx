@@ -1,11 +1,5 @@
-import Input from '../views/@common/components/Input';
-
 const MainPage = () => {
-  return (
-    <div>
-      <Input />
-    </div>
-  );
+  return <div></div>;
 };
 
 export default MainPage;
