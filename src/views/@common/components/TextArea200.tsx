@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 
-const TextArea = () => {
+const TextArea200 = () => {
   const [textLength, setTextLength] = useState(0);
   const PLACE_HOLDER = '자신에 대한 소개를 입력해주세요\n예시) 경력, 자격증, 강점 등';
   return (
@@ -14,7 +14,7 @@ const TextArea = () => {
   );
 };
 
-export default TextArea;
+export default TextArea200;
 
 const S = {
   TextAreaLayout: styled.div`
