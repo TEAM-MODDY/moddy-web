@@ -379,6 +379,5 @@ const theme: DefaultTheme = {
   colors,
   effects,
   fonts,
-  effects,
 };
 export default theme;
