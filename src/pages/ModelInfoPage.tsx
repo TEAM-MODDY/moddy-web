@@ -140,6 +140,8 @@ const S = {
       color: ${({ theme }) => theme.colors.moddy_bk};
 
       ${({ theme }) => theme.fonts.Body02};
+
+      word-break: keep-all;
     }
   `,
 };
