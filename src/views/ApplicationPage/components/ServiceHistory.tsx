@@ -10,7 +10,10 @@ const ServiceHistory = () => {
       <S.Title>
         <h2>시술 이력</h2>
         <h3>최근 진행한 시술을 입력해주세요 &#40;최대 3개&#41;</h3>
-        <S.AddHistoryBtn>&#43; 눌러서 추가하기</S.AddHistoryBtn>
+        <S.HistoryList>
+          <li></li>
+          <S.AddHistoryBtn>&#43; 눌러서 추가하기</S.AddHistoryBtn>
+        </S.HistoryList>
       </S.Title>
       <Button text="다음" isFixed={true} />
     </S.ServiceHistoryLayout>
@@ -46,6 +49,14 @@ const S = {
       color: ${({ theme }) => theme.colors.moddy_gray50};
 
       ${({ theme }) => theme.fonts.Body02};
+    }
+  `,
+  HistoryList: styled.ul`
+    width: 100%;
+
+    & > li {
+      display: flex;
+      gap: 0.8rem;
     }
   `,
   AddHistoryBtn: styled.button`
