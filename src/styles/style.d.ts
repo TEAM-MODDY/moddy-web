@@ -20,6 +20,7 @@ declare module 'styled-components' {
       moddy_gray05: string;
       moddy_bk50: string;
       moddy_wt30: string;
+
     };
     effects: {
       shadow1: string;
@@ -31,6 +32,7 @@ declare module 'styled-components' {
       main_cta_blur: string;
       graphic: string;
     };
+
     fonts: {
       Title01: SerializedStyles;
       Title02: SerializedStyles;
