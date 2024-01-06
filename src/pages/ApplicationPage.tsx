@@ -1,11 +1,11 @@
-import styled from 'styled-components';
+import { styled } from 'styled-components';
 
-import ApplicationResult from '../views/ApplicationPage/components/ApplicationResult';
+import ServiceHistory from '../views/ApplicationPage/components/ServiceHistory';
 
 const ApplicationPage = () => {
   return (
     <ApplicationPagSection>
-      <ApplicationResult />
+      <ServiceHistory />
     </ApplicationPagSection>
   );
 };
