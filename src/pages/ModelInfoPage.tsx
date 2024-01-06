@@ -1,40 +1,9 @@
 /* eslint-disable import/no-named-as-default */
 import styled from 'styled-components';
 
-import { IcCopy } from '../views/ModelInfoPage/assets/icons';
+import CopyButton from '../views/ModelInfoPage/components/CopyButton';
 import OfferDetail from '../views/ModelInfoPage/components/OfferDetail';
 import OfferDetailBox from '../views/ModelInfoPage/components/OfferDetailBox';
-
-// interface HairServiceRecord {
-//   hairServiceTerm: string;
-//   hairService: string;
-// }
-
-// interface ApplicationInfo {
-//   applicationId: number;
-//   modelImgUrl: string;
-//   hairLength: string;
-//   preferHairstyles: string[];
-//   hairServiceRecords: HairServiceRecord[];
-//   hairDetail: string;
-//   isSend: boolean;
-// }
-
-// interface ModelInfo {
-//   modelId: number;
-//   name: string;
-//   age: string;
-//   gender: string;
-//   preferRegions: string[];
-//   instagramId: string;
-// }
-
-// interface ModelInfoPageProps {
-//   data: {
-//     applicationInfo: ApplicationInfo;
-//     modelInfo: ModelInfo;
-//   };
-// }
 
 const DUMMY_DATA = {
   data: {
@@ -55,7 +24,7 @@ const DUMMY_DATA = {
         },
       ],
       hairDetail:
-        '이러쿵저러쿵 이쁘게 최양락은 아니면서 웬디는 될 수 없지만 최양 락은좀 아니지 않나 하는 생각에 일단 그래그래그래그래 그래 뭐',
+        '이러쿵저러쿵 이쁘게 최양락은 아니면서 웬디는 될 수 없지만 최양락은 좀 아니지 않나 하는 생각에 일단 그래그래그래그래 그래 뭐',
       isSend: false,
     },
     modelInfo: {
@@ -70,39 +39,37 @@ const DUMMY_DATA = {
 };
 
 const ModelInfoPage = () => {
-  const data = DUMMY_DATA.data;
+  const ApplicationInfo = DUMMY_DATA.data.applicationInfo;
+  const ModelInfo = DUMMY_DATA.data.modelInfo;
 
   return (
     <S.ModelInfoLayout>
-      <S.ImageBox src={data.applicationInfo.modelImgUrl} alt="모델 이미지"></S.ImageBox>
+      <S.ImageBox src={ApplicationInfo.modelImgUrl} alt="모델 이미지"></S.ImageBox>
       <S.OfferDetailsBox>
         <h1>지원내역</h1>
         <S.ContentDetailBox>
-          <OfferDetail content={data.applicationInfo.hairLength}>현재기장</OfferDetail>
-          <OfferDetail content={data.applicationInfo.preferHairstyles.join(', ')}>희망스타일</OfferDetail>
+          <OfferDetail content={ApplicationInfo.hairLength}>현재기장</OfferDetail>
+          <OfferDetail content={ApplicationInfo.preferHairstyles.join(', ')}>희망스타일</OfferDetail>
           <h2>시술이력</h2>
           <S.DetailBox>
-            {data.applicationInfo.hairServiceRecords.map((record, idx) => (
+            {ApplicationInfo.hairServiceRecords.map((record, idx) => (
               <OfferDetailBox key={idx} hairServiceTerm={record.hairServiceTerm} hairService={record.hairService} />
             ))}
           </S.DetailBox>
           <h2>상세 희망 스타일</h2>
           <S.DetailBox>
-            <p>{data.applicationInfo.hairDetail}</p>
+            <p>{ApplicationInfo.hairDetail}</p>
           </S.DetailBox>
         </S.ContentDetailBox>
       </S.OfferDetailsBox>
       <S.OfferDetailsBox>
         <h1>모델 정보</h1>
-        <OfferDetail content={data.modelInfo.name}>이름</OfferDetail>
-        <OfferDetail content={data.modelInfo.age}>나이</OfferDetail>
-        <OfferDetail content={data.modelInfo.gender}>성별</OfferDetail>
-        <OfferDetail content={data.modelInfo.preferRegions.join(', ')}>희망 지역</OfferDetail>
-        <OfferDetail content={data.modelInfo.instagramId}>인스타그램</OfferDetail>
-        <S.CopyButton type="button">
-          <IcCopy />
-          <p>아이디 복사</p>
-        </S.CopyButton>
+        <OfferDetail content={ModelInfo.name}>이름</OfferDetail>
+        <OfferDetail content={ModelInfo.age}>나이</OfferDetail>
+        <OfferDetail content={ModelInfo.gender}>성별</OfferDetail>
+        <OfferDetail content={ModelInfo.preferRegions.join(', ')}>희망 지역</OfferDetail>
+        <OfferDetail content={ModelInfo.instagramId}>인스타그램</OfferDetail>
+        <CopyButton />
       </S.OfferDetailsBox>
     </S.ModelInfoLayout>
   );
@@ -173,22 +140,6 @@ const S = {
       color: ${({ theme }) => theme.colors.moddy_bk};
 
       ${({ theme }) => theme.fonts.Body02};
-    }
-  `,
-
-  CopyButton: styled.button`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    float: right;
-
-    cursor: pointer;
-
-    & > p {
-      margin-left: 0.4rem;
-
-      color: ${({ theme }) => theme.colors.moddy_blue};
-      ${({ theme }) => theme.fonts.Caption03};
     }
   `,
 };
