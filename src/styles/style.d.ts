@@ -3,19 +3,33 @@ import 'styled-components';
 declare module 'styled-components' {
   export interface DefaultTheme {
     colors: {
-      ModdyBlue: string;
-      ModdyBlue2: string;
-      ModdyBlue3: string;
-      ModdyBlue4: string;
-      ModdySky: string;
-      ModdyPurple: string;
-      ModdyBk: string;
-      ModdyWt: string;
-      ModdyGray100: string;
-      ModdyGray50: string;
-      ModdyGray20: string;
-      ModdyGray10: string;
-      ModdyGray05: string;
+      moddy_blue: string;
+      moddy_blue2: string;
+      moddy_blue3: string;
+      moddy_blue4: string;
+      moddy_sky: string;
+      moddy_purple: string;
+      kakao: string;
+      moddy_gradient3: string;
+
+      moddy_bk: string;
+      moddy_wt: string;
+      moddy_gray50: string;
+      moddy_gray20: string;
+      moddy_gray10: string;
+      moddy_gray05: string;
+      moddy_bk50: string;
+      moddy_wt30: string;
+    };
+    effects: {
+      shadow1: string;
+      shadow2: string;
+      shadow3: string;
+      shadow4: string;
+      shadow_home: string;
+      main_cta_shadow: string;
+      main_cta_blur: string;
+      graphic: string;
     };
     fonts: {
       Title01: SerializedStyles;
