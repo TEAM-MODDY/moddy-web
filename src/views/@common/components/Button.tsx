@@ -1,9 +1,13 @@
 import styled from 'styled-components';
 
-const Button = () => {
+interface ButtonProps {
+  text: string;
+  isFixed: boolean;
+}
+const Button = ({ text, isFixed }: ButtonProps) => {
   return (
-    <S.ButtonLayout className="footer">
-      <button type="button">다음</button>
+    <S.ButtonLayout className="footer" $isFixed={isFixed}>
+      <button type="button">{text}</button>
     </S.ButtonLayout>
   );
 };
@@ -11,9 +15,11 @@ const Button = () => {
 export default Button;
 
 const S = {
-  ButtonLayout: styled.section`
+  ButtonLayout: styled.section<{ $isFixed: boolean }>`
     display: flex;
     justify-content: center;
+    position: ${({ $isFixed }) => ($isFixed ? 'fixed' : 'static')};
+    bottom: 0;
 
     width: 100%;
     padding: 0 1.5rem 4rem 1.6rem;
