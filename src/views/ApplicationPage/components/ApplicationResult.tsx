@@ -1,10 +1,13 @@
 import { styled } from 'styled-components';
 
 import { ImgLogoBlue } from '../../@common/assets/images';
+import Button from '../../@common/components/Button';
+import Header from '../../@common/components/Header';
 
 const ApplicationResult = () => {
   return (
     <S.ApplicationResultLayout>
+      <Header isBackBtnExist={true} isCloseBtnExist={true} title="최종 확인"></Header>
       <S.ContentBox>
         <h2>
           모델 정보 <ImgLogoBlue />
@@ -71,6 +74,7 @@ const ApplicationResult = () => {
         <h2>상세 희망 스타일</h2>
         <S.InfoText />
       </S.ContentBox>
+      <Button text="지원하기" isFixed={true} />
     </S.ApplicationResultLayout>
   );
 };
@@ -81,11 +85,14 @@ const S = {
   ApplicationResultLayout: styled.main`
     display: flex;
     flex-direction: column;
+    flex: 1;
     justify-content: space-between;
     align-items: center;
 
     width: 100%;
     height: 100%;
+    margin: 5.7rem 0 9.08rem;
+    padding-bottom: 2.3rem;
 
     ${({ theme }) => theme.fonts.Body01};
   `,
