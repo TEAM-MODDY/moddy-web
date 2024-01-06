@@ -1,73 +1,104 @@
 /* eslint-disable import/no-named-as-default */
 import styled from 'styled-components';
 
-import ImgModelApplication from '../views/@common/assets/images/img_modelapplication.png';
 import { IcCopy } from '../views/ModelInfoPage/assets/icons';
+import OfferDetail from '../views/ModelInfoPage/components/OfferDetail';
+import OfferDetailBox from '../views/ModelInfoPage/components/OfferDetailBox';
+
+// interface HairServiceRecord {
+//   hairServiceTerm: string;
+//   hairService: string;
+// }
+
+// interface ApplicationInfo {
+//   applicationId: number;
+//   modelImgUrl: string;
+//   hairLength: string;
+//   preferHairstyles: string[];
+//   hairServiceRecords: HairServiceRecord[];
+//   hairDetail: string;
+//   isSend: boolean;
+// }
+
+// interface ModelInfo {
+//   modelId: number;
+//   name: string;
+//   age: string;
+//   gender: string;
+//   preferRegions: string[];
+//   instagramId: string;
+// }
+
+// interface ModelInfoPageProps {
+//   data: {
+//     applicationInfo: ApplicationInfo;
+//     modelInfo: ModelInfo;
+//   };
+// }
+
+const DUMMY_DATA = {
+  data: {
+    applicationInfo: {
+      applicationId: 1,
+      modelImgUrl:
+        'https://mblogthumb-phinf.pstatic.net/20121002_183/white_cloudy_1349105780071ubbWC_JPEG/naver_com_20120628_092207.jpg?type=w420',
+      hairLength: '단발',
+      preferHairstyles: ['일반 커트', '일반 펌'],
+      hairServiceRecords: [
+        {
+          hairServiceTerm: '1~3개월',
+          hairService: '블랙 염색',
+        },
+        {
+          hairServiceTerm: '4~5개월',
+          hairService: '탈색',
+        },
+      ],
+      hairDetail:
+        '이러쿵저러쿵 이쁘게 최양락은 아니면서 웬디는 될 수 없지만 최양 락은좀 아니지 않나 하는 생각에 일단 그래그래그래그래 그래 뭐',
+      isSend: false,
+    },
+    modelInfo: {
+      modelId: 1,
+      name: '모디',
+      age: '25',
+      gender: '여성',
+      preferRegions: ['관악구', '강남구'],
+      instagramId: '2k_lin',
+    },
+  },
+};
 
 const ModelInfoPage = () => {
+  const data = DUMMY_DATA.data;
+
   return (
     <S.ModelInfoLayout>
-      <S.ImageBox src={ImgModelApplication} alt="모델 이미지"></S.ImageBox>
+      <S.ImageBox src={data.applicationInfo.modelImgUrl} alt="모델 이미지"></S.ImageBox>
       <S.OfferDetailsBox>
         <h1>지원내역</h1>
-        <S.ContentBox>
-          <h2>현재기장</h2>
-          <p>단발</p>
-        </S.ContentBox>
-        <S.ContentBox>
-          <h2>희망 스타일</h2>
-          <p>일반 커트, 일반 펌</p>
-        </S.ContentBox>
         <S.ContentDetailBox>
+          <OfferDetail content={data.applicationInfo.hairLength}>현재기장</OfferDetail>
+          <OfferDetail content={data.applicationInfo.preferHairstyles.join(', ')}>희망스타일</OfferDetail>
           <h2>시술이력</h2>
-
           <S.DetailBox>
-            <div>
-              <h3>12개월 초과</h3>
-              <h4>블랙염색</h4>
-            </div>
-            <div>
-              <h3>36개월</h3>
-              <h4>펌</h4>
-            </div>
-            <div>
-              <h3>1개월 미만</h3>
-              <h4>컬러 염색</h4>
-            </div>
+            {data.applicationInfo.hairServiceRecords.map((record, idx) => (
+              <OfferDetailBox key={idx} hairServiceTerm={record.hairServiceTerm} hairService={record.hairService} />
+            ))}
           </S.DetailBox>
           <h2>상세 희망 스타일</h2>
           <S.DetailBox>
-            <p>
-              이러쿵저러쿵 이쁘게 최양락은 아니면서 웬디는 될 수 없지만 최양 락은좀 아니지 않나 하는 생각에 일단 단발을
-              하고는 싶지만 그래도 긴머리는 포기 못하는 그런 흠냐흠냐..어렵다 어려워 그래도 아무래 도 헤어 디자이너면
-              이런건 알아서 잘 딱 깔끔하게 해주실 수 있을거 라고 믿을게요? 잘 부탁드리겠습니다. 머리 망하면 리뷰 테러각
-              꼭 갈 거니까 받아들이세요^^
-            </p>
+            <p>{data.applicationInfo.hairDetail}</p>
           </S.DetailBox>
         </S.ContentDetailBox>
       </S.OfferDetailsBox>
       <S.OfferDetailsBox>
         <h1>모델 정보</h1>
-        <S.ContentBox>
-          <h2>이름</h2>
-          <p>백모디</p>
-        </S.ContentBox>
-        <S.ContentBox>
-          <h2>나이</h2>
-          <p>25세</p>
-        </S.ContentBox>
-        <S.ContentBox>
-          <h2>성별</h2>
-          <p>여성</p>
-        </S.ContentBox>
-        <S.ContentBox>
-          <h2>희망 지역</h2>
-          <p>서울시 양천구</p>
-        </S.ContentBox>
-        <S.ContentBox>
-          <h2>인스타그램</h2>
-          <p>modee_is_mogee</p>
-        </S.ContentBox>
+        <OfferDetail content={data.modelInfo.name}>이름</OfferDetail>
+        <OfferDetail content={data.modelInfo.age}>나이</OfferDetail>
+        <OfferDetail content={data.modelInfo.gender}>성별</OfferDetail>
+        <OfferDetail content={data.modelInfo.preferRegions.join(', ')}>희망 지역</OfferDetail>
+        <OfferDetail content={data.modelInfo.instagramId}>인스타그램</OfferDetail>
         <S.CopyButton type="button">
           <IcCopy />
           <p>아이디 복사</p>
@@ -94,6 +125,8 @@ const S = {
     border-radius: 10px;
 
     background-color: ${({ theme }) => theme.colors.moddy_gray05};
+
+    object-fit: cover;
   `,
   OfferDetailsBox: styled.div`
     width: 34.4rem;
@@ -107,27 +140,6 @@ const S = {
       color: ${({ theme }) => theme.colors.moddy_blue};
 
       ${({ theme }) => theme.fonts.Headline01};
-    }
-  `,
-
-  ContentBox: styled.div`
-    display: flex;
-    justify-content: space-between;
-    list-style: none;
-
-    width: 34.4rem;
-    margin: 0.6rem 0;
-
-    & > h2 {
-      color: ${({ theme }) => theme.colors.moddy_gray50};
-
-      ${({ theme }) => theme.fonts.Body01};
-    }
-
-    & > p {
-      color: ${({ theme }) => theme.colors.moddy_bk};
-
-      ${({ theme }) => theme.fonts.Body02};
     }
   `,
 
@@ -156,27 +168,6 @@ const S = {
     border-radius: 10px;
 
     background-color: ${({ theme }) => theme.colors.moddy_gray05};
-
-    & > div {
-      display: flex;
-      justify-content: space-between;
-    }
-
-    & > div:not(:last-child) {
-      margin-bottom: 0.5rem;
-    }
-
-    & > div > h3 {
-      color: ${({ theme }) => theme.colors.moddy_gray50};
-
-      ${({ theme }) => theme.fonts.Body02};
-    }
-
-    & > div > h4 {
-      color: ${({ theme }) => theme.colors.moddy_bk};
-
-      ${({ theme }) => theme.fonts.Body02};
-    }
 
     & > p {
       color: ${({ theme }) => theme.colors.moddy_bk};
