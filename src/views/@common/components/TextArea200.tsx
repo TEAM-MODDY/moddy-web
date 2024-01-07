@@ -3,15 +3,19 @@ import styled from 'styled-components';
 
 interface TextArea200Props {
   placeholderText: string;
+  onChangeFn: (value: string) => void;
 }
 
-const TextArea200 = ({ placeholderText }: TextArea200Props) => {
+const TextArea200 = ({ placeholderText, onChangeFn }: TextArea200Props) => {
   const [textLength, setTextLength] = useState(0);
   return (
     <S.TextAreaLayout>
       <S.TextArea
         placeholder={placeholderText}
-        onChange={(e) => setTextLength(e.target.value.length)}
+        onChange={(e) => {
+          setTextLength(e.target.value.length);
+          onChangeFn(e.target.value);
+        }}
         maxLength={200}
       />
       <S.TextAreaSpan>
