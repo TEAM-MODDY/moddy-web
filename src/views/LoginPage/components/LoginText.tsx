@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 
+import LoginButton from './LoginButton';
+
 const LoginText = () => {
   return (
     <S.LoginTextLayout>
@@ -9,6 +11,7 @@ const LoginText = () => {
         모디에 오신 것을 환영해요.
       </S.LoginTextH1>
       <S.LoginTextParagraph>원활한 서비스 이용을 위해 로그인을 해주세요</S.LoginTextParagraph>
+      <LoginButton />
     </S.LoginTextLayout>
   );
 };
