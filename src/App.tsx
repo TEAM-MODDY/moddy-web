@@ -11,7 +11,8 @@ import OfferInfoPage from './pages/OfferInfoPage';
 import SignUpPage from './pages/SignUpPage';
 import GlobalStyle from './styles/GlobalStyle';
 import theme from './styles/Theme';
-import ModelOffer from './views/@common/components/ModelOffer';
+import ModelOfferPage from './views/ModelInfoPage/components/ModelOfferPage';
+import OfferSentCompletePage from './views/ModelInfoPage/components/OfferSentCompletePage';
 
 const router = createBrowserRouter([
   { path: '/', element: <MainPage /> },
@@ -21,7 +22,8 @@ const router = createBrowserRouter([
   { path: '/application', element: <ApplicationPage /> },
   { path: '/offer-info', element: <OfferInfoPage /> },
   { path: '/my-page', element: <MyPage /> },
-  { path: '/model-info/model-offer', element: <ModelOffer /> },
+  { path: '/model-info/model-offer', element: <ModelOfferPage /> },
+  { path: '/model-info/model-offer/sent-complete', element: <OfferSentCompletePage /> },
 ]);
 
 const App = () => {

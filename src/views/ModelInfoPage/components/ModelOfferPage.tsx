@@ -1,16 +1,16 @@
 // import Header from './Header';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
 
+import Button from '../../@common/components/Button';
+import Header from '../../@common/components/Header';
+import TextArea200 from '../../@common/components/TextArea200';
 import ConditionBox from '../../ModelInfoPage/components/ConditionBox';
 import TitleBox from '../../ModelInfoPage/components/TitleBox';
 import { conditionData } from '../../ModelInfoPage/constants/conditionData';
 
-import Button from './Button';
-import Header from './Header';
-import TextArea200 from './TextArea200';
-
-const ModelOffer = () => {
+const ModelOfferPage = () => {
   const [isClicked, setIsClicked] = useState<boolean[]>([false, false, false, false, false, false]);
   const handleConditionClick = (index: number) => {
     setIsClicked((prevState) => {
@@ -19,7 +19,10 @@ const ModelOffer = () => {
       return newClickedState;
     });
   };
-
+  const navigate = useNavigate();
+  const handleClickConfirm = () => {
+    navigate('/model-info/model-offer/sent-complete');
+  };
   return (
     <>
       <Header isBackBtnExist={true} isCloseBtnExist={true} title="헤어 모델 제안하기" />
@@ -45,7 +48,7 @@ const ModelOffer = () => {
           <TextArea200 placeholderText="내용을 입력해주세요" />
         </S.ModelOfferBox>
       </S.ModelOfferLayout>
-      <Button text="확인하기" onClickFn={() => console.log('넘어가자')} isFixed />
+      <Button text="확인하기" isFixed={true} onClickFn={handleClickConfirm} />
     </>
   );
 };
@@ -69,4 +72,4 @@ const S = {
   `,
 };
 
-export default ModelOffer;
+export default ModelOfferPage;
