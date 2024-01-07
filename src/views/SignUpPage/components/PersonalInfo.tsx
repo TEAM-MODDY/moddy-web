@@ -15,8 +15,8 @@ const PersonalInfo = ({ setStep }: PersonalInfoProp) => {
   const userType = USER_TYPE.DESIGNER;
   return (
     <>
+      <ProgressBar whole={5} current={1} />
       <S.PersonalInfoLayout>
-        <ProgressBar whole={5} current={1} />
         <S.FormBox>
           <Field name="디자이너명" isEssential={true} />
           <Input placeholderText="이름을 입력해주세요" />
@@ -46,7 +46,8 @@ const PersonalInfo = ({ setStep }: PersonalInfoProp) => {
 
 export default PersonalInfo;
 const PersonalInfoLayout = styled.div`
-  padding: 5.4rem 1.6rem;
+  margin-top: 8.6rem;
+  padding: 0 1.6rem;
 `;
 
 const FormBox = styled.div`

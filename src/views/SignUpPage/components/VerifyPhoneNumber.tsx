@@ -67,8 +67,8 @@ const VerifyPhoneNumber = ({ setStep }: VerifyPhoneNumberProp) => {
 
   return (
     <>
+      <ProgressBar whole={5} current={2} />
       <S.VerifyPhoneNumberLayout>
-        <ProgressBar whole={5} current={2} />
         <S.FormBox>
           <Field name="전화번호 인증" isEssential={true} />
         </S.FormBox>
@@ -101,7 +101,8 @@ const VerifyPhoneNumber = ({ setStep }: VerifyPhoneNumberProp) => {
 export default VerifyPhoneNumber;
 
 const VerifyPhoneNumberLayout = styled.div`
-  padding: 5.4rem 1.6rem;
+  margin-top: 8.6rem;
+  padding: 0 1.6rem;
 `;
 
 const FormBox = styled.div`
