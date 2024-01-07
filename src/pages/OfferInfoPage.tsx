@@ -105,7 +105,7 @@ const OfferInfoPage = () => {
             <S.LogoImg src={ImgPropLogo} />
           </S.DetailTextBox>
         </S.OfferDetailLayout>
-        <p>해당 제안서의 내용에 동의합니다.</p>
+        <S.Agreement>해당 제안서의 내용에 동의합니다.</S.Agreement>
       </S.OfferInfoLayout>
     </>
   );
@@ -120,7 +120,7 @@ const S = {
     display: grid;
 
     width: 100%;
-    margin: 5.7rem 0 2.7rem;
+    margin: 5.7rem 0 0;
     padding: 0 1.6rem;
 
     & > svg {
@@ -328,6 +328,15 @@ const S = {
   `,
   LogoImg: styled.img`
     width: 15rem;
+  `,
+
+  Agreement: styled.button`
+    display: flex;
+
+    margin: 2.4rem 0;
+
+    color: ${({ theme }) => theme.colors.moddy_bk};
+    ${({ theme }) => theme.fonts.Body01};
   `,
 };
 
