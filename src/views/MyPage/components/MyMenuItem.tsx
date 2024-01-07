@@ -1,17 +1,34 @@
-import { ReactNode } from 'react';
+import { ReactNode, useState } from 'react';
 import styled from 'styled-components';
 
 import { IcRightGrey } from '../../@common/assets/icons';
+import Modal from '../../@common/components/Modal';
 interface MyMenuItemProps {
   icon: ReactNode;
   text: string;
 }
 const MyMenuItem = ({ icon, text }: MyMenuItemProps) => {
+  const [isModalOpen, setModalOpen] = useState(false);
+
   return (
-    <S.MyMenuItemLayout type="button">
+    <S.MyMenuItemLayout
+      type="button"
+      onClick={() => {
+        setModalOpen(true);
+      }}>
       {icon}
       <S.MyMenuItemParagraph>{text}</S.MyMenuItemParagraph>
       <IcRightGrey />
+      {isModalOpen && (
+        <Modal
+          title="로그아웃 하시겠습니까?"
+          description="로그아웃 시 모디 홈 화면으로<br/>돌아갑니다."
+          leftBtnText="취소"
+          rightBtnText="확인"
+          leftBtnFn={() => setModalOpen(false)}
+          rightBtnFn={() => console.log('test')}
+        />
+      )}
     </S.MyMenuItemLayout>
   );
 };
