@@ -5,6 +5,7 @@ const colors = {
   moddy_blue2: '#91b7ff',
   moddy_blue3: '#d3e2ff',
   moddy_blue4: '#F4f8ff',
+  moddy_blue5: '#D0DEF4',
   moddy_sky: '#6ae4ff',
   moddy_purple: '#a38eff',
   kakao: '#f3dd24',
