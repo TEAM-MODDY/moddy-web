@@ -4,11 +4,12 @@ interface ButtonProps {
   text: string;
   isFixed: boolean;
   onClickFn: () => void;
+  disabled: boolean;
 }
-const Button = ({ text, isFixed, onClickFn }: ButtonProps) => {
+const Button = ({ text, isFixed, onClickFn, disabled }: ButtonProps) => {
   return (
-    <S.ButtonLayout $isFixed={isFixed}>
-      <button type="button" onClick={onClickFn}>
+    <S.ButtonLayout $isFixed={isFixed} $disabled={disabled}>
+      <button type="button" onClick={onClickFn} disabled={disabled}>
         {text}
       </button>
     </S.ButtonLayout>
@@ -18,7 +19,7 @@ const Button = ({ text, isFixed, onClickFn }: ButtonProps) => {
 export default Button;
 
 const S = {
-  ButtonLayout: styled.section<{ $isFixed: boolean }>`
+  ButtonLayout: styled.section<{ $isFixed: boolean; $disabled: boolean }>`
     display: flex;
     justify-content: center;
     position: ${({ $isFixed }) => ($isFixed ? 'fixed' : 'static')};
@@ -36,7 +37,7 @@ const S = {
       padding: 1.5rem 0;
       border-radius: 8px;
 
-      background-color: ${({ theme }) => theme.colors.moddy_blue};
+      background-color: ${({ theme, $disabled }) => ($disabled ? theme.colors.moddy_gray50 : theme.colors.moddy_blue)};
 
       color: ${({ theme }) => theme.colors.moddy_wt};
       ${({ theme }) => theme.fonts.Headline01};
