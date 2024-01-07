@@ -101,9 +101,9 @@ const UserTypeInfoSpan = styled.span`
   margin-top: 0.8rem;
 
   color: ${({ theme }) => theme.colors.moddy_gray50};
-  ${({ theme }) => theme.fonts.Caption02};
-
   text-align: center;
+  line-height: 1.2rem;
+  ${({ theme }) => theme.fonts.Caption02};
 `;
 
 const RadioInput = styled.input`
