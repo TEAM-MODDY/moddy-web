@@ -27,7 +27,10 @@ const MyQuitPage = () => {
           leftBtnText="취소"
           rightBtnText="확인"
           leftBtnFn={() => setModalOpen && setModalOpen(false)}
-          rightBtnFn={() => navigate('/')}
+          rightBtnFn={() => {
+            console.log('회원탈퇴 완료');
+            navigate('/');
+          }}
         />
       )}
     </S.MyQuitPageLayout>

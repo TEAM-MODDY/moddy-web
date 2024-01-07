@@ -32,7 +32,10 @@ const MyPage = () => {
           leftBtnText="취소"
           rightBtnText="확인"
           leftBtnFn={() => setModalOpen && setModalOpen(false)}
-          rightBtnFn={() => console.log('test')}
+          rightBtnFn={() => {
+            navigate('/');
+            console.log('test');
+          }}
         />
       )}
     </S.MyPageLayout>
