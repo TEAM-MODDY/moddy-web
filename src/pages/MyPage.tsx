@@ -19,6 +19,9 @@ const MyPage = () => {
       />
       <MyInfo />
       <MyMenuList />
+      <S.MyPageFooter>
+        <a href="https://www.google.co.kr">개발자 정보</a>
+      </S.MyPageFooter>
     </S.MyPageLayout>
   );
 };
@@ -29,5 +32,22 @@ const S = {
   MyPageLayout: styled.div`
     display: flex;
     flex-direction: column;
+  `,
+  MyPageFooter: styled.footer`
+    position: fixed;
+    bottom: 0;
+
+    width: 100%;
+    margin-bottom: 3.8rem;
+
+    text-align: center;
+
+    & > a {
+      border-bottom: 1px solid ${({ theme }) => theme.colors.moddy_gray50};
+
+      color: ${({ theme }) => theme.colors.moddy_gray50};
+      text-decoration: none;
+      ${({ theme }) => theme.fonts.Body04};
+    }
   `,
 };
