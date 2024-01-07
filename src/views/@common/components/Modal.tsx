@@ -1,14 +1,30 @@
 import styled from 'styled-components';
 
-const Modal = () => {
+interface ModalProps {
+  title: string;
+  description: string;
+  leftBtnText: string;
+  rightBtnText: string;
+  leftBtnFn: () => void;
+  rightBtnFn: () => void;
+}
+const Modal = ({ title, description, leftBtnText, rightBtnText, leftBtnFn, rightBtnFn }: ModalProps) => {
   return (
     <S.ModalLayout>
       <S.ModalSection>
-        <S.ModalH1>작성을 취소하시겠습니까?</S.ModalH1>
-        <S.ModalParagraph>{'지금 작성을 취소하면\n작성 중인 내용이 사라져요.'}</S.ModalParagraph>
+        <S.ModalH1>{title}</S.ModalH1>
+        <S.ModalTextBox>
+          {description.split('<br/>').map((line) => (
+            <S.ModalParagraph key={line}>{line}</S.ModalParagraph>
+          ))}
+        </S.ModalTextBox>
         <S.ModalBtnsBox>
-          <S.ModalButton type="button">취소하기</S.ModalButton>
-          <S.ModalButton type="button">계속하기</S.ModalButton>
+          <S.ModalButton type="button" onClick={leftBtnFn}>
+            {leftBtnText}
+          </S.ModalButton>
+          <S.ModalButton type="button" onClick={rightBtnFn}>
+            {rightBtnText}
+          </S.ModalButton>
         </S.ModalBtnsBox>
       </S.ModalSection>
     </S.ModalLayout>
@@ -50,11 +66,15 @@ const S = {
     color: ${({ theme }) => theme.colors.moddy_bk};
     ${({ theme }) => theme.fonts.Headline01};
   `,
-  ModalParagraph: styled.pre`
-    margin-top: 1.2rem;
+  ModalTextBox: styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 
+    margin-top: 1.2rem;
+  `,
+  ModalParagraph: styled.p`
     color: ${({ theme }) => theme.colors.moddy_gray50};
-    text-align: center;
     ${({ theme }) => theme.fonts.Body02};
   `,
   ModalBtnsBox: styled.div`
