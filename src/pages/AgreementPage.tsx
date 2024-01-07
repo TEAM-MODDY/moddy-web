@@ -12,12 +12,7 @@ const AgreementPage = () => {
     <div>
       <Header title="이용약관" isBackBtnExist backFn={() => navigate(-1)} />
       <AgreementList isChecked={isChecked} setChecked={setChecked} />
-      <Button
-        text="다음"
-        isFixed
-        onClickFn={() => navigate('/sign-up')}
-        disabled={!isChecked[1] || !isChecked[2] || !isChecked[3]}
-      />
+      <Button text="다음" isFixed onClickFn={() => navigate('/sign-up')} disabled={!isChecked[1] || !isChecked[2]} />
     </div>
   );
 };
