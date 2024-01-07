@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import Button from '../views/@common/components/Button';
@@ -8,6 +8,13 @@ import AgreementList from '../views/AgreementPage/components/AgreementList';
 const AgreementPage = () => {
   const [isChecked, setChecked] = useState<boolean[]>(new Array(4).fill(false));
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const tempChecked = [...isChecked];
+    tempChecked[0] = isChecked[1] && isChecked[2] && isChecked[3];
+    setChecked(tempChecked);
+  }, [isChecked]);
+
   return (
     <div>
       <Header title="이용약관" isBackBtnExist backFn={() => navigate(-1)} />
