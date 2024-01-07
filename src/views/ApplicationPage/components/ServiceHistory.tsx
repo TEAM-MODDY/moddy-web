@@ -54,6 +54,7 @@ const S = {
   AddHistoryBtn: styled.button`
     width: 100%;
     height: 5.2rem;
+    margin-top: 1.2rem;
     border: 1.5px dashed ${({ theme }) => theme.colors.moddy_blue3};
     border-radius: 8px;
 
