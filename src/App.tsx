@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 
@@ -10,18 +11,39 @@ import OfferInfoPage from './pages/OfferInfoPage';
 import SignUpPage from './pages/SignUpPage';
 import GlobalStyle from './styles/GlobalStyle';
 import theme from './styles/Theme';
+import ModelOffer from './views/@common/components/ModelOffer';
 
 const router = createBrowserRouter([
   { path: '/', element: <MainPage /> },
   { path: '/login', element: <LoginPage /> },
-  { path: '/signup', element: <SignUpPage /> },
-  { path: '/modelinfo', element: <ModelInfoPage /> },
+  { path: '/sign-up', element: <SignUpPage /> },
+  { path: '/model-info', element: <ModelInfoPage /> },
   { path: '/application', element: <ApplicationPage /> },
-  { path: '/offerinfo', element: <OfferInfoPage /> },
-  { path: '/mypage', element: <MyPage /> },
+  { path: '/offer-info', element: <OfferInfoPage /> },
+  { path: '/my-page', element: <MyPage /> },
+  { path: '/model-info/model-offer', element: <ModelOffer /> },
 ]);
 
 const App = () => {
+  const setScreenSize = () => {
+    // vh 관련
+    const vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty('--vh', `${vh}px`);
+
+    // window width 관련
+    const windowWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+    const maxWidth = Math.min(375, windowWidth);
+    document.documentElement.style.setProperty('--app-max-width', `${maxWidth}px`);
+  };
+
+  useEffect(() => {
+    setScreenSize();
+    window.addEventListener('resize', setScreenSize);
+
+    return () => {
+      window.removeEventListener('resize', setScreenSize);
+    };
+  }, []);
   return (
     <>
       <ThemeProvider theme={theme}>
