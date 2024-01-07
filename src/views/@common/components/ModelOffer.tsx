@@ -1,4 +1,5 @@
 // import Header from './Header';
+import { useState } from 'react';
 import { styled } from 'styled-components';
 
 import {
@@ -19,17 +20,69 @@ import ConditionBox from '../../ModelInfoPage/components/ConditionBox';
 import TitleBox from '../../ModelInfoPage/components/TitleBox';
 
 const ModelOffer = () => {
+  const [isClicked, setIsClicked] = useState<boolean[]>([false, false, false, false, false, false]);
+  const handleConditionClick = (index: number) => {
+    setIsClicked((prevState) => {
+      const newClickedState = [...prevState];
+      newClickedState[index] = true;
+      console.log(newClickedState);
+      return newClickedState;
+    });
+  };
+
   return (
     <S.ModelOfferLayout>
       <S.ModelOfferBox>
         <TitleBox title="희망 제안 조건" subtitle="원하시는 조건을 모두 선택해주세요" isNeccessary={true} />
         <S.ContainerGridBox>
-          <ConditionBox icon={<IcCamera />} condition="얼굴 촬영" isClicked={false} />
-          <ConditionBox icon={<IcModdyhearts1 />} condition="SNS 게시" isClicked={false} />
-          <ConditionBox icon={<IcGift />} condition="얼굴 촬영" isClicked={false} />
-          <ConditionBox icon={<IcMask />} condition="마스크 착용" isClicked={true} />
-          <ConditionBox icon={<IcPhotoshop />} condition="포토샵 보정" isClicked={false} />
-          <ConditionBox icon={<IcHearthand />} condition="소정의 약값" isClicked={false} />
+          <ConditionBox
+            icon={<IcCamera />}
+            activeIcon={<IcCameraact />}
+            condition="얼굴 촬영"
+            onClick={() => handleConditionClick(0)}
+            index={0}
+            isActive={isClicked[0]}
+          />
+          <ConditionBox
+            icon={<IcModdyhearts1 />}
+            activeIcon={<IcModdyhearts1act />}
+            condition="SNS 게시"
+            onClick={() => handleConditionClick(1)}
+            index={1}
+            isActive={isClicked[1]}
+          />
+          <ConditionBox
+            icon={<IcGift />}
+            activeIcon={<IcGiftact />}
+            condition="얼굴 촬영"
+            onClick={() => handleConditionClick(2)}
+            index={2}
+            isActive={isClicked[2]}
+          />
+          <ConditionBox
+            icon={<IcMask />}
+            activeIcon={<IcMaskact />}
+            condition="마스크 착용"
+            onClick={() => handleConditionClick(3)}
+            index={3}
+            isActive={isClicked[3]}
+          />
+          <ConditionBox
+            icon={<IcPhotoshop />}
+            activeIcon={<IcPhotoshopact />}
+            condition="포토샵 보정"
+            onClick={() => handleConditionClick(4)}
+            index={4}
+            isActive={isClicked[4]}
+          />
+          <ConditionBox
+            icon={<IcHearthand />}
+            activeIcon={<IcHearthandact />}
+            condition="소정의 약값"
+            onClick={() => handleConditionClick(5)}
+            index={5}
+            isActive={isClicked[5]}
+          />
         </S.ContainerGridBox>
       </S.ModelOfferBox>
       <S.ModelOfferBox>
