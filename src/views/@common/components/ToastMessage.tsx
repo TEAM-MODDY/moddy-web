@@ -1,9 +1,20 @@
+import { useEffect } from 'react';
 import styled from 'styled-components';
 
 interface ToastMessageProps {
   text: string;
+  setter: React.Dispatch<React.SetStateAction<boolean>>;
 }
-const ToastMessage = ({ text }: ToastMessageProps) => {
+const ToastMessage = ({ text, setter }: ToastMessageProps) => {
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setter(false);
+    }, 2000);
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [setter]);
+
   return (
     <S.ToastLayout>
       <S.ToastSection>{text}</S.ToastSection>
