@@ -1,11 +1,11 @@
 import styled from 'styled-components';
 
-import ApplicationResult from '../views/ApplicationPage/components/ApplicationResult';
+import DefaultInfo from '../views/ApplicationPage/components/DefaultInfo';
 
 const ApplicationPage = () => {
   return (
     <ApplicationPagSection>
-      <ApplicationResult />
+      <DefaultInfo />
     </ApplicationPagSection>
   );
 };
@@ -19,5 +19,4 @@ const ApplicationPagSection = styled.section`
 
   width: 100%;
   height: 100vh;
-  padding: 0 2rem;
 `;
