@@ -3,8 +3,11 @@ import styled from 'styled-components';
 
 import { IcCheckboxBlue, IcCheckboxGrey } from '../../@common/assets/icons';
 
-const MyQuitCheck = () => {
-  const [isChecked, setChecked] = useState(false);
+interface MyQuitCheckProps {
+  isChecked: boolean;
+  setChecked: React.Dispatch<React.SetStateAction<boolean>>;
+}
+const MyQuitCheck = ({ isChecked, setChecked }: MyQuitCheckProps) => {
   return (
     <S.MyQuitCheckLayout type="button" onClick={() => setChecked(!isChecked)}>
       {isChecked ? <IcCheckboxBlue /> : <IcCheckboxGrey />}
