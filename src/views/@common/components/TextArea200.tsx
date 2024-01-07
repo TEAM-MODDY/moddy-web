@@ -1,12 +1,20 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 
-const TextArea200 = () => {
+interface TextArea200Props {
+  placeholderText: string;
+}
+
+const TextArea200 = ({ placeholderText }: TextArea200Props) => {
   const [textLength, setTextLength] = useState(0);
-  const PLACE_HOLDER = '자신에 대한 소개를 입력해주세요\n예시) 경력, 자격증, 강점 등';
+  //const placeHolder = '자신에 대한 소개를 입력해주세요\n예시) 경력, 자격증, 강점 등';
   return (
     <S.TextAreaLayout>
-      <S.TextArea placeholder={PLACE_HOLDER} onChange={(e) => setTextLength(e.target.value.length)} maxLength={200} />
+      <S.TextArea
+        placeholder={placeholderText}
+        onChange={(e) => setTextLength(e.target.value.length)}
+        maxLength={200}
+      />
       <S.TextAreaSpan>
         <S.TextAreaCountSpan $isZero={textLength === 0}>{textLength}</S.TextAreaCountSpan> / 200
       </S.TextAreaSpan>
