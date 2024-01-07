@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
 
 import { ImgLogoBlue } from '../../@common/assets/images';
@@ -5,6 +6,7 @@ import Button from '../../@common/components/Button';
 import Header from '../../@common/components/Header';
 
 const ApplicationResult = () => {
+  const navigate = useNavigate();
   return (
     <S.ApplicationResultLayout>
       <Header isBackBtnExist={true} isCloseBtnExist={true} title="최종 확인"></Header>
@@ -74,7 +76,13 @@ const ApplicationResult = () => {
         <h2>상세 희망 스타일</h2>
         <S.InfoText />
       </S.ContentBox>
-      <Button text="지원하기" isFixed={true} />
+      <Button
+        text="지원하기"
+        isFixed={true}
+        onClickFn={() => {
+          navigate(`/application/confirm`);
+        }}
+      />
     </S.ApplicationResultLayout>
   );
 };
