@@ -1,11 +1,12 @@
-import { useState } from 'react';
 import styled from 'styled-components';
 
 import AgreementItem from './AgreementItem';
 
-const AgreementList = () => {
-  const [isChecked, setChecked] = useState(new Array(4).fill(false));
-
+interface AgreementListProps {
+  isChecked: boolean[];
+  setChecked: React.Dispatch<React.SetStateAction<boolean[]>>;
+}
+const AgreementList = ({ isChecked, setChecked }: AgreementListProps) => {
   const handleCheck = (idx: number) => {
     const tempCheckedArray = [...isChecked];
     tempCheckedArray[idx] = !isChecked[idx];
