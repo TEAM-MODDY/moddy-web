@@ -1,5 +1,7 @@
 import { styled } from 'styled-components';
 
+import Button from '../views/@common/components/Button';
+import Header from '../views/@common/components/Header';
 import { IcLeft, IcBookmark, IcPin } from '../views/OfferInfoPage/assets/icons';
 import ImgPropLogo from '../views/OfferInfoPage/assets/images/img_proplogo.png';
 
@@ -36,84 +38,89 @@ const OfferInfoPage = () => {
   const OfferDetail = DATA.data.offerDetail;
 
   return (
-    <S.OfferInfoLayout>
-      <S.DesignerInfoLayout>
-        <S.ProfileBox>
-          <S.ProfileImg src={DesingerInfo.imgUrl} />
-          <S.ProfileTextBox>
-            <h2>{DesingerInfo.shopName}</h2>
-            <h1>{DesingerInfo.name}</h1>
-          </S.ProfileTextBox>
-        </S.ProfileBox>
-        <S.ButtonBox>
-          <S.LinkButton type="button">
-            <p>인스타그램</p>
-            <IcLeft />
-          </S.LinkButton>
-          <S.LinkButton type="button">
-            <p>네이버 플레이스</p>
-            <IcLeft />
-          </S.LinkButton>
-        </S.ButtonBox>
-        <S.IntroductionBox>{DesingerInfo.introduction}</S.IntroductionBox>
-      </S.DesignerInfoLayout>
-      <S.DivisionLine />
-      <S.OfferDetailLayout>
-        <S.DetailTextBox>
-          <IcBookmark />
-          <S.DetailMainTitleBox>
-            <h2>요청 스타일</h2>
-            <h1>{OfferDetail.preferStyle.join(', ')}</h1>
-          </S.DetailMainTitleBox>
-          <S.DesignContentBox>
-            <h1>디자이너 상세 제안</h1>
-            <p>{OfferDetail.designerOfferDetail}</p>
-            <h1>상세 희망 스타일</h1>
-            <p>{OfferDetail.modelApplicationDetail}</p>
-          </S.DesignContentBox>
+    <>
+      <Header title="도착한 제안서" isBackBtnExist={true} />
+      <S.OfferInfoLayout>
+        <S.DesignerInfoLayout>
+          <S.ProfileBox>
+            <S.ProfileImg src={DesingerInfo.imgUrl} />
+            <S.ProfileTextBox>
+              <h2>{DesingerInfo.shopName}</h2>
+              <h1>{DesingerInfo.name}</h1>
+            </S.ProfileTextBox>
+          </S.ProfileBox>
+          <S.ButtonBox>
+            <S.LinkButton type="button">
+              <p>인스타그램</p>
+              <IcLeft />
+            </S.LinkButton>
+            <S.LinkButton type="button">
+              <p>네이버 플레이스</p>
+              <IcLeft />
+            </S.LinkButton>
+          </S.ButtonBox>
+          <S.IntroductionBox>{DesingerInfo.introduction}</S.IntroductionBox>
+        </S.DesignerInfoLayout>
+        <S.DivisionLine />
+        <S.OfferDetailLayout>
+          <S.DetailTextBox>
+            <IcBookmark />
+            <S.DetailMainTitleBox>
+              <h2>요청 스타일</h2>
+              <h1>{OfferDetail.preferStyle.join(', ')}</h1>
+            </S.DetailMainTitleBox>
+            <S.DesignContentBox>
+              <h1>디자이너 상세 제안</h1>
+              <p>{OfferDetail.designerOfferDetail}</p>
+              <h1>상세 희망 스타일</h1>
+              <p>{OfferDetail.modelApplicationDetail}</p>
+            </S.DesignContentBox>
 
-          <S.DetailMainTitleBox>
-            <h1>디자이너 정보</h1>
-          </S.DetailMainTitleBox>
-          <S.DetailContentBox>
-            <h2>성별</h2>
-            <h3>{DesingerInfo.gender}</h3>
-          </S.DetailContentBox>
-          <S.DetailContentBox>
-            <h2>휴무일</h2>
-            <h3>{DesingerInfo.dayoffs.join(', ')}</h3>
-          </S.DetailContentBox>
-          <S.DetailContentBox>
-            <h2>주소</h2>
-            <div>
-              <h3>{DesingerInfo.shopAddress}</h3>
-              <h3>{DesingerInfo.shopDetailAddress}</h3>
-              <button type="button">
-                <IcPin />
-                지도
-              </button>
-            </div>
-          </S.DetailContentBox>
+            <S.DetailMainTitleBox>
+              <h1>디자이너 정보</h1>
+            </S.DetailMainTitleBox>
+            <S.DetailContentBox>
+              <h2>성별</h2>
+              <h3>{DesingerInfo.gender}</h3>
+            </S.DetailContentBox>
+            <S.DetailContentBox>
+              <h2>휴무일</h2>
+              <h3>{DesingerInfo.dayoffs.join(', ')}</h3>
+            </S.DetailContentBox>
+            <S.DetailContentBox>
+              <h2>주소</h2>
+              <div>
+                <h3>{DesingerInfo.shopAddress}</h3>
+                <h3>{DesingerInfo.shopDetailAddress}</h3>
+                <button type="button">
+                  <IcPin />
+                  지도
+                </button>
+              </div>
+            </S.DetailContentBox>
 
-          <S.DetailMainTitleBox>
-            <h1>제안 조건</h1>
-          </S.DetailMainTitleBox>
-          <S.LogoImg src={ImgPropLogo} />
-        </S.DetailTextBox>
-      </S.OfferDetailLayout>
-    </S.OfferInfoLayout>
+            <S.DetailMainTitleBox>
+              <h1>제안 조건</h1>
+            </S.DetailMainTitleBox>
+            <S.LogoImg src={ImgPropLogo} />
+          </S.DetailTextBox>
+        </S.OfferDetailLayout>
+        <p>해당 제안서의 내용에 동의합니다.</p>
+      </S.OfferInfoLayout>
+    </>
   );
 };
 
 const S = {
   OfferInfoLayout: styled.section`
     width: 100vw;
+    margin-top: 5.7rem;
   `,
   DesignerInfoLayout: styled.section`
     display: grid;
 
     width: 100%;
-    margin-top: 5.7rem;
+    margin: 5.7rem 0 2.7rem;
     padding: 0 1.6rem;
 
     & > svg {
