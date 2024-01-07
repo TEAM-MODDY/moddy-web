@@ -1,9 +1,11 @@
-import styled from 'styled-components';
+import { styled } from 'styled-components';
 
-import { IcEssential, IcInformation } from '../../@common/assets/icons';
+import { IcInformation } from '../../@common/assets/icons';
 import Button from '../../@common/components/Button';
 import Input from '../../@common/components/Input';
 import ProgressBar from '../../@common/components/ProgressBar';
+
+import Field from './Field';
 interface PersonalInfoProp {
   setStep: React.Dispatch<React.SetStateAction<number>>;
 }
@@ -11,60 +13,34 @@ interface PersonalInfoProp {
 const PersonalInfo = ({ setStep }: PersonalInfoProp) => {
   return (
     <>
-      <PersonalInfoLayout>
+      <S.PersonalInfoLayout>
         <ProgressBar whole={5} current={1} />
-        <FormBox>
-          <FieldBox>
-            <FieldSpan>디자이너명</FieldSpan>
-            <IcEssential />
-          </FieldBox>
+        <S.FormBox>
+          <Field name="디자이너명" isEssential={true} />
           <Input placeholderText="이름을 입력해주세요" />
-          <HelperBox>
+          <S.HelperBox>
             <IcInformation />
-            <HelperSpan>실명을 입력해주세요</HelperSpan>
-          </HelperBox>
-          <FieldBox>
-            <FieldSpan>출생 연도</FieldSpan>
-            <IcEssential />
-          </FieldBox>
+            <S.HelperSpan>실명을 입력해주세요</S.HelperSpan>
+          </S.HelperBox>
+          <Field name="출생 연도" isEssential={true} />
           <Input placeholderText="출생 연도(YYYY)를 입력해주세요" />
-          <FieldBox>
-            <FieldSpan>성별</FieldSpan>
-            <IcEssential />
-          </FieldBox>
-          <GenderSelectBox>
-            <RadioInput type="radio" id="female" name="gender-type" />
-            <GenderTypeLabel htmlFor="female">여성</GenderTypeLabel>
-            <RadioInput type="radio" id="male" name="gender-type" />
-            <GenderTypeLabel htmlFor="male">남성</GenderTypeLabel>
-          </GenderSelectBox>
-        </FormBox>
-      </PersonalInfoLayout>
+          <Field name="설명" isEssential={true} />
+          <S.GenderSelectBox>
+            <S.RadioInput type="radio" id="female" name="gender-type" />
+            <S.GenderTypeLabel htmlFor="female">여성</S.GenderTypeLabel>
+            <S.RadioInput type="radio" id="male" name="gender-type" />
+            <S.GenderTypeLabel htmlFor="male">남성</S.GenderTypeLabel>
+          </S.GenderSelectBox>
+        </S.FormBox>
+      </S.PersonalInfoLayout>
       <Button text="다음" isFixed={true} onClickFn={() => setStep((prev) => prev + 1)} />
     </>
   );
 };
 
 export default PersonalInfo;
-
 const PersonalInfoLayout = styled.div`
   padding: 5.4rem 1.6rem;
-`;
-
-const FieldBox = styled.div`
-  display: flex;
-
-  margin-top: 3.6rem;
-  margin-bottom: 1.1rem;
-
-  &:first-child {
-    margin-top: 0;
-  }
-`;
-
-const FieldSpan = styled.span`
-  color: ${({ theme }) => theme.colors.moddy_bk};
-  ${({ theme }) => theme.fonts.Headline01};
 `;
 
 const FormBox = styled.div`
@@ -120,3 +96,13 @@ const GenderSelectBox = styled.div`
   display: flex;
   gap: 1.6rem;
 `;
+
+const S = {
+  PersonalInfoLayout,
+  FormBox,
+  HelperBox,
+  HelperSpan,
+  RadioInput,
+  GenderTypeLabel,
+  GenderSelectBox,
+};
