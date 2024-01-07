@@ -10,7 +10,7 @@ const AgreementPage = () => {
     <div>
       <Header title="이용약관" isBackBtnExist backFn={() => navigate(-1)} />
       <AgreementList />
-      <Button text="다음" isFixed onClickFn={() => console.log('임시 클릭함수')} />
+      <Button text="다음" isFixed onClickFn={() => navigate('/sign-up')} />
     </div>
   );
 };
