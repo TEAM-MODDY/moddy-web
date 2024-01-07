@@ -1,9 +1,12 @@
 import styled from 'styled-components';
 
-const ToastMessage = () => {
+interface ToastMessageProps {
+  text: string;
+}
+const ToastMessage = ({ text }: ToastMessageProps) => {
   return (
     <S.ToastLayout>
-      <S.ToastSection>회원 탈퇴 완료</S.ToastSection>
+      <S.ToastSection>{text}</S.ToastSection>
     </S.ToastLayout>
   );
 };
