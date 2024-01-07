@@ -4,6 +4,7 @@ import { IcInformation } from '../../@common/assets/icons';
 import Button from '../../@common/components/Button';
 import Input from '../../@common/components/Input';
 import ProgressBar from '../../@common/components/ProgressBar';
+import { USER_TYPE } from '../constants/userType';
 
 import Field from './Field';
 interface PersonalInfoProp {
@@ -11,6 +12,7 @@ interface PersonalInfoProp {
 }
 
 const PersonalInfo = ({ setStep }: PersonalInfoProp) => {
+  const userType = USER_TYPE.DESIGNER;
   return (
     <>
       <S.PersonalInfoLayout>
@@ -22,9 +24,13 @@ const PersonalInfo = ({ setStep }: PersonalInfoProp) => {
             <IcInformation />
             <S.HelperSpan>실명을 입력해주세요</S.HelperSpan>
           </S.HelperBox>
-          <Field name="출생 연도" isEssential={true} />
-          <Input placeholderText="출생 연도(YYYY)를 입력해주세요" />
-          <Field name="설명" isEssential={true} />
+          {userType === USER_TYPE.DESIGNER ? null : (
+            <>
+              <Field name="출생 연도" isEssential={true} />
+              <Input placeholderText="출생 연도(YYYY)를 입력해주세요" />
+            </>
+          )}
+          <Field name="성별" isEssential={true} />
           <S.GenderSelectBox>
             <S.RadioInput type="radio" id="female" name="gender-type" />
             <S.GenderTypeLabel htmlFor="female">여성</S.GenderTypeLabel>
