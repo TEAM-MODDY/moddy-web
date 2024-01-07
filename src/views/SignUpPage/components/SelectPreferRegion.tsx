@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { styled } from 'styled-components';
 
 import { IcDownGrey, IcInformation, IcUpBlue } from '../../@common/assets/icons';
@@ -14,6 +14,21 @@ const SelectPreferRegion = () => {
   const [isShowCategory, setIsShowCategory] = useState(false);
   const [isCheckedList, setIsCheckedList] = useState<boolean[]>([]);
   const [isShowBottomSheet, setIsShowBottomSheet] = useState(false);
+
+  const categoryRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    // 특정 영역 외 클릭 시 발생하는 이벤트
+    const handleFocus = (e: React.MouseEvent) => {
+      if (categoryRef.current && !categoryRef.current.contains(e.target as Node)) {
+        setIsShowCategory(false);
+      }
+    };
+    document.addEventListener('mouseup', () => handleFocus);
+    return () => {
+      document.removeEventListener('mouseup', () => handleFocus);
+    };
+  }, [categoryRef]);
 
   const handleShowCategory = () => {
     setIsShowCategory((prev) => !prev);
@@ -38,8 +53,8 @@ const SelectPreferRegion = () => {
 
   return (
     <>
+      <ProgressBar whole={3} current={3} />
       <S.SelectPreferRegionLayout>
-        <ProgressBar whole={3} current={3} />
         <Field name="시술희망 지역" isEssential={true} />
         <S.SelectorBox $isshowchecked={isShowCategory.toString()} onClick={handleShowCategory}>
           희망 지역을 선택해주세요 (최대 3개)
@@ -51,7 +66,7 @@ const SelectPreferRegion = () => {
             <S.HelperSpan>지금은 서울특별시에만 운영되고 있어요</S.HelperSpan>
           </S.HelperBox>
         ) : (
-          <S.CategoryBox>
+          <S.CategoryBox ref={categoryRef}>
             <S.InnerBox>
               <S.CitySpan>서울특별시</S.CitySpan>
               <S.RegionList>
@@ -96,8 +111,8 @@ export default SelectPreferRegion;
 const SelectPreferRegionLayout = styled.div`
   position: relative;
 
-  height: 100vh;
-  padding: 5.4rem 1.6rem;
+  margin-top: 8.6rem;
+  padding: 0 1.6rem;
 `;
 
 const SelectorBox = styled.div<{ $isshowchecked: string }>`
@@ -136,6 +151,7 @@ const HelperSpan = styled.span`
 const CategoryBox = styled.div`
   display: flex;
   flex-direction: column;
+  z-index: 1;
 
   width: 100%;
   height: 25.8rem;
@@ -210,6 +226,14 @@ const SelectedRegionSpan = styled.span`
   ${({ theme }) => theme.fonts.Headline04};
 `;
 
+const BackGroundBox = styled.div`
+  position: ab;
+  top: 0;
+  left: 0;
+
+  width: 100vw;
+  height: 100vh;
+`;
 const S = {
   SelectPreferRegionLayout,
   SelectorBox,
@@ -222,4 +246,5 @@ const S = {
   BottomSheetBox,
   SelectedListBox,
   SelectedRegionBox,
+  BackGroundBox,
 };
