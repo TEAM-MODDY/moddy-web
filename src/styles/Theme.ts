@@ -19,6 +19,7 @@ const colors = {
   moddy_gray05: '#f4f4f5',
   moddy_bk50: 'rgba(0, 0, 0, 0.50)',
   moddy_wt30: 'rgba(255, 255, 255, 0.30)',
+  moddy_bk20: 'rgba(0, 0, 0, 0.20)',
 };
 
 const effects = {
