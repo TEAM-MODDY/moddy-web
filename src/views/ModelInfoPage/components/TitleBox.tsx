@@ -10,19 +10,21 @@ interface TitleBoxProps {
 
 const TitleBox = ({ title, subtitle, isNeccessary }: TitleBoxProps) => {
   return (
-    <div>
-      <section>
-        <S.MainTitleBox $isNeccessary={isNeccessary}>
-          <h1>{title}</h1>
-          <div>{isNeccessary && <IcEssential />}</div>
-        </S.MainTitleBox>
-        <S.Subtitle>{subtitle} </S.Subtitle>
-      </section>
-    </div>
+    <S.TitleBoxLayout>
+      <S.MainTitleBox $isNeccessary={isNeccessary}>
+        <h1>{title}</h1>
+        <div>{isNeccessary && <IcEssential />}</div>
+      </S.MainTitleBox>
+      <S.Subtitle>{subtitle} </S.Subtitle>
+    </S.TitleBoxLayout>
   );
 };
 
 const S = {
+  TitleBoxLayout: styled.div`
+    margin-bottom: 1.2rem;
+  `,
+
   MainTitleBox: styled.div<{ $isNeccessary: boolean }>`
     display: flex;
 
