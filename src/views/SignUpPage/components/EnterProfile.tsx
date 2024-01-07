@@ -17,7 +17,7 @@ const EnterProfile = () => {
   const StepHeader = () => {
     switch (step) {
       case STEP.PERSONAL_INFO:
-        return <Header isBackBtnExist={true} isCloseBtnExist={false} title="" />;
+        return <Header isBackBtnExist={true} isCloseBtnExist={false} title="프로필 작성" />;
       case STEP.ADDRESS:
         return <Header isBackBtnExist={true} isCloseBtnExist={true} title="주소 검색" />;
       default:
