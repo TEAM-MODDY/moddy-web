@@ -19,6 +19,18 @@ const HistoryList = () => {
             <button type="button">시술 선택</button>
             <IcDownGrey />
           </S.SelectBtnBox>
+          <S.SelectDetailBox>
+            {serviceSelected && (
+              <ul>
+                <li value="펌">펌</li>
+                <li value="탈색">탈색</li>
+                <li value="블랙 염색">블랙 염색</li>
+                <li value="컬러 염색">컬러 염색</li>
+              </ul>
+            )}
+          </S.SelectDetailBox>
+        </S.SelectBox>
+        <S.SelectBox>
           <S.SelectBtnBox
             onClick={() => {
               periodSelected ? isPeriodSelectd(false) : isPeriodSelectd(true);
@@ -26,26 +38,18 @@ const HistoryList = () => {
             <button type="button">기간 선택</button>
             <IcDownGrey />
           </S.SelectBtnBox>
+          <S.SelectDetailBox>
+            {periodSelected && (
+              <ul>
+                <li value="1 개월 미만">1개월 미만</li>
+                <li value="1 - 3 개월">1 - 3개월</li>
+                <li value="4 - 6 개월">4 - 6</li>
+                <li value="7 - 12 개월">7 - 12 개월</li>
+                <li value="12 개월 초과">12개월 초과</li>
+              </ul>
+            )}
+          </S.SelectDetailBox>
         </S.SelectBox>
-        <S.SelectDetailBox>
-          {serviceSelected && (
-            <ul>
-              <li value="펌">펌</li>
-              <li value="탈색">탈색</li>
-              <li value="블랙 염색">블랙 염색</li>
-              <li value="컬러 염색">컬러 염색</li>
-            </ul>
-          )}
-          {periodSelected && (
-            <ul>
-              <li value="1 개월 미만">1개월 미만</li>
-              <li value="1 - 3 개월">1 - 3개월</li>
-              <li value="4 - 6 개월">4 - 6</li>
-              <li value="7 - 12 개월">7 - 12 개월</li>
-              <li value="12 개월 초과">12개월 초과</li>
-            </ul>
-          )}
-        </S.SelectDetailBox>
         <IcDelete />
       </S.HistoryListItem>
     </S.HistoryList>
@@ -78,8 +82,8 @@ const S = {
 
   SelectBox: styled.div`
     display: flex;
-    gap: 0.8rem;
     flex: 1;
+    position: relative;
   `,
 
   SelectDetailBox: styled.div`
