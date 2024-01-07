@@ -2,9 +2,9 @@ import styled from 'styled-components';
 
 interface ButtonProps {
   text: string;
-  isFixed: boolean;
+  isFixed?: boolean;
   onClickFn: () => void;
-  disabled: boolean;
+  disabled?: boolean;
 }
 const Button = ({ text, isFixed, onClickFn, disabled }: ButtonProps) => {
   return (
@@ -19,7 +19,7 @@ const Button = ({ text, isFixed, onClickFn, disabled }: ButtonProps) => {
 export default Button;
 
 const S = {
-  ButtonLayout: styled.section<{ $isFixed: boolean; $disabled: boolean }>`
+  ButtonLayout: styled.section<{ $isFixed: boolean | undefined; $disabled: boolean | undefined }>`
     display: flex;
     justify-content: center;
     position: ${({ $isFixed }) => ($isFixed ? 'fixed' : 'static')};
