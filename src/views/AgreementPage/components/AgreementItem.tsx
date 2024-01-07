@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { IcCheckboxBlue, IcCheckboxGrey } from '../../@common/assets/icons';
+import { IcCheckboxBlue, IcCheckboxGrey, IcRightGrey } from '../../@common/assets/icons';
 
 interface AgreementItemProps {
   firstItem?: boolean;
@@ -10,11 +10,16 @@ interface AgreementItemProps {
 }
 const AgreementItem = ({ firstItem, text, isChecked, onClickCheck }: AgreementItemProps) => {
   return (
-    <S.AgreementItemLayout onClick={onClickCheck}>
-      {isChecked ? <IcCheckboxBlue /> : <IcCheckboxGrey />}
+    <S.AgreementItemLayout>
+      <button onClick={onClickCheck}>{isChecked ? <IcCheckboxBlue /> : <IcCheckboxGrey />}</button>
       <S.AgreementParagraph $firstItem={firstItem} $isChecked={isChecked}>
         {text}
       </S.AgreementParagraph>
+      {!firstItem && (
+        <S.AgreementIcon href="https://www.google.co.kr/?client=safari&channel=iphone_bm">
+          <IcRightGrey />
+        </S.AgreementIcon>
+      )}
     </S.AgreementItemLayout>
   );
 };
@@ -26,6 +31,7 @@ const S = {
     display: flex;
     gap: 1.1rem;
     align-items: center;
+    position: relative;
 
     width: 100%;
   `,
@@ -33,5 +39,9 @@ const S = {
     color: ${({ theme, $firstItem, $isChecked }) =>
       $isChecked ? theme.colors.moddy_bk : $firstItem ? theme.colors.moddy_bk : theme.colors.moddy_gray50};
     ${({ theme, $firstItem }) => ($firstItem ? theme.fonts.Body01 : theme.fonts.Body02)};
+  `,
+  AgreementIcon: styled.a`
+    position: absolute;
+    right: 0;
   `,
 };
