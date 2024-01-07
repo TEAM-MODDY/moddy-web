@@ -20,6 +20,7 @@ declare module 'styled-components' {
       moddy_gray05: string;
       moddy_bk50: string;
       moddy_wt30: string;
+      moddy_bk20: string;
     };
     effects: {
       shadow1: string;
