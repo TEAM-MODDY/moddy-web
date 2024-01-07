@@ -22,9 +22,24 @@ const AgreementList = () => {
         }}
       />
       <S.AgreementLine />
-      <AgreementItem text="모디 서비스 이용약관 동의" isChecked={isChecked[1]} onClickCheck={() => handleCheck(1)} />
-      <AgreementItem text="개인정보 수집 및 이용 동의" isChecked={isChecked[2]} onClickCheck={() => handleCheck(2)} />
-      <AgreementItem text="마케팅 정보 수신 동의 (선택)" isChecked={isChecked[3]} onClickCheck={() => handleCheck(3)} />
+      <AgreementItem
+        text="모디 서비스 이용약관 동의"
+        isChecked={isChecked[1]}
+        onClickCheck={() => handleCheck(1)}
+        link="https://moddy.notion.site/b6d316bce4f0476f812c2bff25ec6bf8?pvs=4"
+      />
+      <AgreementItem
+        text="개인정보 수집 및 이용 동의"
+        isChecked={isChecked[2]}
+        onClickCheck={() => handleCheck(2)}
+        link="https://moddy.notion.site/b5837d44058647eabc646492aa4a12a2?pvs=4"
+      />
+      <AgreementItem
+        text="마케팅 정보 수신 동의 (선택)"
+        isChecked={isChecked[3]}
+        onClickCheck={() => handleCheck(3)}
+        link="https://moddy.notion.site/7afa88127b754445b8eba475414b587a?pvs=4"
+      />
     </S.AgreementListLayout>
   );
 };

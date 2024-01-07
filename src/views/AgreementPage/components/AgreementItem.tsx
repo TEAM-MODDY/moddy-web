@@ -7,8 +7,9 @@ interface AgreementItemProps {
   text: string;
   isChecked: boolean;
   onClickCheck: () => void;
+  link?: string;
 }
-const AgreementItem = ({ firstItem, text, isChecked, onClickCheck }: AgreementItemProps) => {
+const AgreementItem = ({ firstItem, text, isChecked, onClickCheck, link }: AgreementItemProps) => {
   return (
     <S.AgreementItemLayout>
       <button onClick={onClickCheck}>{isChecked ? <IcCheckboxBlue /> : <IcCheckboxGrey />}</button>
@@ -16,7 +17,7 @@ const AgreementItem = ({ firstItem, text, isChecked, onClickCheck }: AgreementIt
         {text}
       </S.AgreementParagraph>
       {!firstItem && (
-        <S.AgreementIcon href="https://www.google.co.kr/?client=safari&channel=iphone_bm">
+        <S.AgreementIcon href={link}>
           <IcRightGrey />
         </S.AgreementIcon>
       )}
