@@ -16,7 +16,6 @@ const ModelOffer = () => {
     setIsClicked((prevState) => {
       const newClickedState = [...prevState];
       newClickedState[index] = !prevState[index];
-      console.log(newClickedState);
       return newClickedState;
     });
   };
