@@ -10,10 +10,10 @@ const Field = (props: FieldProp) => {
   const { name, isEssential } = props;
 
   return (
-    <FieldBox>
-      <FieldSpan>{name}</FieldSpan>
+    <S.FieldBox>
+      <S.FieldSpan>{name}</S.FieldSpan>
       {isEssential ? <IcEssential /> : null}
-    </FieldBox>
+    </S.FieldBox>
   );
 };
 
@@ -34,3 +34,8 @@ const FieldSpan = styled.span`
   color: ${({ theme }) => theme.colors.moddy_bk};
   ${({ theme }) => theme.fonts.Headline01};
 `;
+
+const S = {
+  FieldBox,
+  FieldSpan,
+};
