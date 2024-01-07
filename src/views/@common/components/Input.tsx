@@ -3,12 +3,16 @@ import styled from 'styled-components';
 
 import { IcCheckBlue } from '../assets/icons';
 
-const Input = () => {
+interface InputProps {
+  placeholderText: string;
+}
+
+const Input = ({ placeholderText }: InputProps) => {
   const [name, setName] = useState('');
-  const PLACE_HOLDER = '이름을 입력해주세요';
+  //const PLACE_HOLDER = '이름을 입력해주세요';
   return (
     <S.InputLayout>
-      <S.Input placeholder={PLACE_HOLDER} value={name} onChange={(e) => setName(e.target.value)} />
+      <S.Input placeholder={placeholderText} value={name} onChange={(e) => setName(e.target.value)} />
       {name !== '' && <IcCheckBlue />}
     </S.InputLayout>
   );
