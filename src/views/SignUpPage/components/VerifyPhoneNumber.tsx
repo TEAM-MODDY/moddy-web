@@ -81,14 +81,14 @@ const VerifyPhoneNumber = ({ setStep }: VerifyPhoneNumberProp) => {
             value={phoneNumber.replace(/-/g, '').replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3')}
             onChange={handlePhoneNumber}
           />
-          <S.RequestButton status={requestStatus} onClick={handleRequestVerify}>
+          <S.RequestButton $status={requestStatus} onClick={handleRequestVerify}>
             {requestStatus !== STATUS.RE_AVALILABLE && requestStatus !== STATUS.DONE ? '인증 요청' : '재요청'}
           </S.RequestButton>
         </S.InputBox>
         <S.InputBox>
           <S.Input placeholder="인증번호 6자리를 입력해주세요" value={verifyNumber} onChange={handleVerifyNumber} />
           <S.CountDownSpan>{!isVerifying || verifyStatus === STATUS.VERIFIED ? null : formatTime()}</S.CountDownSpan>
-          <S.RequestButton status={verifyStatus} onClick={handleConfirmVerify}>
+          <S.RequestButton $status={verifyStatus} onClick={handleConfirmVerify}>
             {verifyStatus !== STATUS.VERIFIED ? '확인' : '인증완료'}
           </S.RequestButton>
         </S.InputBox>
@@ -159,11 +159,11 @@ const Input = styled.input`
   }
 `;
 
-const RequestButton = styled.button<{ status: number }>`
-  color: ${({ theme, status }) =>
-    status === STATUS.NOT_AVAILABLE || status === STATUS.DONE
+const RequestButton = styled.button<{ $status: number }>`
+  color: ${({ theme, $status }) =>
+    $status === STATUS.NOT_AVAILABLE || $status === STATUS.DONE
       ? theme.colors.moddy_gray20
-      : status === STATUS.AVAILABLE || status === STATUS.VERIFIED
+      : $status === STATUS.AVAILABLE || $status === STATUS.VERIFIED
         ? theme.colors.moddy_blue
         : theme.colors.moddy_bk};
   ${({ theme }) => theme.fonts.Body01};
