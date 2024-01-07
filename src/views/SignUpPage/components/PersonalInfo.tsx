@@ -108,7 +108,7 @@ const GenderTypeLabel = styled.label`
   width: 16.4rem;
   padding: 1.2rem 0;
   border: 1.5px solid ${({ theme }) => theme.colors.moddy_gray20};
-  border-radius: 12px;
+  border-radius: 8px;
 
   background: ${({ theme }) => theme.colors.moddy_wt};
 
