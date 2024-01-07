@@ -12,7 +12,6 @@ const MyMenuItem = ({ icon, text }: MyMenuItemProps) => {
 
   return (
     <S.MyMenuItemLayout
-      type="button"
       onClick={() => {
         setModalOpen(true);
       }}>
@@ -36,7 +35,7 @@ const MyMenuItem = ({ icon, text }: MyMenuItemProps) => {
 export default MyMenuItem;
 
 const S = {
-  MyMenuItemLayout: styled.button`
+  MyMenuItemLayout: styled.div`
     display: flex;
     gap: 1rem;
     align-items: center;
