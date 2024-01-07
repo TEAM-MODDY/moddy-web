@@ -41,7 +41,7 @@ const SelectPreferRegion = () => {
       <S.SelectPreferRegionLayout>
         <ProgressBar whole={3} current={3} />
         <Field name="시술희망 지역" isEssential={true} />
-        <S.SelectorBox isShowCategory={isShowCategory} onClick={handleShowCategory}>
+        <S.SelectorBox $isshowchecked={isShowCategory.toString()} onClick={handleShowCategory}>
           희망 지역을 선택해주세요 (최대 3개)
           {!isShowCategory ? <IcDownGrey /> : <IcUpBlue />}
         </S.SelectorBox>
@@ -69,7 +69,7 @@ const SelectPreferRegion = () => {
             </S.InnerBox>
           </S.CategoryBox>
         )}
-        <S.BottomSheetBox isopen={isShowBottomSheet}>
+        <S.BottomSheetBox $isopen={isShowBottomSheet.toString()}>
           <S.SelectedListBox>
             {isCheckedList
               .map((isChecked, index) => (isChecked ? index : -1)) // 체크 된 경우에만 해당 인덱스 반환
@@ -100,13 +100,13 @@ const SelectPreferRegionLayout = styled.div`
   padding: 5.4rem 1.6rem;
 `;
 
-const SelectorBox = styled.div<{ isShowCategory: boolean }>`
+const SelectorBox = styled.div<{ $isshowchecked: string }>`
   position: relative;
 
   width: 100%;
   padding: 1.2rem 1.6rem;
   border: 1.5px solid
-    ${({ theme, isShowCategory }) => (isShowCategory ? theme.colors.moddy_blue : theme.colors.moddy_gray20)};
+    ${({ theme, $isshowchecked }) => ($isshowchecked === 'true' ? theme.colors.moddy_blue : theme.colors.moddy_gray20)};
   ${({ theme }) => theme.colors.moddy_gray20};
 
   border-radius: 8px;
@@ -173,13 +173,13 @@ const RegionList = styled.ul`
   padding: 0.6rem 3.2rem;
 `;
 
-const BottomSheetBox = styled.div<{ isopen: boolean }>`
+const BottomSheetBox = styled.div<{ $isopen: string }>`
   position: fixed;
   bottom: 0;
   left: 0;
 
   width: 100%;
-  height: ${({ isopen }) => (isopen ? '16.2rem' : '0')};
+  height: ${({ $isopen }) => ($isopen === 'true' ? '16.2rem' : '0')};
 
   box-shadow: ${({ theme }) => theme.effects.shadow4};
 
