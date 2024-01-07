@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 import Header from '../views/@common/components/Header';
 import MyInfo from '../views/MyPage/components/MyInfo';
+import MyMenuList from '../views/MyPage/components/MyMenuList';
 
 const MyPage = () => {
   const navigate = useNavigate();
@@ -17,6 +18,7 @@ const MyPage = () => {
         }}
       />
       <MyInfo />
+      <MyMenuList />
     </S.MyPageLayout>
   );
 };
