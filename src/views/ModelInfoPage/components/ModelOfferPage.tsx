@@ -11,6 +11,7 @@ import TitleBox from '../../ModelInfoPage/components/TitleBox';
 import { conditionData } from '../../ModelInfoPage/constants/conditionData';
 
 const ModelOfferPage = () => {
+  //희망 제안 조건 클릭시 활성화 기능
   const [isClicked, setIsClicked] = useState<boolean[]>([false, false, false, false, false, false]);
   const handleConditionClick = (index: number) => {
     setIsClicked((prevState) => {
@@ -19,13 +20,22 @@ const ModelOfferPage = () => {
       return newClickedState;
     });
   };
+
+  const [textAreaValue, setTextAreaValue] = useState('');
+  const handleTextAreaChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setTextAreaValue(event.target.value);
+  };
+
+  const isActive = isClicked.some((clicked) => clicked) && textAreaValue !== '';
+
+  //페이지 이동
   const navigate = useNavigate();
   const handleClickConfirm = () => {
     navigate('/model-info/model-offer/sent-complete');
   };
   return (
     <>
-      <Header isBackBtnExist={true} isCloseBtnExist={true} title="헤어 모델 제안하기" />
+      <Header isBackBtnExist={true} isCloseBtnExist={true} title="헤어 모델 제안하기" backFn={'./'} />
       <S.ModelOfferLayout>
         <S.ModelOfferBox>
           <TitleBox title="희망 제안 조건" subtitle="원하시는 조건을 모두 선택해주세요" isNeccessary={true} />
@@ -38,7 +48,7 @@ const ModelOfferPage = () => {
                 condition={data.condition}
                 onClick={() => handleConditionClick(index)}
                 index={index}
-                isActive={isClicked[index]}
+                isSelected={isClicked[index]}
               />
             ))}
           </S.ContainerGridBox>
@@ -48,7 +58,7 @@ const ModelOfferPage = () => {
           <TextArea200 placeholderText="내용을 입력해주세요" />
         </S.ModelOfferBox>
       </S.ModelOfferLayout>
-      <Button text="확인하기" isFixed={true} onClickFn={handleClickConfirm} />
+      <Button text="확인하기" isFixed={true} onClickFn={handleClickConfirm} disabled={false} />
     </>
   );
 };
