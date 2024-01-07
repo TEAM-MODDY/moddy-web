@@ -8,9 +8,11 @@ declare module 'styled-components' {
       moddy_blue3: string;
       moddy_blue4: string;
       moddy_sky: string;
+      moddy_sora: string;
       moddy_purple: string;
       kakao: string;
       moddy_gradient3: string;
+      moddy_gradient4: string;
 
       moddy_bk: string;
       moddy_wt: string;
