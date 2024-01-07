@@ -1,3 +1,4 @@
+import { ReactNode } from 'react';
 import styled from 'styled-components';
 
 interface ButtonProps {
@@ -5,11 +6,13 @@ interface ButtonProps {
   isFixed?: boolean;
   onClickFn: () => void;
   disabled?: boolean;
+  icon?: ReactNode;
 }
-const Button = ({ text, isFixed, onClickFn, disabled }: ButtonProps) => {
+const Button = ({ text, isFixed, onClickFn, disabled, icon }: ButtonProps) => {
   return (
     <S.ButtonLayout $isFixed={isFixed} $disabled={disabled}>
       <button type="button" onClick={onClickFn} disabled={disabled}>
+        {icon}
         {text}
       </button>
     </S.ButtonLayout>
@@ -30,6 +33,7 @@ const S = {
 
     & > button {
       display: flex;
+      gap: 1.2rem;
       justify-content: center;
       align-items: center;
 
