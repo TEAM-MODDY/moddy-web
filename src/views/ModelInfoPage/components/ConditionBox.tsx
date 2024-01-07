@@ -23,16 +23,16 @@ const S = {
     align-items: center;
 
     padding: 0.7rem 0.8rem;
-    border: 1.5px solid ${({ theme }) => theme.colors.moddy_gray20};
+    border: 1.5px solid ${({ $isClicked, theme }) => ($isClicked ? theme.colors.moddy_blue : theme.colors.moddy_gray20)};
     border-radius: 8px;
+
+    background-color: ${({ $isClicked, theme }) => ($isClicked ? theme.colors.moddy_blue4 : theme.colors.moddy_wt)};
 
     & > div {
       margin-right: 0.6rem;
     }
 
     & > p {
-      background-color: ${({ $isClicked, theme }) => ($isClicked ? theme.colors.moddy_blue4 : theme.colors.moddy_wt)};
-
       color: ${({ $isClicked, theme }) => ($isClicked ? theme.colors.moddy_blue : theme.colors.moddy_gray50)};
 
       ${({ theme }) => theme.fonts.Body02};

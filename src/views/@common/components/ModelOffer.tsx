@@ -3,11 +3,17 @@ import { styled } from 'styled-components';
 
 import {
   IcCamera,
+  IcCameraact,
   IcModdyhearts1,
+  IcModdyhearts1act,
   IcGift,
+  IcGiftact,
   IcMask,
+  IcMaskact,
+  IcPhotoshop,
   IcPhotoshopact,
   IcHearthand,
+  IcHearthandact,
 } from '../../ModelInfoPage/assets/icons';
 import ConditionBox from '../../ModelInfoPage/components/ConditionBox';
 import TitleBox from '../../ModelInfoPage/components/TitleBox';
@@ -21,8 +27,8 @@ const ModelOffer = () => {
           <ConditionBox icon={<IcCamera />} condition="얼굴 촬영" isClicked={false} />
           <ConditionBox icon={<IcModdyhearts1 />} condition="SNS 게시" isClicked={false} />
           <ConditionBox icon={<IcGift />} condition="얼굴 촬영" isClicked={false} />
-          <ConditionBox icon={<IcMask />} condition="마스크 착용" isClicked={false} />
-          <ConditionBox icon={<IcPhotoshopact />} condition="포토샵 보정" isClicked={false} />
+          <ConditionBox icon={<IcMask />} condition="마스크 착용" isClicked={true} />
+          <ConditionBox icon={<IcPhotoshop />} condition="포토샵 보정" isClicked={false} />
           <ConditionBox icon={<IcHearthand />} condition="소정의 약값" isClicked={false} />
         </S.ContainerGridBox>
       </S.ModelOfferBox>
