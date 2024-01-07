@@ -4,7 +4,10 @@ import { IcContactus, IcContactus1, IcDocument, IcModdypin, IcModdyusers2 } from
 
 import MyMenuItem from './MyMenuItem';
 
-const MyMenuList = () => {
+interface MyMenuListProps {
+  setModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}
+const MyMenuList = ({ setModalOpen }: MyMenuListProps) => {
   return (
     <S.MyMenuListLayout>
       <S.MyMenuListBox>
@@ -20,7 +23,7 @@ const MyMenuList = () => {
       <S.MyMenuListLine />
       <S.MyMenuListBox>
         <S.MyMenuListParagraph>계정 관리</S.MyMenuListParagraph>
-        <MyMenuItem icon={<IcModdypin />} text="로그아웃" />
+        <MyMenuItem icon={<IcModdypin />} text="로그아웃" setModalOpen={setModalOpen} />
         <MyMenuItem icon={<IcModdyusers2 />} text="회원탈퇴" />
       </S.MyMenuListBox>
     </S.MyMenuListLayout>
