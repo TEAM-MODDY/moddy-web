@@ -7,7 +7,6 @@ interface TextArea200Props {
 
 const TextArea200 = ({ placeholderText }: TextArea200Props) => {
   const [textLength, setTextLength] = useState(0);
-  //const placeHolder = '자신에 대한 소개를 입력해주세요\n예시) 경력, 자격증, 강점 등';
   return (
     <S.TextAreaLayout>
       <S.TextArea

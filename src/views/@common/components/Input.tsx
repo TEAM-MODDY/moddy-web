@@ -9,7 +9,6 @@ interface InputProps {
 
 const Input = ({ placeholderText }: InputProps) => {
   const [name, setName] = useState('');
-  //const PLACE_HOLDER = '이름을 입력해주세요';
   return (
     <S.InputLayout>
       <S.Input placeholder={placeholderText} value={name} onChange={(e) => setName(e.target.value)} />
