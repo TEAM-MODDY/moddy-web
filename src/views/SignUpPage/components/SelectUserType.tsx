@@ -10,37 +10,37 @@ interface SelectUserTypeProp {
 const SelectUserType = ({ setStep }: SelectUserTypeProp) => {
   return (
     <>
-      <SelectUserTypeLayout>
+      <S.SelectUserTypeLayout>
         <Header isBackBtnExist={true} isCloseBtnExist={false} title="" />
-        <OnBoardingSpan>어디에 해당하시나요?</OnBoardingSpan>
-        <HelperTextSpan>한 번 선택하면 변경할 수 없어요</HelperTextSpan>
-        <RadioBox>
-          <RadioInput type="radio" id="designer" name="user-type" />
-          <UserTypeBoxLabel htmlFor="designer">
-            <ImageBox>
+        <S.OnBoardingSpan>어디에 해당하시나요?</S.OnBoardingSpan>
+        <S.HelperTextSpan>한 번 선택하면 변경할 수 없어요</S.HelperTextSpan>
+        <S.RadioBox>
+          <S.RadioInput type="radio" id="designer" name="user-type" />
+          <S.UserTypeBoxLabel htmlFor="designer">
+            <S.ImageBox>
               <img src={designerImg} width="100%" alt="디자이너" />
-            </ImageBox>
-            <UserTypeSpan>헤어 전문가에요</UserTypeSpan>
-            <UserTypeInfoSpan>
+            </S.ImageBox>
+            <S.UserTypeSpan>헤어 전문가에요</S.UserTypeSpan>
+            <S.UserTypeInfoSpan>
               포트폴리오 / 홍보를 위한
               <br />
               모델을 찾고 있어요
-            </UserTypeInfoSpan>
-          </UserTypeBoxLabel>
-          <RadioInput type="radio" id="model" name="user-type" />
-          <UserTypeBoxLabel htmlFor="model">
-            <ImageBox>
+            </S.UserTypeInfoSpan>
+          </S.UserTypeBoxLabel>
+          <S.RadioInput type="radio" id="model" name="user-type" />
+          <S.UserTypeBoxLabel htmlFor="model">
+            <S.ImageBox>
               <img src={designerImg} width="100%" alt="디자이너" />
-            </ImageBox>
-            <UserTypeSpan>일반인/모델이에요</UserTypeSpan>
-            <UserTypeInfoSpan>
+            </S.ImageBox>
+            <S.UserTypeSpan>일반인/모델이에요</S.UserTypeSpan>
+            <S.UserTypeInfoSpan>
               예쁜 헤어 스타일을
               <br />
               무료(최소금액)로 받고 싶어요
-            </UserTypeInfoSpan>
-          </UserTypeBoxLabel>
-        </RadioBox>
-      </SelectUserTypeLayout>
+            </S.UserTypeInfoSpan>
+          </S.UserTypeBoxLabel>
+        </S.RadioBox>
+      </S.SelectUserTypeLayout>
       <Button text="다음" isFixed={true} onClickFn={() => setStep(false)} />
     </>
   );
@@ -115,3 +115,15 @@ const RadioInput = styled.input`
     box-shadow: ${({ theme }) => theme.effects.shadow2};
   }
 `;
+
+const S = {
+  OnBoardingSpan,
+  HelperTextSpan,
+  SelectUserTypeLayout,
+  RadioBox,
+  UserTypeBoxLabel,
+  UserTypeInfoSpan,
+  UserTypeSpan,
+  ImageBox,
+  RadioInput,
+};
