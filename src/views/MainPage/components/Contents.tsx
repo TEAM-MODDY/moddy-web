@@ -12,14 +12,14 @@ const Contents = () => {
             <S.StyleNameSpan>슬릭펌</S.StyleNameSpan>
             <S.StyleInfoSpan>요즘 인기 최고 펌</S.StyleInfoSpan>
           </S.InfoBox>
-          <S.ShowMoreButton>더보기</S.ShowMoreButton>
+          <S.ShowMoreButton type="button">더보기</S.ShowMoreButton>
         </S.StyleCardBox>
         <S.StyleCardBox>
           <S.InfoBox>
             <S.StyleNameSpan>물결펌</S.StyleNameSpan>
             <S.StyleInfoSpan>꾸준한 클래식</S.StyleInfoSpan>
           </S.InfoBox>
-          <S.ShowMoreButton>더보기</S.ShowMoreButton>
+          <S.ShowMoreButton type="button">더보기</S.ShowMoreButton>
         </S.StyleCardBox>
       </S.ContentsBox>
     </S.ContentsLayout>

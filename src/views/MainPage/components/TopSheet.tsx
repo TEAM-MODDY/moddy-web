@@ -55,7 +55,7 @@ const TopSheet = (props: TopSheetProps) => {
       <S.HeaderBox>
         <IcLogoHome />
         {userType === USER_TYPE.GUEST ? (
-          <S.LoginButton>
+          <S.LoginButton type="button">
             <S.LoginSpan>로그인하기</S.LoginSpan>
             <IcRightWhite />
           </S.LoginButton>
@@ -67,7 +67,7 @@ const TopSheet = (props: TopSheetProps) => {
         <OnBoardingText />
       </S.OnBoardingBox>
       {userType !== USER_TYPE.DESIGNER ? (
-        <S.StartButton>
+        <S.StartButton type="button">
           <S.StartButtonSpan>
             {userType === USER_TYPE.GUEST ? '헤어 모델 지원하기 / 제안하기' : '헤어모델 지원하기'}
           </S.StartButtonSpan>
