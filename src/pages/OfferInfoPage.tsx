@@ -1,6 +1,7 @@
 import { styled } from 'styled-components';
 
-import { IcLeft } from '../views/OfferInfoPage/assets/icons';
+import { IcLeft, IcBookmark, IcPin } from '../views/OfferInfoPage/assets/icons';
+import ImgPropLogo from '../views/OfferInfoPage/assets/images/img_proplogo.png';
 
 const DATA = {
   code: 200,
@@ -18,13 +19,14 @@ const DATA = {
       gender: '여성',
       dayoffs: ['월', '화'],
       shopAddress: '서울특별시 강남구 어쩌구 ',
-      shopDetailAddress: '서울특별시 강남구 어쩌구 ',
+      shopDetailAddress: '302호 ',
     },
     offerDetail: {
       isAgree: true,
       preferStyle: ['레이어드컷', 'C컬펌'],
-      designerOfferDetail: '디자이너가 작성한 상세 제안',
-      modelApplicationDetail: '고객이 작성한 상세 제안',
+      designerOfferDetail:
+        '이러쿵저러쿵 이쁘게 최양락은 아니면서 웬디는 될 수 없만 최양락은좀 아니지 않나 하는 생각에 일단 단발을 하고는 싶지만 그래도 긴머리는 포기 못하는 그런 흠냐흠냐..어렵다 어려워 그래도 아무래도 헤어 디자이너면 이런건 알아서 잘 딱 깔끔하게 해주실 수 있을거라고 믿을게요? 잘 부탁드리겠습니다. 머리 망하면 리뷰 테러각 꼭 갈 거니까 받아들이세요^^',
+      modelApplicationDetail: '고객이 작성한 상세 제안 와라라라라라라라ㅏ라라 이거까지 끝내고 진자 잔다 선언',
     },
   },
 };
@@ -44,11 +46,11 @@ const OfferInfoPage = () => {
           </S.ProfileTextBox>
         </S.ProfileBox>
         <S.ButtonBox>
-          <S.LinkButton>
+          <S.LinkButton type="button">
             <p>인스타그램</p>
             <IcLeft />
           </S.LinkButton>
-          <S.LinkButton>
+          <S.LinkButton type="button">
             <p>네이버 플레이스</p>
             <IcLeft />
           </S.LinkButton>
@@ -58,10 +60,45 @@ const OfferInfoPage = () => {
       <S.DivisionLine />
       <S.OfferDetailLayout>
         <S.DetailTextBox>
+          <IcBookmark />
           <S.DetailMainTitleBox>
             <h2>요청 스타일</h2>
-            <h1>일반 커트, 일반 펌</h1>
+            <h1>{OfferDetail.preferStyle.join(', ')}</h1>
           </S.DetailMainTitleBox>
+          <S.DesignContentBox>
+            <h1>디자이너 상세 제안</h1>
+            <p>{OfferDetail.designerOfferDetail}</p>
+            <h1>상세 희망 스타일</h1>
+            <p>{OfferDetail.modelApplicationDetail}</p>
+          </S.DesignContentBox>
+
+          <S.DetailMainTitleBox>
+            <h1>디자이너 정보</h1>
+          </S.DetailMainTitleBox>
+          <S.DetailContentBox>
+            <h2>성별</h2>
+            <h3>{DesingerInfo.gender}</h3>
+          </S.DetailContentBox>
+          <S.DetailContentBox>
+            <h2>휴무일</h2>
+            <h3>{DesingerInfo.dayoffs.join(', ')}</h3>
+          </S.DetailContentBox>
+          <S.DetailContentBox>
+            <h2>주소</h2>
+            <div>
+              <h3>{DesingerInfo.shopAddress}</h3>
+              <h3>{DesingerInfo.shopDetailAddress}</h3>
+              <button type="button">
+                <IcPin />
+                지도
+              </button>
+            </div>
+          </S.DetailContentBox>
+
+          <S.DetailMainTitleBox>
+            <h1>제안 조건</h1>
+          </S.DetailMainTitleBox>
+          <S.LogoImg src={ImgPropLogo} />
         </S.DetailTextBox>
       </S.OfferDetailLayout>
     </S.OfferInfoLayout>
@@ -129,6 +166,8 @@ const S = {
 
     background-color: ${({ theme }) => theme.colors.moddy_blue2};
 
+    cursor: pointer;
+
     & > p {
       margin-right: 0.7rem;
 
@@ -159,6 +198,7 @@ const S = {
   DivisionLine: styled.div`
     width: 100vw;
     height: 0.8rem;
+    margin-bottom: 3.03rem;
 
     background-color: ${({ theme }) => theme.colors.moddy_gray05};
   `,
@@ -170,9 +210,16 @@ const S = {
     padding: 4rem 1.83rem;
     border: 1.5px solid ${({ theme }) => theme.colors.moddy_blue};
     border-radius: 12px;
+
+    & > svg {
+      position: absolute;
+      top: -0.6rem;
+      right: 3.14rem;
+    }
   `,
 
   DetailMainTitleBox: styled.div`
+    margin-bottom: 1.3rem;
     border-bottom: 1px solid ${({ theme }) => theme.colors.moddy_blue};
 
     & > h1 {
@@ -186,8 +233,94 @@ const S = {
       margin-bottom: 0.4rem;
 
       color: ${({ theme }) => theme.colors.moddy_gray50};
-      ${({ theme }) => theme.fonts.Body1};
+      ${({ theme }) => theme.fonts.Body01};
     }
+  `,
+
+  DesignContentBox: styled.div`
+    width: 100%;
+    margin: 2.7rem 0 3.2rem;
+    word-break: keep-all;
+
+    color: ${({ theme }) => theme.colors.moddy_bk};
+
+    & > h1 {
+      margin-bottom: 1rem;
+
+      color: ${({ theme }) => theme.colors.moddy_blue};
+      ${({ theme }) => theme.fonts.Body01};
+    }
+
+    & > h1:nth-child(3) {
+      color: ${({ theme }) => theme.colors.moddy_gray50};
+      ${({ theme }) => theme.fonts.Body01};
+    }
+
+    & > p {
+      margin-bottom: 2rem;
+      padding: 1.3rem 1.8rem;
+
+      background-color: ${({ theme }) => theme.colors.moddy_blue4};
+
+      ${({ theme }) => theme.fonts.Body04};
+    }
+
+    & > p:nth-child(4) {
+      background-color: ${({ theme }) => theme.colors.moddy_gray05};
+
+      color: ${({ theme }) => theme.colors.moddy_bk};
+
+      ${({ theme }) => theme.fonts.Body04};
+    }
+  `,
+
+  DetailContentBox: styled.div`
+    display: flex;
+    justify-content: space-between;
+
+    width: 100%;
+    margin: 0.6rem 0;
+
+    & > h2 {
+      color: ${({ theme }) => theme.colors.moddy_gray50};
+
+      ${({ theme }) => theme.fonts.Body01};
+    }
+
+    & > h3 {
+      color: ${({ theme }) => theme.colors.moddy_bk};
+
+      ${({ theme }) => theme.fonts.Body02};
+    }
+
+    & > div > h3 {
+      color: ${({ theme }) => theme.colors.moddy_bk};
+      text-align: right;
+
+      ${({ theme }) => theme.fonts.Body02};
+    }
+
+    & > div > button {
+      display: grid;
+      justify-content: center;
+      align-items: center;
+      float: right;
+
+      margin-top: 0.6rem;
+
+      /* stylelint-disable-next-line unit-allowed-list */
+      grid-template-columns: repeat(2, 1fr);
+
+      grid-gap: 0.2rem;
+
+      color: ${({ theme }) => theme.colors.moddy_blue};
+      ${({ theme }) => theme.fonts.Caption03};
+
+      cursor: pointer;
+    }
+  `,
+  LogoImg: styled.img`
+    width: 15rem;
   `,
 };
 
