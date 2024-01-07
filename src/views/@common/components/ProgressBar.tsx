@@ -32,6 +32,8 @@ const S = {
   ProgressBarLayout: styled.div`
     display: flex;
     justify-content: center;
+    position: fixed;
+    top: 5.4rem;
 
     width: 100%;
   `,

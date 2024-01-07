@@ -7,6 +7,7 @@ declare module 'styled-components' {
       moddy_blue2: string;
       moddy_blue3: string;
       moddy_blue4: string;
+      moddy_blue5: string;
       moddy_sky: string;
       moddy_purple: string;
       kakao: string;
@@ -20,6 +21,7 @@ declare module 'styled-components' {
       moddy_gray05: string;
       moddy_bk50: string;
       moddy_wt30: string;
+      moddy_bk20: string;
     };
     effects: {
       shadow1: string;
