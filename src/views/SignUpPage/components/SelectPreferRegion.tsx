@@ -16,17 +16,24 @@ const SelectPreferRegion = () => {
   const [isShowBottomSheet, setIsShowBottomSheet] = useState(false);
 
   const categoryRef = useRef<HTMLDivElement>(null);
-
+  const bottomSheetRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
     // 특정 영역 외 클릭 시 발생하는 이벤트
-    const handleFocus = (e: React.MouseEvent) => {
-      if (categoryRef.current && !categoryRef.current.contains(e.target as Node)) {
+    const handleFocus = (e: MouseEvent) => {
+      if (
+        categoryRef.current &&
+        !categoryRef.current.contains(e.target as Node) &&
+        bottomSheetRef.current &&
+        !bottomSheetRef.current.contains(e.target as Node)
+      ) {
         setIsShowCategory(false);
       }
     };
-    document.addEventListener('mouseup', () => handleFocus);
+
+    document.addEventListener('mouseup', handleFocus);
+
     return () => {
-      document.removeEventListener('mouseup', () => handleFocus);
+      document.removeEventListener('mouseup', handleFocus);
     };
   }, [categoryRef]);
 
@@ -84,7 +91,7 @@ const SelectPreferRegion = () => {
             </S.InnerBox>
           </S.CategoryBox>
         )}
-        <S.BottomSheetBox $isopen={isShowBottomSheet.toString()}>
+        <S.BottomSheetBox ref={bottomSheetRef} $isopen={isShowBottomSheet.toString()}>
           <S.SelectedListBox>
             {isCheckedList
               .map((isChecked, index) => (isChecked ? index : -1)) // 체크 된 경우에만 해당 인덱스 반환
