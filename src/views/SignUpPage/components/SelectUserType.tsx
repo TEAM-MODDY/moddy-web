@@ -98,7 +98,7 @@ const UserTypeSpan = styled.span`
 `;
 
 const UserTypeInfoSpan = styled.span`
-  margin-top: 0.2rem;
+  margin-top: 0.8rem;
 
   color: ${({ theme }) => theme.colors.moddy_gray50};
   ${({ theme }) => theme.fonts.Caption02};
