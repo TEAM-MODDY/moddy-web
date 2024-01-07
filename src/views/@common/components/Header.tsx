@@ -33,6 +33,7 @@ const S = {
     z-index: 1;
 
     width: 100%;
+    max-width: 43rem;
     padding: 0.9rem 1.6rem 1.7rem 1.5rem;
 
     background-color: ${({ theme }) => theme.colors.moddy_wt};
