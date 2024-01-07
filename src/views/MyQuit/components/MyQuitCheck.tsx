@@ -9,7 +9,7 @@ interface MyQuitCheckProps {
 }
 const MyQuitCheck = ({ isChecked, setChecked }: MyQuitCheckProps) => {
   return (
-    <S.MyQuitCheckLayout type="button" onClick={() => setChecked(!isChecked)}>
+    <S.MyQuitCheckLayout onClick={() => setChecked(!isChecked)}>
       {isChecked ? <IcCheckboxBlue /> : <IcCheckboxGrey />}
       <S.MyQuitCheckParagraph>위 내용을 모두 숙지했으며 탈퇴에 동의합니다.</S.MyQuitCheckParagraph>
     </S.MyQuitCheckLayout>
@@ -19,7 +19,7 @@ const MyQuitCheck = ({ isChecked, setChecked }: MyQuitCheckProps) => {
 export default MyQuitCheck;
 
 const S = {
-  MyQuitCheckLayout: styled.button`
+  MyQuitCheckLayout: styled.div`
     display: flex;
     gap: 1.1rem;
     justify-content: center;
