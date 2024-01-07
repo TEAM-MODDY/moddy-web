@@ -22,8 +22,8 @@ const ModelOfferPage = () => {
   };
 
   const [textAreaValue, setTextAreaValue] = useState('');
-  const handleTextAreaChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setTextAreaValue(event.target.value);
+  const handleTextAreaChange = (value: string) => {
+    setTextAreaValue(value);
   };
 
   const isActive = isClicked.some((clicked) => clicked) && textAreaValue !== '';
@@ -35,7 +35,7 @@ const ModelOfferPage = () => {
   };
   return (
     <>
-      <Header isBackBtnExist={true} isCloseBtnExist={true} title="헤어 모델 제안하기" backFn={'./'} />
+      <Header isBackBtnExist={true} isCloseBtnExist={true} title="헤어 모델 제안하기" />
       <S.ModelOfferLayout>
         <S.ModelOfferBox>
           <TitleBox title="희망 제안 조건" subtitle="원하시는 조건을 모두 선택해주세요" isNeccessary={true} />
@@ -55,10 +55,10 @@ const ModelOfferPage = () => {
         </S.ModelOfferBox>
         <S.ModelOfferBox>
           <TitleBox title="상세 제안" subtitle="자세히 적을 수록 매칭 성공률이 높아져요" isNeccessary={true} />
-          <TextArea200 placeholderText="내용을 입력해주세요" />
+          <TextArea200 placeholderText="내용을 입력해주세요" onChangeFn={handleTextAreaChange} />
         </S.ModelOfferBox>
       </S.ModelOfferLayout>
-      <Button text="확인하기" isFixed={true} onClickFn={handleClickConfirm} disabled={false} />
+      <Button text="확인하기" isFixed={true} onClickFn={handleClickConfirm} disabled={!isActive} />
     </>
   );
 };
