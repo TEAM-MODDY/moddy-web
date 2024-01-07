@@ -12,10 +12,10 @@ interface PersonalInfoProp {
 }
 
 const PersonalInfo = ({ setStep }: PersonalInfoProp) => {
-  const userType = USER_TYPE.DESIGNER;
+  const userType = USER_TYPE.MODEL;
   return (
     <>
-      <ProgressBar whole={5} current={1} />
+      <ProgressBar whole={userType === USER_TYPE.DESIGNER ? 5 : 3} current={1} />
       <S.PersonalInfoLayout>
         <S.FormBox>
           <Field name="디자이너명" isEssential={true} />

@@ -5,6 +5,7 @@ import Button from '../../@common/components/Button';
 import ProgressBar from '../../@common/components/ProgressBar';
 import { STATUS } from '../constants/requestStatus';
 import { STEP } from '../constants/step';
+import { USER_TYPE } from '../constants/userType';
 import useInterval from '../hooks/useInterval';
 
 import Field from './Field';
@@ -14,6 +15,8 @@ interface VerifyPhoneNumberProp {
 }
 
 const VerifyPhoneNumber = ({ setStep }: VerifyPhoneNumberProp) => {
+  const userType = USER_TYPE.MODEL;
+
   const [requestStatus, setRequestStatus] = useState(STATUS.NOT_AVAILABLE);
   const [verifyStatus, setVerifyStatus] = useState(STATUS.NOT_AVAILABLE);
   const [phoneNumber, setPhoneNumber] = useState('');
@@ -67,7 +70,7 @@ const VerifyPhoneNumber = ({ setStep }: VerifyPhoneNumberProp) => {
 
   return (
     <>
-      <ProgressBar whole={5} current={2} />
+      <ProgressBar whole={userType === USER_TYPE.DESIGNER ? 5 : 3} current={2} />
       <S.VerifyPhoneNumberLayout>
         <S.FormBox>
           <Field name="전화번호 인증" isEssential={true} />
