@@ -4,19 +4,27 @@ import styled from 'styled-components';
 import AgreementItem from './AgreementItem';
 
 const AgreementList = () => {
-  const [isCheckedAll, setCheckedAll] = useState(false);
+  const [isChecked, setChecked] = useState(new Array(4).fill(false));
 
-  const [isChecked1, setChecked1] = useState(false);
-  const [isChecked2, setChecked2] = useState(false);
-  const [isChecked3, setChecked3] = useState(false);
-
+  const handleCheck = (idx: number) => {
+    const tempCheckedArray = [...isChecked];
+    tempCheckedArray[idx] = !isChecked[idx];
+    setChecked(tempCheckedArray);
+  };
   return (
     <S.AgreementListLayout>
-      <AgreementItem firstItem text="모든 약관에 동의합니다" isChecked={isCheckedAll} setChecked={setCheckedAll} />
+      <AgreementItem
+        firstItem
+        text="모든 약관에 동의합니다"
+        isChecked={isChecked[0]}
+        onClickCheck={() => {
+          setChecked(new Array(4).fill(!isChecked[0]));
+        }}
+      />
       <S.AgreementLine />
-      <AgreementItem text="모디 서비스 이용약관 동의" isChecked={isChecked1} setChecked={setChecked1} />
-      <AgreementItem text="개인정보 수집 및 이용 동의" isChecked={isChecked2} setChecked={setChecked2} />
-      <AgreementItem text="마케팅 정보 수신 동의 (선택)" isChecked={isChecked3} setChecked={setChecked3} />
+      <AgreementItem text="모디 서비스 이용약관 동의" isChecked={isChecked[1]} onClickCheck={() => handleCheck(1)} />
+      <AgreementItem text="개인정보 수집 및 이용 동의" isChecked={isChecked[2]} onClickCheck={() => handleCheck(2)} />
+      <AgreementItem text="마케팅 정보 수신 동의 (선택)" isChecked={isChecked[3]} onClickCheck={() => handleCheck(3)} />
     </S.AgreementListLayout>
   );
 };

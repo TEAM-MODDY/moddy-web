@@ -6,11 +6,11 @@ interface AgreementItemProps {
   firstItem?: boolean;
   text: string;
   isChecked: boolean;
-  setChecked: React.Dispatch<React.SetStateAction<boolean>>;
+  onClickCheck: () => void;
 }
-const AgreementItem = ({ firstItem, text, isChecked, setChecked }: AgreementItemProps) => {
+const AgreementItem = ({ firstItem, text, isChecked, onClickCheck }: AgreementItemProps) => {
   return (
-    <S.AgreementItemLayout onClick={() => setChecked(!isChecked)}>
+    <S.AgreementItemLayout onClick={onClickCheck}>
       {isChecked ? <IcCheckboxBlue /> : <IcCheckboxGrey />}
       <S.AgreementParagraph $firstItem={firstItem} $isChecked={isChecked}>
         {text}
