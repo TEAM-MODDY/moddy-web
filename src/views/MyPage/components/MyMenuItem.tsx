@@ -5,14 +5,11 @@ import { IcRightGrey } from '../../@common/assets/icons';
 interface MyMenuItemProps {
   icon: ReactNode;
   text: string;
-  setModalOpen?: React.Dispatch<React.SetStateAction<boolean>>;
+  onClickFn?: () => void;
 }
-const MyMenuItem = ({ icon, text, setModalOpen }: MyMenuItemProps) => {
+const MyMenuItem = ({ icon, text, onClickFn }: MyMenuItemProps) => {
   return (
-    <S.MyMenuItemLayout
-      onClick={() => {
-        setModalOpen && setModalOpen(true);
-      }}>
+    <S.MyMenuItemLayout onClick={onClickFn}>
       {icon}
       <S.MyMenuItemParagraph>{text}</S.MyMenuItemParagraph>
       <IcRightGrey />
