@@ -8,6 +8,7 @@ import LoginPage from './pages/LoginPage';
 import MainPage from './pages/MainPage';
 import ModelInfoPage from './pages/ModelInfoPage';
 import MyPage from './pages/MyPage';
+import MyQuitPage from './pages/MyQuitPage';
 import OfferInfoPage from './pages/OfferInfoPage';
 import SignUpPage from './pages/SignUpPage';
 import GlobalStyle from './styles/GlobalStyle';
@@ -22,6 +23,7 @@ const router = createBrowserRouter([
   { path: '/application', element: <ApplicationPage /> },
   { path: '/offer-info', element: <OfferInfoPage /> },
   { path: '/my-page', element: <MyPage /> },
+  { path: '/my-quit', element: <MyQuitPage /> },
   { path: '/model-info/model-offer', element: <ModelOffer /> },
   { path: '/agreement', element: <AgreementPage /> },
 ]);
