@@ -40,6 +40,7 @@ const DATA = {
       designerOfferDetail:
         '이러쿵저러쿵 이쁘게 최양락은 아니면서 웬디는 될 수 없만 최양락은좀 아니지 않나 하는 생각에 일단 단발을 하고는 싶지만 그래도 긴머리는 포기 못하는 그런 흠냐흠냐..어렵다 어려워 그래도 아무래도 헤어 디자이너면 이런건 알아서 잘 딱 깔끔하게 해주실 수 있을거라고 믿을게요? 잘 부탁드리겠습니다. 머리 망하면 리뷰 테러각 꼭 갈 거니까 받아들이세요^^',
       modelApplicationDetail: '고객이 작성한 상세 제안 와라라라라라라라ㅏ라라 이거까지 끝내고 진자 잔다 선언',
+      preferOfferConditions: [true, false, false, true, true, false],
     },
   },
 };
