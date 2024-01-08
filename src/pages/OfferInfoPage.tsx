@@ -25,8 +25,8 @@ const DATA = {
         'https://t1.daumcdn.net/thumb/R720x0/?fname=http://t1.daumcdn.net/brunch/service/user/1Y7L/image/d2ObJGSfzhn9hKaDdt1fjErq4cw.jpg',
       shopName: '모디 헤어 강남점',
       name: '강모디',
-      instagramUrl: 'htttp://instagram-url',
-      naverPlaceUrl: 'htttp://naver-place',
+      instagramUrl: 'https://www.instagram.com/modee_is_mogee/',
+      naverPlaceUrl: 'https://www.naver.com',
       introduction:
         '안녕하세요 모디 헤어 강남점 너무 졸려 디자이너 입니다람쥐*^^* 정말 너무 졸리고요, 너무 졸리네요. 다크서클이 언제 이렇게 내려온건지, 엄마가 아침에 절 보고 눈이 꺼지다 못해 뒤통수랑 하이파이브하겠다네요. 시커먼 다크서클은 턱끝까지 내려오고, 이러다가 요절 하는 건 아닐지 걱정되는 요즘, 벌써 2024년이 돼서 한 살을 더 먹네 요. 인생이 왜이리 빠른 건지 이대로 가다간 곧 가겠어요. 참 재밌네요나쁘지 않아, 행복해. 나는 괜찮다니까? 아무튼 일단 와보세요. 본업은 잘 하는 편? 일단 믿어는 봐 해달라는 대로 드릴게^^',
       gender: '여성',
@@ -73,14 +73,18 @@ const OfferInfoPage = () => {
             </S.ProfileTextBox>
           </S.ProfileBox>
           <S.ButtonBox>
-            <S.LinkButton type="button">
-              <p>인스타그램</p>
-              <IcLeft />
-            </S.LinkButton>
-            <S.LinkButton type="button">
-              <p>네이버 플레이스</p>
-              <IcLeft />
-            </S.LinkButton>
+            <a href={DesingerInfo.instagramUrl} target="_blank" rel="noreferrer">
+              <S.LinkButton type="button">
+                <p>인스타그램</p>
+                <IcLeft />
+              </S.LinkButton>
+            </a>
+            <a href={DesingerInfo.naverPlaceUrl} target="_blank" rel="noreferrer">
+              <S.LinkButton type="button">
+                <p>네이버 플레이스</p>
+                <IcLeft />
+              </S.LinkButton>
+            </a>
           </S.ButtonBox>
           <S.IntroductionBox>{DesingerInfo.introduction}</S.IntroductionBox>
         </S.DesignerInfoLayout>
@@ -219,6 +223,14 @@ const S = {
     /* stylelint-disable-next-line unit-allowed-list */
     grid-template-columns: repeat(2, 1fr);
     grid-gap: 1.5rem;
+
+    & > a {
+      text-decoration: 0;
+    }
+
+    & > a > button {
+      width: 100%;
+    }
   `,
 
   LinkButton: styled.button`
@@ -279,7 +291,7 @@ const S = {
 
     & > svg {
       position: absolute;
-      top: -0.6rem;
+      top: -1.1rem;
       right: 3.14rem;
     }
   `,
@@ -412,7 +424,7 @@ const S = {
     margin-top: 0.85rem;
     /* stylelint-disable-next-line unit-allowed-list */
     grid-template-columns: repeat(3, 1fr);
-    grid-gap: 0.6rem;
+    grid-gap: 1.2rem;
 
     & > div {
       display: flex;
