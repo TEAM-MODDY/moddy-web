@@ -14,6 +14,7 @@ import {
 } from '../views/ModelInfoPage/assets/icons';
 import { IcLeft, IcBookmark, IcPin } from '../views/OfferInfoPage/assets/icons';
 import ImgPropLogo from '../views/OfferInfoPage/assets/images/img_proplogo.png';
+import DirectionModal from '../views/OfferInfoPage/components/DirectionModal';
 
 const DATA = {
   code: 200,
@@ -47,9 +48,16 @@ const OfferInfoPage = () => {
   const DesingerInfo = DATA.data.designerInfo;
   const OfferDetail = DATA.data.offerDetail;
 
+  // 체크 표시 클릭시 CTA 버튼 활성화
   const [isChecked, setIsChecked] = useState(false);
   const handleCheckBoxClick = () => {
     setIsChecked((prev) => !prev);
+  };
+
+  //모달창 열림
+  const [isModal, setIsModal] = useState(false);
+  const handleModalOpen = () => {
+    setIsModal(true);
   };
 
   return (
@@ -152,13 +160,16 @@ const OfferInfoPage = () => {
           해당 제안서의 내용에 동의합니다.
         </S.AgreementBox>
       </S.OfferInfoLayout>
-      <Button text="다음" isFixed={false} disabled={!isChecked} />
+      <Button text="다음" isFixed={false} onClickFn={handleModalOpen} disabled={!isChecked} />
+      <DirectionModal isModal={isModal} />
     </>
   );
 };
 
 const S = {
   OfferInfoLayout: styled.section`
+    position: relative;
+
     width: 100vw;
     margin-top: 5.7rem;
   `,
