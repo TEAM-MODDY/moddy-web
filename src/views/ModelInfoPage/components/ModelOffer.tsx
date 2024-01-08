@@ -1,4 +1,4 @@
-import Header from './Header';
+import Header from '@/views/@common/components/Header';
 const ModelOffer = () => {
   return (
     <div>

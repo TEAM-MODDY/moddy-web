@@ -12,17 +12,20 @@ import OfferInfoPage from './pages/OfferInfoPage';
 import SignUpPage from './pages/SignUpPage';
 import GlobalStyle from './styles/GlobalStyle';
 import theme from './styles/Theme';
-import ModelOffer from './views/@common/components/ModelOffer';
+import ModelOffer from './views/ModelInfoPage/components/ModelOffer';
 
 const router = createBrowserRouter([
   { path: '/', element: <MainPage /> },
   { path: '/login', element: <LoginPage /> },
   { path: '/sign-up', element: <SignUpPage /> },
   { path: '/model-info', element: <ModelInfoPage /> },
+  { path: '/sign-up', element: <SignUpPage /> },
+  { path: '/model-info', element: <ModelInfoPage /> },
   { path: '/application', element: <ApplicationPage /> },
-  { path: '/offer-info', element: <OfferInfoPage /> },
-  { path: '/my-page', element: <MyPage /> },
+  { path: '/offer--info', element: <OfferInfoPage /> },
+  { path: '/my--page', element: <MyPage /> },
   { path: '/my-quit', element: <MyQuitPage /> },
+  { path: '/model-info/model-offer', element: <ModelOffer /> },
   { path: '/model-info/model-offer', element: <ModelOffer /> },
 ]);
 
