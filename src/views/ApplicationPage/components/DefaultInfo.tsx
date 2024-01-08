@@ -23,10 +23,18 @@ const DefaultInfo = () => {
             <span>현재 머리 기장을 선택해주세요</span>
           </S.Title>
           <S.HairImgList>
-            <S.HairImgItem></S.HairImgItem>
-            <S.HairImgItem></S.HairImgItem>
-            <S.HairImgItem></S.HairImgItem>
-            <S.HairImgItem></S.HairImgItem>
+            <button type="button">
+              <img src="src/views/@common/assets/images/btn_hair1_default.png" alt="숏" />
+            </button>
+            <button type="button">
+              <img src="src/views/@common/assets/images/btn_hair2_default.png" alt="단발" />
+            </button>
+            <button type="button">
+              <img src="src/views/@common/assets/images/btn_hair3_default.png" alt="어깨 아래" />
+            </button>
+            <button type="button">
+              <img src="src/views/@common/assets/images/btn_hair4_default.png" alt="허리 아래" />
+            </button>
           </S.HairImgList>
         </S.HairLengthSection>
         <hr />
@@ -68,23 +76,26 @@ const DefaultInfo = () => {
 const S = {
   DefaultInfoLayout: styled.main`
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    overflow: hidden;
 
     width: 100%;
   `,
 
   StyleSection: styled.section`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     position: relative;
 
     width: 100%;
-    margin: 8.5rem 0 12.6rem;
+    margin: 8.5rem auto 10rem;
+    padding-bottom: 2.6rem;
 
     ${({ theme }) => theme.commons.scrollbar};
 
     & > hr {
       position: absolute;
-      top: 27rem;
+      top: 18.2rem;
 
       width: 100%;
       height: 4px;
@@ -99,6 +110,7 @@ const S = {
     flex-direction: column;
 
     width: 100%;
+    padding: 0 1.6rem;
   `,
 
   Title: styled.div`
@@ -130,6 +142,13 @@ const S = {
     width: 100%;
     height: 9.2rem;
     margin: 2rem 0 2.8rem;
+
+    & img {
+      overflow: hidden;
+
+      height: 100%;
+      object-fit: contain;
+    }
   `,
 
   HairImgItem: styled.li`
@@ -149,7 +168,8 @@ const S = {
     flex-direction: column;
 
     width: 100%;
-    margin-top: 2.8rem;
+    margin-top: 2.4rem;
+    padding: 0 1.6rem;
 
     & > p {
       display: flex;

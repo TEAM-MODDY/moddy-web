@@ -379,7 +379,7 @@ const fonts = {
 
 const commons = {
   scrollbar: css`
-    overflow-y: scroll;
+    overflow-y: overlay;
 
     &::-webkit-scrollbar {
       width: 0.4rem;
