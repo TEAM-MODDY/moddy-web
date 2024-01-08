@@ -7,10 +7,11 @@ interface ButtonProps {
   onClickFn: () => void;
   disabled?: boolean;
   icon?: ReactNode;
+  shadow?: boolean;
 }
-const Button = ({ text, isFixed, onClickFn, disabled, icon }: ButtonProps) => {
+const Button = ({ text, isFixed, onClickFn, disabled, icon, shadow }: ButtonProps) => {
   return (
-    <S.ButtonLayout $isFixed={isFixed} $disabled={disabled}>
+    <S.ButtonLayout $isFixed={isFixed} $disabled={disabled} $shadow={shadow}>
       <button type="button" onClick={onClickFn} disabled={disabled}>
         {icon}
         {text}
@@ -22,7 +23,11 @@ const Button = ({ text, isFixed, onClickFn, disabled, icon }: ButtonProps) => {
 export default Button;
 
 const S = {
-  ButtonLayout: styled.section<{ $isFixed: boolean | undefined; $disabled: boolean | undefined }>`
+  ButtonLayout: styled.section<{
+    $isFixed: boolean | undefined;
+    $disabled: boolean | undefined;
+    $shadow: boolean | undefined;
+  }>`
     display: flex;
     justify-content: center;
     position: ${({ $isFixed }) => ($isFixed ? 'fixed' : 'static')};
@@ -33,6 +38,7 @@ const S = {
     padding: 0.8rem 1.5rem 4rem 1.6rem;
 
     background-color: ${({ theme }) => theme.colors.moddy_wt};
+    box-shadow: ${({ theme }) => theme.effects.shadow7};
 
     & > button {
       display: flex;
