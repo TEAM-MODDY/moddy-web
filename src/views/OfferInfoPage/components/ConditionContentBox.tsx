@@ -10,11 +10,9 @@ interface ConditionContentBoxProps {
 }
 
 const ConditionContentBox = ({ icon, activeIcon, condition, preferConditions, index }: ConditionContentBoxProps) => {
-  const currentIndex = index;
-
   return (
-    <S.ConditionContentLayout $isActive={preferConditions[currentIndex]}>
-      {preferConditions[currentIndex] ? activeIcon : icon}
+    <S.ConditionContentLayout $isActive={preferConditions[index]}>
+      {preferConditions[index] ? activeIcon : icon}
       <p>{condition}</p>
     </S.ConditionContentLayout>
   );

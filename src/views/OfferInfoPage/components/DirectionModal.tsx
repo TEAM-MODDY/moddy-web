@@ -22,53 +22,54 @@ const DirectionModal = ({ isModal, onClose }: DirectionModalProps) => {
 
   return (
     <>
-      <S.ModalDimBox $isModal={isModal}>
-        <S.ModalBox>
-          <S.CloseBtnBox onClick={handleModalClose}>
-            <IcCloseBlack />
-          </S.CloseBtnBox>
-          <h1>오픈채팅을 통해 연결돼요!</h1>
-          <h2>
-            지원 내역을 복사/저장 후 오픈 채팅에 보내주세요
-            <br />
-            동의한 제안서를 바탕으로 연결이 시작돼요
-          </h2>
-          <S.ImageBox>
-            <div>
-              <S.IcBox>
-                <IcFlowiconImage />
-                <S.ImgCaption>
-                  지원 내역 <br />
-                  복사/저장
-                </S.ImgCaption>
-              </S.IcBox>
-              <IcFlowdot />
-              <S.IcBox>
-                <IcFlowiconLink />
-                <S.ImgCaption>
-                  오픈 채팅 <br />
-                  입장
-                </S.ImgCaption>
-              </S.IcBox>
-              <IcFlowdot />
-              <S.IcBox>
-                <IcFlowiconPeople />
-                <S.ImgCaption>일정 조율</S.ImgCaption>
-              </S.IcBox>
-            </div>
-          </S.ImageBox>
-          <S.CtaButton onClick={handleOnClickContinue} type="button">
-            계속하기
-          </S.CtaButton>
-        </S.ModalBox>
-      </S.ModalDimBox>
+      {isModal && (
+        <S.ModalDimBox $isModal={isModal}>
+          <S.ModalBox>
+            <S.CloseBtnBox onClick={handleModalClose}>
+              <IcCloseBlack />
+            </S.CloseBtnBox>
+            <h1>오픈채팅을 통해 연결돼요!</h1>
+            <h2>
+              지원 내역을 복사/저장 후 오픈 채팅에 보내주세요
+              <br />
+              동의한 제안서를 바탕으로 연결이 시작돼요
+            </h2>
+            <S.ImageBox>
+              <div>
+                <S.IcBox>
+                  <IcFlowiconImage />
+                  <S.ImgCaption>
+                    지원 내역 <br />
+                    복사/저장
+                  </S.ImgCaption>
+                </S.IcBox>
+                <IcFlowdot />
+                <S.IcBox>
+                  <IcFlowiconLink />
+                  <S.ImgCaption>
+                    오픈 채팅 <br />
+                    입장
+                  </S.ImgCaption>
+                </S.IcBox>
+                <IcFlowdot />
+                <S.IcBox>
+                  <IcFlowiconPeople />
+                  <S.ImgCaption>일정 조율</S.ImgCaption>
+                </S.IcBox>
+              </div>
+            </S.ImageBox>
+            <S.CtaButton onClick={handleOnClickContinue} type="button">
+              계속하기
+            </S.CtaButton>
+          </S.ModalBox>
+        </S.ModalDimBox>
+      )}
     </>
   );
 };
 
 const S = {
   ModalDimBox: styled.div<{ $isModal?: boolean }>`
-    display: ${({ $isModal }) => ($isModal ? 'block' : 'none')};
     position: fixed;
     top: 0;
     z-index: 2;
