@@ -161,7 +161,7 @@ const OfferInfoPage = () => {
         </S.AgreementBox>
       </S.OfferInfoLayout>
       <Button text="다음" isFixed={false} onClickFn={handleModalOpen} disabled={!isChecked} />
-      <DirectionModal isModal={isModal} />
+      <DirectionModal isModal={isModal} onClose={() => setIsModal(false)} />
     </>
   );
 };

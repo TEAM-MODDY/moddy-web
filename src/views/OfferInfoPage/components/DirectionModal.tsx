@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
 
 import { IcCloseBlack } from '../../@common/assets/icons';
@@ -5,14 +6,27 @@ import { IcFlowiconImage, IcFlowiconLink, IcFlowiconPeople, IcFlowdot } from '..
 
 interface DirectionModalProps {
   isModal?: boolean;
+  onClose: () => void;
 }
 
-const DirectionModal = ({ isModal }: DirectionModalProps) => {
+const DirectionModal = ({ isModal, onClose }: DirectionModalProps) => {
+  const navigate = useNavigate();
+
+  const handleOnClickContinue = () => {
+    navigate('/offer-info/check-offer');
+  };
+
+  const handleModalClose = () => {
+    onClose();
+  };
+
   return (
     <>
       <S.ModalDimBox $isModal={isModal}>
         <S.ModalBox>
-          <IcCloseBlack />
+          <S.CloseBtnBox onClick={handleModalClose}>
+            <IcCloseBlack />
+          </S.CloseBtnBox>
           <h1>오픈채팅을 통해 연결돼요!</h1>
           <h2>
             지원 내역을 복사/저장 후 오픈 채팅에 보내주세요
@@ -43,7 +57,9 @@ const DirectionModal = ({ isModal }: DirectionModalProps) => {
               </S.IcBox>
             </div>
           </S.ImageBox>
-          <S.CtaButton>계속하기</S.CtaButton>
+          <S.CtaButton onClick={handleOnClickContinue} type="button">
+            계속하기
+          </S.CtaButton>
         </S.ModalBox>
       </S.ModalDimBox>
     </>
@@ -64,6 +80,14 @@ const S = {
     background-color: ${({ theme }) => theme.colors.moddy_bk20};
   `,
 
+  CloseBtnBox: styled.div`
+    position: absolute;
+    right: 2rem;
+
+    margin-top: 1.6rem;
+
+    cursor: pointer;
+  `,
   ModalBox: styled.div`
     position: fixed;
     top: 50%;
@@ -78,12 +102,6 @@ const S = {
 
     text-align: center;
     transform: translate(-50%, -50%);
-
-    & > svg {
-      float: right;
-
-      margin-top: 1.6rem;
-    }
 
     & > h1 {
       margin-top: 4.8rem;
@@ -101,7 +119,7 @@ const S = {
   `,
 
   ImageBox: styled.div`
-    margin-top: 3rem;
+    margin-top: 4rem;
     padding: 0 2rem;
 
     & > div {
@@ -127,16 +145,18 @@ const S = {
     position: absolute;
     transform: translate(-50%, -50%);
 
-    bottom: 3.2rem;
+    bottom: 2rem;
 
     width: calc(100% - 4rem);
     height: 4.4rem;
     border-radius: 8px;
 
     background-color: ${({ theme }) => theme.colors.moddy_blue};
-    ${({ theme }) => theme.fonts.Headline02};
 
     color: ${({ theme }) => theme.colors.moddy_wt};
+    ${({ theme }) => theme.fonts.Headline02};
+
+    cursor: pointer;
   `,
 
   ImgCaption: styled.div`
