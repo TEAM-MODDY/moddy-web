@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { styled } from 'styled-components';
 
 import designerImg from '../../@common/assets/images/img_scissor.png';
@@ -9,6 +10,14 @@ interface SelectUserTypeProp {
 }
 
 const SelectUserType = ({ setStep }: SelectUserTypeProp) => {
+  const [userType, setUserType] = useState('');
+  const [isSelected, setIsSelected] = useState(false);
+
+  const handleUserType = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setUserType(e.target.id);
+    setIsSelected(true);
+  };
+
   return (
     <>
       <S.SelectUserTypeLayout>
@@ -16,7 +25,7 @@ const SelectUserType = ({ setStep }: SelectUserTypeProp) => {
         <S.OnBoardingSpan>어디에 해당하시나요?</S.OnBoardingSpan>
         <S.HelperTextSpan>한 번 선택하면 변경할 수 없어요</S.HelperTextSpan>
         <S.RadioBox>
-          <S.RadioInput type="radio" id="designer" name="user-type" />
+          <S.RadioInput type="radio" id="designer" name="user-type" value={userType} onChange={handleUserType} />
           <S.UserTypeBoxLabel htmlFor="designer">
             <S.ImageBox>
               <img src={designerImg} width="100%" alt="디자이너" />
@@ -28,7 +37,7 @@ const SelectUserType = ({ setStep }: SelectUserTypeProp) => {
               모델을 찾고 있어요
             </S.UserTypeInfoSpan>
           </S.UserTypeBoxLabel>
-          <S.RadioInput type="radio" id="model" name="user-type" />
+          <S.RadioInput type="radio" id="model" name="user-type" value={userType} onChange={handleUserType} />
           <S.UserTypeBoxLabel htmlFor="model">
             <S.ImageBox>
               <img src={designerImg} width="100%" alt="디자이너" />
@@ -42,7 +51,7 @@ const SelectUserType = ({ setStep }: SelectUserTypeProp) => {
           </S.UserTypeBoxLabel>
         </S.RadioBox>
       </S.SelectUserTypeLayout>
-      <Button text="다음" isFixed={true} onClickFn={() => setStep(false)} />
+      <Button text="다음" isFixed={true} onClickFn={() => setStep(false)} disabled={!isSelected} />
     </>
   );
 };
