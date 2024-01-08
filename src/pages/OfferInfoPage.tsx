@@ -4,17 +4,11 @@ import { styled } from 'styled-components';
 import { IcCheckboxGrey, IcCheckboxBlue } from '../views/@common/assets/icons';
 import Button from '../views/@common/components/Button';
 import Header from '../views/@common/components/Header';
-import {
-  IcCamera,
-  IcModdyhearts1,
-  IcGift,
-  IcMask,
-  IcPhotoshop,
-  IcHearthand,
-} from '../views/ModelInfoPage/assets/icons';
 import { IcLeft, IcBookmark, IcPin } from '../views/OfferInfoPage/assets/icons';
 import ImgPropLogo from '../views/OfferInfoPage/assets/images/img_proplogo.png';
+import ConditionContentBox from '../views/OfferInfoPage/components/ConditionContentBox';
 import DirectionModal from '../views/OfferInfoPage/components/DirectionModal';
+import { CONDITION_DATA } from '../views/OfferInfoPage/constants/CONDITION_DATA';
 
 const DATA = {
   code: 200,
@@ -131,29 +125,16 @@ const OfferInfoPage = () => {
               <h1>제안 조건</h1>
             </S.DetailMainTitleBox>
             <S.ConditionListBox>
-              <div>
-                <IcCamera />
-                얼굴 촬영
-              </div>
-              <div>
-                <IcModdyhearts1 />
-                SNS 게시
-              </div>
-              <div>
-                <IcGift />
-                전액 무료
-              </div>
-              <div>
-                <IcMask />
-                마스크 착용
-              </div>
-              <div>
-                <IcPhotoshop /> 포토샵 보정
-              </div>
-              <div>
-                <IcHearthand />
-                소정의 약값
-              </div>
+              {CONDITION_DATA.map((data, index) => (
+                <ConditionContentBox
+                  key={index}
+                  icon={data.icon}
+                  activeIcon={data.activeIcon}
+                  condition={data.condition}
+                  preferConditions={OfferDetail.preferOfferConditions}
+                  index={index}
+                />
+              ))}
             </S.ConditionListBox>
             <S.LogoImg src={ImgPropLogo} />
           </S.DetailTextBox>
@@ -427,20 +408,19 @@ const S = {
     grid-template-columns: repeat(3, 1fr);
     grid-gap: 1.2rem;
 
-    & > div {
-      display: flex;
-      justify-content: center;
-
-      color: ${({ theme }) => theme.colors.moddy_gray50};
-      ${({ theme }) => theme.fonts.Body02};
-    }
-
-    & > div > svg {
-      margin-right: 0.6rem;
-    }
-
     color: ${({ theme }) => theme.colors.moddy_bk};
   `,
-};
 
+  ConditionListContentBox: styled.div`
+    display: flex;
+    justify-content: center;
+
+    color: ${({ theme }) => theme.colors.moddy_gray50};
+    ${({ theme }) => theme.fonts.Body02};
+
+    & > svg {
+      margin-right: 0.6rem;
+    }
+  `,
+};
 export default OfferInfoPage;
