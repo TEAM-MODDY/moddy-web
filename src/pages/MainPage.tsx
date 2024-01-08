@@ -10,7 +10,7 @@ const MainPage = () => {
   return (
     <>
       <TopSheet userType={userType} applyType={applyType} />
-      <Banner />
+      <Banner userType={userType} />
       {userType === USER_TYPE.GUEST ? <Contents /> : <ReceivedOffer applyType={applyType} />}
     </>
   );
