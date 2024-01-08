@@ -38,7 +38,7 @@ const S = {
     padding: 0.8rem 1.5rem 4rem 1.6rem;
 
     background-color: ${({ theme }) => theme.colors.moddy_wt};
-    box-shadow: ${({ theme }) => theme.effects.shadow7};
+    box-shadow: ${({ theme, $shadow }) => ($shadow ? theme.effects.shadow7 : 'none')};
 
     & > button {
       display: flex;

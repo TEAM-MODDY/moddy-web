@@ -5,7 +5,7 @@ const MainPage = () => {
   return (
     <div>
       <ProgressBar whole={5} current={2} />
-      <Button text="다음" onClickFn={() => console.log('test')} />
+      <Button text="다음" onClickFn={() => console.log('test')} isFixed shadow />
     </div>
   );
 };
