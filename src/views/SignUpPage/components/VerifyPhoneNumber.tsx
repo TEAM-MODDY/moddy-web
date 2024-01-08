@@ -3,8 +3,9 @@ import { styled } from 'styled-components';
 
 import Button from '../../@common/components/Button';
 import ProgressBar from '../../@common/components/ProgressBar';
+import { HELPER_MESSAGE, PLACE_HOLDER_MESSAGE } from '../constants/message';
 import { STATUS } from '../constants/requestStatus';
-import { STEP } from '../constants/step';
+import { STEP, TOTAL_STEP } from '../constants/step';
 import { USER_TYPE } from '../constants/userType';
 import useInterval from '../hooks/useInterval';
 
@@ -69,17 +70,20 @@ const VerifyPhoneNumber = ({ setStep }: VerifyPhoneNumberProp) => {
 
   return (
     <>
-      <ProgressBar whole={userType === USER_TYPE.DESIGNER ? 5 : 3} current={2} />
+      <ProgressBar
+        whole={userType === USER_TYPE.DESIGNER ? TOTAL_STEP.DESIGNER_VIEW : TOTAL_STEP.MODEL_VIEW}
+        current={STEP.PHONE_NUMBER_VERIFICATION}
+      />
       <S.VerifyPhoneNumberLayout>
         <S.FormBox>
           <Field name="전화번호 인증" isEssential={true} />
         </S.FormBox>
         <S.HelperBox>
-          <S.HelperSpan>헤어 모델과의 신뢰를 위해 휴대폰 인증을 진행해주세요</S.HelperSpan>
+          <S.HelperSpan>{HELPER_MESSAGE.VERIFY_PHONE_NUMBER}</S.HelperSpan>
         </S.HelperBox>
         <S.InputBox>
           <S.Input
-            placeholder="전화번호를 입력해주세요 (‘-’ 제외)"
+            placeholder={PLACE_HOLDER_MESSAGE.INPUT_PHONE_NUMBER}
             value={phoneNumber.replace(/-/g, '').replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3')}
             onChange={handlePhoneNumber}
           />
@@ -88,14 +92,18 @@ const VerifyPhoneNumber = ({ setStep }: VerifyPhoneNumberProp) => {
           </S.RequestButton>
         </S.InputBox>
         <S.InputBox>
-          <S.Input placeholder="인증번호 6자리를 입력해주세요" value={verifyNumber} onChange={handleVerifyNumber} />
+          <S.Input
+            placeholder={PLACE_HOLDER_MESSAGE.INPUT_VERIFY_CODE}
+            value={verifyNumber}
+            onChange={handleVerifyNumber}
+          />
           <S.CountDownSpan>{!isVerifying || verifyStatus === STATUS.VERIFIED ? null : formatTime()}</S.CountDownSpan>
           <S.RequestButton $status={verifyStatus} onClick={handleConfirmVerify}>
-            {verifyStatus !== STATUS.VERIFIED ? '확인' : '인증완료'}
+            {verifyStatus !== STATUS.VERIFIED ? '확인' : '인증 완료'}
           </S.RequestButton>
         </S.InputBox>
       </S.VerifyPhoneNumberLayout>
-      <Button text="다음" isFixed={true} onClickFn={() => setStep(STEP.PREFER_REGION)} />
+      <Button text="다음" isFixed={true} onClickFn={() => setStep(STEP.MODEL.PREFER_REGION)} />
     </>
   );
 };

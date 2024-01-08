@@ -5,6 +5,7 @@ import { IcDownGrey, IcInformation, IcUpBlue } from '../../@common/assets/icons'
 import Button from '../../@common/components/Button';
 import ProgressBar from '../../@common/components/ProgressBar';
 import { IcCloseSmblue } from '../assets/icons';
+import { HELPER_MESSAGE, PLACE_HOLDER_MESSAGE } from '../constants/message';
 
 import Field from './Field';
 import RegionItem from './RegionItem';
@@ -65,13 +66,13 @@ const SelectPreferRegion = () => {
       <S.SelectPreferRegionLayout>
         <Field name="시술희망 지역" isEssential={true} />
         <S.SelectorBox $isshowchecked={isShowCategory.toString()} onClick={handleShowCategory}>
-          희망 지역을 선택해주세요 (최대 3개)
+          {PLACE_HOLDER_MESSAGE.SELECT_PREFER_REGION}
           {!isShowCategory ? <IcDownGrey /> : <IcUpBlue />}
         </S.SelectorBox>
         {!isShowCategory ? (
           <S.HelperBox>
             <IcInformation />
-            <S.HelperSpan>지금은 서울특별시에만 운영되고 있어요</S.HelperSpan>
+            <S.HelperSpan>{HELPER_MESSAGE.NOW_ONLY_SEOUL_AVAILABE}</S.HelperSpan>
           </S.HelperBox>
         ) : (
           <S.CategoryBox ref={categoryRef}>

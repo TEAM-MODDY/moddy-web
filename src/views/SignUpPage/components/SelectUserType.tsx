@@ -5,6 +5,8 @@ import { styled } from 'styled-components';
 import designerImg from '../../@common/assets/images/img_scissor.png';
 import Button from '../../@common/components/Button';
 import Header from '../../@common/components/Header';
+import { HELPER_MESSAGE } from '../constants/message';
+import { ON_BOARDING_TEXT } from '../constants/text';
 
 interface SelectUserTypeProp {
   setStep: React.Dispatch<React.SetStateAction<boolean>>;
@@ -31,8 +33,8 @@ const SelectUserType = ({ setStep }: SelectUserTypeProp) => {
             navigate('/agreement');
           }}
         />
-        <S.OnBoardingSpan>어디에 해당하시나요?</S.OnBoardingSpan>
-        <S.HelperTextSpan>한 번 선택하면 변경할 수 없어요</S.HelperTextSpan>
+        <S.OnBoardingSpan>{ON_BOARDING_TEXT.SELECT_USER_TYPE}</S.OnBoardingSpan>
+        <S.HelperTextSpan>{HELPER_MESSAGE.USER_TYPE_CHANGE_UNAVAILABLE}</S.HelperTextSpan>
         <S.RadioBox>
           <S.RadioInput type="radio" id="designer" name="user-type" value={userType} onChange={handleUserType} />
           <S.UserTypeBoxLabel htmlFor="designer">

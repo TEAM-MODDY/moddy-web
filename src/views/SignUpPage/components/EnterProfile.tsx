@@ -16,7 +16,7 @@ const EnterProfile = () => {
         return <PersonalInfo setStep={setStep} />;
       case STEP.PHONE_NUMBER_VERIFICATION:
         return <VerifyPhoneNumber setStep={setStep} />;
-      case STEP.PREFER_REGION:
+      case STEP.MODEL.PREFER_REGION:
         return <SelectPrefeRegion />;
     }
   };
@@ -25,7 +25,7 @@ const EnterProfile = () => {
     switch (step) {
       case STEP.PERSONAL_INFO:
         return <Header isBackBtnExist={true} isCloseBtnExist={false} title="프로필 작성" />;
-      case STEP.ADDRESS:
+      case STEP.DESIGNER.ADDRESS:
         return <Header isBackBtnExist={true} isCloseBtnExist={true} title="주소 검색" />;
       default:
         return <Header isBackBtnExist={true} isCloseBtnExist={true} title="프로필 작성" />;
