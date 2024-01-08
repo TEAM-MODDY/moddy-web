@@ -43,7 +43,7 @@ const VerifyPhoneNumber = ({ setStep }: VerifyPhoneNumberProp) => {
   };
 
   const handleVerifyNumber = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const regex = /^[0-9\b -]{0,6}$/;
+    const regex = /^[0-9\b]{0,6}$/;
     if (regex.test(e.target.value)) {
       setVerifyNumber(e.target.value);
       e.target.value.length === 6 ? setVerifyStatus(STATUS.AVAILABLE) : setVerifyStatus(STATUS.NOT_AVAILABLE);
