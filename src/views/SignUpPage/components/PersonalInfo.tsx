@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { styled } from 'styled-components';
 
 import { IcCheckBlue, IcInformation } from '../../@common/assets/icons';
@@ -13,10 +13,15 @@ interface PersonalInfoProp {
 }
 
 const PersonalInfo = ({ setStep }: PersonalInfoProp) => {
-  const userType = USER_TYPE.MODEL;
-
+  const userType = USER_TYPE.DESIGNER;
+  const [selectedGender, setSelectedGender] = useState('');
   const [birthYear, setBirthYear] = useState('');
-  const [validateStatus, setValidateStatus] = useState(false);
+  const [verificationStatus, setVerificationStatus] = useState({
+    isNameVerified: false,
+    isBirthYearVerified: false,
+    isGenderVerified: false,
+    isAllVerified: false,
+  });
 
   const handleBirthYear = (e: React.ChangeEvent<HTMLInputElement>) => {
     const regex = /^[0-9\b]{0,4}$/;
@@ -25,12 +30,37 @@ const PersonalInfo = ({ setStep }: PersonalInfoProp) => {
       setBirthYear(e.target.value);
       if (e.target.value.length === 4) {
         const regex = /^(19[0-9]{2}|200[0-9]|201[0-9]|202[0-4])$/;
-        regex.test(e.target.value) ? setValidateStatus(true) : setValidateStatus(false);
+        regex.test(e.target.value)
+          ? setVerificationStatus((prevState) => ({ ...prevState, isBirthYearVerified: true }))
+          : setVerificationStatus((prevState) => ({ ...prevState, isBirthYearVerified: false }));
       } else {
-        setValidateStatus(false);
+        setVerificationStatus((prevState) => ({ ...prevState, isBirthYearVerified: false }));
       }
     }
   };
+
+  const handleName = (value: string) => {
+    if (value.length > 0 && value.length <= 10) {
+      setVerificationStatus((prevState) => ({ ...prevState, isNameVerified: true }));
+    }
+  };
+
+  const handleGender = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSelectedGender(e.target.id);
+    setVerificationStatus((prevState) => ({ ...prevState, isGenderVerified: true }));
+  };
+
+  useEffect(() => {
+    userType === USER_TYPE.DESIGNER
+      ? setVerificationStatus((prevState) => ({
+          ...prevState,
+          isAllVerified: prevState.isNameVerified && prevState.isGenderVerified,
+        }))
+      : setVerificationStatus((prevState) => ({
+          ...prevState,
+          isAllVerified: prevState.isNameVerified && prevState.isBirthYearVerified && prevState.isGenderVerified,
+        }));
+  }, [verificationStatus.isBirthYearVerified, verificationStatus.isGenderVerified, verificationStatus.isNameVerified]);
 
   return (
     <>
@@ -38,7 +68,7 @@ const PersonalInfo = ({ setStep }: PersonalInfoProp) => {
       <S.PersonalInfoLayout>
         <S.FormBox>
           <Field name="디자이너명" isEssential={true} />
-          <Input placeholderText="이름을 입력해주세요" />
+          <Input placeholderText="이름을 입력해주세요" onChangeFn={handleName} />
           <S.HelperBox>
             <IcInformation />
             <S.HelperSpan>실명을 입력해주세요</S.HelperSpan>
@@ -52,20 +82,37 @@ const PersonalInfo = ({ setStep }: PersonalInfoProp) => {
                   value={birthYear}
                   onChange={handleBirthYear}
                 />
-                {validateStatus ? <IcCheckBlue /> : null}
+                {verificationStatus.isBirthYearVerified ? <IcCheckBlue /> : null}
               </S.InputBox>
             </>
           )}
           <Field name="성별" isEssential={true} />
           <S.GenderSelectBox>
-            <S.RadioInput type="radio" id="female" name="gender-type" />
+            <S.RadioInput
+              type="radio"
+              id="female"
+              name="gender-type"
+              checked={selectedGender === 'female'}
+              onChange={handleGender}
+            />
             <S.GenderTypeLabel htmlFor="female">여성</S.GenderTypeLabel>
-            <S.RadioInput type="radio" id="male" name="gender-type" />
+            <S.RadioInput
+              type="radio"
+              id="male"
+              name="gender-type"
+              checked={selectedGender === 'male'}
+              onChange={handleGender}
+            />
             <S.GenderTypeLabel htmlFor="male">남성</S.GenderTypeLabel>
           </S.GenderSelectBox>
         </S.FormBox>
       </S.PersonalInfoLayout>
-      <Button text="다음" isFixed={true} onClickFn={() => setStep((prev) => prev + 1)} />
+      <Button
+        text="다음"
+        isFixed={true}
+        onClickFn={() => setStep((prev) => prev + 1)}
+        disabled={!verificationStatus.isAllVerified}
+      />
     </>
   );
 };
