@@ -5,10 +5,11 @@ import { IcRightGrey } from '../../@common/assets/icons';
 interface MyMenuItemProps {
   icon: ReactNode;
   text: string;
+  onClickFn?: () => void;
 }
-const MyMenuItem = ({ icon, text }: MyMenuItemProps) => {
+const MyMenuItem = ({ icon, text, onClickFn }: MyMenuItemProps) => {
   return (
-    <S.MyMenuItemLayout type="button">
+    <S.MyMenuItemLayout onClick={onClickFn}>
       {icon}
       <S.MyMenuItemParagraph>{text}</S.MyMenuItemParagraph>
       <IcRightGrey />
@@ -19,7 +20,7 @@ const MyMenuItem = ({ icon, text }: MyMenuItemProps) => {
 export default MyMenuItem;
 
 const S = {
-  MyMenuItemLayout: styled.button`
+  MyMenuItemLayout: styled.div`
     display: flex;
     gap: 1rem;
     align-items: center;

@@ -1,10 +1,12 @@
 import styled from 'styled-components';
 
+import imgHdprofile from '@images/img_hdprofile.png';
+
 const MyInfo = () => {
   return (
     <S.MyInfoLayout>
       <S.MyInfoBox>
-        <img src="src/views/@common/assets/images/img_hdprofile.png" alt="마이페이지 프로필" />
+        <img src={imgHdprofile} alt="마이페이지 프로필" />
         <S.MyInfoTextBox>
           <h1>강재훈님, 안녕하세요!</h1>
           <p>헤어 디자이너</p>
