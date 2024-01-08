@@ -1,4 +1,3 @@
-// import Header from './Header';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
@@ -10,6 +9,8 @@ import ConditionBox from '../../ModelInfoPage/components/ConditionBox';
 import TitleBox from '../../ModelInfoPage/components/TitleBox';
 import { conditionData } from '../../ModelInfoPage/constants/conditionData';
 
+import Modal from '@/views/@common/components/Modal';
+
 const ModelOfferPage = () => {
   //희망 제안 조건 클릭시 활성화 기능
   const [isClicked, setIsClicked] = useState<boolean[]>([false, false, false, false, false, false]);
@@ -20,7 +21,7 @@ const ModelOfferPage = () => {
       return newClickedState;
     });
   };
-
+  //텍스트 영역 변화시 CTA 활성화
   const [textAreaValue, setTextAreaValue] = useState('');
   const handleTextAreaChange = (value: string) => {
     setTextAreaValue(value);
@@ -33,9 +34,32 @@ const ModelOfferPage = () => {
   const handleClickConfirm = () => {
     navigate('/model-info/model-offer/sent-complete');
   };
+
+  //모달 계속하기
+  const [isModal, SetIsModal] = useState(false);
+  const handleActivateModal = () => {
+    SetIsModal(true);
+  };
+  //취소
+  const handleClickCancel = () => {
+    SetIsModal(false);
+  };
+  //확인
+  const handleClickModalConfirm = () => {
+    navigate('/');
+  };
+
   return (
     <>
-      <Header isBackBtnExist={true} isCloseBtnExist={true} title="헤어 모델 제안하기" />
+      <Header
+        isBackBtnExist={true}
+        isCloseBtnExist={true}
+        title="헤어 모델 제안하기"
+        backFn={() => {
+          navigate(-1);
+        }}
+        closeFn={() => handleActivateModal()}
+      />
       <S.ModelOfferLayout>
         <S.ModelOfferBox>
           <TitleBox title="희망 제안 조건" subtitle="원하시는 조건을 모두 선택해주세요" isNeccessary={true} />
@@ -59,6 +83,18 @@ const ModelOfferPage = () => {
         </S.ModelOfferBox>
       </S.ModelOfferLayout>
       <Button text="확인하기" isFixed={true} onClickFn={handleClickConfirm} disabled={!isActive} />
+      {isModal && (
+        <Modal
+          title="작성을 취소하시겠습니까?"
+          description="지금 작성을 취소하면<br/>작성 중인 내용이 사라져요."
+          // eslint-disable-next-line no-console, react/jsx-no-duplicate-props
+          leftBtnFn={handleClickCancel}
+          // eslint-disable-next-line react/jsx-no-duplicate-props
+          rightBtnFn={handleClickModalConfirm}
+          leftBtnText={'취소하기'}
+          rightBtnText={'계속하기'}
+        />
+      )}
     </>
   );
 };
