@@ -13,7 +13,7 @@ import Modal from '@/views/@common/components/Modal';
 
 const ModelOfferPage = () => {
   //희망 제안 조건 클릭시 활성화 기능
-  const [isClicked, setIsClicked] = useState<boolean[]>([false, false, false, false, false, false]);
+  const [isClicked, setIsClicked] = useState<boolean[]>([true, true, false, false, false, false]);
   const handleConditionClick = (index: number) => {
     setIsClicked((prevState) => {
       const newClickedState = [...prevState];
@@ -62,7 +62,7 @@ const ModelOfferPage = () => {
       />
       <S.ModelOfferLayout>
         <S.ModelOfferBox>
-          <TitleBox title="희망 제안 조건" subtitle="원하시는 조건을 모두 선택해주세요" isNeccessary={true} />
+          <TitleBox title="희망 제안 조건" subtitle="원하는 조건을 모두 선택해주세요" isNeccessary={true} />
           <S.ContainerGridBox>
             {conditionData.map((data, index) => (
               <ConditionBox
@@ -78,18 +78,19 @@ const ModelOfferPage = () => {
           </S.ContainerGridBox>
         </S.ModelOfferBox>
         <S.ModelOfferBox>
-          <TitleBox title="상세 제안" subtitle="자세히 적을 수록 매칭 성공률이 높아져요" isNeccessary={true} />
-          <TextArea200 placeholderText="내용을 입력해주세요" onChangeFn={handleTextAreaChange} />
+          <TitleBox title="상세 제안" subtitle="자세히 적을수록 매칭 성공률이 높아져요" isNeccessary={true} />
+          <TextArea200
+            placeholderText="내용을 입력해주세요&#13;&#10;예시) 상세 가격조건, 구체적인 스타일 제안, 시술 시간 등`"
+            onChangeFn={handleTextAreaChange}
+          />
         </S.ModelOfferBox>
       </S.ModelOfferLayout>
-      <Button text="확인하기" isFixed={true} onClickFn={handleClickConfirm} disabled={!isActive} />
+      <Button text="완료" isFixed={true} onClickFn={handleClickConfirm} disabled={!isActive} />
       {isModal && (
         <Modal
           title="작성을 취소하시겠습니까?"
           description="지금 작성을 취소하면<br/>작성 중인 내용이 사라져요."
-          // eslint-disable-next-line no-console, react/jsx-no-duplicate-props
           leftBtnFn={handleClickCancel}
-          // eslint-disable-next-line react/jsx-no-duplicate-props
           rightBtnFn={handleClickModalConfirm}
           leftBtnText={'취소하기'}
           rightBtnText={'계속하기'}
