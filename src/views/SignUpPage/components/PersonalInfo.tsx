@@ -21,7 +21,12 @@ const PersonalInfo = ({ setStep }: PersonalInfoProp) => {
     const regex = /^[0-9\b]{0,4}$/;
     if (regex.test(e.target.value)) {
       setBirthYear(e.target.value);
-      e.target.value.length === 4 ? setValidateStatus(true) : setValidateStatus(false);
+      if (e.target.value.length === 4) {
+        const regex = /^(19[0-9]{2}|200[0-9]|201[0-9]|202[0-4])$/;
+        regex.test(e.target.value) ? setValidateStatus(true) : setValidateStatus(false);
+      } else {
+        setValidateStatus(false);
+      }
     }
   };
 
