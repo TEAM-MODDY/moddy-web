@@ -5,6 +5,8 @@ import Button from '../../@common/components/Button';
 import Header from '../../@common/components/Header';
 import ProgressBar from '../../@common/components/ProgressBar';
 
+import StyleButton from './StyleButton';
+
 const DefaultInfo = () => {
   const moveNext = () => {};
 
@@ -12,82 +14,73 @@ const DefaultInfo = () => {
     <S.DefaultInfoLayout>
       <Header title="모델 지원하기" isBackBtnExist={true} isCloseBtnExist={true} />
       <ProgressBar whole={4} current={1} />
-      <S.HairLengthSection>
-        <S.Title>
-          <h2>
-            머리 기장 <IcEssential />
-          </h2>
-          <span>현재 머리 기장을 선택해주세요</span>
-        </S.Title>
-        <S.HairImgList>
-          <S.HairImgItem></S.HairImgItem>
-          <S.HairImgItem></S.HairImgItem>
-          <S.HairImgItem></S.HairImgItem>
-          <S.HairImgItem></S.HairImgItem>
-        </S.HairImgList>
-      </S.HairLengthSection>
-      <hr />
-      <S.DeserveStyleSection>
-        <S.Title>
-          <h2>
-            희망 스타일 <IcEssential />
-          </h2>
-          <span>원하시는 시술을 모두 선택해주세요</span>
-        </S.Title>
-        <S.StyleBox>
-          <h3>커트</h3>
-          <S.SelectListItem>
-            <input type="checkbox" id="cut" name="cut" />
-            <label htmlFor="cut">일반 커트</label>
-          </S.SelectListItem>
-        </S.StyleBox>
+      <S.StyleSection>
+        <S.HairLengthSection>
+          <S.Title>
+            <h2>
+              머리 기장 <IcEssential />
+            </h2>
+            <span>현재 머리 기장을 선택해주세요</span>
+          </S.Title>
+          <S.HairImgList>
+            <S.HairImgItem></S.HairImgItem>
+            <S.HairImgItem></S.HairImgItem>
+            <S.HairImgItem></S.HairImgItem>
+            <S.HairImgItem></S.HairImgItem>
+          </S.HairImgList>
+        </S.HairLengthSection>
         <hr />
-        <S.StyleBox>
-          <h3>컬러</h3>
-          <S.SelectList>
-            <S.SelectListItem>
-              <input type="checkbox" id="dye" name="dye" />
-              <label htmlFor="dye">전체 염색</label>
-            </S.SelectListItem>
-            <S.SelectListItem>
-              <input type="checkbox" id="bleach" name="bleach" />
-              <label htmlFor="bleach">전체 탈색</label>
-            </S.SelectListItem>
-          </S.SelectList>
-        </S.StyleBox>
-        <hr />
-        <S.StyleBox>
-          <h3>펌</h3>
-          <S.SelectList>
-            <S.SelectListItem>
-              <input type="checkbox" id="setting" name="setting" />
-              <label htmlFor="setting">셋팅펌</label>
-            </S.SelectListItem>
-            <S.SelectListItem>
-              <input type="checkbox" id="perm" name="perm" />
-              <label htmlFor="perm">일반펌</label>
-            </S.SelectListItem>
-            <S.SelectListItem>
-              <input type="checkbox" id="straight" name="straight" />
-              <label htmlFor="straight">매직</label>
-            </S.SelectListItem>
-          </S.SelectList>
-        </S.StyleBox>
-      </S.DeserveStyleSection>
+        <S.DeserveStyleSection>
+          <S.Title>
+            <h2>
+              희망 스타일 <IcEssential />
+            </h2>
+            <span>원하시는 시술을 모두 선택해주세요</span>
+          </S.Title>
+          <S.StyleBox>
+            <h3>커트</h3>
+            <StyleButton isSelected={true} type="일반 커트" />
+          </S.StyleBox>
+          <hr />
+          <S.StyleBox>
+            <h3>컬러</h3>
+            <S.SelectList>
+              <StyleButton isSelected={false} type="전체 염색" />
+              <StyleButton isSelected={false} type="전체 탈색" />
+            </S.SelectList>
+          </S.StyleBox>
+          <hr />
+          <S.StyleBox>
+            <h3>펌</h3>
+            <S.SelectList>
+              <StyleButton isSelected={false} type="셋팅펌" />
+              <StyleButton isSelected={false} type="일반펌" />
+              <StyleButton isSelected={false} type="매직" />
+            </S.SelectList>
+          </S.StyleBox>
+        </S.DeserveStyleSection>
+      </S.StyleSection>
       <Button text="다음" onClickFn={moveNext} isFixed={true} />
     </S.DefaultInfoLayout>
   );
 };
 
 const S = {
-  DefaultInfoLayout: styled.section`
+  DefaultInfoLayout: styled.main`
     display: flex;
     flex-direction: column;
     align-items: center;
+
+    width: 100%;
+  `,
+
+  StyleSection: styled.section`
     position: relative;
 
     width: 100%;
-    padding: 8.5rem 2rem 3.4rem;
+    margin: 8.5rem 0 12.6rem;
+
+    ${({ theme }) => theme.commons.scrollbar};
 
     & > hr {
       position: absolute;
@@ -189,18 +182,7 @@ const S = {
   SelectList: styled.ul`
     display: flex;
     flex-wrap: wrap;
-  `,
-
-  SelectListItem: styled.li`
-    display: flex;
-
-    width: 50%;
-
-    & > label {
-      color: ${({ theme }) => theme.colors.moddy_bk};
-
-      ${({ theme }) => theme.fonts.Headline04};
-    }
+    row-gap: 1.2rem;
   `,
 };
 
