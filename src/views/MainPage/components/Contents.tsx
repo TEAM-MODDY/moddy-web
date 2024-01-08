@@ -140,6 +140,8 @@ const DetailLayout = styled.div`
   width: 100vw;
   height: 100%;
 
+  background: ${({ theme }) => theme.colors.moddy_wt};
+
   & > img {
     width: 100%;
   }
