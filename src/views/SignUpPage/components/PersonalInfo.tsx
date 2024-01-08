@@ -5,6 +5,9 @@ import { IcCheckBlue, IcInformation } from '../../@common/assets/icons';
 import Button from '../../@common/components/Button';
 import Input from '../../@common/components/Input';
 import ProgressBar from '../../@common/components/ProgressBar';
+import ToastMessage from '../../@common/components/ToastMessage';
+import { HELPER_MESSAGE, PLACE_HOLDER_MESSAGE, TOAST_MESSAGE } from '../constants/message';
+import { STEP, TOTAL_STEP } from '../constants/step';
 import { USER_TYPE } from '../constants/userType';
 
 import Field from './Field';
@@ -22,6 +25,7 @@ const PersonalInfo = ({ setStep }: PersonalInfoProp) => {
     isGenderVerified: false,
     isAllVerified: false,
   });
+  const [isToastOpen, setToastOpen] = useState<boolean>(false);
 
   const handleBirthYear = (e: React.ChangeEvent<HTMLInputElement>) => {
     const regex = /^[0-9\b]{0,4}$/;
@@ -32,7 +36,7 @@ const PersonalInfo = ({ setStep }: PersonalInfoProp) => {
         const regex = /^(19[0-9]{2}|200[0-9]|201[0-9]|202[0-4])$/;
         regex.test(e.target.value)
           ? setVerificationStatus((prevState) => ({ ...prevState, isBirthYearVerified: true }))
-          : setVerificationStatus((prevState) => ({ ...prevState, isBirthYearVerified: false }));
+          : (setVerificationStatus((prevState) => ({ ...prevState, isBirthYearVerified: false })), setToastOpen(true));
       } else {
         setVerificationStatus((prevState) => ({ ...prevState, isBirthYearVerified: false }));
       }
@@ -64,21 +68,26 @@ const PersonalInfo = ({ setStep }: PersonalInfoProp) => {
 
   return (
     <>
-      <ProgressBar whole={userType === USER_TYPE.DESIGNER ? 5 : 3} current={1} />
+      <ProgressBar
+        whole={userType === USER_TYPE.DESIGNER ? TOTAL_STEP.DESIGNER_VIEW : TOTAL_STEP.MODEL_VIEW}
+        current={STEP.PERSONAL_INFO}
+      />
       <S.PersonalInfoLayout>
         <S.FormBox>
-          <Field name="디자이너명" isEssential={true} />
-          <Input placeholderText="이름을 입력해주세요" onChangeFn={handleName} />
+          <Field name={userType === USER_TYPE.DESIGNER ? '디자이너명' : '이름'} isEssential={true} />
+          <Input placeholderText={PLACE_HOLDER_MESSAGE.INPUT_NAME} onChangeFn={handleName} />
           <S.HelperBox>
             <IcInformation />
-            <S.HelperSpan>실명을 입력해주세요</S.HelperSpan>
+            <S.HelperSpan>
+              {userType === USER_TYPE.DESIGNER ? HELPER_MESSAGE.INPUT_DESIGNER_NAME : HELPER_MESSAGE.INPUT_REAL_NAME}
+            </S.HelperSpan>
           </S.HelperBox>
           {userType === USER_TYPE.DESIGNER ? null : (
             <>
               <Field name="출생 연도" isEssential={true} />
               <S.InputBox>
                 <S.VerifyInput
-                  placeholder="출생 연도(YYYY)를 입력해주세요"
+                  placeholder={PLACE_HOLDER_MESSAGE.INPUT_BIRTH_YEAR}
                   value={birthYear}
                   onChange={handleBirthYear}
                 />
@@ -113,6 +122,7 @@ const PersonalInfo = ({ setStep }: PersonalInfoProp) => {
         onClickFn={() => setStep((prev) => prev + 1)}
         disabled={!verificationStatus.isAllVerified}
       />
+      {isToastOpen && <ToastMessage text={TOAST_MESSAGE.INPUT_EXACT_BIRTH_YEAR} setter={setToastOpen} />}
     </>
   );
 };
