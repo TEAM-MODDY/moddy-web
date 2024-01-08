@@ -1,7 +1,7 @@
 export const HELPER_MESSAGE = {
   INPUT_DESIGNER_NAME: '디자이너 활동명을 입력해주세요',
   INPUT_REAL_NAME: '실명을 입력해주세요',
-  VERIFY_PHONE_NUMBER: '헤어 모델과의 신뢰를 위해 휴대폰 인증을 진행해주세요',
+  VERIFY_PHONE_NUMBER: '본인 확인을 위해 휴대폰 인증을 진행해주세요',
   USER_TYPE_CHANGE_UNAVAILABLE: '한 번 선택하면 변경할 수 없어요',
   NOW_ONLY_SEOUL_AVAILABE: '지금은 서울특별시에만 운영되고 있어요',
 };
