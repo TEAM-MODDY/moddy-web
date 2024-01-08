@@ -1,6 +1,7 @@
+import { useState } from 'react';
 import { styled } from 'styled-components';
 
-import { IcInformation } from '../../@common/assets/icons';
+import { IcCheckBlue, IcInformation } from '../../@common/assets/icons';
 import Button from '../../@common/components/Button';
 import Input from '../../@common/components/Input';
 import ProgressBar from '../../@common/components/ProgressBar';
@@ -13,6 +14,17 @@ interface PersonalInfoProp {
 
 const PersonalInfo = ({ setStep }: PersonalInfoProp) => {
   const userType = USER_TYPE.MODEL;
+
+  const [birthYear, setBirthYear] = useState('');
+  const [validateStatus, setValidateStatus] = useState(false);
+  const handleBirthYear = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const regex = /^[0-9\b -]{0,4}$/;
+    if (regex.test(e.target.value)) {
+      setBirthYear(e.target.value);
+      e.target.value.length === 4 ? setValidateStatus(true) : setValidateStatus(false);
+    }
+  };
+
   return (
     <>
       <ProgressBar whole={userType === USER_TYPE.DESIGNER ? 5 : 3} current={1} />
@@ -27,7 +39,14 @@ const PersonalInfo = ({ setStep }: PersonalInfoProp) => {
           {userType === USER_TYPE.DESIGNER ? null : (
             <>
               <Field name="출생 연도" isEssential={true} />
-              <Input placeholderText="출생 연도(YYYY)를 입력해주세요" />
+              <S.InputBox>
+                <S.VerifyInput
+                  placeholder="출생 연도(YYYY)를 입력해주세요"
+                  value={birthYear}
+                  onChange={handleBirthYear}
+                />
+                {validateStatus ? <IcCheckBlue /> : null}
+              </S.InputBox>
             </>
           )}
           <Field name="성별" isEssential={true} />
@@ -104,6 +123,36 @@ const GenderSelectBox = styled.div`
   gap: 1.6rem;
 `;
 
+const InputBox = styled.div`
+  position: relative;
+
+  width: 100%;
+  margin-top: 0.8rem;
+
+  & > svg {
+    position: absolute;
+    top: 0.9rem;
+    right: 1.3rem;
+  }
+`;
+
+const VerifyInput = styled.input`
+  width: 100%;
+  padding: 1.2rem 1.6rem;
+  border: 1.5px solid ${({ theme }) => theme.colors.moddy_gray20};
+  border-radius: 8px;
+
+  color: ${({ theme }) => theme.colors.moddy_bk};
+  ${({ theme }) => theme.fonts.Body02};
+
+  &::placeholder {
+    color: ${({ theme }) => theme.colors.moddy_gray50};
+  }
+
+  &:focus {
+    outline: 1.5px solid ${({ theme }) => theme.colors.moddy_blue};
+  }
+`;
 const S = {
   PersonalInfoLayout,
   FormBox,
@@ -112,4 +161,6 @@ const S = {
   RadioInput,
   GenderTypeLabel,
   GenderSelectBox,
+  InputBox,
+  VerifyInput,
 };
