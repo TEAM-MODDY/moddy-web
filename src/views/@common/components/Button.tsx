@@ -30,7 +30,9 @@ const S = {
 
     width: 100%;
     max-width: 43rem;
-    padding: 0 1.5rem 4rem 1.6rem;
+    padding: 0.8rem 1.5rem 4rem 1.6rem;
+
+    background-color: ${({ theme }) => theme.colors.moddy_wt};
 
     & > button {
       display: flex;
