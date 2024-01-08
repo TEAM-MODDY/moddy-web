@@ -11,7 +11,7 @@ import OfferInfoPage from './pages/OfferInfoPage';
 import SignUpPage from './pages/SignUpPage';
 import GlobalStyle from './styles/GlobalStyle';
 import theme from './styles/Theme';
-import ModelOffer from './views/@common/components/ModelOffer';
+import ModelOffer from './views/ModelInfoPage/components/ModelOffer';
 
 const router = createBrowserRouter([
   { path: '/', element: <MainPage /> },
