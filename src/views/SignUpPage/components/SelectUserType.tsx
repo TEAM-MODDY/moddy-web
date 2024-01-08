@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
 
 import designerImg from '../../@common/assets/images/img_scissor.png';
@@ -10,6 +11,7 @@ interface SelectUserTypeProp {
 }
 
 const SelectUserType = ({ setStep }: SelectUserTypeProp) => {
+  const navigate = useNavigate();
   const [userType, setUserType] = useState('');
   const [isSelected, setIsSelected] = useState(false);
 
@@ -21,7 +23,14 @@ const SelectUserType = ({ setStep }: SelectUserTypeProp) => {
   return (
     <>
       <S.SelectUserTypeLayout>
-        <Header isBackBtnExist={true} isCloseBtnExist={false} title="" />
+        <Header
+          isBackBtnExist={true}
+          isCloseBtnExist={false}
+          title=""
+          backFn={() => {
+            navigate('/agreement');
+          }}
+        />
         <S.OnBoardingSpan>어디에 해당하시나요?</S.OnBoardingSpan>
         <S.HelperTextSpan>한 번 선택하면 변경할 수 없어요</S.HelperTextSpan>
         <S.RadioBox>
