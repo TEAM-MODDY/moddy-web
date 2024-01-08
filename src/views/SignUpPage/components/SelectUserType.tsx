@@ -7,6 +7,7 @@ import Header from '../../@common/components/Header';
 interface SelectUserTypeProp {
   setStep: React.Dispatch<React.SetStateAction<boolean>>;
 }
+
 const SelectUserType = ({ setStep }: SelectUserTypeProp) => {
   return (
     <>

@@ -17,8 +17,10 @@ const PersonalInfo = ({ setStep }: PersonalInfoProp) => {
 
   const [birthYear, setBirthYear] = useState('');
   const [validateStatus, setValidateStatus] = useState(false);
+
   const handleBirthYear = (e: React.ChangeEvent<HTMLInputElement>) => {
     const regex = /^[0-9\b]{0,4}$/;
+
     if (regex.test(e.target.value)) {
       setBirthYear(e.target.value);
       if (e.target.value.length === 4) {

@@ -9,7 +9,6 @@ import { USER_TYPE } from '../constants/userType';
 import useInterval from '../hooks/useInterval';
 
 import Field from './Field';
-
 interface VerifyPhoneNumberProp {
   setStep: React.Dispatch<React.SetStateAction<number>>;
 }

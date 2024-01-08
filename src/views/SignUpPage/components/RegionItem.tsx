@@ -1,7 +1,6 @@
 import { styled } from 'styled-components';
 
 import { IcCheckboxBlue, IcCheckboxGrey } from '../../@common/assets/icons';
-
 interface RegionItemProps {
   region: string;
   isCheckedList: boolean[];
@@ -9,6 +8,7 @@ interface RegionItemProps {
   setIsCheckedList: React.Dispatch<React.SetStateAction<boolean[]>>;
   regionList: string[];
 }
+
 const RegionItem = (props: RegionItemProps) => {
   const { region, isCheckedList, index, setIsCheckedList, regionList } = props;
 
@@ -47,6 +47,7 @@ const RegionItem = (props: RegionItemProps) => {
       }
     }
   };
+
   return (
     <S.CategoryItem>
       <button type="button" onClick={handleCheck}>

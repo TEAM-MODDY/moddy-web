@@ -1,11 +1,11 @@
 import { styled } from 'styled-components';
 
 import { IcEssential } from '../../@common/assets/icons';
-
 interface FieldProp {
   name: string;
   isEssential: boolean;
 }
+
 const Field = (props: FieldProp) => {
   const { name, isEssential } = props;
 

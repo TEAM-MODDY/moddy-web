@@ -17,6 +17,7 @@ const SelectPreferRegion = () => {
 
   const categoryRef = useRef<HTMLDivElement>(null);
   const bottomSheetRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
     // 특정 영역 외 클릭 시 발생하는 이벤트
     const handleFocus = (e: MouseEvent) => {
