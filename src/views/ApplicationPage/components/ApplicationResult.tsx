@@ -93,14 +93,15 @@ const S = {
   ApplicationResultLayout: styled.main`
     display: flex;
     flex-direction: column;
+    gap: 2.6rem;
     flex: 1;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
 
     width: 100%;
     height: 100%;
     margin: 5.7rem 0 9.08rem;
-    padding-bottom: 2.3rem;
+    padding: 0 2rem 2.3rem;
 
     ${({ theme }) => theme.fonts.Body01};
   `,
