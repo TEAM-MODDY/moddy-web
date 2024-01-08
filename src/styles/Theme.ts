@@ -27,6 +27,8 @@ const effects = {
   shadow2: '0px 0px 8px 0px rgba(35, 111, 255, 0.24)',
   shadow3: '0px 0px 4px 0px rgba(35, 111, 255, 0.24)',
   shadow4: '0px 0px 4px 0px rgba(0, 0, 0, 0.24)',
+  shadow5: '2px 2px 8px rgba(0, 0, 0, 0.24)',
+  shadow6: '2px 2px 8px rgba(0, 0, 0, 0.24)',
   shadow_home: '0px 3px 10px 0px rgba(0, 0, 0, 0.20)',
   main_cta_shadow: '0px 0px 8px 0px rgba(0, 0, 0, 0.24)',
   main_cta_blur: 'blur(5px);',

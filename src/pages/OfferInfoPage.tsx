@@ -1,7 +1,16 @@
 import { styled } from 'styled-components';
 
+import { IcCheckboxGrey } from '../views/@common/assets/icons';
 import Button from '../views/@common/components/Button';
 import Header from '../views/@common/components/Header';
+import {
+  IcCamera,
+  IcModdyhearts1,
+  IcGift,
+  IcMask,
+  IcPhotoshop,
+  IcHearthand,
+} from '../views/ModelInfoPage/assets/icons';
 import { IcLeft, IcBookmark, IcPin } from '../views/OfferInfoPage/assets/icons';
 import ImgPropLogo from '../views/OfferInfoPage/assets/images/img_proplogo.png';
 
@@ -102,11 +111,42 @@ const OfferInfoPage = () => {
             <S.DetailMainTitleBox>
               <h1>제안 조건</h1>
             </S.DetailMainTitleBox>
+            <S.ConditionListBox>
+              <div>
+                <IcCamera />
+                얼굴 촬영
+              </div>
+              <div>
+                <IcModdyhearts1 />
+                SNS 게시
+              </div>
+              <div>
+                <IcGift />
+                전액 무료
+              </div>
+              <div>
+                <IcMask />
+                마스크 착용
+              </div>
+              <div>
+                <IcPhotoshop /> 포토샵 보정
+              </div>
+              <div>
+                <IcHearthand />
+                소정의 약값
+              </div>
+            </S.ConditionListBox>
             <S.LogoImg src={ImgPropLogo} />
           </S.DetailTextBox>
         </S.OfferDetailLayout>
-        <S.Agreement>해당 제안서의 내용에 동의합니다.</S.Agreement>
+        <S.AgreementBox>
+          <S.CheckboxBtn>
+            <IcCheckboxGrey />
+          </S.CheckboxBtn>
+          해당 제안서의 내용에 동의합니다.
+        </S.AgreementBox>
       </S.OfferInfoLayout>
+      {/* <Button text="다음" isFixed={false} onClickFn={ } disabled={true} /> */}
     </>
   );
 };
@@ -214,9 +254,11 @@ const S = {
     position: relative;
 
     width: 100%;
-    padding: 4rem 1.83rem;
+    padding: 4rem 1.83rem 0.95rem;
     border: 1.5px solid ${({ theme }) => theme.colors.moddy_blue};
     border-radius: 12px;
+
+    box-shadow: ${({ theme }) => theme.effects.shadow5};
 
     & > svg {
       position: absolute;
@@ -281,6 +323,10 @@ const S = {
     }
   `,
 
+  CheckboxBtn: styled.button`
+    margin-right: 1.1rem;
+  `,
+
   DetailContentBox: styled.div`
     display: flex;
     justify-content: space-between;
@@ -328,15 +374,42 @@ const S = {
   `,
   LogoImg: styled.img`
     width: 15rem;
+    margin-top: 1.6rem;
   `,
 
-  Agreement: styled.button`
+  AgreementBox: styled.div`
     display: flex;
+    justify-content: center;
+    align-items: center;
 
+    width: 100%;
     margin: 2.4rem 0;
 
     color: ${({ theme }) => theme.colors.moddy_bk};
     ${({ theme }) => theme.fonts.Body01};
+  `,
+
+  ConditionListBox: styled.div`
+    display: grid;
+
+    margin-top: 0.85rem;
+    /* stylelint-disable-next-line unit-allowed-list */
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 0.6rem;
+
+    & > div {
+      display: flex;
+      justify-content: center;
+
+      color: ${({ theme }) => theme.colors.moddy_gray50};
+      ${({ theme }) => theme.fonts.Body02};
+    }
+
+    & > div > svg {
+      margin-right: 0.6rem;
+    }
+
+    color: ${({ theme }) => theme.colors.moddy_bk};
   `,
 };
 
