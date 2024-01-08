@@ -1,6 +1,7 @@
+import { useState } from 'react';
 import { styled } from 'styled-components';
 
-import { IcCheckboxGrey } from '../views/@common/assets/icons';
+import { IcCheckboxGrey, IcCheckboxBlue } from '../views/@common/assets/icons';
 import Button from '../views/@common/components/Button';
 import Header from '../views/@common/components/Header';
 import {
@@ -45,6 +46,11 @@ const DATA = {
 const OfferInfoPage = () => {
   const DesingerInfo = DATA.data.designerInfo;
   const OfferDetail = DATA.data.offerDetail;
+
+  const [isChecked, setIsChecked] = useState(false);
+  const handleCheckBoxClick = () => {
+    setIsChecked((prev) => !prev);
+  };
 
   return (
     <>
@@ -140,13 +146,13 @@ const OfferInfoPage = () => {
           </S.DetailTextBox>
         </S.OfferDetailLayout>
         <S.AgreementBox>
-          <S.CheckboxBtn>
-            <IcCheckboxGrey />
+          <S.CheckboxBtn onClick={handleCheckBoxClick}>
+            {isChecked ? <IcCheckboxBlue /> : <IcCheckboxGrey />}
           </S.CheckboxBtn>
           해당 제안서의 내용에 동의합니다.
         </S.AgreementBox>
       </S.OfferInfoLayout>
-      {/* <Button text="다음" isFixed={false} onClickFn={ } disabled={true} /> */}
+      <Button text="다음" isFixed={false} disabled={!isChecked} />
     </>
   );
 };
