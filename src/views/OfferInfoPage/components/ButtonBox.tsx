@@ -17,7 +17,7 @@ const ButtonBox = () => {
         <Button
           text="지원 내역 복사 / 저장하기"
           onClickFn={function (): void {
-            throw new Error('Function not implemented.');
+            console.log('아직 공부중ㅎㅎㅎ... ^^');
           }}
           icon={<IcDownload />}
         />
