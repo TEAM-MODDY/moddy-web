@@ -1,7 +1,7 @@
 import { styled } from 'styled-components';
 
 import { ImgNew } from '../assets/images';
-import profileImg from '../assets/images/img_homecontents1.png';
+import profileImg from '../assets/images/img_profile.png';
 
 const ApplicationCard = () => {
   return (
@@ -94,7 +94,7 @@ const PreferStyleTagBox = styled.div`
 const NewTagBox = styled.div`
   position: absolute;
   top: -0.6rem;
-  right: 2rem;
+  right: 1.2rem;
 `;
 const S = {
   ApplicationCardLayout,
