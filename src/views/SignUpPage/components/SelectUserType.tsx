@@ -41,7 +41,7 @@ const SelectUserType = ({ setStep }: SelectUserTypeProp) => {
             <S.ImageBox>
               <img src={designerImg} width="100%" alt="디자이너" />
             </S.ImageBox>
-            <S.UserTypeSpan>헤어 전문가에요</S.UserTypeSpan>
+            <S.UserTypeSpan>헤어 디자이너</S.UserTypeSpan>
             <S.UserTypeInfoSpan>
               포트폴리오 / 홍보를 위한
               <br />
@@ -53,7 +53,7 @@ const SelectUserType = ({ setStep }: SelectUserTypeProp) => {
             <S.ImageBox>
               <img src={designerImg} width="100%" alt="디자이너" />
             </S.ImageBox>
-            <S.UserTypeSpan>일반인/모델이에요</S.UserTypeSpan>
+            <S.UserTypeSpan>일반인/모델</S.UserTypeSpan>
             <S.UserTypeInfoSpan>
               예쁜 헤어 스타일을
               <br />

@@ -1,3 +1,3 @@
 export const ON_BOARDING_TEXT = {
-  SELECT_USER_TYPE: '어디에 해당하시나요?',
+  SELECT_USER_TYPE: '어떤 서비스를 이용하시겠어요?',
 };
