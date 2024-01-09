@@ -5,6 +5,7 @@ import { IcDownGrey, IcInformation, IcUpBlue } from '../../@common/assets/icons'
 import Button from '../../@common/components/Button';
 import ProgressBar from '../../@common/components/ProgressBar';
 import { IcCloseSmblue } from '../assets/icons';
+import { HELPER_MESSAGE, PLACE_HOLDER_MESSAGE } from '../constants/message';
 
 import Field from './Field';
 import RegionItem from './RegionItem';
@@ -14,10 +15,10 @@ const SelectPreferRegion = () => {
   const [isShowCategory, setIsShowCategory] = useState(false);
   const [isCheckedList, setIsCheckedList] = useState<boolean[]>([]);
   const [isShowBottomSheet, setIsShowBottomSheet] = useState(false);
-
+  const [isAllverified, setIsAllVerified] = useState(false);
   const categoryRef = useRef<HTMLDivElement>(null);
   const bottomSheetRef = useRef<HTMLDivElement>(null);
-
+  const selectorBoxRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
     // 특정 영역 외 클릭 시 발생하는 이벤트
     const handleFocus = (e: MouseEvent) => {
@@ -25,7 +26,9 @@ const SelectPreferRegion = () => {
         categoryRef.current &&
         !categoryRef.current.contains(e.target as Node) &&
         bottomSheetRef.current &&
-        !bottomSheetRef.current.contains(e.target as Node)
+        !bottomSheetRef.current.contains(e.target as Node) &&
+        selectorBoxRef.current &&
+        !selectorBoxRef.current.contains(e.target as Node)
       ) {
         setIsShowCategory(false);
       }
@@ -55,8 +58,8 @@ const SelectPreferRegion = () => {
 
   useEffect(() => {
     isCheckedList.filter((value) => value === true).length > 0
-      ? setIsShowBottomSheet(true)
-      : setIsShowBottomSheet(false);
+      ? (setIsShowBottomSheet(true), setIsAllVerified(true))
+      : (setIsShowBottomSheet(false), setIsAllVerified(false));
   }, [isCheckedList]);
 
   return (
@@ -64,14 +67,14 @@ const SelectPreferRegion = () => {
       <ProgressBar whole={3} current={3} />
       <S.SelectPreferRegionLayout>
         <Field name="시술희망 지역" isEssential={true} />
-        <S.SelectorBox $isshowchecked={isShowCategory.toString()} onClick={handleShowCategory}>
-          희망 지역을 선택해주세요 (최대 3개)
+        <S.SelectorBox $isshowchecked={isShowCategory.toString()} onClick={handleShowCategory} ref={selectorBoxRef}>
+          {PLACE_HOLDER_MESSAGE.SELECT_PREFER_REGION}
           {!isShowCategory ? <IcDownGrey /> : <IcUpBlue />}
         </S.SelectorBox>
         {!isShowCategory ? (
           <S.HelperBox>
             <IcInformation />
-            <S.HelperSpan>지금은 서울특별시에만 운영되고 있어요</S.HelperSpan>
+            <S.HelperSpan>{HELPER_MESSAGE.NOW_ONLY_SEOUL_AVAILABE}</S.HelperSpan>
           </S.HelperBox>
         ) : (
           <S.CategoryBox ref={categoryRef}>
@@ -110,7 +113,7 @@ const SelectPreferRegion = () => {
           </S.SelectedListBox>
         </S.BottomSheetBox>
       </S.SelectPreferRegionLayout>
-      <Button text="완료" isFixed={true} onClickFn={() => {}} />
+      <Button text="완료" isFixed={true} onClickFn={() => {}} disabled={!isAllverified} />
     </>
   );
 };
