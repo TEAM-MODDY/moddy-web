@@ -14,6 +14,9 @@
   "dependencies": {
     "@stylelint/postcss-css-in-js": "^0.38.0",
     "axios": "^1.6.3",
+    "embla-carousel": "^8.0.0-rc19",
+    "embla-carousel-autoplay": "^8.0.0-rc19",
+    "embla-carousel-react": "^8.0.0-rc19",
     "postcss-styled-syntax": "^0.6.3",
     "postcss-syntax": "^0.36.2",
     "react": "^18.2.0",
