@@ -7,6 +7,7 @@ import CopyButton from '../views/ModelInfoPage/components/CopyButton';
 import OfferDetail from '../views/ModelInfoPage/components/OfferDetail';
 import OfferDetailBox from '../views/ModelInfoPage/components/OfferDetailBox';
 import { MODEL_DATA } from '../views/ModelInfoPage/constants/MODEL_DATA';
+import { MODEL_INFO_DATA } from '@/views/ModelInfoPage/constants/MODEL_INFO_DATA';
 
 const ModelInfoPage = () => {
   const ApplicationInfo = MODEL_DATA.data.applicationInfo;
@@ -14,8 +15,8 @@ const ModelInfoPage = () => {
 
 
 const ModelInfoPage = () => {
-  const ApplicationInfo = DUMMY_DATA.data.applicationInfo;
-  const ModelInfo = DUMMY_DATA.data.modelInfo;
+  const ApplicationInfo = MODEL_INFO_DATA.data.applicationInfo;
+  const ModelInfo = MODEL_INFO_DATA.data.modelInfo;
 
 
   const navigate = useNavigate();
@@ -32,7 +33,7 @@ const ModelInfoPage = () => {
         <S.OfferDetailsBox>
           <h1>지원내역</h1>
           <S.ContentDetailBox>
-            <OfferDetail content={ApplicationInfo.hairLength}>현재기장</OfferDetail>
+            <OfferDetail content={ApplicationInfo.hairLength}>현재 기장</OfferDetail>
             <OfferDetail content={ApplicationInfo.preferHairstyles.join(', ')}>희망스타일</OfferDetail>
             <h2>시술이력</h2>
             <S.DetailBox>

@@ -13,12 +13,15 @@ import OfferInfoPage from './pages/OfferInfoPage';
 import SignUpPage from './pages/SignUpPage';
 import GlobalStyle from './styles/GlobalStyle';
 import theme from './styles/Theme';
-import ModelOffer from './views/@common/components/ModelOffer';
+import ModelOfferPage from './views/ModelInfoPage/components/ModelOfferPage';
+import OfferSentCompletePage from './views/ModelInfoPage/components/OfferSentCompletePage';
 import CheckOffer from './views/OfferInfoPage/components/CheckOffer';
 
 const router = createBrowserRouter([
   { path: '/', element: <MainPage /> },
   { path: '/login', element: <LoginPage /> },
+  { path: '/sign-up', element: <SignUpPage /> },
+  { path: '/model-info', element: <ModelInfoPage /> },
   { path: '/sign-up', element: <SignUpPage /> },
   { path: '/model-info', element: <ModelInfoPage /> },
   { path: '/application', element: <ApplicationPage /> },
@@ -28,6 +31,7 @@ const router = createBrowserRouter([
   { path: '/my-quit', element: <MyQuitPage /> },
   { path: '/model-info/model-offer', element: <ModelOffer /> },
   { path: '/agreement', element: <AgreementPage /> },
+  { path: '/model-info/model-offer/sent-complete', element: <OfferSentCompletePage /> },
 ]);
 
 const App = () => {
