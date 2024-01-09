@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import { styled } from 'styled-components';
 
 import Banner from '../views/MainPage/components/Banner';
 import Contents from '../views/MainPage/components/Contents';
@@ -10,6 +10,7 @@ import { APPLY_TYPE, USER_TYPE } from '../views/MainPage/constants/constants';
 const MainPage = () => {
   const userType = USER_TYPE.GUEST;
   const applyType = APPLY_TYPE.NOT_YET;
+
   return (
     <MainPageLayout>
       <StatusBarForiOS />
