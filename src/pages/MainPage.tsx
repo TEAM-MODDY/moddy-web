@@ -15,7 +15,7 @@ const MainPage = () => {
     <MainPageLayout>
       <StatusBarForiOS />
       <TopSheet userType={userType} applyType={applyType} />
-      <Banner userType={userType} />
+      <Banner />
       {userType === USER_TYPE.GUEST ? <Contents /> : <ReceivedOffer applyType={applyType} />}
     </MainPageLayout>
   );
@@ -24,5 +24,7 @@ const MainPage = () => {
 export default MainPage;
 
 const MainPageLayout = styled.div`
+  height: 100vh;
+
   background: ${({ theme }) => theme.colors.moddy_wt};
 `;
