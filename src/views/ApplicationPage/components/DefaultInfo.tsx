@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { styled } from 'styled-components';
 
 import { IcEssential } from '../../@common/assets/icons';
@@ -8,7 +9,7 @@ import mediumSelected from '../../@common/assets/images/btn_hair2_selected.png';
 import longDefault from '../../@common/assets/images/btn_hair3_default.png';
 import longSelected from '../../@common/assets/images/btn_hair3_selected.png';
 import rapunzelDefault from '../../@common/assets/images/btn_hair4_default.png';
-import rapunzelSelectecde from '../../@common/assets/images/btn_hair4_selected.png';
+import rapunzelSelected from '../../@common/assets/images/btn_hair4_selected.png';
 import Button from '../../@common/components/Button';
 import Header from '../../@common/components/Header';
 import ProgressBar from '../../@common/components/ProgressBar';
@@ -16,6 +17,10 @@ import ProgressBar from '../../@common/components/ProgressBar';
 import StyleButton from './StyleButton';
 
 const DefaultInfo = () => {
+  const [hairLength, setHairLength] = useState('default');
+  const [preferStyles, setPreferStyles] = useState([]);
+  const [activateBtn, isActivateBtn] = useState(false);
+
   const moveNext = () => {};
 
   return (
@@ -31,21 +36,37 @@ const DefaultInfo = () => {
             <span>현재 머리 기장을 선택해주세요</span>
           </S.Title>
           <S.HairImgBox>
-            <input type="radio" id="숏" name="숏" />
-            <S.HairType htmlFor="숏">
-              <img src={shortDefault} alt="숏" />
+            <S.HairTypeInput type="radio" id="숏" name="hairtype" />
+            <S.HairType
+              htmlFor="숏"
+              onClick={() => {
+                setHairLength('숏');
+              }}>
+              <img src={hairLength === '숏' ? shortSelected : shortDefault} alt="숏" />
             </S.HairType>
-            <input type="radio" id="단발" name="단발" />
-            <S.HairType htmlFor="단발">
-              <img src={mediumDefault} alt="단발" />
+            <S.HairTypeInput type="radio" id="단발" name="hairtype" />
+            <S.HairType
+              htmlFor="단발"
+              onClick={() => {
+                setHairLength('단발');
+              }}>
+              <img src={hairLength === '단발' ? mediumSelected : mediumDefault} alt="단발" />
             </S.HairType>
-            <input type="radio" id="어깨 아래" name="어깨 아래" />
-            <S.HairType htmlFor="어깨 아래">
-              <img src={longDefault} alt="숏" />
+            <S.HairTypeInput type="radio" id="어깨 아래" name="hairtype" />
+            <S.HairType
+              htmlFor="어깨 아래"
+              onClick={() => {
+                setHairLength('어깨 아래');
+              }}>
+              <img src={hairLength === '어깨 아래' ? longSelected : longDefault} alt="어깨 아래" />
             </S.HairType>
-            <input type="radio" id="허리 아래" name="허리 아래" />
-            <S.HairType htmlFor="허리 아래">
-              <img src={rapunzelDefault} alt="허리 아래" />
+            <S.HairTypeInput type="radio" id="허리 아래" name="hairtype" />
+            <S.HairType
+              htmlFor="허리 아래"
+              onClick={() => {
+                setHairLength('허리 아래');
+              }}>
+              <img src={hairLength === '허리 아래' ? rapunzelSelected : rapunzelDefault} alt="허리 아래" />
             </S.HairType>
           </S.HairImgBox>
         </S.HairLengthSection>
@@ -154,9 +175,13 @@ const S = {
     width: 100%;
     height: 9.2rem;
     margin: 2rem 0 2.8rem;
+  `,
 
-    & > input {
-      display: none;
+  HairTypeInput: styled.input`
+    display: none;
+
+    &:checked + label {
+      box-shadow: ${({ theme }) => theme.effects.shadow3};
     }
   `,
 
@@ -164,6 +189,8 @@ const S = {
     width: 100%;
     height: 100%;
     border-radius: 8px;
+
+    cursor: pointer;
 
     & > img {
       width: 100%;
