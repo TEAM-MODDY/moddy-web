@@ -115,6 +115,8 @@ export const reset = css`
 
   body {
     line-height: 1;
+
+    transition: background-color 0.2s ease;
   }
 
   menu,

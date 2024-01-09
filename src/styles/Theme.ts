@@ -9,8 +9,10 @@ const colors = {
   moddy_blue6: '#E9F1FF',
   moddy_sky: '#6ae4ff',
   moddy_purple: '#a38eff',
+  moddy_sora: '#3287FF',
   kakao: '#f3dd24',
   moddy_gradient3: 'linear-gradient(152deg, #6AE4FF -45.76%, #236FFF 25.9%, #236FFF 50.94%, #A38EFF 120.01%)',
+  moddy_gradient4: 'linear-gradient(180deg, #3287FF 18.47%, #236FFF 49.02%, #236FFF 75.03%, #A38EFF 115.44%)',
 
   moddy_bk: '#1d2330',
   moddy_wt: '#ffffff',
