@@ -6,7 +6,7 @@ import AgreementPage from './pages/AgreementPage';
 import ApplicationPage from './pages/ApplicationPage';
 import LoginPage from './pages/LoginPage';
 import MainPage from './pages/MainPage';
-import ModelInfoPage from './pages/ModelInfoPage';
+import ModelInfo from './pages/ModelInfoPage';
 import MyPage from './pages/MyPage';
 import MyQuitPage from './pages/MyQuitPage';
 import OfferInfoPage from './pages/OfferInfoPage';
@@ -21,15 +21,14 @@ const router = createBrowserRouter([
   { path: '/', element: <MainPage /> },
   { path: '/login', element: <LoginPage /> },
   { path: '/sign-up', element: <SignUpPage /> },
-  { path: '/model-info', element: <ModelInfoPage /> },
+  { path: '/model-info', element: <ModelInfo /> },
   { path: '/sign-up', element: <SignUpPage /> },
-  { path: '/model-info', element: <ModelInfoPage /> },
   { path: '/application', element: <ApplicationPage /> },
   { path: '/offer-info', element: <OfferInfoPage /> },
   { path: '/my-page', element: <MyPage /> },
   { path: '/offer-info/check-offer', element: <CheckOffer /> },
   { path: '/my-quit', element: <MyQuitPage /> },
-  { path: '/model-info/model-offer', element: <ModelOffer /> },
+  { path: '/model-info/model-offer', element: <ModelOfferPage /> },
   { path: '/agreement', element: <AgreementPage /> },
   { path: '/model-info/model-offer/sent-complete', element: <OfferSentCompletePage /> },
 ]);
