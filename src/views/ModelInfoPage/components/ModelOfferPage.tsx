@@ -7,13 +7,13 @@ import Header from '../../@common/components/Header';
 import TextArea200 from '../../@common/components/TextArea200';
 import ConditionBox from '../../ModelInfoPage/components/ConditionBox';
 import TitleBox from '../../ModelInfoPage/components/TitleBox';
-import { conditionData } from '../../ModelInfoPage/constants/conditionData';
+import { CONDITION_DATA } from '../constants/CONDITION_DATA';
 
 import Modal from '@/views/@common/components/Modal';
 
 const ModelOfferPage = () => {
   //희망 제안 조건 클릭시 활성화 기능
-  const [isClicked, setIsClicked] = useState<boolean[]>([true, true, false, false, false, false]);
+  const [isClicked, setIsClicked] = useState<boolean[]>([true, true, true, false, false, false]);
   const handleConditionClick = (index: number) => {
     setIsClicked((prevState) => {
       const newClickedState = [...prevState];
@@ -64,7 +64,7 @@ const ModelOfferPage = () => {
         <S.ModelOfferBox>
           <TitleBox title="희망 제안 조건" subtitle="원하는 조건을 모두 선택해주세요" isNeccessary={true} />
           <S.ContainerGridBox>
-            {conditionData.map((data, index) => (
+            {CONDITION_DATA.map((data, index) => (
               <ConditionBox
                 key={index}
                 icon={data.icon}

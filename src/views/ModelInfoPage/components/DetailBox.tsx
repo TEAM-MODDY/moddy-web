@@ -9,13 +9,17 @@ const DetailBox = () => {
   return (
     <>
       <S.DetailWrapperBox>
-        {ApplicationInfo.hairServiceRecords.map((record, idx) => (
-          <OfferDetailBox key={idx} hairServiceTerm={record.hairServiceTerm} hairService={record.hairService} />
-        ))}
+        {ApplicationInfo.hairServiceRecords && ApplicationInfo.hairServiceRecords.length > 0 ? (
+          ApplicationInfo.hairServiceRecords.map((record, idx) => (
+            <OfferDetailBox key={idx} hairServiceTerm={record.hairServiceTerm} hairService={record.hairService} />
+          ))
+        ) : (
+          <S.EmptyText>등록된 시술 이력이 없어요</S.EmptyText>
+        )}
       </S.DetailWrapperBox>
       <h2>상세 희망 스타일</h2>
       <S.DetailWrapperBox>
-        <p>{ApplicationInfo.hairDetail}</p>
+        <S.FillText>{ApplicationInfo.hairDetail}</S.FillText>
       </S.DetailWrapperBox>
     </>
   );
@@ -29,14 +33,21 @@ const S = {
     border-radius: 10px;
 
     background-color: ${({ theme }) => theme.colors.moddy_gray05};
+  `,
 
-    & > p {
-      color: ${({ theme }) => theme.colors.moddy_bk};
+  EmptyText: styled.p`
+    color: ${({ theme }) => theme.colors.moddy_gray50};
+    ${({ theme }) => theme.fonts.Body02};
 
-      ${({ theme }) => theme.fonts.Body02};
+    text-align: center;
+  `,
 
-      word-break: keep-all;
-    }
+  FillText: styled.p`
+    color: ${({ theme }) => theme.colors.moddy_bk};
+
+    ${({ theme }) => theme.fonts.Body02};
+
+    word-break: keep-all;
   `,
 };
 

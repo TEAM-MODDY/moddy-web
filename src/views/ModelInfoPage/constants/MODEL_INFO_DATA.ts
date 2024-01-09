@@ -6,20 +6,7 @@ export const MODEL_INFO_DATA = {
         'https://mblogthumb-phinf.pstatic.net/20121002_183/white_cloudy_1349105780071ubbWC_JPEG/naver_com_20120628_092207.jpg?type=w420',
       hairLength: '단발',
       preferHairstyles: ['일반 커트', '일반 펌'],
-      hairServiceRecords: [
-        {
-          hairServiceTerm: '1개월 미만',
-          hairService: '블랙 염색',
-        },
-        {
-          hairServiceTerm: '3~6개월',
-          hairService: '탈색',
-        },
-        {
-          hairServiceTerm: '12개월 초과',
-          hairService: '탈색',
-        },
-      ],
+      hairServiceRecords: [],
       hairDetail:
         '이러쿵저러쿵 이쁘게 최양락은 아니면서 웬디는 될 수 없지만 최양락은 좀 아니지 않나 하는 생각에 일단 그래그래그래그래 그래 뭐',
       isSend: false,
