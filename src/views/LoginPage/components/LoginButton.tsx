@@ -23,12 +23,8 @@ const S = {
   LoginButtonLayout: styled.section`
     display: flex;
     justify-content: center;
-    position: fixed;
-    bottom: 0;
-    left: 0;
 
     width: 100%;
-    max-width: 43rem;
     padding: 0 1.5rem 4rem 1.6rem;
   `,
   LoginButtonBtn: styled.button`
