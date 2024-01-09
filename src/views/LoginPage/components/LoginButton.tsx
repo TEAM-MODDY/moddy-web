@@ -25,7 +25,6 @@ const S = {
     justify-content: center;
     position: fixed;
     bottom: 0;
-    left: 0;
 
     width: 100%;
     max-width: 43rem;
