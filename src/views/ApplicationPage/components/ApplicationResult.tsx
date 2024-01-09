@@ -94,7 +94,6 @@ const S = {
   ApplicationResultLayout: styled.main`
     display: flex;
     flex-direction: column;
-    flex: 1;
     justify-content: flex-start;
     align-items: center;
     overflow: hidden;
@@ -199,6 +198,7 @@ const S = {
   InfoText: styled.p`
     height: 13.2rem;
     padding: 1.2rem 1.55rem;
+        
     border: none;
     border-radius: 10px;
     resize: none;

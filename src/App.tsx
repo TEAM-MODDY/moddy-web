@@ -13,7 +13,7 @@ import GlobalStyle from './styles/GlobalStyle';
 import theme from './styles/Theme';
 import ModelOffer from './views/@common/components/ModelOffer';
 import ConfirmPage from './views/ApplicationPage/pages/ConfirmPage';
-
+        
 const router = createBrowserRouter([
   { path: '/', element: <MainPage /> },
   { path: '/login', element: <LoginPage /> },
