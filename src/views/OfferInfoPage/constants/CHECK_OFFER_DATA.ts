@@ -2,7 +2,8 @@ export const CHECK_OFFER_DATA = {
   code: 200,
   message: '제안서 승낙 성공',
   data: {
-    applicationImgUrl: 'http://지원내역 캡쳐한거 클라가 넘겨준거 저장해둔거 보내쥼',
+    applicationImgUrl:
+      'https://mblogthumb-phinf.pstatic.net/MjAxNzA4MjJfMjcw/MDAxNTAzMzU1NTI5Mjg0.OBV0OZkJQHRZzIWAtVDM60JLl9wq5WwiwnRTwgYqDq4g.II9maLicfuatQ8bxN7F6uUt1ZVa_95hP2OVB0Ig4uf8g.JPEG.doghter4our/IMG_0907.jpg?type=w800',
     kakaoUrl: 'https://open.kakao.com/o/gukiuI2f',
     designerInfo: {
       imgUrl:
