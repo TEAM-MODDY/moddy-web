@@ -27,6 +27,6 @@ const S = {
     display: flex;
     flex-direction: column;
 
-    padding: 9.1rem 1.6rem;
+    padding: 9.1rem 0;
   `,
 };
