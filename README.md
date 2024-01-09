@@ -22,21 +22,23 @@
 <img width="1340" alt="스크린샷 2024-01-09 오후 10 12 56" src="https://github.com/TEAM-MODDY/moddy-web/assets/81505421/b1b76fa2-f615-4303-a644-e5223fede2d7">
 
 ### 💈서비스 플로우 및 핵심 기능
-<img width="350" alt="스크린샷 2024-01-09 오후 10 12 43" src="https://github.com/TEAM-MODDY/moddy-web/assets/81505421/2bd272b6-8c31-4df0-b8d8-f98166ef0548">
+![모디_서비스플로우](https://github.com/TEAM-MODDY/moddy-web/assets/81505421/1ac447c1-b2e1-484d-86b5-833ab1420403)
 
 ---
 
 ## Dev Skills
-![모디_기술](https://github.com/TEAM-MODDY/moddy-web/assets/81505421/c9d4a68e-1080-4aff-8815-bdca71203acc)
+![모디_기술스택](https://github.com/TEAM-MODDY/moddy-web/assets/81505421/b147f7b0-8302-44e9-90d5-553929ca45b9)
 
 <br/>
+
 ## Branch Strategy
+![모디_브랜치전략](https://github.com/TEAM-MODDY/moddy-web/assets/81505421/400fabb6-6615-48df-b1bd-40a47e719a4c)
 
 
 <br/>
 
 ## Directory Structure
-![모디_파일구조](https://github.com/TEAM-MODDY/moddy-web/assets/81505421/d08091cf-541a-4916-a956-7fe13756ca1a)
+![모디_폴더구조](https://github.com/TEAM-MODDY/moddy-web/assets/81505421/c0381996-8e0e-4210-a64c-7bdcaa0ef87a)
 
 <br/>
 
