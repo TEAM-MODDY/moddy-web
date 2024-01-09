@@ -9,13 +9,13 @@ import { APPLY_TYPE, USER_TYPE } from '../views/MainPage/constants/constants';
 
 const MainPage = () => {
   const userType = USER_TYPE.GUEST;
-  const applyType = APPLY_TYPE.NOT_YET;
+  const applyType = APPLY_TYPE.RECEIVED;
 
   return (
     <MainPageLayout>
       <StatusBarForiOS />
       <TopSheet userType={userType} applyType={applyType} />
-      <Banner userType={userType} />
+      <Banner />
       {userType === USER_TYPE.GUEST ? <Contents /> : <ReceivedOffer applyType={applyType} />}
     </MainPageLayout>
   );
@@ -24,5 +24,8 @@ const MainPage = () => {
 export default MainPage;
 
 const MainPageLayout = styled.div`
+  height: 100%;
+  min-height: 100dvh;
+
   background: ${({ theme }) => theme.colors.moddy_wt};
 `;

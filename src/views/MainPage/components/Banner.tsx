@@ -1,18 +1,46 @@
+import Slider from 'react-slick';
+import '../styles/carousel.css';
 import { styled } from 'styled-components';
-
-import { USER_TYPE } from '../constants/constants';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 
 import banner1 from '@images/img_banner1.png';
 import banner2 from '@images/img_banner2.png';
 
-interface BannerProps {
-  userType: number;
-}
-const Banner = ({ userType }: BannerProps) => {
+const Banner = () => {
+  const images = [banner1, banner2];
+  const settings = {
+    dots: true,
+    infinite: true,
+    autoplay: true,
+    arrows: false,
+    autoplaySpeed: 6000,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    appendDots: (dots: JSX.Element) => (
+      <div
+        style={{
+          width: 'calc(100% - 16px)',
+          position: 'absolute',
+          bottom: '4px',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}>
+        <ul>{dots}</ul>
+      </div>
+    ),
+    dotsClass: 'dots_custom',
+  };
   return (
     <BannerLayout>
       <BannerBox>
-        <img src={userType === USER_TYPE.DESIGNER ? banner1 : banner2} alt="배너" />
+        <Slider {...settings}>
+          {images.map((item: string) => (
+            <img src={item} alt="img" key={item} />
+          ))}
+        </Slider>
       </BannerBox>
     </BannerLayout>
   );
@@ -21,15 +49,14 @@ const Banner = ({ userType }: BannerProps) => {
 export default Banner;
 
 const BannerLayout = styled.div`
-  padding: 2.4rem 1.6rem;
+  padding: 2.4rem 0 2.4rem 1.6rem;
 `;
 
 const BannerBox = styled.div`
-  width: 100%;
   height: 8.4rem;
   border-radius: 8px;
 
-  & > img {
+  & img {
     width: 100%;
   }
 `;

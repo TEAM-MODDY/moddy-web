@@ -33,13 +33,17 @@ const S = {
     display: flex;
     justify-content: center;
     position: fixed;
-    top: 5.4rem;
+    top: 5rem;
 
     width: 100%;
+    padding: 0.5rem;
+
+    background-color: ${({ theme }) => theme.colors.moddy_wt};
   `,
   ProgressBarBox: styled.div`
     display: flex;
     gap: 1rem;
+    justify-content: center;
     align-items: center;
   `,
 };
