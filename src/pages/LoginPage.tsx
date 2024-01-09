@@ -1,5 +1,32 @@
+import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
+
+import Header from '../views/@common/components/Header';
+import LoginText from '../views/LoginPage/components/LoginText';
+
 const LoginPage = () => {
-  return <div></div>;
+  const navigate = useNavigate();
+  return (
+    <S.LoginPageLayout>
+      <Header
+        title=""
+        isBackBtnExist
+        backFn={() => {
+          navigate(-1);
+        }}
+      />
+      <LoginText />
+    </S.LoginPageLayout>
+  );
 };
 
 export default LoginPage;
+
+const S = {
+  LoginPageLayout: styled.div`
+    display: flex;
+    flex-direction: column;
+
+    padding: 9.1rem 1.6rem;
+  `,
+};
