@@ -12,8 +12,10 @@ const Banner = () => {
   const settings = {
     dots: true,
     infinite: true,
+    autoplay: true,
     arrows: false,
-    speed: 600,
+    autoplaySpeed: 6000,
+    speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
     appendDots: (dots: JSX.Element) => (
