@@ -1,9 +1,13 @@
-import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
+import { styled } from 'styled-components';
+
+import Button from '../../@common/components/Button';
 
 const ConfirmPage = () => {
+  const navigate = useNavigate();
   return (
     <S.ConfirmPage>
-      <img src="src/views/@common/assets/images/img_letter.png" alt="letter" />
+      <img src="/src/views/@common/assets/images/img_letter.png" alt="letter" />
       <S.Info>
         <h1>헤어모델 지원 완료!</h1>
         <p>
@@ -11,6 +15,13 @@ const ConfirmPage = () => {
           <br />곧 도착할 예정이에요.
         </p>
       </S.Info>
+      <Button
+        text="닫기"
+        isFixed={true}
+        onClickFn={() => {
+          navigate(`/`);
+        }}
+      />
     </S.ConfirmPage>
   );
 };

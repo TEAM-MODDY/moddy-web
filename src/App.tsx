@@ -12,7 +12,8 @@ import SignUpPage from './pages/SignUpPage';
 import GlobalStyle from './styles/GlobalStyle';
 import theme from './styles/Theme';
 import ModelOffer from './views/@common/components/ModelOffer';
-
+import ConfirmPage from './views/ApplicationPage/pages/ConfirmPage';
+        
 const router = createBrowserRouter([
   { path: '/', element: <MainPage /> },
   { path: '/login', element: <LoginPage /> },
@@ -22,6 +23,7 @@ const router = createBrowserRouter([
   { path: '/offer-info', element: <OfferInfoPage /> },
   { path: '/my-page', element: <MyPage /> },
   { path: '/model-info/model-offer', element: <ModelOffer /> },
+  { path: '/application/confirm', element: <ConfirmPage /> },
 ]);
 
 const App = () => {
