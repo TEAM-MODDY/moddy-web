@@ -6,12 +6,18 @@ import Header from '../views/@common/components/Header';
 import CopyButton from '../views/ModelInfoPage/components/CopyButton';
 import OfferDetail from '../views/ModelInfoPage/components/OfferDetail';
 import OfferDetailBox from '../views/ModelInfoPage/components/OfferDetailBox';
-
+import { MODEL_DATA } from '../views/ModelInfoPage/constants/MODEL_DATA';
 import { MODEL_INFO_DATA } from '@/views/ModelInfoPage/constants/MODEL_INFO_DATA';
+
+const ModelInfoPage = () => {
+  const ApplicationInfo = MODEL_DATA.data.applicationInfo;
+  const ModelInfo = MODEL_DATA.data.modelInfo;
+
 
 const ModelInfoPage = () => {
   const ApplicationInfo = MODEL_INFO_DATA.data.applicationInfo;
   const ModelInfo = MODEL_INFO_DATA.data.modelInfo;
+
 
   const navigate = useNavigate();
   const handleOnClickOffer = () => {
@@ -20,7 +26,8 @@ const ModelInfoPage = () => {
 
   return (
     <>
-      <Header isBackBtnExist={true} isCloseBtnExist={false} title="모델 지원 정보" />
+
+      <Header isBackBtnExist={true} title="모델 지원 정보" />
       <S.ModelInfoLayout>
         <S.ImageBox src={ApplicationInfo.modelImgUrl} alt="모델 이미지"></S.ImageBox>
         <S.OfferDetailsBox>
@@ -61,7 +68,6 @@ const S = {
 
     width: 100%;
     margin: 5rem 0 5.7rem;
-    margin-bottom: 5.7rem;
     padding: 0 1.6rem;
 
     place-items: center;
@@ -84,6 +90,7 @@ const S = {
       height: 3.1rem;
       margin: 0.8rem 0;
       border-bottom: 1px solid;
+      border-color: ${({ theme }) => theme.colors.moddy_blue};
 
       color: ${({ theme }) => theme.colors.moddy_blue};
 

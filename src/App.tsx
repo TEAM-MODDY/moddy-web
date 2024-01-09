@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 
+import AgreementPage from './pages/AgreementPage';
 import ApplicationPage from './pages/ApplicationPage';
 import LoginPage from './pages/LoginPage';
 import MainPage from './pages/MainPage';
@@ -14,6 +15,7 @@ import GlobalStyle from './styles/GlobalStyle';
 import theme from './styles/Theme';
 import ModelOfferPage from './views/ModelInfoPage/components/ModelOfferPage';
 import OfferSentCompletePage from './views/ModelInfoPage/components/OfferSentCompletePage';
+import CheckOffer from './views/OfferInfoPage/components/CheckOffer';
 
 const router = createBrowserRouter([
   { path: '/', element: <MainPage /> },
@@ -23,10 +25,12 @@ const router = createBrowserRouter([
   { path: '/sign-up', element: <SignUpPage /> },
   { path: '/model-info', element: <ModelInfoPage /> },
   { path: '/application', element: <ApplicationPage /> },
-  { path: '/offer--info', element: <OfferInfoPage /> },
-  { path: '/my--page', element: <MyPage /> },
+  { path: '/offer-info', element: <OfferInfoPage /> },
+  { path: '/my-page', element: <MyPage /> },
+  { path: '/offer-info/check-offer', element: <CheckOffer /> },
   { path: '/my-quit', element: <MyQuitPage /> },
-  { path: '/model-info/model-offer', element: <ModelOfferPage /> },
+  { path: '/model-info/model-offer', element: <ModelOffer /> },
+  { path: '/agreement', element: <AgreementPage /> },
   { path: '/model-info/model-offer/sent-complete', element: <OfferSentCompletePage /> },
 ]);
 
