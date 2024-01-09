@@ -1,0 +1,7 @@
+export const STATUS = {
+  NOT_AVAILABLE: 0,
+  AVAILABLE: 1,
+  RE_AVALILABLE: 2,
+  VERIFIED: 3,
+  DONE: 4,
+};
