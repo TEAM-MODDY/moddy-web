@@ -2,11 +2,13 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
 
-import designerImg from '../../@common/assets/images/img_scissor.png';
 import Button from '../../@common/components/Button';
 import Header from '../../@common/components/Header';
 import { HELPER_MESSAGE } from '../constants/message';
 import { ON_BOARDING_TEXT } from '../constants/text';
+
+import designerImg from '@images/img_designer.png';
+import modelImg from '@images/img_model.png';
 
 interface SelectUserTypeProp {
   setStep: React.Dispatch<React.SetStateAction<boolean>>;
@@ -24,15 +26,15 @@ const SelectUserType = ({ setStep }: SelectUserTypeProp) => {
 
   return (
     <>
+      <Header
+        isBackBtnExist={true}
+        isCloseBtnExist={false}
+        title=""
+        backFn={() => {
+          navigate(-1);
+        }}
+      />
       <S.SelectUserTypeLayout>
-        <Header
-          isBackBtnExist={true}
-          isCloseBtnExist={false}
-          title=""
-          backFn={() => {
-            navigate('/agreement');
-          }}
-        />
         <S.OnBoardingSpan>{ON_BOARDING_TEXT.SELECT_USER_TYPE}</S.OnBoardingSpan>
         <S.HelperTextSpan>{HELPER_MESSAGE.USER_TYPE_CHANGE_UNAVAILABLE}</S.HelperTextSpan>
         <S.RadioBox>
@@ -51,7 +53,7 @@ const SelectUserType = ({ setStep }: SelectUserTypeProp) => {
           <S.RadioInput type="radio" id="model" name="user-type" value={userType} onChange={handleUserType} />
           <S.UserTypeBoxLabel htmlFor="model">
             <S.ImageBox>
-              <img src={designerImg} width="100%" alt="디자이너" />
+              <img src={modelImg} width="100%" alt="모델" />
             </S.ImageBox>
             <S.UserTypeSpan>일반인/모델</S.UserTypeSpan>
             <S.UserTypeInfoSpan>
@@ -111,9 +113,14 @@ const UserTypeBoxLabel = styled.label`
 
 const ImageBox = styled.div`
   width: 10rem;
+
+  background-color: transparent;
+  filter: drop-shadow(0 0 3rem rgba(82, 0, 255, 0.25));
 `;
 
 const UserTypeSpan = styled.span`
+  margin-top: 1rem;
+
   color: ${({ theme }) => theme.colors.moddy_bk};
   ${({ theme }) => theme.fonts.Body01};
 `;
