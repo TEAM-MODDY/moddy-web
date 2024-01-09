@@ -14,6 +14,7 @@ import SignUpPage from './pages/SignUpPage';
 import GlobalStyle from './styles/GlobalStyle';
 import theme from './styles/Theme';
 import ModelOffer from './views/@common/components/ModelOffer';
+import CheckOffer from './views/OfferInfoPage/components/CheckOffer';
 
 const router = createBrowserRouter([
   { path: '/', element: <MainPage /> },
@@ -23,6 +24,7 @@ const router = createBrowserRouter([
   { path: '/application', element: <ApplicationPage /> },
   { path: '/offer-info', element: <OfferInfoPage /> },
   { path: '/my-page', element: <MyPage /> },
+  { path: '/offer-info/check-offer', element: <CheckOffer /> },
   { path: '/my-quit', element: <MyQuitPage /> },
   { path: '/model-info/model-offer', element: <ModelOffer /> },
   { path: '/agreement', element: <AgreementPage /> },

@@ -6,43 +6,17 @@ import Header from '../views/@common/components/Header';
 import CopyButton from '../views/ModelInfoPage/components/CopyButton';
 import OfferDetail from '../views/ModelInfoPage/components/OfferDetail';
 import OfferDetailBox from '../views/ModelInfoPage/components/OfferDetailBox';
+import { MODEL_DATA } from '../views/ModelInfoPage/constants/MODEL_DATA';
 
-const DUMMY_DATA = {
-  data: {
-    applicationInfo: {
-      applicationId: 1,
-      modelImgUrl:
-        'https://mblogthumb-phinf.pstatic.net/20121002_183/white_cloudy_1349105780071ubbWC_JPEG/naver_com_20120628_092207.jpg?type=w420',
-      hairLength: '단발',
-      preferHairstyles: ['일반 커트', '일반 펌'],
-      hairServiceRecords: [
-        {
-          hairServiceTerm: '1~3개월',
-          hairService: '블랙 염색',
-        },
-        {
-          hairServiceTerm: '4~5개월',
-          hairService: '탈색',
-        },
-      ],
-      hairDetail:
-        '이러쿵저러쿵 이쁘게 최양락은 아니면서 웬디는 될 수 없지만 최양락은 좀 아니지 않나 하는 생각에 일단 그래그래그래그래 그래 뭐',
-      isSend: false,
-    },
-    modelInfo: {
-      modelId: 1,
-      name: '모디',
-      age: '25',
-      gender: '여성',
-      preferRegions: ['관악구', '강남구'],
-      instagramId: '2k_lin',
-    },
-  },
-};
+const ModelInfoPage = () => {
+  const ApplicationInfo = MODEL_DATA.data.applicationInfo;
+  const ModelInfo = MODEL_DATA.data.modelInfo;
+
 
 const ModelInfoPage = () => {
   const ApplicationInfo = DUMMY_DATA.data.applicationInfo;
   const ModelInfo = DUMMY_DATA.data.modelInfo;
+
 
   const navigate = useNavigate();
   const handleOnClickOffer = () => {
@@ -51,7 +25,8 @@ const ModelInfoPage = () => {
 
   return (
     <>
-      <Header isBackBtnExist={true} isCloseBtnExist={false} title="모델 지원 정보" />
+
+      <Header isBackBtnExist={true} title="모델 지원 정보" />
       <S.ModelInfoLayout>
         <S.ImageBox src={ApplicationInfo.modelImgUrl} alt="모델 이미지"></S.ImageBox>
         <S.OfferDetailsBox>
@@ -92,7 +67,6 @@ const S = {
 
     width: 100%;
     margin: 5rem 0 5.7rem;
-    margin-bottom: 5.7rem;
     padding: 0 1.6rem;
 
     place-items: center;
@@ -115,6 +89,7 @@ const S = {
       height: 3.1rem;
       margin: 0.8rem 0;
       border-bottom: 1px solid;
+      border-color: ${({ theme }) => theme.colors.moddy_blue};
 
       color: ${({ theme }) => theme.colors.moddy_blue};
 

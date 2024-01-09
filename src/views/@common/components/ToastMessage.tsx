@@ -35,7 +35,6 @@ const S = {
 
     width: 100%;
     height: 100vh;
-
     background-color: ${({ theme }) => theme.colors.moddy_bk20};
   `,
   ToastSection: styled.section`
