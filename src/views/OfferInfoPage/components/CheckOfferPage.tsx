@@ -7,7 +7,7 @@ import ButtonBox from './ButtonBox';
 import ImgBox from './ImgBox';
 import ProfileWrapperBox from './ProfileWrapperBox';
 
-const CheckOffer = () => {
+const CheckOfferPage = () => {
   //헤더 앞뒤 이동
   const navigate = useNavigate();
   const handleClickClose = () => {
@@ -68,4 +68,4 @@ const S = {
     ${({ theme }) => theme.fonts.Headline01};
   `,
 };
-export default CheckOffer;
+export default CheckOfferPage;
