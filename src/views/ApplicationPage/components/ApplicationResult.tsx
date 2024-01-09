@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
 
-import { ImgLogoBlue } from '../../@common/assets/images';
+import applyImg from '../../@common/assets/images/img_applylogo.png';
 import Button from '../../@common/components/Button';
 import Header from '../../@common/components/Header';
 
@@ -12,9 +12,7 @@ const ApplicationResult = () => {
       <Header isBackBtnExist={true} isCloseBtnExist={true} title="최종 확인"></Header>
       <S.ContentSection>
         <S.ContentBox>
-          <h2>
-            모델 정보 <ImgLogoBlue />
-          </h2>
+          <h2>모델 정보</h2>
           <S.DivideBox>
             <img alt="profile" src="src/views/@common/assets/images/img_samplemodel.png" />
             <S.Info>
@@ -78,6 +76,7 @@ const ApplicationResult = () => {
           <S.InfoText>더미데이터 </S.InfoText>
         </S.ContentBox>
       </S.ContentSection>
+      <img src={applyImg} alt="로고이미지" />
       <Button
         text="지원하기"
         isFixed={true}
@@ -105,6 +104,15 @@ const S = {
     margin: 5.7rem 0 10rem;
 
     ${({ theme }) => theme.fonts.Body01};
+
+    & > img {
+      position: absolute;
+      right: 1.3rem;
+      bottom: 9.5rem;
+
+      width: 13.4rem;
+      object-fit: cover;
+    }
   `,
 
   ContentSection: styled.section`
@@ -112,6 +120,7 @@ const S = {
     flex-direction: column;
     gap: 2.6rem;
     overflow-y: scroll;
+    position: relative;
 
     width: 100%;
     margin-right: 8px;
@@ -137,20 +146,12 @@ const S = {
     width: 100%;
 
     & > h2 {
-      display: flex;
-      justify-content: space-between;
-
       padding-bottom: 0.6rem;
       border-bottom: 0.1px solid ${({ theme }) => theme.colors.moddy_blue};
 
       color: ${({ theme }) => theme.colors.moddy_blue};
 
       ${({ theme }) => theme.fonts.Body01};
-
-      & > svg {
-        width: 5.9rem;
-        height: 1.8rem;
-      }
     }
   `,
 
