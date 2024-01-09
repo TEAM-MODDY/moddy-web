@@ -63,6 +63,10 @@
     "@typescript-eslint/no-unused-vars": "warn",
     //console 포함될 때 경고
     "no-console": "warn",
+    //label 태그와 input 태그 연결 여부
+    "jsx-a11y/label-has-associated-control": [ 2,  {
+      "labelAttributes": ["htmlFor"]
+    }],
     "import/order": [
       "error",
       {

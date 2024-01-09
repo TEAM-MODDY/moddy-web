@@ -1,12 +1,18 @@
+import { useState } from 'react';
 import { styled } from 'styled-components';
 
-import { IcEssential } from '../views/@common/assets/icons';
-import Button from '../views/@common/components/Button';
-import Header from '../views/@common/components/Header';
-import Input from '../views/@common/components/Input';
-import ProgressBar from '../views/@common/components/ProgressBar';
+import { IcEssential } from '../../@common/assets/icons';
+import beforeUpload from '../../@common/assets/images/btn_photoadd.png';
+import afterUpload from '../../@common/assets/images/btn_photoedit.png';
+import Button from '../../@common/components/Button';
+import Header from '../../@common/components/Header';
+import Input from '../../@common/components/Input';
+import ProgressBar from '../../@common/components/ProgressBar';
+import { uploadImg } from '../hooks/uploadImg';
 
 const ProfileUpload = () => {
+  const [isUploaded, setIsUploaded] = useState('');
+
   const moveNext = () => {};
 
   return (
@@ -25,14 +31,24 @@ const ProfileUpload = () => {
               반드시 본인사진을 등록해주세요
             </span>
           </S.Title>
-          <button type="button">
-            <S.ProfileUploadBtn src="src/views/@common/assets/images/btn_photoadd.png" alt="uploadImage" />
-          </button>
+          <S.ProfileUploadBtnBox>
+            <label htmlFor="uploadButton">
+              <input
+                id="uploadButton"
+                name="uploadButton"
+                type="file"
+                accept="image/*"
+                onChange={(e) => {
+                  uploadImg(e);
+                }}
+              />
+            </label>
+          </S.ProfileUploadBtnBox>
         </S.ProfilePhotoSection>
         <S.ProfileInstaSection>
           <S.Title>
             <h2>인스타그램 아이디</h2>
-            <span>모델님의 스타일 파악을 위해 입력을 권장드려요</span>
+            <span>평소 스타일 파악을 위해 입력을 권장드려요</span>
           </S.Title>
           <Input placeholderText="아이디를 입력해주세요 &#40;&#39;@&#39; 제외&#41;" />
         </S.ProfileInstaSection>
@@ -67,17 +83,26 @@ const S = {
     display: flex;
     flex-direction: column;
     gap: 3.7rem;
-
-    & > button {
-      width: 13.2rem;
-      height: 13.2rem;
-      margin: 0 auto;
-    }
   `,
 
-  ProfileUploadBtn: styled.img`
+  ProfileUploadBtnBox: styled.div`
+    width: 13.2rem;
+    height: 13.2rem;
+    margin: 0 auto;
+
+    cursor: pointer;
+  `,
+
+  ProfileUploadBtn: styled.label`
+    z-index: 1;
+
     width: 100%;
+
     object-fit: cover;
+
+    & > input {
+      display: none;
+    }
   `,
 
   ProfileInstaSection: styled.section`

@@ -1,6 +1,6 @@
 import { styled } from 'styled-components';
 
-import ProfileUpload from './ProfileUpload';
+import ProfileUpload from '../views/ApplicationPage/components/ProfileUpload';
 const ApplicationPage = () => {
   return (
     <S.ApplicationPagSection>
