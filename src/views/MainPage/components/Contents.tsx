@@ -6,7 +6,7 @@ import detailContent2 from '../assets/images/img_content2.png';
 import contentImg1 from '../assets/images/img_maincont1.png';
 import contentImg2 from '../assets/images/img_maincont2.png';
 
-import Header from '@/views/@common/components/Header';
+import { IcCloseBlack } from '@/views/@common/assets/icons';
 
 interface DetailPageProps {
   imgSrc: string;
@@ -16,8 +16,12 @@ const Contents = () => {
   const DetailPage = ({ imgSrc }: DetailPageProps) => {
     return (
       <>
-        <Header title="" isCloseBtnExist={true} closeFn={() => setOpenDetail(0)} />
         <S.DetailLayout>
+          <S.DetailHeaderBox>
+            <S.CloseButton onClick={() => setOpenDetail(0)}>
+              <IcCloseBlack />
+            </S.CloseButton>
+          </S.DetailHeaderBox>
           <img src={imgSrc} alt="상세 페이지" />
         </S.DetailLayout>
       </>
@@ -55,7 +59,7 @@ const Contents = () => {
 export default Contents;
 
 const ContentsLayout = styled.div`
-  padding: 0 1.6rem 4rem;
+  padding: 0 1.6rem;
 `;
 
 const TitleSpan = styled.span`
@@ -135,16 +139,36 @@ const DetailLayout = styled.div`
   overflow-y: scroll;
   position: fixed;
   top: 0;
+  right: 0;
   left: 0;
 
-  width: 100vw;
+  width: 100%;
+  max-width: 43rem;
   height: 100%;
+  margin: 0 auto;
 
   background: ${({ theme }) => theme.colors.moddy_wt};
 
   & > img {
     width: 100%;
   }
+`;
+
+const CloseButton = styled.button`
+  float: right;
+
+  padding: 1rem 1.6rem 0 0;
+`;
+
+const DetailHeaderBox = styled.div`
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+
+  width: 100%;
+  max-width: 43rem;
+  margin: 0 auto;
 `;
 
 const S = {
@@ -159,4 +183,6 @@ const S = {
   CardInnerBox,
   CardInnerBox2,
   DetailLayout,
+  CloseButton,
+  DetailHeaderBox,
 };
