@@ -23,6 +23,8 @@ const VerifyPhoneNumber = ({ setStep }: VerifyPhoneNumberProp) => {
   const [verifyNumber, setVerifyNumber] = useState('');
   const [seconds, setSeconds] = useState(180);
   const [isVerifying, setIsVerifying] = useState(false);
+  const [isRequested, setIsRequested] = useState(false);
+  const [isAllVerified, SetIsAllVerified] = useState(false);
 
   useInterval(() => {
     isVerifying && seconds > 0 && setSeconds((prev) => prev - 1);
@@ -55,6 +57,7 @@ const VerifyPhoneNumber = ({ setStep }: VerifyPhoneNumberProp) => {
       if (requestStatus === STATUS.RE_AVALILABLE) {
         setSeconds(180);
       }
+      setIsRequested(true);
       setIsVerifying(true);
       phoneNumber.replace('-', '');
       setRequestStatus(STATUS.RE_AVALILABLE);
@@ -65,6 +68,7 @@ const VerifyPhoneNumber = ({ setStep }: VerifyPhoneNumberProp) => {
     if (seconds > 0) {
       setRequestStatus(STATUS.DONE);
       setVerifyStatus(STATUS.VERIFIED);
+      SetIsAllVerified(true);
     }
   };
 
@@ -91,19 +95,26 @@ const VerifyPhoneNumber = ({ setStep }: VerifyPhoneNumberProp) => {
             {requestStatus !== STATUS.RE_AVALILABLE && requestStatus !== STATUS.DONE ? '인증 요청' : '재요청'}
           </S.RequestButton>
         </S.InputBox>
-        <S.InputBox>
-          <S.Input
-            placeholder={PLACE_HOLDER_MESSAGE.INPUT_VERIFY_CODE}
-            value={verifyNumber}
-            onChange={handleVerifyNumber}
-          />
-          <S.CountDownSpan>{!isVerifying || verifyStatus === STATUS.VERIFIED ? null : formatTime()}</S.CountDownSpan>
-          <S.RequestButton $status={verifyStatus} onClick={handleConfirmVerify}>
-            {verifyStatus !== STATUS.VERIFIED ? '확인' : '인증 완료'}
-          </S.RequestButton>
-        </S.InputBox>
+        {isRequested && (
+          <S.InputBox>
+            <S.Input
+              placeholder={PLACE_HOLDER_MESSAGE.INPUT_VERIFY_CODE}
+              value={verifyNumber}
+              onChange={handleVerifyNumber}
+            />
+            <S.CountDownSpan>{!isVerifying || verifyStatus === STATUS.VERIFIED ? null : formatTime()}</S.CountDownSpan>
+            <S.RequestButton $status={verifyStatus} onClick={handleConfirmVerify}>
+              {verifyStatus !== STATUS.VERIFIED ? '확인' : '인증 완료'}
+            </S.RequestButton>
+          </S.InputBox>
+        )}
       </S.VerifyPhoneNumberLayout>
-      <Button text="다음" isFixed={true} onClickFn={() => setStep(STEP.MODEL.PREFER_REGION)} />
+      <Button
+        text="다음"
+        isFixed={true}
+        onClickFn={() => setStep(STEP.MODEL.PREFER_REGION)}
+        disabled={!isAllVerified}
+      />
     </>
   );
 };
