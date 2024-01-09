@@ -1,59 +1,40 @@
-/* stylelint-disable selector-class-pattern */
+.dots_custom {
+    display: inline-block;
 
+    margin: auto 0;
+    padding: 0;
 
-.embla__viewport {
-    overflow: hidden;
+    vertical-align: middle;
 }
 
-.embla__container {
-    display: flex;
-    -webkit-touch-callout: none;
-    user-select: none;
-    -webkit-tap-highlight-color: transparent;
-}
-
-.embla__slide {
-    min-width: 100%;
-    margin-right: 10px;
-}
-
-.embla__slide__inner {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.embla__navigator {
-    display: flex;
-    justify-content: center;
-    position: absolute;
-    bottom: 0;
-
-    width: 100%;
-    margin-bottom: 8px;
-}
-
-.embla__dots {
-    width: 4px;
-    height: 4px;
-    margin: 3px;
-    border-radius: 10px;
-
-    background-color: #D3D1FF;
-
+.dots_custom li {
+    list-style: none;
     cursor: pointer;
-
+    display: inline-block;
+    margin: 0 4px;
+    padding: 0;
 }
 
-
-.embla__dot--selected {
-    width: 4px;
+.dots_custom li button {
+    border: none;
+    background: #D3D1FF;
+    color: transparent;
+    cursor: pointer;
+    display: block;
     height: 4px;
-    margin: 3px;
-    border-radius: 10px;
+    width: 4px;
+    border-radius: 100%;
+    padding: 0;
+}
 
+.dots_custom li.slick-active button {
     background-color: #A38EFF;
+}
 
-    cursor: pointer;
+.slick-list {
+    margin-right: -16px;
+}
 
+.slick-slide {
+    padding-right: 16px;
 }
