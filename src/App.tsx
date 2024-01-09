@@ -4,6 +4,7 @@ import { ThemeProvider } from 'styled-components';
 
 import AgreementPage from './pages/AgreementPage';
 import ApplicationPage from './pages/ApplicationPage';
+import ErrorPage from './pages/ErrorPage';
 import LoginPage from './pages/LoginPage';
 import MainPage from './pages/MainPage';
 import ModelInfo from './pages/ModelInfoPage';
@@ -33,6 +34,7 @@ const router = createBrowserRouter([
   { path: '/application/confirm', element: <ConfirmPage /> },
   { path: '/agreement', element: <AgreementPage /> },
   { path: '/model-info/model-offer/sent-complete', element: <OfferSentCompletePage /> },
+  { path: '/error', element: <ErrorPage /> },
 ]);
 
 const App = () => {
