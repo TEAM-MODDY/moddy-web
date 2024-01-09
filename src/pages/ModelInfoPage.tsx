@@ -6,18 +6,12 @@ import Header from '../views/@common/components/Header';
 import CopyButton from '../views/ModelInfoPage/components/CopyButton';
 import OfferDetail from '../views/ModelInfoPage/components/OfferDetail';
 import OfferDetailBox from '../views/ModelInfoPage/components/OfferDetailBox';
-import { MODEL_DATA } from '../views/ModelInfoPage/constants/MODEL_DATA';
+
 import { MODEL_INFO_DATA } from '@/views/ModelInfoPage/constants/MODEL_INFO_DATA';
-
-const ModelInfoPage = () => {
-  const ApplicationInfo = MODEL_DATA.data.applicationInfo;
-  const ModelInfo = MODEL_DATA.data.modelInfo;
-
 
 const ModelInfoPage = () => {
   const ApplicationInfo = MODEL_INFO_DATA.data.applicationInfo;
   const ModelInfo = MODEL_INFO_DATA.data.modelInfo;
-
 
   const navigate = useNavigate();
   const handleOnClickOffer = () => {
@@ -26,7 +20,6 @@ const ModelInfoPage = () => {
 
   return (
     <>
-
       <Header isBackBtnExist={true} title="모델 지원 정보" />
       <S.ModelInfoLayout>
         <S.ImageBox src={ApplicationInfo.modelImgUrl} alt="모델 이미지"></S.ImageBox>
