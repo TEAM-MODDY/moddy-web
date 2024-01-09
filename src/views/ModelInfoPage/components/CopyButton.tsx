@@ -2,9 +2,13 @@ import { styled } from 'styled-components';
 
 import { IcCopy } from '../assets/icons';
 
-const CopyButton = () => {
+interface CopyButtonProps {
+  onClickFn: () => Promise<void>;
+}
+
+const CopyButton = ({ onClickFn }: CopyButtonProps) => {
   return (
-    <S.CopyBtnWrapper type="button">
+    <S.CopyBtnWrapper type="button" onClick={onClickFn}>
       <IcCopy />
       <p>아이디 복사</p>
     </S.CopyBtnWrapper>
