@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { styled } from 'styled-components';
 
 import detailContent1 from '../assets/images/img_content1.png';
@@ -13,6 +13,13 @@ interface DetailPageProps {
 }
 const Contents = () => {
   const [isOpenDetail, setOpenDetail] = useState(0);
+
+  useEffect(() => {
+    isOpenDetail > 0
+      ? (document.body.style.backgroundColor = '#FFFFFF')
+      : (document.body.style.backgroundColor = '#3287FF');
+  }, [isOpenDetail]);
+
   const DetailPage = ({ imgSrc }: DetailPageProps) => {
     return (
       <>
@@ -59,7 +66,7 @@ const Contents = () => {
 export default Contents;
 
 const ContentsLayout = styled.div`
-  padding: 0 1.6rem;
+  padding: 0 1.6rem 3rem;
 `;
 
 const TitleSpan = styled.span`
