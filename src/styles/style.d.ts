@@ -10,9 +10,11 @@ declare module 'styled-components' {
       moddy_blue5: string;
       moddy_blue6: string;
       moddy_sky: string;
+      moddy_sora: string;
       moddy_purple: string;
       kakao: string;
       moddy_gradient3: string;
+      moddy_gradient4: string;
 
       moddy_bk: string;
       moddy_wt: string;
@@ -56,6 +58,10 @@ declare module 'styled-components' {
       Caption02: SerializedStyles;
       Caption03: SerializedStyles;
       Caption03_En: SerializedStyles;
+    };
+
+    commons: {
+      scrollbar: SerializedStyles;
     };
   }
 }
