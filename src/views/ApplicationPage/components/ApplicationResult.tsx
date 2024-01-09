@@ -75,9 +75,7 @@ const ApplicationResult = () => {
         </S.DivideBox>
         <S.ContentBox>
           <h2>상세 희망 스타일</h2>
-          <S.InfoText>
-            가나다라마가나다라마가나다라마가나다라마가나다라마가가나다라마가나다라마가나다라마가나다라마가나다라마가나다라마가나다라마가나다라마가나다라마가나다라마가나다라마가나다라마가나다라마가나다라마가나다라마가나다라마가나다라마가나다라마가나다라마가나다라마가나다라마가나다라마가나다라마가나다라마가나다라마가나다라마가나다라마가나다라마가나다라마가나다라마가나다라마가나다라마가나다라마가나다라마가나다라마가나다라마가나다라마가나다라마가나다라마가나다라마가나다라마가나다라마가나다라마가나다라마가나다라마가나다라마가나다라마가나다라마가나다라마가나다라마가나다라마가나다라마가나다라마나다라마가나다라마가나다라마가나다라마가나다라마가나다라마가나다라마가나다라마가나다라마가나다라마가나다라마가나다라마가나다라마가나다라마가나다라마가나다라마가나다라마가나다라마가나다라마가나다라마가나다라마가나다라마가나다라마가나다라마가나다라마가나다라마가나다라마가나다라마가나다라마가나다라마가나다라마가나다라마가나다라마가나다라마가나다라마가나다라마가나다라마가나다라마가나다라마가나다라마가나다라마가나다라마가나다라마가나다라마가나다라마가나다라마가나다라마가나다라마
-          </S.InfoText>
+          <S.InfoText>더미데이터 </S.InfoText>
         </S.ContentBox>
       </S.ContentSection>
       <Button
@@ -97,15 +95,14 @@ const S = {
   ApplicationResultLayout: styled.main`
     display: flex;
     flex-direction: column;
-    gap: 2.6rem;
     flex: 1;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     overflow: hidden;
 
     width: 100%;
     height: 100%;
-    margin: 5.7rem 0 9.08rem;
+    margin: 5.7rem 0 10rem;
 
     ${({ theme }) => theme.fonts.Body01};
   `,
@@ -113,7 +110,7 @@ const S = {
   ContentSection: styled.section`
     display: flex;
     flex-direction: column;
-    gap: 1.2rem;
+    gap: 2.6rem;
     overflow-y: scroll;
 
     width: 100%;
@@ -199,6 +196,7 @@ const S = {
   `,
 
   InfoText: styled.p`
+    height: 13.2rem;
     padding: 1.2rem 1.55rem;
     border: none;
     border-radius: 10px;
