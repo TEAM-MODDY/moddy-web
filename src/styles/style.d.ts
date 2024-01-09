@@ -53,5 +53,9 @@ declare module 'styled-components' {
       Caption03: SerializedStyles;
       Caption03_En: SerializedStyles;
     };
+
+    commons: {
+      scrollbar: SerializedStyles;
+    };
   }
 }
