@@ -1,7 +1,13 @@
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 const ErrorButton = () => {
-  return <S.ErrorButtonLayout type="button">새로고침</S.ErrorButtonLayout>;
+  const navigate = useNavigate();
+  return (
+    <S.ErrorButtonLayout type="button" onClick={() => navigate(-1)}>
+      새로고침
+    </S.ErrorButtonLayout>
+  );
 };
 
 export default ErrorButton;
