@@ -16,6 +16,7 @@ const S = {
     bottom: 0;
 
     width: 100%;
+    max-width: 43rem;
     margin-bottom: 3.8rem;
 
     text-align: center;
