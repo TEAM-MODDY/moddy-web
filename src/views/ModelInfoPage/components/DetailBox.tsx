@@ -36,6 +36,8 @@ const S = {
   `,
 
   EmptyText: styled.p`
+    margin: 0.3rem 0;
+
     color: ${({ theme }) => theme.colors.moddy_gray50};
     ${({ theme }) => theme.fonts.Body02};
 
