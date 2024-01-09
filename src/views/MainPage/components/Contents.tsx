@@ -1,39 +1,83 @@
+import { useState } from 'react';
 import { styled } from 'styled-components';
 
-import slickperm from '../assets/images/img_homecontents1.png';
-import wavyperm from '../assets/images/img_homecontents2.png';
+import detailContent1 from '../assets/images/img_content1.png';
+import detailContent2 from '../assets/images/img_content2.png';
+import contentImg1 from '../assets/images/img_maincont1.png';
+import contentImg2 from '../assets/images/img_maincont2.png';
+
+import { IcCloseBlack } from '@/views/@common/assets/icons';
+
+interface DetailPageProps {
+  imgSrc: string;
+}
 const Contents = () => {
+  const [isOpenDetail, setOpenDetail] = useState(0);
+  const DetailPage = ({ imgSrc }: DetailPageProps) => {
+    return (
+      <>
+        <S.DetailLayout>
+          <S.DetailHeaderBox>
+            <S.CloseButton onClick={() => setOpenDetail(0)}>
+              <IcCloseBlack />
+            </S.CloseButton>
+          </S.DetailHeaderBox>
+          <img src={imgSrc} alt="상세 페이지" />
+        </S.DetailLayout>
+      </>
+    );
+  };
   return (
     <S.ContentsLayout>
-      <S.TitleSpan>인기 스타일</S.TitleSpan>
+      <S.TitleSpan>모디 둘러보기</S.TitleSpan>
       <S.ContentsBox>
-        <S.StyleCardBox title="인기 스타일 - 슬릭펌">
-          <S.InfoBox>
-            <S.StyleNameSpan>슬릭펌</S.StyleNameSpan>
-            <S.StyleInfoSpan>요즘 인기 최고 펌</S.StyleInfoSpan>
-          </S.InfoBox>
-          <S.ShowMoreButton type="button">더보기</S.ShowMoreButton>
+        <S.StyleCardBox title="모디를 소개합니다" onClick={() => setOpenDetail(1)}>
+          <S.CardInnerBox>
+            <S.InfoBox>
+              <S.InfoSubTitleSpan>모디가 모지?</S.InfoSubTitleSpan>
+              <S.InfoTitleSpan>모디를 소개합니다</S.InfoTitleSpan>
+            </S.InfoBox>
+          </S.CardInnerBox>
         </S.StyleCardBox>
-        <S.StyleCardBox title="인기 스타일 - 물결펌">
-          <S.InfoBox>
-            <S.StyleNameSpan>물결펌</S.StyleNameSpan>
-            <S.StyleInfoSpan>꾸준한 클래식</S.StyleInfoSpan>
-          </S.InfoBox>
-          <S.ShowMoreButton type="button">더보기</S.ShowMoreButton>
+        <S.StyleCardBox title="요즘 핫한 스타일" onClick={() => setOpenDetail(2)}>
+          <S.CardInnerBox2>
+            <S.InfoBox>
+              <S.InfoSubTitleSpan>2024 헤어 트렌드</S.InfoSubTitleSpan>
+              <S.InfoTitleSpan>요즘 핫한 스타일</S.InfoTitleSpan>
+            </S.InfoBox>
+          </S.CardInnerBox2>
         </S.StyleCardBox>
       </S.ContentsBox>
+      {isOpenDetail === 1 ? (
+        <DetailPage imgSrc={detailContent1} />
+      ) : isOpenDetail === 2 ? (
+        <DetailPage imgSrc={detailContent2} />
+      ) : null}
     </S.ContentsLayout>
   );
 };
 export default Contents;
 
 const ContentsLayout = styled.div`
-  padding: 0 1.6rem 4rem;
+  padding: 0 1.6rem;
 `;
 
 const TitleSpan = styled.span`
   color: ${({ theme }) => theme.colors.moddy_gray50};
   ${({ theme }) => theme.fonts.Body01};
+`;
+
+const CardInnerBox = styled.div`
+  width: 100%;
+  height: 100%;
+  padding: 2.8rem 2rem 2.4rem;
+  border-radius: 12px;
+
+  background: no-repeat center/cover url(${contentImg1});
+`;
+
+const CardInnerBox2 = styled(CardInnerBox)`
+  background: no-repeat center/cover url(${contentImg2});
 `;
 
 const StyleCardBox = styled.div`
@@ -44,8 +88,14 @@ const StyleCardBox = styled.div`
 
   width: 16.4rem;
   height: 22rem;
-  padding: 2.8rem 2rem 2.4rem;
+  border: 1.5px solid transparent;
   border-radius: 12px;
+
+  background-image: linear-gradient(#fff, #fff), linear-gradient(180deg, #c3f4ff 0%, #a8c7ff 52.5%, #dad2ff 100%);
+  background-origin: border-box;
+  background-clip: content-box, border-box;
+
+  box-shadow: ${({ theme }) => theme.effects.shadow4};
 `;
 
 const ContentsBox = styled.div`
@@ -53,18 +103,6 @@ const ContentsBox = styled.div`
   gap: 1.5rem;
 
   margin-top: 1.2rem;
-
-  & > div:nth-child(1) {
-    background:
-      linear-gradient(rgb(0 0 0 / 50%), rgb(0 0 0 / 50%)),
-      no-repeat center/cover url(${slickperm});
-  }
-
-  & > div:nth-child(2) {
-    background:
-      linear-gradient(rgb(0 0 0 / 50%), rgb(0 0 0 / 50%)),
-      no-repeat center/cover url(${wavyperm});
-  }
 `;
 
 const InfoBox = styled.div`
@@ -72,16 +110,16 @@ const InfoBox = styled.div`
   flex-direction: column;
 `;
 
-const StyleNameSpan = styled.span`
-  color: ${({ theme }) => theme.colors.moddy_wt};
-  ${({ theme }) => theme.fonts.Headline02};
+const InfoSubTitleSpan = styled.span`
+  color: ${({ theme }) => theme.colors.moddy_blue2};
+  ${({ theme }) => theme.fonts.Caption01};
 `;
 
-const StyleInfoSpan = styled.span`
-  margin-top: 0.2rem;
+const InfoTitleSpan = styled.span`
+  margin-top: 0.7rem;
 
-  color: ${({ theme }) => theme.colors.moddy_wt};
-  ${({ theme }) => theme.fonts.Body04};
+  color: ${({ theme }) => theme.colors.moddy_bk};
+  ${({ theme }) => theme.fonts.Headline02};
 `;
 
 const ShowMoreButton = styled.button`
@@ -97,13 +135,54 @@ const ShowMoreButton = styled.button`
   line-height: 0;
 `;
 
+const DetailLayout = styled.div`
+  overflow-y: scroll;
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+
+  width: 100%;
+  max-width: 43rem;
+  height: 100%;
+  margin: 0 auto;
+
+  background: ${({ theme }) => theme.colors.moddy_wt};
+
+  & > img {
+    width: 100%;
+  }
+`;
+
+const CloseButton = styled.button`
+  float: right;
+
+  padding: 1rem 1.6rem 0 0;
+`;
+
+const DetailHeaderBox = styled.div`
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+
+  width: 100%;
+  max-width: 43rem;
+  margin: 0 auto;
+`;
+
 const S = {
   ContentsLayout,
   ContentsBox,
   TitleSpan,
   StyleCardBox,
   InfoBox,
-  StyleNameSpan,
-  StyleInfoSpan,
+  InfoSubTitleSpan,
+  InfoTitleSpan,
   ShowMoreButton,
+  CardInnerBox,
+  CardInnerBox2,
+  DetailLayout,
+  CloseButton,
+  DetailHeaderBox,
 };

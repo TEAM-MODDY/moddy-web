@@ -1,9 +1,19 @@
 import { styled } from 'styled-components';
 
-const Banner = () => {
+import { USER_TYPE } from '../constants/constants';
+
+import banner1 from '@images/img_banner1.png';
+import banner2 from '@images/img_banner2.png';
+
+interface BannerProps {
+  userType: number;
+}
+const Banner = ({ userType }: BannerProps) => {
   return (
     <BannerLayout>
-      <BannerBox></BannerBox>
+      <BannerBox>
+        <img src={userType === USER_TYPE.DESIGNER ? banner1 : banner2} alt="배너" />
+      </BannerBox>
     </BannerLayout>
   );
 };
@@ -19,5 +29,7 @@ const BannerBox = styled.div`
   height: 8.4rem;
   border-radius: 8px;
 
-  background: ${({ theme }) => theme.colors.moddy_bk};
+  & > img {
+    width: 100%;
+  }
 `;
