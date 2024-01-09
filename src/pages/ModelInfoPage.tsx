@@ -12,6 +12,12 @@ const ModelInfoPage = () => {
   const ApplicationInfo = MODEL_DATA.data.applicationInfo;
   const ModelInfo = MODEL_DATA.data.modelInfo;
 
+
+const ModelInfoPage = () => {
+  const ApplicationInfo = DUMMY_DATA.data.applicationInfo;
+  const ModelInfo = DUMMY_DATA.data.modelInfo;
+
+
   const navigate = useNavigate();
   const handleOnClickOffer = () => {
     navigate('/model-info/model-offer');
@@ -19,6 +25,7 @@ const ModelInfoPage = () => {
 
   return (
     <>
+
       <Header isBackBtnExist={true} title="모델 지원 정보" />
       <S.ModelInfoLayout>
         <S.ImageBox src={ApplicationInfo.modelImgUrl} alt="모델 이미지"></S.ImageBox>

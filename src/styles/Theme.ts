@@ -6,6 +6,7 @@ const colors = {
   moddy_blue3: '#d3e2ff',
   moddy_blue4: '#F4f8ff',
   moddy_blue5: '#D0DEF4',
+  moddy_blue6: '#E9F1FF',
   moddy_sky: '#6ae4ff',
   moddy_purple: '#a38eff',
   kakao: '#f3dd24',
@@ -29,12 +30,12 @@ const effects = {
   shadow4: '0px 0px 4px 0px rgba(0, 0, 0, 0.24)',
   shadow5: '2px 2px 8px rgba(0, 0, 0, 0.24)',
   shadow6: '2px 2px 8px rgba(0, 0, 0, 0.24)',
+  shadow7: '0px -2px 8px rgba(0, 0, 0, 0.08)',
   shadow_home: '0px 3px 10px 0px rgba(0, 0, 0, 0.20)',
   main_cta_shadow: '0px 0px 8px 0px rgba(0, 0, 0, 0.24)',
   main_cta_blur: 'blur(5px);',
   graphic: '0px 0px 30px 0px rgba(35, 111, 255, 0.70)',
 };
-
 const fonts = {
   Title01: css`
     font-family:

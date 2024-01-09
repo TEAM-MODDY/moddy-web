@@ -8,6 +8,7 @@ declare module 'styled-components' {
       moddy_blue3: string;
       moddy_blue4: string;
       moddy_blue5: string;
+      moddy_blue6: string;
       moddy_sky: string;
       moddy_purple: string;
       kakao: string;
@@ -30,6 +31,7 @@ declare module 'styled-components' {
       shadow4: string;
       shadow5: string;
       shadow6: string;
+      shadow7: string;
       shadow_home: string;
       main_cta_shadow: string;
       main_cta_blur: string;
