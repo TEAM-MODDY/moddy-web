@@ -174,20 +174,9 @@ const CategoryBox = styled.div`
   box-shadow: ${({ theme }) => theme.effects.shadow4};
 `;
 const InnerBox = styled.div`
-  overflow-y: scroll;
-
   width: 100%;
 
-  &::-webkit-scrollbar {
-    width: 2px;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    border-radius: 12px;
-
-    background: ${({ theme }) => theme.colors.moddy_blue3};
-    background-clip: padding box;
-  }
+  ${({ theme }) => theme.commons.scrollbar};
 `;
 
 const CitySpan = styled.span`
@@ -202,11 +191,14 @@ const RegionList = styled.ul`
 
 const BottomSheetBox = styled.div<{ $isopen: string }>`
   position: fixed;
+  right: 0;
   bottom: 0;
   left: 0;
 
   width: 100%;
+  max-width: 43rem;
   height: ${({ $isopen }) => ($isopen === 'true' ? '16.2rem' : '0')};
+  margin: 0 auto;
 
   box-shadow: ${({ theme }) => theme.effects.shadow4};
 
