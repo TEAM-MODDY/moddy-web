@@ -1,5 +1,5 @@
-import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
 import { styled } from 'styled-components';
 
 import Button from '../../@common/components/Button';
@@ -7,6 +7,7 @@ import Header from '../../@common/components/Header';
 import { HELPER_MESSAGE } from '../constants/message';
 import { ON_BOARDING_TEXT } from '../constants/text';
 
+import { userTypeState } from '@/recoil/atoms/signUpState';
 import designerImg from '@images/img_designer.png';
 import modelImg from '@images/img_model.png';
 
@@ -16,12 +17,10 @@ interface SelectUserTypeProp {
 
 const SelectUserType = ({ setStep }: SelectUserTypeProp) => {
   const navigate = useNavigate();
-  const [userType, setUserType] = useState('');
-  const [isSelected, setIsSelected] = useState(false);
+  const [userType, setUserType] = useRecoilState(userTypeState);
 
   const handleUserType = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUserType(e.target.id);
-    setIsSelected(true);
   };
 
   return (
@@ -38,7 +37,14 @@ const SelectUserType = ({ setStep }: SelectUserTypeProp) => {
         <S.OnBoardingSpan>{ON_BOARDING_TEXT.SELECT_USER_TYPE}</S.OnBoardingSpan>
         <S.HelperTextSpan>{HELPER_MESSAGE.USER_TYPE_CHANGE_UNAVAILABLE}</S.HelperTextSpan>
         <S.RadioBox>
-          <S.RadioInput type="radio" id="designer" name="user-type" value={userType} onChange={handleUserType} />
+          <S.RadioInput
+            type="radio"
+            id="designer"
+            name="user-type"
+            value={userType}
+            onChange={handleUserType}
+            checked={userType === 'designer'}
+          />
           <S.UserTypeBoxLabel htmlFor="designer">
             <S.ImageBox>
               <img src={designerImg} width="100%" alt="디자이너" />
@@ -50,7 +56,14 @@ const SelectUserType = ({ setStep }: SelectUserTypeProp) => {
               모델을 찾고 있어요
             </S.UserTypeInfoSpan>
           </S.UserTypeBoxLabel>
-          <S.RadioInput type="radio" id="model" name="user-type" value={userType} onChange={handleUserType} />
+          <S.RadioInput
+            type="radio"
+            id="model"
+            name="user-type"
+            value={userType}
+            onChange={handleUserType}
+            checked={userType === 'model'}
+          />
           <S.UserTypeBoxLabel htmlFor="model">
             <S.ImageBox>
               <img src={modelImg} width="100%" alt="모델" />
@@ -64,7 +77,7 @@ const SelectUserType = ({ setStep }: SelectUserTypeProp) => {
           </S.UserTypeBoxLabel>
         </S.RadioBox>
       </S.SelectUserTypeLayout>
-      <Button text="다음" isFixed={true} onClickFn={() => setStep(false)} disabled={!isSelected} />
+      <Button text="다음" isFixed={true} onClickFn={() => setStep(false)} disabled={!userType} />
     </>
   );
 };
