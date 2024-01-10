@@ -1,20 +1,24 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { styled } from 'styled-components';
 
 import { IcEssential } from '../../@common/assets/icons';
-import beforeUpload from '../../@common/assets/images/btn_photoadd.png';
+import beforeUpload from '../../@common/assets/images/img_photoadd_profile.png';
 import Button from '../../@common/components/Button';
 import Header from '../../@common/components/Header';
 import Input from '../../@common/components/Input';
 import ProgressBar from '../../@common/components/ProgressBar';
+import { IcPencilcircle } from '../assets/icons';
 import { readImg } from '../utils/readImg';
 
 const ProfileUpload = () => {
   const inputRef = useRef<HTMLInputElement>(null);
+  const [modelImgurl, setmodelImgUrl] = useState<File>();
+  const [instagramId, setInstagramId] = useState('');
 
-  const uploadImg = () => {
-    console.log(inputRef.current);
-    inputRef.current?.click();
+  const uploadImg = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const imgObj = event.target.files;
+
+    readImg({ input: imgObj, setUrl: setmodelImgUrl });
   };
 
   const moveNext = () => {};
@@ -39,9 +43,9 @@ const ProfileUpload = () => {
             <S.ProfileUploadBtn
               type="button"
               onClick={() => {
-                uploadImg();
+                inputRef.current?.click();
               }}>
-              <img src={beforeUpload} alt="profileImg" id="profileImg" />
+              <S.Profile src={beforeUpload} alt="profileImg" id="profileImg" />
               <input
                 id="uploadButton"
                 name="uploadButton"
@@ -49,9 +53,10 @@ const ProfileUpload = () => {
                 type="file"
                 accept="image/*"
                 onChange={(e) => {
-                  readImg({ input: e });
+                  uploadImg(e);
                 }}
               />
+              <IcPencilcircle />
             </S.ProfileUploadBtn>
           </S.ProfileUploadBtnBox>
         </S.ProfilePhotoSection>
@@ -96,6 +101,8 @@ const S = {
   `,
 
   ProfileUploadBtnBox: styled.div`
+    position: relative;
+
     width: 13.2rem;
     height: 13.2rem;
     margin: 0 auto;
@@ -104,21 +111,29 @@ const S = {
   `,
 
   ProfileUploadBtn: styled.button`
-    z-index: 1;
-
     height: 100%;
     width: 100%;
 
-    & > img {
-      width: 100%;
-      height: 100%;
-      border-radius: 10px;
+    border: 1.5px dashed ${({ theme }) => theme.colors.moddy_blue2};
+    border-radius: 10px;
 
-      object-fit: cover;
+    & > svg {
+      position: absolute;
+      right: 0.8rem;
+      bottom: 0.8rem;
+      z-index: 1;
     }
     & > input {
       display: none;
     }
+  `,
+
+  Profile: styled.img`
+    width: 100%;
+    height: 100%;
+
+    border-radius: 10px;
+    object-fit: cover;
   `,
 
   ProfileInstaSection: styled.section`
