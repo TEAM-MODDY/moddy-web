@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import { RecoilRoot } from 'recoil';
 import { ThemeProvider } from 'styled-components';
 
 import AgreementPage from './pages/AgreementPage';
@@ -57,10 +58,12 @@ const App = () => {
   }, []);
   return (
     <>
-      <ThemeProvider theme={theme}>
-        <RouterProvider router={router} />
-        <GlobalStyle />
-      </ThemeProvider>
+      <RecoilRoot>
+        <ThemeProvider theme={theme}>
+          <RouterProvider router={router} />
+          <GlobalStyle />
+        </ThemeProvider>
+      </RecoilRoot>
     </>
   );
 };
