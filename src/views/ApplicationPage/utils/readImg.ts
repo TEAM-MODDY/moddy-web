@@ -1,8 +1,8 @@
-interface uploadImgProps {
+interface readImgProps {
   input: React.ChangeEvent<HTMLInputElement>;
 }
 
-export const uploadImg = (input: uploadImgProps) => {
+export const readImg = ({ input }: readImgProps) => {
   // 인풋 태그에 파일이 있는 경우
   if (input.target.files && input.target.files[0]) {
     // FileReader 인스턴스 생성
@@ -11,8 +11,8 @@ export const uploadImg = (input: uploadImgProps) => {
     reader.readAsDataURL(input.target.files[0]);
     // 이미지가 로드가 된 경우
     reader.onload = (e) => {
-      const previewImage = document.getElementById('uploadButton');
-      previewImage!.src = e.target!.result;
+      const previewImg = document.getElementById('profileImg');
+      previewImg!.src = e.target!.result;
     };
   }
 };

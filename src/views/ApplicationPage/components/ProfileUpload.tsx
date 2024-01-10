@@ -3,11 +3,11 @@ import { styled } from 'styled-components';
 
 import { IcEssential } from '../../@common/assets/icons';
 import beforeUpload from '../../@common/assets/images/btn_photoadd.png';
-import afterUpload from '../../@common/assets/images/btn_photoedit.png';
 import Button from '../../@common/components/Button';
 import Header from '../../@common/components/Header';
 import Input from '../../@common/components/Input';
 import ProgressBar from '../../@common/components/ProgressBar';
+import { readImg } from '../utils/readImg';
 
 const ProfileUpload = () => {
   const inputRef = useRef<HTMLInputElement>(null);
@@ -41,7 +41,17 @@ const ProfileUpload = () => {
               onClick={() => {
                 uploadImg();
               }}>
-              <input id="uploadButton" name="uploadButton" ref={inputRef} type="file" accept="image/*" />
+              <img src={beforeUpload} alt="profileImg" id="profileImg" />
+              <input
+                id="uploadButton"
+                name="uploadButton"
+                ref={inputRef}
+                type="file"
+                accept="image/*"
+                onChange={(e) => {
+                  readImg({ input: e });
+                }}
+              />
             </S.ProfileUploadBtn>
           </S.ProfileUploadBtnBox>
         </S.ProfilePhotoSection>
@@ -99,10 +109,12 @@ const S = {
     height: 100%;
     width: 100%;
 
-    & > label {
+    & > img {
       width: 100%;
       height: 100%;
-      background-color: black;
+      border-radius: 10px;
+
+      object-fit: cover;
     }
     & > input {
       display: none;
