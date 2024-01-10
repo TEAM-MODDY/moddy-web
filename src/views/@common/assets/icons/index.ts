@@ -11,6 +11,7 @@ import IcDownBlack from './ic_down_black.svg';
 import IcDownBlue from './ic_down_blue.svg';
 import IcDownGrey from './ic_down_grey.svg';
 import IcEssential from './ic_essential.svg';
+import IcInformation from './ic_information.svg';
 import IcLeftBlack from './ic_left_black.svg';
 import IcLeftBlue from './ic_left_blue.svg';
 import IcLeftGrey from './ic_left_grey.svg';
@@ -39,6 +40,7 @@ export {
   IcDownBlue,
   IcDownGrey,
   IcEssential,
+  IcInformation,
   IcLeftBlack,
   IcLeftBlue,
   IcLeftGrey,
