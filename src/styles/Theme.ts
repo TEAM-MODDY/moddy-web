@@ -382,9 +382,26 @@ const fonts = {
   `,
 };
 
+const commons = {
+  scrollbar: css`
+    overflow-y: overlay;
+
+    &::-webkit-scrollbar {
+      width: 0.4rem;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      border-radius: 12px;
+
+      background-color: ${({ theme }) => theme.colors.moddy_blue3};
+    }
+  `,
+};
+
 const theme: DefaultTheme = {
   colors,
   effects,
   fonts,
+  commons,
 };
 export default theme;
