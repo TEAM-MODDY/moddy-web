@@ -13,6 +13,7 @@ import Field from './Field';
 import RegionItem from './RegionItem';
 
 import { preferRegionState } from '@/recoil/atoms/signUpState';
+import Modal from '@/views/@common/components/Modal';
 
 const SelectPreferRegion = () => {
   const navigate = useNavigate();
@@ -20,6 +21,7 @@ const SelectPreferRegion = () => {
   const [isShowCategory, setIsShowCategory] = useState(false);
   const [isCheckedList, setIsCheckedList] = useRecoilState(preferRegionState);
   const [isShowBottomSheet, setIsShowBottomSheet] = useState(false);
+  const [isOpenModal, setOpenModal] = useState(false);
 
   const categoryRef = useRef<HTMLDivElement>(null);
   const bottomSheetRef = useRef<HTMLDivElement>(null);
@@ -115,10 +117,20 @@ const SelectPreferRegion = () => {
         text="완료"
         isFixed={true}
         onClickFn={() => {
-          navigate('/');
+          setOpenModal(true);
         }}
         disabled={!isCheckedList.verifyStatus}
       />
+      {isOpenModal && (
+        <Modal
+          title="이대로 가입하시겠어요?"
+          description="가입 후에는 수정이 어려워요"
+          leftBtnText="돌아가기"
+          rightBtnText="확인"
+          leftBtnFn={() => setOpenModal(false)}
+          rightBtnFn={() => navigate('/')}
+        />
+      )}
     </>
   );
 };
