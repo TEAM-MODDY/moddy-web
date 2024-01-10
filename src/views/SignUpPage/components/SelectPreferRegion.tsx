@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { useRecoilState } from 'recoil';
 import { styled } from 'styled-components';
 
 import { IcDownGrey, IcInformation, IcUpBlue } from '../../@common/assets/icons';
@@ -10,15 +11,18 @@ import { HELPER_MESSAGE, PLACE_HOLDER_MESSAGE } from '../constants/message';
 import Field from './Field';
 import RegionItem from './RegionItem';
 
+import { preferRegionState } from '@/recoil/atoms/signUpState';
+
 const SelectPreferRegion = () => {
   const RegionList = ['전체', '관악구', '동작구', '강남구', '강동구', '강북구'];
   const [isShowCategory, setIsShowCategory] = useState(false);
-  const [isCheckedList, setIsCheckedList] = useState<boolean[]>([]);
+  const [isCheckedList, setIsCheckedList] = useRecoilState(preferRegionState);
   const [isShowBottomSheet, setIsShowBottomSheet] = useState(false);
-  const [isAllverified, setIsAllVerified] = useState(false);
+
   const categoryRef = useRef<HTMLDivElement>(null);
   const bottomSheetRef = useRef<HTMLDivElement>(null);
   const selectorBoxRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
     // 특정 영역 외 클릭 시 발생하는 이벤트
     const handleFocus = (e: MouseEvent) => {
@@ -46,21 +50,20 @@ const SelectPreferRegion = () => {
   };
 
   const handleSelectedList = (index: number) => {
-    setIsCheckedList((prev) => {
-      const updatedList = [...prev];
-      updatedList[index] = !updatedList[index];
-      return updatedList;
+    setIsCheckedList((prevState) => {
+      const updatedData = prevState.data.map((item, idx) => (idx === index ? !item : item));
+      return {
+        data: updatedData,
+        verifyStatus: prevState.verifyStatus,
+      };
     });
   };
-  useEffect(() => {
-    setIsCheckedList(Array(RegionList.length).fill(false));
-  }, []);
 
   useEffect(() => {
-    isCheckedList.filter((value) => value === true).length > 0
-      ? (setIsShowBottomSheet(true), setIsAllVerified(true))
-      : (setIsShowBottomSheet(false), setIsAllVerified(false));
-  }, [isCheckedList]);
+    isCheckedList.data.filter((value) => value === true).length > 0
+      ? (setIsShowBottomSheet(true), setIsCheckedList({ data: isCheckedList.data, verifyStatus: true }))
+      : (setIsShowBottomSheet(false), setIsCheckedList({ data: isCheckedList.data, verifyStatus: false }));
+  }, [isCheckedList.data]);
 
   return (
     <>
@@ -82,14 +85,7 @@ const SelectPreferRegion = () => {
               <S.CitySpan>서울특별시</S.CitySpan>
               <S.RegionList>
                 {RegionList.map((region, index) => (
-                  <RegionItem
-                    key={index}
-                    region={region}
-                    isCheckedList={isCheckedList}
-                    index={index}
-                    setIsCheckedList={setIsCheckedList}
-                    regionList={RegionList}
-                  />
+                  <RegionItem key={index} region={region} index={index} regionList={RegionList} />
                 ))}
               </S.RegionList>
             </S.InnerBox>
@@ -97,7 +93,7 @@ const SelectPreferRegion = () => {
         )}
         <S.BottomSheetBox ref={bottomSheetRef} $isopen={isShowBottomSheet.toString()}>
           <S.SelectedListBox>
-            {isCheckedList
+            {isCheckedList.data
               .map((isChecked, index) => (isChecked ? index : -1)) // 체크 된 경우에만 해당 인덱스 반환
               .filter((index) => index !== -1) // 유효한 인덱스만 필터링
               .map((index) => {
@@ -113,7 +109,7 @@ const SelectPreferRegion = () => {
           </S.SelectedListBox>
         </S.BottomSheetBox>
       </S.SelectPreferRegionLayout>
-      <Button text="완료" isFixed={true} onClickFn={() => {}} disabled={!isAllverified} />
+      <Button text="완료" isFixed={true} onClickFn={() => {}} disabled={!isCheckedList.verifyStatus} />
     </>
   );
 };
