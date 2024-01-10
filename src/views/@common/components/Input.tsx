@@ -5,13 +5,21 @@ import { IcCheckBlue } from '../assets/icons';
 
 interface InputProps {
   placeholderText: string;
+  onChangeFn: (value: string) => void;
 }
 
-const Input = ({ placeholderText }: InputProps) => {
+const Input = ({ placeholderText, onChangeFn }: InputProps) => {
   const [name, setName] = useState('');
   return (
     <S.InputLayout>
-      <S.Input placeholder={placeholderText} value={name} onChange={(e) => setName(e.target.value)} />
+      <S.Input
+        placeholder={placeholderText}
+        value={name}
+        onChange={(e) => {
+          setName(e.target.value);
+          onChangeFn(e.target.value);
+        }}
+      />
       {name !== '' && <IcCheckBlue />}
     </S.InputLayout>
   );
