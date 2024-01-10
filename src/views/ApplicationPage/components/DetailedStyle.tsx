@@ -17,8 +17,19 @@ const DetailedStyle = () => {
         <h2>상세 희망 스타일</h2>
         <h3>자세히 적을수록 디자이너의 이해도를 높일 수 있어요</h3>
       </S.Title>
-      <TextArea200 placeholderText="원하시는 스타일을 자세하게 설명해주세요" onChangeFn={} />
-      <Button text="다음" isFixed={true} onClickFn={() => setHairDetail} />
+      <TextArea200
+        placeholderText="원하시는 스타일을 자세하게 설명해주세요"
+        onChangeFn={(value) => {
+          setHairDetail(value);
+        }}
+      />
+      <Button
+        text="다음"
+        isFixed={true}
+        onClickFn={() => {
+          console.log(hairDetail);
+        }}
+      />
     </S.ServiceHistoryLayout>
   );
 };
