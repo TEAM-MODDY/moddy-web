@@ -38,7 +38,6 @@ const S = {
     width: 100%;
     max-width: 43rem;
     height: 100vh;
-    margin: 0 auto;
 
     background-color: ${({ theme }) => theme.colors.moddy_bk20};
   `,
