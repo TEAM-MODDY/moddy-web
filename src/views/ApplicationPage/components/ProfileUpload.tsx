@@ -14,14 +14,18 @@ const ProfileUpload = () => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [modelImgurl, setmodelImgUrl] = useState<File>();
   const [instagramId, setInstagramId] = useState('');
+  const [verified, isVerified] = useState(true);
 
   const uploadImg = (event: React.ChangeEvent<HTMLInputElement>) => {
     const imgObj = event.target.files;
 
-    readImg({ input: imgObj, setUrl: setmodelImgUrl });
+    readImg({ input: imgObj, setUrl: setmodelImgUrl, setVerified: isVerified });
   };
 
-  const moveNext = () => {};
+  const moveNext = () => {
+    console.log(modelImgurl);
+    console.log(instagramId);
+  };
 
   return (
     <S.ProfileUploadLayout>
@@ -65,10 +69,10 @@ const ProfileUpload = () => {
             <h2>인스타그램 아이디</h2>
             <span>평소 스타일 파악을 위해 입력을 권장드려요</span>
           </S.Title>
-          <Input placeholderText="아이디를 입력해주세요 &#40;&#39;@&#39; 제외&#41;" />
+          <Input placeholderText="아이디를 입력해주세요 &#40;&#39;@&#39; 제외&#41;" onChangeFn={setInstagramId} />
         </S.ProfileInstaSection>
       </S.ProfileInfoSection>
-      <Button text="완료" onClickFn={moveNext} />
+      <Button text="완료" onClickFn={moveNext} disabled={verified} />
     </S.ProfileUploadLayout>
   );
 };
