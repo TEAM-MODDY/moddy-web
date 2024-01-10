@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { styled } from 'styled-components';
 
@@ -14,6 +15,7 @@ import RegionItem from './RegionItem';
 import { preferRegionState } from '@/recoil/atoms/signUpState';
 
 const SelectPreferRegion = () => {
+  const navigate = useNavigate();
   const RegionList = ['전체', '관악구', '동작구', '강남구', '강동구', '강북구'];
   const [isShowCategory, setIsShowCategory] = useState(false);
   const [isCheckedList, setIsCheckedList] = useRecoilState(preferRegionState);
@@ -109,7 +111,14 @@ const SelectPreferRegion = () => {
           </S.SelectedListBox>
         </S.BottomSheetBox>
       </S.SelectPreferRegionLayout>
-      <Button text="완료" isFixed={true} onClickFn={() => {}} disabled={!isCheckedList.verifyStatus} />
+      <Button
+        text="완료"
+        isFixed={true}
+        onClickFn={() => {
+          navigate('/');
+        }}
+        disabled={!isCheckedList.verifyStatus}
+      />
     </>
   );
 };
