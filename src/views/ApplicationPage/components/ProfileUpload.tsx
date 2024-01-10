@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef } from 'react';
 import { styled } from 'styled-components';
 
 import { IcEssential } from '../../@common/assets/icons';
@@ -8,10 +8,14 @@ import Button from '../../@common/components/Button';
 import Header from '../../@common/components/Header';
 import Input from '../../@common/components/Input';
 import ProgressBar from '../../@common/components/ProgressBar';
-import { uploadImg } from '../hooks/uploadImg';
 
 const ProfileUpload = () => {
-  const [isUploaded, setIsUploaded] = useState('');
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  const uploadImg = () => {
+    console.log(inputRef.current);
+    inputRef.current?.click();
+  };
 
   const moveNext = () => {};
 
@@ -32,17 +36,13 @@ const ProfileUpload = () => {
             </span>
           </S.Title>
           <S.ProfileUploadBtnBox>
-            <label htmlFor="uploadButton">
-              <input
-                id="uploadButton"
-                name="uploadButton"
-                type="file"
-                accept="image/*"
-                onChange={(e) => {
-                  uploadImg(e);
-                }}
-              />
-            </label>
+            <S.ProfileUploadBtn
+              type="button"
+              onClick={() => {
+                uploadImg();
+              }}>
+              <input id="uploadButton" name="uploadButton" ref={inputRef} type="file" accept="image/*" />
+            </S.ProfileUploadBtn>
           </S.ProfileUploadBtnBox>
         </S.ProfilePhotoSection>
         <S.ProfileInstaSection>
@@ -53,7 +53,7 @@ const ProfileUpload = () => {
           <Input placeholderText="아이디를 입력해주세요 &#40;&#39;@&#39; 제외&#41;" />
         </S.ProfileInstaSection>
       </S.ProfileInfoSection>
-      <Button text="입력 완료" onClickFn={moveNext} />
+      <Button text="완료" onClickFn={moveNext} />
     </S.ProfileUploadLayout>
   );
 };
@@ -93,13 +93,17 @@ const S = {
     cursor: pointer;
   `,
 
-  ProfileUploadBtn: styled.label`
+  ProfileUploadBtn: styled.button`
     z-index: 1;
 
+    height: 100%;
     width: 100%;
 
-    object-fit: cover;
-
+    & > label {
+      width: 100%;
+      height: 100%;
+      background-color: black;
+    }
     & > input {
       display: none;
     }
