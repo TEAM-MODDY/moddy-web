@@ -5,11 +5,12 @@ import { IcCheckBlue } from '../assets/icons';
 
 interface InputProps {
   placeholderText: string;
+  initialValue: string;
   onChangeFn: (value: string) => void;
 }
 
-const Input = ({ placeholderText, onChangeFn }: InputProps) => {
-  const [name, setName] = useState('');
+const Input = ({ placeholderText, initialValue, onChangeFn }: InputProps) => {
+  const [name, setName] = useState(initialValue);
   return (
     <S.InputLayout>
       <S.Input
