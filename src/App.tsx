@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 
+import AgreementPage from './pages/AgreementPage';
 import ApplicationPage from './pages/ApplicationPage';
 import LoginPage from './pages/LoginPage';
 import MainPage from './pages/MainPage';
@@ -24,6 +25,7 @@ const router = createBrowserRouter([
   { path: '/my-page', element: <MyPage /> },
   { path: '/my-quit', element: <MyQuitPage /> },
   { path: '/model-info/model-offer', element: <ModelOffer /> },
+  { path: '/agreement', element: <AgreementPage /> },
 ]);
 
 const App = () => {
