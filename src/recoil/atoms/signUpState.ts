@@ -59,13 +59,15 @@ export const verifyCodeState = atom<verificationDataType>({
   },
 });
 
-interface preferRegionDataType {
-  data: string[];
+export interface preferRegionDataType {
+  data: boolean[];
+  verifyStatus: boolean;
 }
 
 export const preferRegionState = atom<preferRegionDataType>({
   key: 'preferRegion',
   default: {
     data: [],
+    verifyStatus: false,
   },
 });
