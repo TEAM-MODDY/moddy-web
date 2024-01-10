@@ -86,7 +86,7 @@ const PersonalInfo = ({ setStep }: PersonalInfoProp) => {
       <S.PersonalInfoLayout>
         <S.FormBox>
           <Field name={userType === USER_TYPE.DESIGNER ? '디자이너명' : '이름'} isEssential={true} />
-          <Input placeholderText={PLACE_HOLDER_MESSAGE.INPUT_NAME} onChangeFn={handleName} />
+          <Input placeholderText={PLACE_HOLDER_MESSAGE.INPUT_NAME} onChangeFn={handleName} initialValue={name.data} />
           <S.HelperBox>
             <IcInformation />
             <S.HelperSpan>
