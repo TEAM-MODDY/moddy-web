@@ -86,7 +86,10 @@ const SelectUserTypeLayout = styled.div`
   display: flex;
   flex-direction: column;
 
+  height: 100dvh;
   padding: 9.2rem 1.6rem;
+
+  background: ${({ theme }) => theme.colors.moddy_wt};
 `;
 
 const RadioBox = styled.div`
@@ -115,7 +118,7 @@ const ImageBox = styled.div`
   width: 10rem;
 
   background-color: transparent;
-  filter: drop-shadow(0 0 3rem rgba(82, 0, 255, 0.25));
+  filter: drop-shadow(0 0 3rem rgb(82 0 255 / 25%));
 `;
 
 const UserTypeSpan = styled.span`

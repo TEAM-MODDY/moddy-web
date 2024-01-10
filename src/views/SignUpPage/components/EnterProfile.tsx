@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
 
 import Header from '../../@common/components/Header';
 import { STEP } from '../constants/step';
@@ -61,10 +62,21 @@ const EnterProfile = ({ setIsInitialStep }: EnterProfileProps) => {
   };
 
   return (
-    <>
+    <S.EnterProfileLayout>
       <StepHeader />
       <Contents />
-    </>
+    </S.EnterProfileLayout>
   );
 };
+
 export default EnterProfile;
+
+const EnterProfileLayout = styled.div`
+  height: 100dvh;
+
+  background-color: ${({ theme }) => theme.colors.moddy_wt};
+`;
+
+const S = {
+  EnterProfileLayout,
+};
