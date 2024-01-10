@@ -32,7 +32,7 @@
     //import React 오류 해결
     "react/react-in-jsx-scope": "off",
     // 들여쓰기 기본 2칸으로 하되, switch문에서는 1칸으로 지정
-    "indent": ["error", 2, { "SwitchCase": 1 }],
+    "indent": "off",
     // 쌍따옴표가 아닌 홑따옴표를 사용
     "quotes": ["off", "single"],
     // semi-colon 강제함
@@ -102,7 +102,8 @@
       "node": {
         "moduleDirectory": ["node_modules", "src/"],
         "extensions": [".js", ".jsx", ".ts", ".tsx", ".d.ts"]
-      }
+      },
+      "typescript": {}
     },
     "react": {
       "version": "detect"

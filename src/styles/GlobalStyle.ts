@@ -115,6 +115,8 @@ export const reset = css`
 
   body {
     line-height: 1;
+
+    transition: background-color 0.2s ease;
   }
 
   menu,
@@ -164,8 +166,11 @@ ${reset}
 }
 
 * {
-
     box-sizing: border-box;
+}
+
+a{
+  text-decoration: none;
 }
 
  /* 사파리 웹 뷰 브라우저 상속 스타일 제거 */
