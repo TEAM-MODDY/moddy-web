@@ -8,14 +8,11 @@ import PersonalInfo from './PersonalInfo';
 import SelectPrefeRegion from './SelectPreferRegion';
 import VerifyPhoneNumber from './VerifyPhoneNumber';
 
-import Modal from '@/views/@common/components/Modal';
-
 interface EnterProfileProps {
   setIsInitialStep: React.Dispatch<React.SetStateAction<boolean>>;
 }
 const EnterProfile = ({ setIsInitialStep }: EnterProfileProps) => {
   const navigate = useNavigate();
-  const [isOpenModal, setIsOpenModal] = useState(false);
   const [step, setStep] = useState(STEP.PERSONAL_INFO);
 
   const Contents = () => {
