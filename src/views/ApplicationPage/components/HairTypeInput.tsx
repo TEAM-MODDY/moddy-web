@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { styled } from 'styled-components';
 
 import shortDefault from '../../@common/assets/images/btn_hair1_default.png';
@@ -10,43 +9,55 @@ import longSelected from '../../@common/assets/images/btn_hair3_selected.png';
 import rapunzelDefault from '../../@common/assets/images/btn_hair4_default.png';
 import rapunzelSelected from '../../@common/assets/images/btn_hair4_selected.png';
 
-interface HairTypeImgProps {
-  setHairTypeFn: React.Dispatch<React.SetStateAction<string>>;
-  hairType: string;
+interface HairTypeInputProps {
+  lengthState: boolean[];
+  setLengthState: React.Dispatch<React.SetStateAction<boolean[]>>;
+  imgIdx: number;
+  setHairLengthFn: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const HairTypeImg = ({ setHairTypeFn, hairType }: HairTypeImgProps) => {
-  const [isTypeSelected, setIsTypeSelected] = useState(false);
-  let imgSrc = '';
+const HairTypeInput = ({ lengthState, setLengthState, imgIdx, setHairLengthFn }: HairTypeInputProps) => {
+  const onlySelected = () => {
+    setHairLengthFn(hairType);
 
-  switch (hairType) {
-    case '숏':
-      isTypeSelected ? (imgSrc = shortSelected) : (imgSrc = shortDefault);
+    const tempLengthState = [...lengthState];
+    tempLengthState.forEach((_, index) => (tempLengthState[index] = index === imgIdx ? true : false));
+
+    setLengthState(tempLengthState);
+  };
+
+  let hairType = '';
+  let hairImgDefault = '';
+  let hairImgChecked = '';
+
+  switch (imgIdx) {
+    case 0:
+      hairType = '숏';
+      hairImgDefault = shortDefault;
+      hairImgChecked = shortSelected;
       break;
-    case '단발':
-      isTypeSelected ? (imgSrc = mediumSelected) : (imgSrc = mediumDefault);
+    case 1:
+      hairType = '단발';
+      hairImgDefault = mediumDefault;
+      hairImgChecked = mediumSelected;
       break;
-    case '어깨 아래':
-      isTypeSelected ? (imgSrc = longSelected) : (imgSrc = longDefault);
+    case 2:
+      hairType = '어깨 아래';
+      hairImgDefault = longDefault;
+      hairImgChecked = longSelected;
       break;
-    case '허리 아래':
-      isTypeSelected ? (imgSrc = rapunzelSelected) : (imgSrc = rapunzelDefault);
+    case 3:
+      hairType = '허리 아래';
+      hairImgDefault = rapunzelDefault;
+      hairImgChecked = rapunzelSelected;
       break;
   }
 
   return (
     <>
-      <S.HairTypeInput
-        type="radio"
-        id={hairType}
-        name="hairtype"
-        onClick={(e) => {
-          setHairTypeFn(hairType);
-          isTypeSelected ? setIsTypeSelected(false) : setIsTypeSelected(true);
-        }}
-      />
+      <S.HairTypeInput type="radio" id={hairType} name="hairtype" onChange={onlySelected} />
       <S.HairType htmlFor={hairType}>
-        <img src={imgSrc} alt={hairType} />
+        <img src={lengthState[imgIdx] ? hairImgChecked : hairImgDefault} alt="hairImg" />
       </S.HairType>
     </>
   );
@@ -54,9 +65,8 @@ const HairTypeImg = ({ setHairTypeFn, hairType }: HairTypeImgProps) => {
 
 const S = {
   HairTypeInput: styled.input`
-    appearance: auto;
-
     width: 100%;
+    display: none;
 
     &:checked + label {
       box-shadow: ${({ theme }) => theme.effects.shadow3};
@@ -64,7 +74,6 @@ const S = {
   `,
 
   HairType: styled.label`
-    width: 100%;
     height: 100%;
     border-radius: 8px;
 
@@ -79,4 +88,4 @@ const S = {
   `,
 };
 
-export default HairTypeImg;
+export default HairTypeInput;

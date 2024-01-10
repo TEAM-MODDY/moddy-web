@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { styled } from 'styled-components';
 
 import { IcEssential } from '../../@common/assets/icons';
@@ -6,15 +6,22 @@ import Button from '../../@common/components/Button';
 import Header from '../../@common/components/Header';
 import ProgressBar from '../../@common/components/ProgressBar';
 
-import HairTypeImg from './HairTypeInput';
+import HairTypeInput from './HairTypeInput';
 import StyleButton from './StyleButton';
-
 const DefaultInfo = () => {
-  const [hairLength, setHairLength] = useState('default');
-  const [preferStyles, setPreferStyles] = useState([]);
-  const [activateBtn, isActivateBtn] = useState(false);
+  const [selectedLength, setSelectedLength] = useState('');
+  const [lengthState, setLengthState] = useState([false, false, false, false]);
+  const [preferStyles, setPreferStyles] = useState<string[]>([]);
+  const [verified, isVerified] = useState(false);
 
-  const moveNext = () => {};
+  useEffect(() => {
+    selectedLength && preferStyles[0] ? isVerified(true) : isVerified(false);
+  }, [selectedLength, preferStyles]);
+
+  const moveNext = () => {
+    console.log(selectedLength);
+    console.log(preferStyles);
+  };
 
   return (
     <S.DefaultInfoLayout>
@@ -28,12 +35,32 @@ const DefaultInfo = () => {
             </h2>
             <span>현재 머리 기장을 선택해주세요</span>
           </S.Title>
-          <S.HairTypeImgBox>
-            <HairTypeImg setHairTypeFn={setHairLength} hairType="숏" />
-            <HairTypeImg setHairTypeFn={setHairLength} hairType="단발" />
-            <HairTypeImg setHairTypeFn={setHairLength} hairType="어깨 아래" />
-            <HairTypeImg setHairTypeFn={setHairLength} hairType="허리 아래" />
-          </S.HairTypeImgBox>
+          <S.HairTypeInputBox>
+            <HairTypeInput
+              lengthState={lengthState}
+              setLengthState={setLengthState}
+              setHairLengthFn={setSelectedLength}
+              imgIdx={0}
+            />
+            <HairTypeInput
+              lengthState={lengthState}
+              setLengthState={setLengthState}
+              setHairLengthFn={setSelectedLength}
+              imgIdx={1}
+            />
+            <HairTypeInput
+              lengthState={lengthState}
+              setLengthState={setLengthState}
+              setHairLengthFn={setSelectedLength}
+              imgIdx={2}
+            />
+            <HairTypeInput
+              lengthState={lengthState}
+              setLengthState={setLengthState}
+              setHairLengthFn={setSelectedLength}
+              imgIdx={3}
+            />
+          </S.HairTypeInputBox>
         </S.HairLengthSection>
         <hr />
         <S.DeserveStyleSection>
@@ -45,28 +72,58 @@ const DefaultInfo = () => {
           </S.Title>
           <S.StyleBox>
             <h3>커트</h3>
-            <StyleButton isSelected={true} type="일반 커트" />
+            <StyleButton
+              isSelected={false}
+              type="일반 커트"
+              preferStyles={preferStyles}
+              setPreferStyles={setPreferStyles}
+            />
           </S.StyleBox>
           <hr />
           <S.StyleBox>
             <h3>컬러</h3>
             <S.SelectList>
-              <StyleButton isSelected={false} type="전체 염색" />
-              <StyleButton isSelected={false} type="전체 탈색" />
+              <StyleButton
+                isSelected={false}
+                type="전체 염색"
+                preferStyles={preferStyles}
+                setPreferStyles={setPreferStyles}
+              />
+              <StyleButton
+                isSelected={false}
+                type="전체 탈색"
+                preferStyles={preferStyles}
+                setPreferStyles={setPreferStyles}
+              />
             </S.SelectList>
           </S.StyleBox>
           <hr />
           <S.StyleBox>
             <h3>펌</h3>
             <S.SelectList>
-              <StyleButton isSelected={false} type="셋팅펌" />
-              <StyleButton isSelected={false} type="일반펌" />
-              <StyleButton isSelected={false} type="매직" />
+              <StyleButton
+                isSelected={false}
+                type="셋팅펌"
+                preferStyles={preferStyles}
+                setPreferStyles={setPreferStyles}
+              />
+              <StyleButton
+                isSelected={false}
+                type="일반펌"
+                preferStyles={preferStyles}
+                setPreferStyles={setPreferStyles}
+              />
+              <StyleButton
+                isSelected={false}
+                type="매직"
+                preferStyles={preferStyles}
+                setPreferStyles={setPreferStyles}
+              />
             </S.SelectList>
           </S.StyleBox>
         </S.DeserveStyleSection>
       </S.StyleSection>
-      <Button text="다음" onClickFn={moveNext} isFixed={true} />
+      <Button text="다음" onClickFn={moveNext} isFixed={true} disabled={!verified} />
     </S.DefaultInfoLayout>
   );
 };
@@ -132,7 +189,7 @@ const S = {
     }
   `,
 
-  HairTypeImgBox: styled.div`
+  HairTypeInputBox: styled.div`
     display: flex;
     gap: 1.2rem;
     justify-content: space-between;
