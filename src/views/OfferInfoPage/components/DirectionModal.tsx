@@ -70,11 +70,16 @@ const DirectionModal = ({ isModal, onClose }: DirectionModalProps) => {
 
 const S = {
   ModalDimBox: styled.div<{ $isModal?: boolean }>`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     position: fixed;
     top: 0;
     z-index: 2;
 
-    width: 100vw;
+    width: 100%;
+    max-width: 43rem;
     height: 100vh;
     padding: 0 3.8rem;
 
@@ -90,11 +95,9 @@ const S = {
     cursor: pointer;
   `,
   ModalBox: styled.div`
-    position: fixed;
-    top: 50%;
-    left: 50%;
+    position: relative;
 
-    width: calc(100vw - 7.6rem);
+    width: 100%;
     height: 36rem;
     padding: 0 2rem;
     border-radius: 12px;
@@ -102,7 +105,6 @@ const S = {
     background-color: ${({ theme }) => theme.colors.moddy_wt};
 
     text-align: center;
-    transform: translate(-50%, -50%);
 
     & > h1 {
       margin-top: 4.8rem;

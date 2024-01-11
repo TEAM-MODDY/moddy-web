@@ -56,7 +56,6 @@ const ImgModal = ({ isModal, onClose }: ImgModalProps) => {
             <S.SaveBtn
               onClick={() => {
                 setImageLoad(true);
-                handleModalClose;
               }}>
               이미지 저장하기
             </S.SaveBtn>
@@ -73,7 +72,8 @@ const S = {
     top: 0;
     z-index: 2;
 
-    width: 100vw;
+    width: 100%;
+    max-width: 43rem;
     height: 100vh;
     padding: 0 3.8rem;
 
@@ -91,7 +91,7 @@ const S = {
     position: relative;
     top: 8rem;
 
-    width: calc(100vw - 7.6rem);
+    width: 100%;
     padding: 0 2.4rem;
     border-radius: 12px;
 

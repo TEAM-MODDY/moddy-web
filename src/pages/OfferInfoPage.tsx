@@ -46,7 +46,7 @@ const S = {
   OfferInfoLayout: styled.section`
     position: relative;
 
-    width: 100vw;
+    width: 100%;
     margin-top: 5.7rem;
   `,
 
