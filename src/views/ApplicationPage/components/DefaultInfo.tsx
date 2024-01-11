@@ -12,16 +12,13 @@ const DefaultInfo = () => {
   const [selectedLength, setSelectedLength] = useState('');
   const [lengthState, setLengthState] = useState([false, false, false, false]);
   const [preferStyles, setPreferStyles] = useState<string[]>([]);
-  const [verified, isVerified] = useState(false);
+  const [verified, setVerified] = useState(false);
 
   useEffect(() => {
-    selectedLength && preferStyles[0] ? isVerified(true) : isVerified(false);
+    selectedLength && preferStyles[0] ? setVerified(true) : setVerified(false);
   }, [selectedLength, preferStyles]);
 
-  const moveNext = () => {
-    console.log(selectedLength);
-    console.log(preferStyles);
-  };
+  const moveNext = () => {};
 
   return (
     <S.DefaultInfoLayout>

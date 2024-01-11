@@ -17,9 +17,12 @@ const StyleButton = ({ type, isSelected, preferStyles, setPreferStyles }: StyleB
     if (activate) {
       isActivate(false);
 
-      preferStyles.forEach((element, index) => {
-        element === type ? preferStyles.splice(index, 1) : null;
+      const tempPreferStyles = [...preferStyles];
+
+      tempPreferStyles.forEach((element, index) => {
+        element === type ? tempPreferStyles.splice(index, 1) : null;
       });
+      setPreferStyles(tempPreferStyles);
     } else {
       isActivate(true);
 
