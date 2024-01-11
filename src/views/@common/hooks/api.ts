@@ -19,12 +19,12 @@ export const removeToken = () => {
 };
 
 // access token key 로컬스토리지에서 관리 예정
-// api.interceptors.request.use((config) => {
-//   const accessToken = getToken();
-//   if (accessToken) {
-//     config.headers['Authorization'] = `Bearer ${accessToken}`;
-//   }
-//   return config;
-// });
+api.interceptors.request.use((config) => {
+  const accessToken = getToken();
+  if (accessToken) {
+    config.headers['Authorization'] = `Bearer ${accessToken}`;
+  }
+  return config;
+});
 
 export default api;
