@@ -6,3 +6,11 @@ export interface RegionResponse {
     }[];
   };
 }
+export interface ModelSignUpRequest {
+  name: string;
+  year: string;
+  gender: string;
+  phoneNumber: string;
+  isMarketingAgree: boolean;
+  preferRegions: number[];
+}
