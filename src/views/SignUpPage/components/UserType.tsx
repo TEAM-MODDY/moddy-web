@@ -15,7 +15,7 @@ interface SelectUserTypeProp {
   setStep: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const SelectUserType = ({ setStep }: SelectUserTypeProp) => {
+const UserType = ({ setStep }: SelectUserTypeProp) => {
   const navigate = useNavigate();
   const [userType, setUserType] = useRecoilState(userTypeState);
 
@@ -81,7 +81,7 @@ const SelectUserType = ({ setStep }: SelectUserTypeProp) => {
     </>
   );
 };
-export default SelectUserType;
+export default UserType;
 
 const OnBoardingSpan = styled.span`
   color: ${({ theme }) => theme.colors.moddy_bk};

@@ -15,7 +15,7 @@ import RegionItem from './RegionItem';
 import { preferRegionState } from '@/recoil/atoms/signUpState';
 import Modal from '@/views/@common/components/Modal';
 
-const SelectPreferRegion = () => {
+const PreferRegion = () => {
   const navigate = useNavigate();
   const RegionList = ['전체', '관악구', '동작구', '강남구', '강동구', '강북구'];
   const [isShowCategory, setIsShowCategory] = useState(false);
@@ -134,7 +134,7 @@ const SelectPreferRegion = () => {
     </>
   );
 };
-export default SelectPreferRegion;
+export default PreferRegion;
 
 const SelectPreferRegionLayout = styled.div`
   position: relative;
