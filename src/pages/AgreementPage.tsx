@@ -13,7 +13,7 @@ const AgreementPage = () => {
     const tempChecked = [...isChecked];
     tempChecked[0] = isChecked[1] && isChecked[2] && isChecked[3];
     setChecked(tempChecked);
-  }, [isChecked]);
+  }, [isChecked[1], isChecked[2], isChecked[3]]);
 
   return (
     <div>
