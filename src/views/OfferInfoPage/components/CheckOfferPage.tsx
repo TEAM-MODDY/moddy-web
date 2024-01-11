@@ -28,7 +28,8 @@ const CheckOfferPage = () => {
   };
 
   return (
-    <ScrollToTop>
+    <>
+      <ScrollToTop />
       <ImgModal isModal={isModal} onClose={() => setIsModal(false)} />
       <Header
         title=""
@@ -49,7 +50,7 @@ const CheckOfferPage = () => {
         <S.SubTitle>연결 예정 디자이너</S.SubTitle>
         <ProfileWrapperBox />
       </S.CheckOfferLayout>
-    </ScrollToTop>
+    </>
   );
 };
 

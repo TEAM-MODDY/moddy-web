@@ -37,7 +37,7 @@ const ImgModal = ({ isModal, onClose }: ImgModalProps) => {
   return (
     <>
       {isModal && (
-        <S.ModalDimBox $isModal={isModal}>
+        <S.ModalDimBox>
           <S.ModalBox>
             <S.BookMarkBox>
               <IcBookmark />
