@@ -19,7 +19,7 @@ const ImgModal = ({ isModal, onClose }: ImgModalProps) => {
     onClose();
   };
 
-  //미이미 저장
+  //이미지 저장
   const [, setImageLoad] = useState(false);
 
   const fetchImage = async () => {
@@ -31,7 +31,7 @@ const ImgModal = ({ isModal, onClose }: ImgModalProps) => {
 
       const blob = await response.blob();
       saveAs(blob, 'MyRecords.png');
-      setImageLoad(true);
+      isModal && setImageLoad(true);
     } catch (error) {
       console.log('으앙');
     }
