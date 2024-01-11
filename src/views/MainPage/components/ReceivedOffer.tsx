@@ -1,6 +1,6 @@
 import { styled } from 'styled-components';
 
-import { APPLY_TYPE } from '../constants/constants';
+import { APPLY_TYPE } from '../../@common/utils/constants';
 
 import ApplicationCard from './ApplicationCard';
 
