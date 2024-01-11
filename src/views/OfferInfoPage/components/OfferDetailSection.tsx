@@ -1,6 +1,6 @@
 import { styled } from 'styled-components';
 
-import ImgPropLogo from '../views/OfferInfoPage/assets/images/img_proplogo.png';
+import ImgPropLogo from '../assets/images/img_proplogo.png';
 
 import { IcBookmark, IcPin } from '@/views/OfferInfoPage/assets/icons';
 import ConditionContentBox from '@/views/OfferInfoPage/components/ConditionContentBox';

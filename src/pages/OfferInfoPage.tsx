@@ -6,9 +6,8 @@ import Button from '../views/@common/components/Button';
 import Header from '../views/@common/components/Header';
 import DirectionModal from '../views/OfferInfoPage/components/DirectionModal';
 
-import OfferDetailSection from './OfferDetailSection';
-
 import DesignerInfoSection from '@/views/OfferInfoPage/components/DesignerInfoSection';
+import OfferDetailSection from '@/views/OfferInfoPage/components/OfferDetailSection';
 
 const OfferInfoPage = () => {
   // 체크 표시 클릭시 CTA 버튼 활성화
