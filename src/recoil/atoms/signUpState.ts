@@ -14,6 +14,11 @@ export const userTypeState = atom({
   effects_UNSTABLE: [persistAtom],
 });
 
+export const agreementState = atom<boolean>({
+  key: 'agreement',
+  default: false,
+});
+
 export const nameState = atom<inputDataType>({
   key: 'name',
   default: {
@@ -70,4 +75,9 @@ export const preferRegionState = atom<preferRegionDataType>({
     data: [],
     verifyStatus: false,
   },
+});
+
+export const regionState = atom<{ id: number; name: string }[]>({
+  key: 'region',
+  default: [],
 });
