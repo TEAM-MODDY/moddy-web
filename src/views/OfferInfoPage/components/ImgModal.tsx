@@ -1,5 +1,5 @@
 import { saveAs } from 'file-saver';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { styled } from 'styled-components';
 
 import { IcBookmark } from '../assets/icons';
@@ -22,23 +22,21 @@ const ImgModal = ({ isModal, onClose }: ImgModalProps) => {
   //미이미 저장
   const [, setImageLoad] = useState(false);
 
-  useEffect(() => {
-    const fetchImage = async () => {
-      try {
-        const response = await fetch(CHECK_OFFER_DATA.data.applicationImgUrl);
-        if (!response.ok) {
-          throw new Error(`이미지 저장 실패`);
-        }
-
-        const blob = await response.blob();
-        saveAs(blob, 'MyRecords.png');
-        setImageLoad(true);
-      } catch (error) {
-        console.error('Error:', error);
+  const fetchImage = async () => {
+    try {
+      const response = await fetch(CHECK_OFFER_DATA.data.applicationImgUrl);
+      if (!response.ok) {
+        throw new Error(`이미지 저장 실패`);
       }
-    };
-    fetchImage();
-  }, []);
+
+      const blob = await response.blob();
+      saveAs(blob, 'MyRecords.png');
+      setImageLoad(true);
+    } catch (error) {
+      console.log('으앙');
+    }
+  };
+  fetchImage();
 
   return (
     <>
