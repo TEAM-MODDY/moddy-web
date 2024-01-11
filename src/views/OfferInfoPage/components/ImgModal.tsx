@@ -63,13 +63,15 @@ const ImgModal = ({ isModal, onClose }: ImgModalProps) => {
 
 const S = {
   ModalDimBox: styled.div<{ $isModal?: boolean }>`
+    display: flex;
+    align-items: center;
     position: fixed;
     top: 0;
-    z-index: 2;
+    z-index: 4;
 
     width: 100%;
     max-width: 43rem;
-    height: 100vh;
+    height: 100dvh;
     padding: 0 3.8rem;
 
     background-color: ${({ theme }) => theme.colors.moddy_bk20};
@@ -84,7 +86,6 @@ const S = {
   `,
   ModalBox: styled.div`
     position: relative;
-    top: 8rem;
 
     width: 100%;
     padding: 0 2.4rem;

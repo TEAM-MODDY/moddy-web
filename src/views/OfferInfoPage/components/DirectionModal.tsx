@@ -80,7 +80,7 @@ const S = {
 
     width: 100%;
     max-width: 43rem;
-    height: 100vh;
+    height: 100dvh;
     padding: 0 3.8rem;
 
     background-color: ${({ theme }) => theme.colors.moddy_bk20};

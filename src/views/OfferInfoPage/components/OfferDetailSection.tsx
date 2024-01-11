@@ -42,10 +42,12 @@ const OfferDetailSection = () => {
             <div>
               <h3>{DesingerInfo.shopAddress}</h3>
               <h3>{DesingerInfo.shopDetailAddress}</h3>
-              <button type="button">
-                <IcPin />
-                지도
-              </button>
+              <a href={DesingerInfo.naverPlaceUrl} target="_blank" rel="noreferrer">
+                <button type="button">
+                  <IcPin />
+                  지도
+                </button>
+              </a>
             </div>
           </S.DetailContentBox>
 
@@ -105,8 +107,9 @@ const S = {
       ${({ theme }) => theme.fonts.Body02};
     }
 
-    & > div > button {
-      display: grid;
+    & > div > a > button {
+      display: flex;
+      gap: 0.2rem;
       justify-content: center;
       align-items: center;
       float: right;
@@ -115,8 +118,6 @@ const S = {
 
       /* stylelint-disable-next-line unit-allowed-list */
       grid-template-columns: repeat(2, 1fr);
-
-      grid-gap: 0.2rem;
 
       color: ${({ theme }) => theme.colors.moddy_blue};
       ${({ theme }) => theme.fonts.Caption03};

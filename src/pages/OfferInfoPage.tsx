@@ -24,6 +24,7 @@ const OfferInfoPage = () => {
 
   return (
     <>
+      <DirectionModal isModal={isModal} onClose={() => setIsModal(false)} />
       <Header title="도착한 제안서" isBackBtnExist={true} />
       <S.OfferInfoLayout>
         <DesignerInfoSection />
@@ -37,7 +38,6 @@ const OfferInfoPage = () => {
         </S.AgreementBox>
       </S.OfferInfoLayout>
       <Button text="다음" isFixed={false} onClickFn={handleModalOpen} disabled={!isChecked} />
-      <DirectionModal isModal={isModal} onClose={() => setIsModal(false)} />
     </>
   );
 };
