@@ -1,11 +1,11 @@
 import { styled } from 'styled-components';
 
-import DetailedStyle from '../views/ApplicationPage/components/DetailedStyle';
+import ServiceHistory from '../views/ApplicationPage/components/ServiceHistory';
 
 const ApplicationPage = () => {
   return (
     <ApplicationPagSection>
-      <DetailedStyle />
+      <ServiceHistory />
     </ApplicationPagSection>
   );
 };

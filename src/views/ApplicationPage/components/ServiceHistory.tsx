@@ -3,20 +3,24 @@ import { styled } from 'styled-components';
 import Button from '../../@common/components/Button';
 import Header from '../../@common/components/Header';
 
-import HistoryList from './HistoryList';
+import ServiceHistoryListItem from './ServiceHistoryListItem';
 
 const ServiceHistory = () => {
   const addHistory = () => {};
+
+  const moveNext = () => {};
   return (
     <S.ServiceHistoryLayout>
       <Header isBackBtnExist={true} isCloseBtnExist={true} title="모델 지원하기" />
       <S.Title>
         <h2>시술 이력</h2>
-        <h3>최근 진행한 시술을 입력해주세요 &#40;최대 3개&#41;</h3>
+        <h3>최근 시술이력을 입력해주세요 &#40;최대 3개&#41;</h3>
       </S.Title>
-      <HistoryList />
+      <S.ServiceHistoryList>
+        <ServiceHistoryListItem />
+      </S.ServiceHistoryList>
       <S.AddHistoryBtn type="button">&#43; 눌러서 추가하기</S.AddHistoryBtn>
-      <Button text="다음" isFixed={true} onClickFn={addHistory} />
+      <Button text="다음" isFixed={true} onClickFn={moveNext} />
     </S.ServiceHistoryLayout>
   );
 };
@@ -49,6 +53,16 @@ const S = {
 
       ${({ theme }) => theme.fonts.Body02};
     }
+  `,
+
+  ServiceHistoryList: styled.ul`
+    display: flex;
+    gap: 0.8rem;
+    justify-content: space-between;
+    position: relative;
+
+    width: 100%;
+    margin-top: 2rem;
   `,
 
   AddHistoryBtn: styled.button`
