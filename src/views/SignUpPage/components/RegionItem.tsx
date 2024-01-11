@@ -7,7 +7,7 @@ import { preferRegionState } from '@/recoil/atoms/signUpState';
 interface RegionItemProps {
   region: string;
   index: number;
-  regionList: string[];
+  regionList: { id: number; name: string }[];
 }
 
 const RegionItem = (props: RegionItemProps) => {

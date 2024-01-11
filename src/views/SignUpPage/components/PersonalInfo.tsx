@@ -108,20 +108,20 @@ const PersonalInfo = ({ setStep }: EnterProfileProp) => {
           <S.GenderSelectBox>
             <S.RadioInput
               type="radio"
-              id="female"
+              id="FEMALE"
               name="gender-type"
-              checked={gender.data === 'female'}
+              checked={gender.data === 'FEMALE'}
               onChange={handleGender}
             />
-            <S.GenderTypeLabel htmlFor="female">여성</S.GenderTypeLabel>
+            <S.GenderTypeLabel htmlFor="FEMALE">여성</S.GenderTypeLabel>
             <S.RadioInput
               type="radio"
-              id="male"
+              id="MALE"
               name="gender-type"
-              checked={gender.data === 'male'}
+              checked={gender.data === 'MALE'}
               onChange={handleGender}
             />
-            <S.GenderTypeLabel htmlFor="male">남성</S.GenderTypeLabel>
+            <S.GenderTypeLabel htmlFor="MALE">남성</S.GenderTypeLabel>
           </S.GenderSelectBox>
         </S.FormBox>
       </S.PersonalInfoLayout>
