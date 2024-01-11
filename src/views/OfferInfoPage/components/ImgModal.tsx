@@ -1,8 +1,10 @@
+import { saveAs } from 'file-saver';
+import { useState, useEffect } from 'react';
 import { styled } from 'styled-components';
 
 import { IcBookmark } from '../assets/icons';
-import DummyImg from '../assets/images/Group 9781.png';
 import ImgApplicationLogo from '../assets/images/img_applicationlogo.png';
+import { CHECK_OFFER_DATA } from '../constants/CHECK_OFFER_DATA';
 
 import { IcCloseBlack } from '@/views/@common/assets/icons';
 
@@ -12,9 +14,31 @@ interface ImgModalProps {
 }
 
 const ImgModal = ({ isModal, onClose }: ImgModalProps) => {
+  //모달 닫기
   const handleModalClose = () => {
     onClose();
   };
+
+  //미이미 저장
+  const [, setImageLoad] = useState(false);
+
+  useEffect(() => {
+    const fetchImage = async () => {
+      try {
+        const response = await fetch(CHECK_OFFER_DATA.data.applicationImgUrl);
+        if (!response.ok) {
+          throw new Error(`이미지 저장 실패`);
+        }
+
+        const blob = await response.blob();
+        saveAs(blob, 'MyRecords.png');
+        setImageLoad(true);
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    };
+    fetchImage();
+  }, []);
 
   return (
     <>
@@ -27,9 +51,15 @@ const ImgModal = ({ isModal, onClose }: ImgModalProps) => {
             <S.CloseBtnBox onClick={handleModalClose}>
               <IcCloseBlack />
             </S.CloseBtnBox>
-            <S.MyRecordImg src={DummyImg} />
+            <S.MyRecordImg src={CHECK_OFFER_DATA.data.applicationImgUrl} />
             <S.LogoBox src={ImgApplicationLogo} />
-            <S.SaveBtn>이미지 저장하기</S.SaveBtn>
+            <S.SaveBtn
+              onClick={() => {
+                setImageLoad(true);
+                handleModalClose;
+              }}>
+              이미지 저장하기
+            </S.SaveBtn>
           </S.ModalBox>
         </S.ModalDimBox>
       )}
