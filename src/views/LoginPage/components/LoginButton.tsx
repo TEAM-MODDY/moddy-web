@@ -1,19 +1,14 @@
 import styled from 'styled-components';
 
 import { ImgKakaotalk } from '../assets/images';
-import { KAKAO_LINK } from '../constants/kakaoLink';
 
 const LoginButton = () => {
-  const handleLogin = () => {
-    window.location.href = KAKAO_LINK;
-  };
-
   return (
     <S.LoginButtonLayout>
       <S.LoginButtonBtn
         type="button"
         onClick={() => {
-          handleLogin();
+          console.log('카카오 로그인이 실행될겁니다');
         }}>
         <ImgKakaotalk />
         카카오 로그인
