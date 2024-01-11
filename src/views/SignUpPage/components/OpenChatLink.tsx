@@ -33,7 +33,7 @@ const OpenChatLink = () => {
         <Input placeholderText={HELPER_MESSAGE.INPUT_OPENCHAT_LINK} onChangeFn={handleText} />
         <S.HelperBox>
           <IcInformation />
-          <S.HelperSpan>{HELPER_MESSAGE.INPUT_DETAIL_ADRESS}</S.HelperSpan>
+          <S.HelperSpan>{HELPER_MESSAGE.ENTER_WITH_VALUD_NAME}</S.HelperSpan>
         </S.HelperBox>
       </S.OpenChatLinkLayout>
       <Button

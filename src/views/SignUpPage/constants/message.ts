@@ -11,8 +11,9 @@ export const HELPER_MESSAGE = {
   INPUT_ADDRESS: '헤어샵 주소를 입력해주세요',
   INPUT_INSTAGRAM_LINK: '인스타그램 링크를 입력해주세요',
   INPUT_NAVERPLACE_LINK: '네이버 플레이스 링크를 입력해주세요',
-  PREFER_INPUT_PORTFOLIO: '네이버 플레이스 링크를 입력해주세요',
+  PREFER_INPUT_PORTFOLIO: '디자이너님의 스타일 파악을 위해 입력을 권장드려요',
   VIEW_IMAGE_TO_USER: '모델 제안시 고객에게 보이는 사진이에요',
+  ENTER_WITH_VALUD_NAME: '모디에 등록한 디자이너명으로 입장해주세요',
 };
 
 export const TOAST_MESSAGE = {

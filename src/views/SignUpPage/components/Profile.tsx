@@ -13,18 +13,19 @@ import Input from '@/views/@common/components/Input';
 import Modal from '@/views/@common/components/Modal';
 import ProgressBar from '@/views/@common/components/ProgressBar';
 
-const Profile = () => {
+const Profile = ({ setStep }: EnterProfileProp) => {
   const navigate = useNavigate();
 
   const [isOpenModal, setOpenModal] = useState(false);
-  const [textAreaValue, setTextAreaValue] = useState('');
-  const isActive = textAreaValue !== '';
+  const [InstaIDValue, setInstaIdValue] = useState('');
+  const [NaverLinkValue, setNaverLinkValue] = useState('');
+  const isActive = InstaIDValue && NaverLinkValue !== '';
 
   const handleInstaGramText = (value: string) => {
-    setTextAreaValue(value);
+    setInstaIdValue(value);
   };
   const handleNaverPlaceText = (value: string) => {
-    setTextAreaValue(value);
+    setNaverLinkValue(value);
   };
   return (
     <>
@@ -33,21 +34,14 @@ const Profile = () => {
         <Field name="프로필 사진" isEssential={true} />
         <S.HelperTextBox>{HELPER_MESSAGE.VIEW_IMAGE_TO_USER}</S.HelperTextBox>
 
-        <Field name="소속" isEssential={true} />
+        <Field name="포트폴리오" isEssential={true} />
         <S.HelperTextBox>{HELPER_MESSAGE.PREFER_INPUT_PORTFOLIO}</S.HelperTextBox>
         <section>
           <Input placeholderText={HELPER_MESSAGE.INPUT_INSTAGRAM_LINK} onChangeFn={handleInstaGramText} />
           <Input placeholderText={HELPER_MESSAGE.INPUT_NAVERPLACE_LINK} onChangeFn={handleNaverPlaceText} />
         </section>
       </S.ProfileLayout>
-      <Button
-        text="다음"
-        isFixed={true}
-        disabled={!isActive}
-        onClickFn={() => {
-          setOpenModal(true);
-        }}
-      />
+      <Button text="다음" isFixed={true} disabled={!isActive} onClickFn={() => setStep((prev) => prev + 1)} />
       {isOpenModal && (
         <Modal
           title="이대로 가입하시겠어요?"
