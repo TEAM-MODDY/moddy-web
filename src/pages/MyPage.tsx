@@ -27,14 +27,15 @@ const MyPage = () => {
       <MyFooter />
       {isModalOpen && (
         <Modal
-          title="로그아웃 하시겠습니까?"
-          description="로그아웃 시 모디 홈 화면으로<br/>돌아갑니다."
-          leftBtnText="취소"
+          title="로그아웃"
+          description="로그아웃 하시겠습니까?"
+          leftBtnText="취소하기"
           rightBtnText="확인"
           leftBtnFn={() => setModalOpen && setModalOpen(false)}
           rightBtnFn={() => {
             navigate('/');
             console.log('test');
+            // 로그아웃 api 붙이기
           }}
         />
       )}
