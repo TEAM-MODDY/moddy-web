@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { styled } from 'styled-components';
 
 import { IcCheckBlue, IcInformation } from '../../@common/assets/icons';
@@ -10,16 +10,14 @@ import ToastMessage from '../../@common/components/ToastMessage';
 import { USER_TYPE } from '../../@common/utils/userType';
 import { HELPER_MESSAGE, PLACE_HOLDER_MESSAGE, TOAST_MESSAGE } from '../constants/message';
 import { STEP, TOTAL_STEP } from '../constants/step';
+import { EnterProfileProp } from '../utils/enterProfileProp';
 
 import Field from './Field';
 
-import { birthYearState, genderState, nameState } from '@/recoil/atoms/signUpState';
-interface PersonalInfoProp {
-  setStep: React.Dispatch<React.SetStateAction<number>>;
-}
+import { birthYearState, genderState, nameState, userTypeState } from '@/recoil/atoms/signUpState';
 
-const PersonalInfo = ({ setStep }: PersonalInfoProp) => {
-  const userType = USER_TYPE.MODEL;
+const PersonalInfo = ({ setStep }: EnterProfileProp) => {
+  const userType = useRecoilValue(userTypeState);
 
   const [name, setName] = useRecoilState(nameState);
   const [birthYear, setBirthYear] = useRecoilState(birthYearState);

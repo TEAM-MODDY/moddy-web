@@ -1,17 +1,13 @@
 import { useState } from 'react';
 
 import EnterProfile from '../views/SignUpPage/components/EnterProfile';
-import SelectUserType from '../views/SignUpPage/components/SelectUserType';
+import UserType from '../views/SignUpPage/components/UserType';
 
 const SignUpPage = () => {
   const [isInitialStep, setIsInitialStep] = useState(true);
   return (
     <>
-      {isInitialStep ? (
-        <SelectUserType setStep={setIsInitialStep} />
-      ) : (
-        <EnterProfile setIsInitialStep={setIsInitialStep} />
-      )}
+      {isInitialStep ? <UserType setStep={setIsInitialStep} /> : <EnterProfile setIsInitialStep={setIsInitialStep} />}
     </>
   );
 };

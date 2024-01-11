@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { styled } from 'styled-components';
 
 import Button from '../../@common/components/Button';
@@ -9,16 +9,14 @@ import { HELPER_MESSAGE, PLACE_HOLDER_MESSAGE } from '../constants/message';
 import { STATUS } from '../constants/requestStatus';
 import { STEP, TOTAL_STEP } from '../constants/step';
 import useInterval from '../hooks/useInterval';
+import { EnterProfileProp } from '../utils/enterProfileProp';
 
 import Field from './Field';
 
-import { phoneNumberState, verifyCodeState } from '@/recoil/atoms/signUpState';
-interface VerifyPhoneNumberProp {
-  setStep: React.Dispatch<React.SetStateAction<number>>;
-}
+import { phoneNumberState, userTypeState, verifyCodeState } from '@/recoil/atoms/signUpState';
 
-const VerifyPhoneNumber = ({ setStep }: VerifyPhoneNumberProp) => {
-  const userType = USER_TYPE.MODEL;
+const PhoneNumber = ({ setStep }: EnterProfileProp) => {
+  const userType = useRecoilValue(userTypeState);
 
   const [phoneNumber, setPhoneNumber] = useRecoilState(phoneNumberState);
   const [verifyCode, setVerifyCode] = useRecoilState(verifyCodeState);
@@ -126,14 +124,16 @@ const VerifyPhoneNumber = ({ setStep }: VerifyPhoneNumberProp) => {
       <Button
         text="다음"
         isFixed={true}
-        onClickFn={() => setStep(STEP.MODEL.PREFER_REGION)}
+        onClickFn={() =>
+          userType === USER_TYPE.DESIGNER ? setStep(STEP.DESIGNER.SHOP_INFO) : setStep(STEP.MODEL.PREFER_REGION)
+        }
         disabled={verifyCode.status !== STATUS.VERIFIED}
       />
     </>
   );
 };
 
-export default VerifyPhoneNumber;
+export default PhoneNumber;
 
 const VerifyPhoneNumberLayout = styled.div`
   margin-top: 8.6rem;
