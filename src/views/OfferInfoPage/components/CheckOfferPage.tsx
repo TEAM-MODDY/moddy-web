@@ -7,6 +7,8 @@ import ButtonBox from './ButtonBox';
 import ImgBox from './ImgBox';
 import ProfileWrapperBox from './ProfileWrapperBox';
 
+import ScrollToTop from '@/views/@common/components/ScrollToTop';
+
 const CheckOfferPage = () => {
   //헤더 앞뒤 이동
   const navigate = useNavigate();
@@ -18,7 +20,7 @@ const CheckOfferPage = () => {
   };
 
   return (
-    <>
+    <ScrollToTop>
       <Header
         title=""
         isBackBtnExist={true}
@@ -38,7 +40,7 @@ const CheckOfferPage = () => {
         <S.SubTitle>연결 예정 디자이너</S.SubTitle>
         <ProfileWrapperBox />
       </S.CheckOfferLayout>
-    </>
+    </ScrollToTop>
   );
 };
 
