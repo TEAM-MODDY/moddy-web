@@ -1,12 +1,22 @@
+import { useState } from 'react';
 import { styled } from 'styled-components';
 
 import Button from '../../@common/components/Button';
 import Header from '../../@common/components/Header';
 
-import ServiceHistoryListItem from './ServiceHistoryListItem';
+import ServiceHistoryListItem, { HistroyDetailProps } from './ServiceHistoryListItem';
 
 const ServiceHistory = () => {
-  const addHistory = () => {};
+  const MAX_LENGTH = 3;
+
+  const [serviceHistoryList, sestServiceHistoryList] = useState<HistroyDetailProps[]>([]);
+
+  const addHistory = () => {
+    if (serviceHistoryList.length < MAX_LENGTH) {
+      const tempServiceHistoryList: HistroyDetailProps[] = [...serviceHistoryList, { service: '', period: '' }];
+      sestServiceHistoryList(tempServiceHistoryList);
+    }
+  };
 
   const moveNext = () => {};
   return (
@@ -17,9 +27,15 @@ const ServiceHistory = () => {
         <h3>최근 시술이력을 입력해주세요 &#40;최대 3개&#41;</h3>
       </S.Title>
       <S.ServiceHistoryList>
-        <ServiceHistoryListItem />
+        {serviceHistoryList.map((item: HistroyDetailProps, idx: number) =>
+          idx < serviceHistoryList.length ? (
+            <ServiceHistoryListItem key={'history' + item.service + item.period + idx} />
+          ) : null,
+        )}
       </S.ServiceHistoryList>
-      <S.AddHistoryBtn type="button">&#43; 눌러서 추가하기</S.AddHistoryBtn>
+      <S.AddHistoryBtn type="button" onClick={addHistory}>
+        &#43; 눌러서 추가하기
+      </S.AddHistoryBtn>
       <Button text="다음" isFixed={true} onClickFn={moveNext} />
     </S.ServiceHistoryLayout>
   );
@@ -60,6 +76,7 @@ const S = {
     gap: 0.8rem;
     justify-content: space-between;
     position: relative;
+    flex-wrap: wrap;
 
     width: 100%;
     margin-top: 2rem;

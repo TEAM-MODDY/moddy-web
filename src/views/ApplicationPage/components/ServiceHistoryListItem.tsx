@@ -4,7 +4,7 @@ import { css, styled } from 'styled-components';
 import { IcDownGrey, IcUpBlue } from '../../@common/assets/icons';
 import { IcDelete } from '../assets/icons';
 
-interface HistroyDetailProps {
+export interface HistroyDetailProps {
   service: string;
   period: string;
 }
@@ -42,7 +42,7 @@ const ServiceHistoryListItem = () => {
           onClick={() => {
             isServiceClicked ? setIsServiceClicked(false) : setIsServiceClicked(true);
           }}>
-          <button type="button">{historyDetail.service}</button>
+          <input type="button" value={historyDetail.service} />
           {isServiceClicked ? <IcUpBlue /> : <IcDownGrey />}
         </S.SelectServiceBox>
         <S.SelectDetailBox>
@@ -78,27 +78,19 @@ const ServiceHistoryListItem = () => {
           onClick={() => {
             isPeriodClicked ? setIsPeriodClicked(false) : setIsPeriodClicked(true);
           }}>
-          <button type="button">{historyDetail.period}</button>
+          <input type="button" value={historyDetail.period} />
           {isPeriodClicked ? <IcUpBlue /> : <IcDownGrey />}
         </S.SelectPeriodBox>
         <S.SelectDetailBox>
           {isPeriodClicked && (
             <ul>
               <li>
-                <button
-                  type="button"
-                  onClick={(e) => {
-                    activatePeriodBox(e);
-                  }}>
+                <button type="button" onClick={activatePeriodBox}>
                   1 개월 미만
                 </button>
               </li>
               <li>
-                <button
-                  type="button"
-                  onClick={(e) => {
-                    activatePeriodBox(e);
-                  }}>
+                <button type="button" onClick={activatePeriodBox}>
                   1 - 3 개월
                 </button>
               </li>
@@ -136,6 +128,8 @@ const ServiceHistoryListItemLayout = styled.li`
     height: 100%;
 
     object-fit: cover;
+
+    cursor: pointer;
   }
 `;
 
@@ -180,19 +174,24 @@ const selectBtn = css`
 
   cursor: pointer;
 
-  & > button {
+  & > input {
+    border: none;
+    background-color: transparent;
     color: ${({ theme }) => theme.colors.moddy_gray50};
     text-align: left;
+    padding: 0;
 
     ${({ theme }) => theme.fonts.Body02};
   }
 `;
+
 const SelectServiceBox = styled.div<{ $isServiceClicked: boolean }>`
   border: 1px solid
     ${({ $isServiceClicked, theme }) => ($isServiceClicked ? theme.colors.moddy_blue : theme.colors.moddy_gray50)};
 
   ${selectBtn};
 `;
+
 const SelectPeriodBox = styled.div<{ $isPeriodClicked: boolean }>`
   border: 1px solid
     ${({ $isPeriodClicked, theme }) => ($isPeriodClicked ? theme.colors.moddy_blue : theme.colors.moddy_gray50)};
