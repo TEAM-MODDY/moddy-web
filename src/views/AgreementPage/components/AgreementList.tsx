@@ -16,10 +16,10 @@ const AgreementList = ({ isChecked, setChecked }: AgreementListProps) => {
   const handleCheck = (idx: number) => {
     if (idx === 0) {
       setChecked(new Array(4).fill(!isChecked[0]));
-      isChecked[3] ? setMarketingAgree(true) : setMarketingAgree(false);
+      isChecked[3] ? setMarketingAgree(false) : setMarketingAgree(true);
     } else {
       if (idx === 3) {
-        isChecked[idx] ? setMarketingAgree(true) : setMarketingAgree(false);
+        isChecked[idx] ? setMarketingAgree(false) : setMarketingAgree(true);
       }
       const tempCheckedArray = [...isChecked];
       tempCheckedArray[idx] = !isChecked[idx];
