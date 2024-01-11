@@ -27,7 +27,7 @@
 ---
 
 ## Dev Skills
-![모디_기술스택](https://github.com/TEAM-MODDY/moddy-web/assets/81505421/b147f7b0-8302-44e9-90d5-553929ca45b9)
+![기술 스택](https://github.com/TEAM-MODDY/moddy-web/assets/81505421/70f5df07-50da-4976-bb9d-4c75de214b77)
 
 <br/>
 
