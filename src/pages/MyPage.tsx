@@ -8,6 +8,8 @@ import MyFooter from '../views/MyPage/components/MyFooter';
 import MyInfo from '../views/MyPage/components/MyInfo';
 import MyMenuList from '../views/MyPage/components/MyMenuList';
 
+import { LOGOUT_MODAL } from '@/views/@common/constants/modalText';
+
 const MyPage = () => {
   const [isModalOpen, setModalOpen] = useState(false);
 
@@ -27,14 +29,15 @@ const MyPage = () => {
       <MyFooter />
       {isModalOpen && (
         <Modal
-          title="로그아웃 하시겠습니까?"
-          description="로그아웃 시 모디 홈 화면으로<br/>돌아갑니다."
-          leftBtnText="취소"
-          rightBtnText="확인"
+          title={LOGOUT_MODAL.title}
+          description={LOGOUT_MODAL.description}
+          leftBtnText={LOGOUT_MODAL.leftBtn}
+          rightBtnText={LOGOUT_MODAL.rightBtn}
           leftBtnFn={() => setModalOpen && setModalOpen(false)}
           rightBtnFn={() => {
             navigate('/');
             console.log('test');
+            // 로그아웃 api 붙이기
           }}
         />
       )}
