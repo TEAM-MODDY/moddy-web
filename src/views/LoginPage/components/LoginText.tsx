@@ -39,7 +39,7 @@ const S = {
     ${({ theme }) => theme.fonts.Title01};
   `,
   LoginTextParagraph: styled.p`
-    margin: 3rem 0 0 1.6rem;
+    margin: 0.8rem 0 0 1.6rem;
 
     color: ${({ theme }) => theme.colors.moddy_gray50};
     ${({ theme }) => theme.fonts.Body02};
