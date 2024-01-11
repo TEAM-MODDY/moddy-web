@@ -50,6 +50,7 @@ const ImgModal = ({ isModal, onClose }: ImgModalProps) => {
             <S.SaveBtn
               onClick={() => {
                 fetchImage();
+                handleModalClose();
               }}>
               이미지 저장하기
             </S.SaveBtn>
