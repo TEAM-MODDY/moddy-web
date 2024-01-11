@@ -17,7 +17,7 @@ import theme from './styles/Theme';
 import ConfirmPage from './views/ApplicationPage/pages/ConfirmPage';
 import ModelOfferPage from './views/ModelInfoPage/components/ModelOfferPage';
 import OfferSentCompletePage from './views/ModelInfoPage/components/OfferSentCompletePage';
-import CheckOffer from './views/OfferInfoPage/components/CheckOffer';
+import CheckOfferPage from './views/OfferInfoPage/components/CheckOfferPage';
 
 const router = createBrowserRouter([
   { path: '/', element: <MainPage /> },
@@ -28,7 +28,7 @@ const router = createBrowserRouter([
   { path: '/application', element: <ApplicationPage /> },
   { path: '/offer-info', element: <OfferInfoPage /> },
   { path: '/my-page', element: <MyPage /> },
-  { path: '/offer-info/check-offer', element: <CheckOffer /> },
+  { path: '/offer-info/check-offer', element: <CheckOfferPage /> },
   { path: '/my-quit', element: <MyQuitPage /> },
   { path: '/model-info/model-offer', element: <ModelOfferPage /> },
   { path: '/application/confirm', element: <ConfirmPage /> },
