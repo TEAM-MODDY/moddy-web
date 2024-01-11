@@ -1,5 +1,4 @@
 import { saveAs } from 'file-saver';
-import { useState } from 'react';
 import { styled } from 'styled-components';
 
 import { IcBookmark } from '../assets/icons';
@@ -20,7 +19,6 @@ const ImgModal = ({ isModal, onClose }: ImgModalProps) => {
   };
 
   //이미지 저장
-  const [, setImageLoad] = useState(false);
 
   const fetchImage = async () => {
     try {
@@ -31,12 +29,10 @@ const ImgModal = ({ isModal, onClose }: ImgModalProps) => {
 
       const blob = await response.blob();
       saveAs(blob, 'MyRecords.png');
-      isModal && setImageLoad(true);
     } catch (error) {
-      console.log('으앙');
+      alert('이미지 저장 실패');
     }
   };
-  fetchImage();
 
   return (
     <>
@@ -53,7 +49,7 @@ const ImgModal = ({ isModal, onClose }: ImgModalProps) => {
             <S.LogoBox src={ImgApplicationLogo} />
             <S.SaveBtn
               onClick={() => {
-                setImageLoad(true);
+                fetchImage();
               }}>
               이미지 저장하기
             </S.SaveBtn>
