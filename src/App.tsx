@@ -35,6 +35,8 @@ const router = createBrowserRouter([
   { path: '/agreement', element: <AgreementPage /> },
   { path: '/model-info/model-offer/sent-complete', element: <OfferSentCompletePage /> },
   { path: '/error', element: <ErrorPage /> },
+  // { path: '/model-info/model-offer', element: <ModelOffer /> },
+  { path: '/agreement', element: <AgreementPage /> },
 ]);
 
 const App = () => {
