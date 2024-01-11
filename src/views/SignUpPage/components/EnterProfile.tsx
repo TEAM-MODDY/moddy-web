@@ -72,7 +72,7 @@ const EnterProfile = ({ setIsInitialStep }: EnterProfileProps) => {
 export default EnterProfile;
 
 const EnterProfileLayout = styled.div`
-  height: 100dvh;
+  height: calc(100dvh - 8.6rem);
 
   background-color: ${({ theme }) => theme.colors.moddy_wt};
 `;

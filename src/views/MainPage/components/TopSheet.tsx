@@ -1,19 +1,24 @@
 import { useNavigate } from 'react-router-dom';
+import { useRecoilValue } from 'recoil';
 import { styled } from 'styled-components';
 
+import { APPLY_TYPE } from '../../@common/utils/constants';
 import { IcLogoHome, IcRightWhite, IcModdyuser } from '../assets/icons';
-import { APPLY_TYPE, USER_TYPE } from '../constants/constants';
+
+import { userTypeState } from '@/recoil/atoms/signUpState';
+import { USER_TYPE } from '@/views/@common/utils/userType';
 
 interface TopSheetProps {
-  userType: number;
   applyType: number;
 }
+
 const TopSheet = (props: TopSheetProps) => {
-  const { userType, applyType } = props;
+  const userType = useRecoilValue(userTypeState);
+  const { applyType } = props;
   const navigate = useNavigate();
 
   const OnBoardingText = () => {
-    if (userType === USER_TYPE.GUEST) {
+    if (!userType) {
       return (
         <S.OnBoardingParagraph>
           헤어 디자이너와 모델,
@@ -56,7 +61,7 @@ const TopSheet = (props: TopSheetProps) => {
     <S.TopSheetLayout>
       <S.HeaderBox>
         <IcLogoHome />
-        {userType === USER_TYPE.GUEST ? (
+        {!userType ? (
           <S.LoginButton type="button" onClick={() => navigate('/login')}>
             <S.LoginSpan>로그인하기</S.LoginSpan>
             <IcRightWhite />
@@ -70,9 +75,7 @@ const TopSheet = (props: TopSheetProps) => {
       </S.OnBoardingBox>
       {userType !== USER_TYPE.DESIGNER ? (
         <S.StartButton type="button">
-          <S.StartButtonSpan>
-            {userType === USER_TYPE.GUEST ? '헤어 모델 지원하기 / 제안하기' : '헤어모델 지원하기'}
-          </S.StartButtonSpan>
+          <S.StartButtonSpan>{!userType ? '헤어 모델 지원하기 / 제안하기' : '헤어모델 지원하기'}</S.StartButtonSpan>
           <IcRightWhite />
         </S.StartButton>
       ) : null}
