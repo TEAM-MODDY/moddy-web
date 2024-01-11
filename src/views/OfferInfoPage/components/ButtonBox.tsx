@@ -4,7 +4,11 @@ import Button from '../../@common/components/Button';
 import { IcDownload, IcLink } from '../assets/icons';
 import { CHECK_OFFER_DATA } from '../constants/CHECK_OFFER_DATA';
 
-const ButtonBox = () => {
+interface ButtonBoxProps {
+  onClick: () => void;
+}
+
+const ButtonBox = ({ onClick }: ButtonBoxProps) => {
   //오픈채팅방 연결
   const OpenChatLink = CHECK_OFFER_DATA.data.kakaoUrl;
   const handleClickChat = () => {
@@ -14,13 +18,7 @@ const ButtonBox = () => {
   return (
     <div>
       <S.ButtonWrapper>
-        <Button
-          text="지원 내역 복사 / 저장하기"
-          onClickFn={function (): void {
-            console.log('아직 공부중ㅎㅎㅎ... ^^');
-          }}
-          icon={<IcDownload />}
-        />
+        <Button text="지원 내역 복사 / 저장하기" onClickFn={onClick} icon={<IcDownload />} />
         <S.Caption>지원 내역을 복사 / 저장 후 오픈 채팅방에 전달해주세요</S.Caption>
       </S.ButtonWrapper>
       <S.ButtonWrapper>
