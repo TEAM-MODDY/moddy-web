@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { styled } from 'styled-components';
 
 import { IcDownGrey, IcInformation, IcUpBlue } from '../../@common/assets/icons';
@@ -8,16 +8,19 @@ import Button from '../../@common/components/Button';
 import ProgressBar from '../../@common/components/ProgressBar';
 import { IcCloseSmblue } from '../assets/icons';
 import { HELPER_MESSAGE, PLACE_HOLDER_MESSAGE } from '../constants/message';
+import useGetRegion from '../hooks/useGetRegion';
+import useModelSignUp from '../hooks/useModelSignUp';
 
 import Field from './Field';
 import RegionItem from './RegionItem';
 
-import { preferRegionState } from '@/recoil/atoms/signUpState';
+import { preferRegionState, regionState } from '@/recoil/atoms/signUpState';
 import Modal from '@/views/@common/components/Modal';
 
 const PreferRegion = () => {
-  const navigate = useNavigate();
-  const RegionList = ['전체', '관악구', '동작구', '강남구', '강동구', '강북구'];
+  useGetRegion();
+  const regionList = useRecoilValue(regionState);
+  const postSignUp = useModelSignUp();
   const [isShowCategory, setIsShowCategory] = useState(false);
   const [isCheckedList, setIsCheckedList] = useRecoilState(preferRegionState);
   const [isShowBottomSheet, setIsShowBottomSheet] = useState(false);
@@ -26,6 +29,10 @@ const PreferRegion = () => {
   const categoryRef = useRef<HTMLDivElement>(null);
   const bottomSheetRef = useRef<HTMLDivElement>(null);
   const selectorBoxRef = useRef<HTMLDivElement>(null);
+
+  const handleSignUp = async () => {
+    await postSignUp();
+  };
 
   useEffect(() => {
     // 특정 영역 외 클릭 시 발생하는 이벤트
@@ -88,8 +95,8 @@ const PreferRegion = () => {
             <S.InnerBox>
               <S.CitySpan>서울특별시</S.CitySpan>
               <S.RegionList>
-                {RegionList.map((region, index) => (
-                  <RegionItem key={index} region={region} index={index} regionList={RegionList} />
+                {regionList.map((region, index) => (
+                  <RegionItem key={index} region={region.name} index={region.id} regionList={regionList} />
                 ))}
               </S.RegionList>
             </S.InnerBox>
@@ -103,7 +110,7 @@ const PreferRegion = () => {
               .map((index) => {
                 return (
                   <S.SelectedRegionBox key={index}>
-                    <SelectedRegionSpan>{RegionList[index]}</SelectedRegionSpan>
+                    <SelectedRegionSpan>{regionList[index].name}</SelectedRegionSpan>
                     <button onClick={() => handleSelectedList(index)}>
                       <IcCloseSmblue />
                     </button>
@@ -128,7 +135,7 @@ const PreferRegion = () => {
           leftBtnText="돌아가기"
           rightBtnText="확인"
           leftBtnFn={() => setOpenModal(false)}
-          rightBtnFn={() => navigate('/')}
+          rightBtnFn={() => handleSignUp()}
         />
       )}
     </>
