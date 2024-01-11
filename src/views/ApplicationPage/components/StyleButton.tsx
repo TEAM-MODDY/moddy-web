@@ -26,8 +26,8 @@ const StyleButton = ({ type, isSelected, preferStyles, setPreferStyles }: StyleB
     } else {
       isActivate(true);
 
-      const newPreferStyle = [type, ...preferStyles];
-      setPreferStyles(newPreferStyle);
+      const tempPreferStyles = [type, ...preferStyles];
+      setPreferStyles(tempPreferStyles);
     }
   };
 
