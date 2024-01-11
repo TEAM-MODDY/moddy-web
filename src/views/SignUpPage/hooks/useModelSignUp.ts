@@ -42,7 +42,7 @@ const useModelSignUp = () => {
     try {
       const data = await api.post('/auth/signup/model', requestBody, {
         headers: {
-          Authorization: `Bearer JSa-Lpvd51AYDJj8LahXQHmr1ZpQBHzG4Jft2gS98331KC2OfSICgimwYg4KPXVbAAABjPllUhmIenTzhLqDRQ`,
+          Authorization: `Bearer ~`,
         },
       });
       console.log(data);
