@@ -8,6 +8,8 @@ import MyFooter from '../views/MyPage/components/MyFooter';
 import MyInfo from '../views/MyPage/components/MyInfo';
 import MyMenuList from '../views/MyPage/components/MyMenuList';
 
+import { LOGOUT_MODAL } from '@/views/@common/constants/modalText';
+
 const MyPage = () => {
   const [isModalOpen, setModalOpen] = useState(false);
 
@@ -27,10 +29,10 @@ const MyPage = () => {
       <MyFooter />
       {isModalOpen && (
         <Modal
-          title="로그아웃"
-          description="로그아웃 하시겠습니까?"
-          leftBtnText="취소하기"
-          rightBtnText="확인"
+          title={LOGOUT_MODAL.title}
+          description={LOGOUT_MODAL.description}
+          leftBtnText={LOGOUT_MODAL.leftBtn}
+          rightBtnText={LOGOUT_MODAL.rightBtn}
           leftBtnFn={() => setModalOpen && setModalOpen(false)}
           rightBtnFn={() => {
             navigate('/');
