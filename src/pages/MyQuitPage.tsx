@@ -22,14 +22,15 @@ const MyQuitPage = () => {
       <Button text="확인하기" onClickFn={() => setModalOpen(true)} isFixed disabled={!isChecked} />
       {isModalOpen && (
         <Modal
-          title="정말 탈퇴 하시겠습니까?"
-          description="서비스 탈퇴 시 계정 정보 복구가<br/>불가능합니다."
-          leftBtnText="취소"
+          title="서비스 탈퇴"
+          description="정말 탈퇴하시겠습니까?"
+          leftBtnText="취소하기"
           rightBtnText="확인"
           leftBtnFn={() => setModalOpen && setModalOpen(false)}
           rightBtnFn={() => {
             console.log('회원탈퇴 완료');
             navigate('/');
+            // 회원탈퇴 api
           }}
         />
       )}
