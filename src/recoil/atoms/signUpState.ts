@@ -25,8 +25,13 @@ const { persistAtom } = recoilPersist({
 
 export const userTypeState = atom({
   key: 'userType',
-  default: null,
+  default: '',
   effects_UNSTABLE: [persistAtom],
+});
+
+export const tempUserTypeState = atom<string>({
+  key: 'tempUserType',
+  default: '',
 });
 
 export const marketingState = atom<boolean>({
