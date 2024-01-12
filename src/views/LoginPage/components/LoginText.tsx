@@ -13,7 +13,7 @@ const LoginText = () => {
           <br />
           모디에 오신 것을 환영해요.
         </S.LoginTextH1>
-        <S.LoginTextParagraph>원활한 서비스 이용을 위해 로그인을 해주세요</S.LoginTextParagraph>
+        <S.LoginTextParagraph>로그인 후 서비스를 이용할 수 있어요</S.LoginTextParagraph>
       </div>
       <img src={imgLogin} alt="로그인 이미지" />
       <LoginButton />
@@ -39,7 +39,7 @@ const S = {
     ${({ theme }) => theme.fonts.Title01};
   `,
   LoginTextParagraph: styled.p`
-    margin: 3rem 0 0 1.6rem;
+    margin: 0.8rem 0 0 1.6rem;
 
     color: ${({ theme }) => theme.colors.moddy_gray50};
     ${({ theme }) => theme.fonts.Body02};

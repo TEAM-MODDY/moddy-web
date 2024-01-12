@@ -1,30 +1,28 @@
 import { useState } from 'react';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { styled } from 'styled-components';
 
 import Button from '../../@common/components/Button';
 import ProgressBar from '../../@common/components/ProgressBar';
+import { USER_TYPE } from '../../@common/utils/userType';
 import { HELPER_MESSAGE, PLACE_HOLDER_MESSAGE } from '../constants/message';
 import { STATUS } from '../constants/requestStatus';
 import { STEP, TOTAL_STEP } from '../constants/step';
-import { USER_TYPE } from '../constants/userType';
 import useInterval from '../hooks/useInterval';
+import { EnterProfileProp } from '../utils/enterProfileProp';
 
 import Field from './Field';
-interface VerifyPhoneNumberProp {
-  setStep: React.Dispatch<React.SetStateAction<number>>;
-}
 
-const VerifyPhoneNumber = ({ setStep }: VerifyPhoneNumberProp) => {
-  const userType = USER_TYPE.MODEL;
+import { phoneNumberState, userTypeState, verifyCodeState } from '@/recoil/atoms/signUpState';
 
-  const [requestStatus, setRequestStatus] = useState(STATUS.NOT_AVAILABLE);
-  const [verifyStatus, setVerifyStatus] = useState(STATUS.NOT_AVAILABLE);
-  const [phoneNumber, setPhoneNumber] = useState('');
-  const [verifyNumber, setVerifyNumber] = useState('');
+const PhoneNumber = ({ setStep }: EnterProfileProp) => {
+  const userType = useRecoilValue(userTypeState);
+
+  const [phoneNumber, setPhoneNumber] = useRecoilState(phoneNumberState);
+  const [verifyCode, setVerifyCode] = useRecoilState(verifyCodeState);
   const [seconds, setSeconds] = useState(180);
   const [isVerifying, setIsVerifying] = useState(false);
   const [isRequested, setIsRequested] = useState(false);
-  const [isAllVerified, SetIsAllVerified] = useState(false);
 
   useInterval(() => {
     isVerifying && seconds > 0 && setSeconds((prev) => prev - 1);
@@ -39,36 +37,48 @@ const VerifyPhoneNumber = ({ setStep }: VerifyPhoneNumberProp) => {
   const handlePhoneNumber = (e: React.ChangeEvent<HTMLInputElement>) => {
     const regex = /^[0-9\b -]{0,13}$/;
     if (regex.test(e.target.value)) {
-      setPhoneNumber(e.target.value);
-      e.target.value.length === 11 ? setRequestStatus(STATUS.AVAILABLE) : setRequestStatus(STATUS.NOT_AVAILABLE);
+      setPhoneNumber({
+        data: e.target.value,
+        status: e.target.value.length === 11 ? STATUS.AVAILABLE : STATUS.NOT_AVAILABLE,
+      });
     }
   };
 
-  const handleVerifyNumber = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleVerifyCode = (e: React.ChangeEvent<HTMLInputElement>) => {
     const regex = /^[0-9\b]{0,6}$/;
     if (regex.test(e.target.value)) {
-      setVerifyNumber(e.target.value);
-      e.target.value.length === 6 ? setVerifyStatus(STATUS.AVAILABLE) : setVerifyStatus(STATUS.NOT_AVAILABLE);
+      setVerifyCode({
+        data: e.target.value,
+        status: e.target.value.length === 6 ? STATUS.AVAILABLE : STATUS.NOT_AVAILABLE,
+      });
     }
   };
 
   const handleRequestVerify = () => {
-    if (requestStatus !== STATUS.DONE) {
-      if (requestStatus === STATUS.RE_AVALILABLE) {
+    if (phoneNumber.status !== STATUS.DONE) {
+      if (phoneNumber.status === STATUS.RE_AVALILABLE) {
         setSeconds(180);
       }
       setIsRequested(true);
       setIsVerifying(true);
-      phoneNumber.replace('-', '');
-      setRequestStatus(STATUS.RE_AVALILABLE);
+      phoneNumber.data.replace('-', '');
+      setPhoneNumber({
+        data: phoneNumber.data,
+        status: STATUS.RE_AVALILABLE,
+      });
     }
   };
 
   const handleConfirmVerify = () => {
     if (seconds > 0) {
-      setRequestStatus(STATUS.DONE);
-      setVerifyStatus(STATUS.VERIFIED);
-      SetIsAllVerified(true);
+      setPhoneNumber({
+        data: phoneNumber.data,
+        status: STATUS.DONE,
+      });
+      setVerifyCode({
+        data: verifyCode.data,
+        status: STATUS.VERIFIED,
+      });
     }
   };
 
@@ -88,23 +98,25 @@ const VerifyPhoneNumber = ({ setStep }: VerifyPhoneNumberProp) => {
         <S.InputBox>
           <S.Input
             placeholder={PLACE_HOLDER_MESSAGE.INPUT_PHONE_NUMBER}
-            value={phoneNumber.replace(/-/g, '').replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3')}
+            value={phoneNumber.data.replace(/-/g, '').replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3')}
             onChange={handlePhoneNumber}
           />
-          <S.RequestButton $status={requestStatus} onClick={handleRequestVerify}>
-            {requestStatus !== STATUS.RE_AVALILABLE && requestStatus !== STATUS.DONE ? '인증 요청' : '재요청'}
+          <S.RequestButton $status={phoneNumber.status} onClick={handleRequestVerify}>
+            {phoneNumber.status !== STATUS.RE_AVALILABLE && phoneNumber.status !== STATUS.DONE ? '인증 요청' : '재요청'}
           </S.RequestButton>
         </S.InputBox>
         {isRequested && (
           <S.InputBox>
             <S.Input
               placeholder={PLACE_HOLDER_MESSAGE.INPUT_VERIFY_CODE}
-              value={verifyNumber}
-              onChange={handleVerifyNumber}
+              value={verifyCode.data}
+              onChange={handleVerifyCode}
             />
-            <S.CountDownSpan>{!isVerifying || verifyStatus === STATUS.VERIFIED ? null : formatTime()}</S.CountDownSpan>
-            <S.RequestButton $status={verifyStatus} onClick={handleConfirmVerify}>
-              {verifyStatus !== STATUS.VERIFIED ? '확인' : '인증 완료'}
+            <S.CountDownSpan>
+              {!isVerifying || verifyCode.status === STATUS.VERIFIED ? null : formatTime()}
+            </S.CountDownSpan>
+            <S.RequestButton $status={verifyCode.status} onClick={handleConfirmVerify}>
+              {verifyCode.status !== STATUS.VERIFIED ? '확인' : '인증 완료'}
             </S.RequestButton>
           </S.InputBox>
         )}
@@ -112,14 +124,16 @@ const VerifyPhoneNumber = ({ setStep }: VerifyPhoneNumberProp) => {
       <Button
         text="다음"
         isFixed={true}
-        onClickFn={() => setStep(STEP.MODEL.PREFER_REGION)}
-        disabled={!isAllVerified}
+        onClickFn={() =>
+          userType === USER_TYPE.DESIGNER ? setStep(STEP.DESIGNER.SHOP_INFO) : setStep(STEP.MODEL.PREFER_REGION)
+        }
+        disabled={verifyCode.status !== STATUS.VERIFIED}
       />
     </>
   );
 };
 
-export default VerifyPhoneNumber;
+export default PhoneNumber;
 
 const VerifyPhoneNumberLayout = styled.div`
   margin-top: 8.6rem;

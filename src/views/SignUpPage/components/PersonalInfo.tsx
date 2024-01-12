@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { styled } from 'styled-components';
 
 import { IcCheckBlue, IcInformation } from '../../@common/assets/icons';
@@ -6,24 +7,27 @@ import Button from '../../@common/components/Button';
 import Input from '../../@common/components/Input';
 import ProgressBar from '../../@common/components/ProgressBar';
 import ToastMessage from '../../@common/components/ToastMessage';
+import { USER_TYPE } from '../../@common/utils/userType';
 import { HELPER_MESSAGE, PLACE_HOLDER_MESSAGE, TOAST_MESSAGE } from '../constants/message';
 import { STEP, TOTAL_STEP } from '../constants/step';
-import { USER_TYPE } from '../constants/userType';
+import { EnterProfileProp } from '../utils/enterProfileProp';
 
 import Field from './Field';
-interface PersonalInfoProp {
-  setStep: React.Dispatch<React.SetStateAction<number>>;
-}
 
-const PersonalInfo = ({ setStep }: PersonalInfoProp) => {
-  const userType = USER_TYPE.DESIGNER;
-  const [selectedGender, setSelectedGender] = useState('');
-  const [birthYear, setBirthYear] = useState('');
+import { birthYearState, genderState, nameState, userTypeState } from '@/recoil/atoms/signUpState';
+
+const PersonalInfo = ({ setStep }: EnterProfileProp) => {
+  const userType = useRecoilValue(userTypeState);
+
+  const [name, setName] = useRecoilState(nameState);
+  const [birthYear, setBirthYear] = useRecoilState(birthYearState);
+  const [gender, setGender] = useRecoilState(genderState);
+
   const [verificationStatus, setVerificationStatus] = useState({
-    isNameVerified: false,
-    isBirthYearVerified: false,
-    isGenderVerified: false,
-    isAllVerified: false,
+    isNameVerified: name.verifyStatus,
+    isBirthYearVerified: birthYear.verifyStatus,
+    isGenderVerified: gender.verifyStatus,
+    isAllVerified: name.verifyStatus && birthYear.verifyStatus && gender.verifyStatus,
   });
   const [isToastOpen, setToastOpen] = useState<boolean>(false);
 
@@ -31,14 +35,18 @@ const PersonalInfo = ({ setStep }: PersonalInfoProp) => {
     const regex = /^[0-9\b]{0,4}$/;
 
     if (regex.test(e.target.value)) {
-      setBirthYear(e.target.value);
+      setBirthYear({ data: e.target.value, verifyStatus: verificationStatus.isBirthYearVerified });
       if (e.target.value.length === 4) {
         const regex = /^(19[0-9]{2}|200[0-9]|201[0-9]|202[0-4])$/;
         regex.test(e.target.value)
-          ? setVerificationStatus((prevState) => ({ ...prevState, isBirthYearVerified: true }))
-          : (setVerificationStatus((prevState) => ({ ...prevState, isBirthYearVerified: false })), setToastOpen(true));
+          ? (setVerificationStatus((prevState) => ({ ...prevState, isBirthYearVerified: true })),
+            setBirthYear({ data: e.target.value, verifyStatus: true }))
+          : (setVerificationStatus((prevState) => ({ ...prevState, isBirthYearVerified: false })),
+            setToastOpen(true),
+            setBirthYear({ data: e.target.value, verifyStatus: false }));
       } else {
         setVerificationStatus((prevState) => ({ ...prevState, isBirthYearVerified: false }));
+        setBirthYear({ data: e.target.value, verifyStatus: false });
       }
     }
   };
@@ -46,12 +54,13 @@ const PersonalInfo = ({ setStep }: PersonalInfoProp) => {
   const handleName = (value: string) => {
     if (value.length > 0 && value.length <= 10) {
       setVerificationStatus((prevState) => ({ ...prevState, isNameVerified: true }));
+      setName({ data: value, verifyStatus: true });
     }
   };
 
   const handleGender = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSelectedGender(e.target.id);
     setVerificationStatus((prevState) => ({ ...prevState, isGenderVerified: true }));
+    setGender({ data: e.target.id, verifyStatus: true });
   };
 
   useEffect(() => {
@@ -75,7 +84,7 @@ const PersonalInfo = ({ setStep }: PersonalInfoProp) => {
       <S.PersonalInfoLayout>
         <S.FormBox>
           <Field name={userType === USER_TYPE.DESIGNER ? '디자이너명' : '이름'} isEssential={true} />
-          <Input placeholderText={PLACE_HOLDER_MESSAGE.INPUT_NAME} onChangeFn={handleName} />
+          <Input placeholderText={PLACE_HOLDER_MESSAGE.INPUT_NAME} onChangeFn={handleName} initialValue={name.data} />
           <S.HelperBox>
             <IcInformation />
             <S.HelperSpan>
@@ -88,7 +97,7 @@ const PersonalInfo = ({ setStep }: PersonalInfoProp) => {
               <S.InputBox>
                 <S.VerifyInput
                   placeholder={PLACE_HOLDER_MESSAGE.INPUT_BIRTH_YEAR}
-                  value={birthYear}
+                  value={birthYear.data}
                   onChange={handleBirthYear}
                 />
                 {verificationStatus.isBirthYearVerified ? <IcCheckBlue /> : null}
@@ -99,20 +108,20 @@ const PersonalInfo = ({ setStep }: PersonalInfoProp) => {
           <S.GenderSelectBox>
             <S.RadioInput
               type="radio"
-              id="female"
+              id="FEMALE"
               name="gender-type"
-              checked={selectedGender === 'female'}
+              checked={gender.data === 'FEMALE'}
               onChange={handleGender}
             />
-            <S.GenderTypeLabel htmlFor="female">여성</S.GenderTypeLabel>
+            <S.GenderTypeLabel htmlFor="FEMALE">여성</S.GenderTypeLabel>
             <S.RadioInput
               type="radio"
-              id="male"
+              id="MALE"
               name="gender-type"
-              checked={selectedGender === 'male'}
+              checked={gender.data === 'MALE'}
               onChange={handleGender}
             />
-            <S.GenderTypeLabel htmlFor="male">남성</S.GenderTypeLabel>
+            <S.GenderTypeLabel htmlFor="MALE">남성</S.GenderTypeLabel>
           </S.GenderSelectBox>
         </S.FormBox>
       </S.PersonalInfoLayout>

@@ -1,17 +1,22 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
+import { styled } from 'styled-components';
 
 import Header from '../../@common/components/Header';
 import { STEP } from '../constants/step';
 
+import DesignerInfo from './DesignerInfo';
+import OpenChatLink from './OpenChatLink';
 import PersonalInfo from './PersonalInfo';
-import SelectPrefeRegion from './SelectPreferRegion';
-import VerifyPhoneNumber from './VerifyPhoneNumber';
+import PhoneNumber from './PhoneNumber';
+import Profile from './Pofile';
+import PrefeRegion from './PreferRegion';
+import ShopInfo from './ShopInfo';
 
 interface EnterProfileProps {
   setIsInitialStep: React.Dispatch<React.SetStateAction<boolean>>;
 }
+
 const EnterProfile = ({ setIsInitialStep }: EnterProfileProps) => {
   const navigate = useNavigate();
   const [step, setStep] = useState(STEP.PERSONAL_INFO);
@@ -21,9 +26,17 @@ const EnterProfile = ({ setIsInitialStep }: EnterProfileProps) => {
       case STEP.PERSONAL_INFO:
         return <PersonalInfo setStep={setStep} />;
       case STEP.PHONE_NUMBER_VERIFICATION:
-        return <VerifyPhoneNumber setStep={setStep} />;
+        return <PhoneNumber setStep={setStep} />;
       case STEP.MODEL.PREFER_REGION:
-        return <SelectPrefeRegion />;
+        return <PrefeRegion />;
+      case STEP.DESIGNER.SHOP_INFO:
+        return <ShopInfo setStep={setStep} />;
+      case STEP.DESIGNER.PROFILE:
+        return <Profile setStep={setStep} />;
+      case STEP.DESIGNER.DESIGNER_INFO:
+        return <DesignerInfo setStep={setStep} />;
+      case STEP.DESIGNER.OPEN_CHAT_LINK:
+        return <OpenChatLink />;
     }
   };
   const StepHeader = () => {
@@ -35,15 +48,6 @@ const EnterProfile = ({ setIsInitialStep }: EnterProfileProps) => {
             isCloseBtnExist={false}
             title="프로필 작성"
             backFn={() => setIsInitialStep(true)}
-          />
-        );
-      case STEP.DESIGNER.ADDRESS:
-        return (
-          <Header
-            isBackBtnExist={true}
-            isCloseBtnExist={true}
-            title="주소 검색"
-            backFn={() => setStep((prev) => prev - 1)}
           />
         );
       default:
@@ -72,7 +76,7 @@ const EnterProfile = ({ setIsInitialStep }: EnterProfileProps) => {
 export default EnterProfile;
 
 const EnterProfileLayout = styled.div`
-  height: 100dvh;
+  height: calc(100dvh - 8.6rem);
 
   background-color: ${({ theme }) => theme.colors.moddy_wt};
 `;
