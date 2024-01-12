@@ -6,20 +6,19 @@ import Contents from '../views/MainPage/components/Contents';
 import ReceivedOffer from '../views/MainPage/components/ReceivedOffer';
 import StatusBarForiOS from '../views/MainPage/components/StatusBarForiOS';
 import TopSheet from '../views/MainPage/components/TopSheet';
-import { APPLY_STATUS } from '../views/MainPage/constants/applyStatus';
 
 import { userTypeState } from '@/recoil/atoms/signUpState';
+import useGetModel from '@/views/MainPage/hooks/useGetModel';
 
 const MainPage = () => {
   const userType = useRecoilValue(userTypeState);
-  const applyType = APPLY_STATUS.NOTHING;
-
+  const { data } = useGetModel();
   return (
     <MainPageLayout>
       <StatusBarForiOS />
-      <TopSheet applyType={applyType} />
+      <TopSheet applyType={data?.status} name={data?.userName} />
       <Banner />
-      {!userType ? <Contents /> : <ReceivedOffer />}
+      {!userType ? <Contents /> : data && <ReceivedOffer data={data} />}
     </MainPageLayout>
   );
 };

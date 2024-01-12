@@ -6,15 +6,16 @@ import { IcLogoHome, IcRightWhite, IcModdyuser } from '../assets/icons';
 import { APPLY_STATUS } from '../constants/applyStatus';
 
 import { userTypeState } from '@/recoil/atoms/signUpState';
-import { USER_TYPE } from '@/views/@common/utils/userType';
+import { USER_TYPE } from '@/views/@common/constants/userType';
 
 interface TopSheetProps {
-  applyType: string;
+  applyType: string | undefined;
+  name: string | undefined;
 }
 
 const TopSheet = (props: TopSheetProps) => {
   const userType = useRecoilValue(userTypeState);
-  const { applyType } = props;
+  const { applyType, name } = props;
   const navigate = useNavigate();
 
   const OnBoardingText = () => {
@@ -28,7 +29,7 @@ const TopSheet = (props: TopSheetProps) => {
     } else if (userType === USER_TYPE.DESIGNER) {
       return (
         <S.OnBoardingParagraph>
-          00님 안녕하세요!
+          {name}님 안녕하세요!
           <br /> 지원자에게 <S.StrongSpan>모델</S.StrongSpan>을 <S.StrongSpan>제안</S.StrongSpan>해보세요
         </S.OnBoardingParagraph>
       );
@@ -50,7 +51,7 @@ const TopSheet = (props: TopSheetProps) => {
       } else if (applyType === APPLY_STATUS.RECEIVED) {
         return (
           <S.OnBoardingParagraph>
-            00님 안녕하세요!
+            {name}님 안녕하세요!
             <br /> <S.StrongSpan>신규 제안서</S.StrongSpan>가 도착했어요
           </S.OnBoardingParagraph>
         );
@@ -67,15 +68,17 @@ const TopSheet = (props: TopSheetProps) => {
             <IcRightWhite />
           </S.LoginButton>
         ) : (
-          <IcModdyuser />
+          <button type="button" onClick={() => navigate('/my-page')}>
+            <IcModdyuser />
+          </button>
         )}
       </S.HeaderBox>
       <S.OnBoardingBox>
         <OnBoardingText />
       </S.OnBoardingBox>
       {userType !== USER_TYPE.DESIGNER ? (
-        <S.StartButton type="button">
-          <S.StartButtonSpan>{!userType ? '헤어 모델 지원하기 / 제안하기' : '헤어모델 지원하기'}</S.StartButtonSpan>
+        <S.StartButton type="button" onClick={() => (!userType ? navigate('/login') : navigate('/application'))}>
+          <S.StartButtonSpan>{!userType ? '헤어 모델 지원하기 / 제안하기' : '헤어 모델 지원하기'}</S.StartButtonSpan>
           <IcRightWhite />
         </S.StartButton>
       ) : null}
