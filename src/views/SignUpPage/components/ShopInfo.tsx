@@ -52,48 +52,53 @@ const ShopInfo = ({ setStep }: EnterProfileProp) => {
   const handleAddressText = (value: string) => {
     setAddressAreaValue(value);
   };
-  const isActive = addressAreaValue !== '' && placeTextValue !== '' && isClicked.some((clicked) => clicked);
+  const isActive = Address && addressAreaValue !== '' && placeTextValue !== '' && isClicked.some((clicked) => clicked);
 
   return (
     <>
-      {isAddressModal && <PostCode setIsAddressModal={setIsAddressModal} setAddress={handleInputAddress} />}
-      <ProgressBar whole={TOTAL_STEP.DESIGNER_VIEW} current={3} />
-      <S.ShopInfoLayout>
-        <Field name="소속" isEssential={true} />
+      <S.PostCodeBox>
+        {isAddressModal && <PostCode setIsAddressModal={setIsAddressModal} setAddress={handleInputAddress} />}
+      </S.PostCodeBox>
+      <>
+        <ProgressBar whole={TOTAL_STEP.DESIGNER_VIEW} current={3} />
+        <S.ShopInfoLayout>
+          <Field name="소속" isEssential={true} />
 
-        <Input placeholderText={HELPER_MESSAGE.INPUT_SHOP_NAME} onChangeFn={handlePlaceText} />
-        <Field name="주소" isEssential={true} />
-        <S.AddressBox onClick={handleOpenAddressModal}>
-          {Address ? (
-            <S.InputAddress>{Address}</S.InputAddress>
-          ) : (
-            <S.DefaultText>{HELPER_MESSAGE.INPUT_ADDRESS}</S.DefaultText>
-          )}
+          <Input placeholderText={HELPER_MESSAGE.INPUT_SHOP_NAME} onChangeFn={handlePlaceText} />
+          <Field name="주소" isEssential={true} />
+          <S.AddressBox onClick={handleOpenAddressModal}>
+            {Address ? (
+              <S.InputAddress>{Address}</S.InputAddress>
+            ) : (
+              <S.DefaultText>{HELPER_MESSAGE.INPUT_ADDRESS}</S.DefaultText>
+            )}
 
-          <IcSearch />
-        </S.AddressBox>
-        <Input placeholderText={HELPER_MESSAGE.INPUT_DETAIL_ADRESS} onChangeFn={handleAddressText} />
+            <IcSearch />
+          </S.AddressBox>
+          <Input placeholderText={HELPER_MESSAGE.INPUT_DETAIL_ADRESS} onChangeFn={handleAddressText} />
 
-        <Field name="휴무" isEssential={false} />
+          <Field name="휴무" isEssential={false} />
 
-        <S.DayOffWrapperBox>
-          {days.map((day, index) => (
-            <S.DayOffBox key={day} onClick={() => handleDayOffClick(index)} $isClicked={isClicked[index]}>
-              {day}
-            </S.DayOffBox>
-          ))}
-        </S.DayOffWrapperBox>
+          <S.DayOffWrapperBox>
+            {days.map((day, index) => (
+              <S.DayOffBox key={day} onClick={() => handleDayOffClick(index)} $isClicked={isClicked[index]}>
+                {day}
+              </S.DayOffBox>
+            ))}
+          </S.DayOffWrapperBox>
 
-        <Button
-          text="완료"
-          isFixed={true}
-          disabled={!isActive}
-          onClickFn={() => {
-            setOpenModal(true);
-          }}
-        />
-      </S.ShopInfoLayout>
-      <Button text="다음" isFixed={true} disabled={!isActive} onClickFn={() => setStep((prev) => prev + 1)} />
+          <Button
+            text="완료"
+            isFixed={true}
+            disabled={!isActive}
+            onClickFn={() => {
+              setOpenModal(true);
+            }}
+          />
+        </S.ShopInfoLayout>
+        <Button text="다음" isFixed={true} disabled={!isActive} onClickFn={() => setStep((prev) => prev + 1)} />
+      </>
+      s
       {isOpenModal && (
         <Modal
           title="이대로 가입하시겠어요?"
@@ -110,6 +115,14 @@ const ShopInfo = ({ setStep }: EnterProfileProp) => {
 export default ShopInfo;
 
 const S = {
+  PostCodeBox: styled.div`
+    position: fixed;
+    top: 0;
+    z-index: 5;
+
+    width: 100%;
+    margin-top: 5rem;
+  `,
   ShopInfoLayout: styled.div`
     margin-top: 8.6rem;
     padding: 0 1.6rem;

@@ -6,21 +6,15 @@ interface PostCodeProps {
 }
 
 interface PostCodeStyleProps {
-  position?: string;
   maxWidth?: string;
-  top?: string;
   width?: string;
   height?: string;
-  zIndex?: number;
 }
 
 const style: PostCodeStyleProps = {
-  position: 'fixed',
   maxWidth: '44rem',
-  top: '5rem',
   width: '100%',
   height: '100dvh',
-  zIndex: 7,
 };
 
 const PostCode = ({ setIsAddressModal, setAddress }: PostCodeProps) => {
