@@ -20,7 +20,7 @@ const ApplicationCard = (props: ApplicationCardProps) => {
   const { offerId, name, shopName, imgUrl, isClicked, conditions } = props;
   // const userType = useRecoilValue(userTypeState); 디자이너 메인뷰에서 쓸 거
   return (
-    <S.ApplicationCardLayout onClick={() => navigate(`/offer-info/${offerId}`)}>
+    <S.ApplicationCardLayout onClick={() => navigate('/offer-info', { state: offerId })}>
       {isClicked ? null : (
         <S.NewTagBox>
           <ImgNew />
