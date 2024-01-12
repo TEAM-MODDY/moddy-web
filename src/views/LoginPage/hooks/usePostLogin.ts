@@ -23,7 +23,7 @@ const usePostLogin = () => {
       })
       .catch((err: loginErrorProps) => {
         if (err.response.data.code === 404) {
-          navigate('/sign-up');
+          navigate('/agreement');
         } else {
           navigate('/error');
         }
