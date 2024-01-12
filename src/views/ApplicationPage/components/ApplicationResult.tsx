@@ -18,84 +18,88 @@ const ApplicationResult = () => {
   };
 
   return (
-    <S.ApplicationResultLayout>
+    <S.ApplicationResultLayout id="applcationImg">
       <Header isBackBtnExist={true} isCloseBtnExist={true} title="최종 확인" />
-      <S.ContentSection id="applcationImg">
-        <S.ContentBox>
-          <h2>모델 정보</h2>
-          <S.DivideBox>
-            <img alt="profile" src="src/views/@common/assets/images/img_samplemodel.png" />
-            <S.Info>
-              <li>
-                <S.InfoTitle>이름</S.InfoTitle>
-                <S.InfoSpan>백모디</S.InfoSpan>
-              </li>
-              <li>
-                <S.InfoTitle>성별/나이</S.InfoTitle>
-                <S.InfoSpan>여성/25살</S.InfoSpan>
-              </li>
-              <li>
-                <S.InfoTitle>희망 지역</S.InfoTitle>
-                <S.InfoSpan>양천구</S.InfoSpan>
-              </li>
-              <li>
-                <S.InfoTitle>현재 기장</S.InfoTitle>
-                <S.InfoSpan>허리 아래</S.InfoSpan>
-              </li>
-            </S.Info>
-          </S.DivideBox>
-        </S.ContentBox>
-        <S.DivideBox>
-          <S.ContentBox>
-            <h2>최근 시술 이력</h2>
-            <S.Info>
-              <li>
-                <S.InfoTitle>1개월 미만</S.InfoTitle>
-                <S.InfoSpan>블랙 염색</S.InfoSpan>
-              </li>
-              <li>
-                <S.InfoTitle>7 - 12개월</S.InfoTitle>
-                <S.InfoSpan>컬러 염색</S.InfoSpan>
-              </li>
-              <li>
-                <S.InfoTitle>12개월 초과</S.InfoTitle>
-                <S.InfoSpan>탈색</S.InfoSpan>
-              </li>
-            </S.Info>
-          </S.ContentBox>
-          <S.ContentBox>
-            <h2>희망 스타일</h2>
-            <S.Info>
-              <li>
-                <S.InfoTitle>커트</S.InfoTitle>
-                <S.InfoSpan>일반 커트</S.InfoSpan>
-              </li>
-              <li>
-                <S.InfoTitle>컬러</S.InfoTitle>
-                <S.InfoSpan>선택 없음</S.InfoSpan>
-              </li>
-              <li>
-                <S.InfoTitle>펌</S.InfoTitle>
-                <S.InfoSpan>일반펌</S.InfoSpan>
-              </li>
-            </S.Info>
-          </S.ContentBox>
-        </S.DivideBox>
-        <S.ContentBox>
-          <h2>상세 희망 스타일</h2>
-          <S.InfoText>
-            더미데이터더미데이터더미데이터더미데이터더미더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터{' '}
-          </S.InfoText>
+      <S.MainContent>
+        <S.ContentSection>
+          <S.ContentBoxWrapper>
+            <S.ContentBox>
+              <h2>모델 정보</h2>
+              <S.DivideBox>
+                <img alt="profile" src="src/views/@common/assets/images/img_samplemodel.png" />
+                <S.Info>
+                  <li>
+                    <S.InfoTitle>이름</S.InfoTitle>
+                    <S.InfoSpan>백모디</S.InfoSpan>
+                  </li>
+                  <li>
+                    <S.InfoTitle>성별/나이</S.InfoTitle>
+                    <S.InfoSpan>여성/25살</S.InfoSpan>
+                  </li>
+                  <li>
+                    <S.InfoTitle>희망 지역</S.InfoTitle>
+                    <S.InfoSpan>양천구</S.InfoSpan>
+                  </li>
+                  <li>
+                    <S.InfoTitle>현재 기장</S.InfoTitle>
+                    <S.InfoSpan>허리 아래</S.InfoSpan>
+                  </li>
+                </S.Info>
+              </S.DivideBox>
+            </S.ContentBox>
+            <S.DivideBox>
+              <S.ContentBox>
+                <h2>최근 시술 이력</h2>
+                <S.Info>
+                  <li>
+                    <S.InfoTitle>1개월 미만</S.InfoTitle>
+                    <S.InfoSpan>블랙 염색</S.InfoSpan>
+                  </li>
+                  <li>
+                    <S.InfoTitle>7 - 12개월</S.InfoTitle>
+                    <S.InfoSpan>컬러 염색</S.InfoSpan>
+                  </li>
+                  <li>
+                    <S.InfoTitle>12개월 초과</S.InfoTitle>
+                    <S.InfoSpan>탈색</S.InfoSpan>
+                  </li>
+                </S.Info>
+              </S.ContentBox>
+              <S.ContentBox>
+                <h2>희망 스타일</h2>
+                <S.Info>
+                  <li>
+                    <S.InfoTitle>커트</S.InfoTitle>
+                    <S.InfoSpan>일반 커트</S.InfoSpan>
+                  </li>
+                  <li>
+                    <S.InfoTitle>컬러</S.InfoTitle>
+                    <S.InfoSpan>선택 없음</S.InfoSpan>
+                  </li>
+                  <li>
+                    <S.InfoTitle>펌</S.InfoTitle>
+                    <S.InfoSpan>일반펌</S.InfoSpan>
+                  </li>
+                </S.Info>
+              </S.ContentBox>
+            </S.DivideBox>
+            <S.ContentBox>
+              <h2>상세 희망 스타일</h2>
+              <S.InfoText>
+                더미데이터더미데이터더미데이터더미데이터더미더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터
+              </S.InfoText>
+            </S.ContentBox>
+          </S.ContentBoxWrapper>
           <img src={applyImg} alt="로고이미지" />
-        </S.ContentBox>
-      </S.ContentSection>
+        </S.ContentSection>
+      </S.MainContent>
       <Button text="지원하기" isFixed={true} onClickFn={finalPg} />
     </S.ApplicationResultLayout>
   );
 };
 
 const S = {
-  ApplicationResultLayout: styled.main`
+  ApplicationResultLayout: styled.section`
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -110,18 +114,37 @@ const S = {
     ${({ theme }) => theme.fonts.Body01};
   `,
 
+  MainContent: styled.main`
+    overflow-y: scroll;
+
+    width: 100%;
+    height: max-content;
+
+    ${({ theme }) => theme.commons.scrollbar};
+  `,
+
   ContentSection: styled.section`
+    position: relative;
+
+    & > img {
+      position: absolute;
+      right: 0;
+      bottom: -4.5rem;
+
+      width: 13.4rem;
+      object-fit: cover;
+    }
+  `,
+
+  ContentBoxWrapper: styled.section`
     display: flex;
     flex-direction: column;
     gap: 2.6rem;
-    overflow-y: scroll;
 
     width: 100%;
     padding: 0 0.8rem 0 1rem;
 
     background-color: ${({ theme }) => theme.colors.moddy_wt};
-
-    ${({ theme }) => theme.commons.scrollbar};
   `,
 
   ContentBox: styled.div`
@@ -139,15 +162,6 @@ const S = {
       color: ${({ theme }) => theme.colors.moddy_blue};
 
       ${({ theme }) => theme.fonts.Body01};
-    }
-
-    & > img {
-      position: absolute;
-      right: 0;
-      bottom: -4.5rem;
-
-      width: 13.4rem;
-      object-fit: cover;
     }
   `,
 
