@@ -1,7 +1,7 @@
 import { AxiosError } from 'axios';
 import { useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useRecoilValue } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 
 import { ModelSignUpRequest } from './type';
 
@@ -12,6 +12,8 @@ import {
   nameState,
   phoneNumberState,
   preferRegionState,
+  tempUserTypeState,
+  userTypeState,
 } from '@/recoil/atoms/signUpState';
 import api from '@/views/@common/hooks/api';
 
@@ -21,6 +23,8 @@ const useModelSignUp = () => {
   const [isLoading, setLoading] = useState(true);
   const [isError, setError] = useState<AxiosError>();
 
+  const tempUserType = useRecoilValue(tempUserTypeState);
+  const setSessionUserType = useSetRecoilState(userTypeState);
   const name = useRecoilValue(nameState);
   const birthYear = useRecoilValue(birthYearState);
   const gender = useRecoilValue(genderState);
@@ -46,6 +50,7 @@ const useModelSignUp = () => {
         },
       });
       console.log(data);
+      setSessionUserType(tempUserType);
       navigate('/');
     } catch (err) {
       if (err instanceof AxiosError) setError(err);
