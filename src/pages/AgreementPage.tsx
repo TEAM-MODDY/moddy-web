@@ -1,15 +1,19 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
 
 import Button from '../views/@common/components/Button';
 import Header from '../views/@common/components/Header';
 import AgreementList from '../views/AgreementPage/components/AgreementList';
 
+import { agreementState } from '@/recoil/atoms/agreementState';
+
 const AgreementPage = () => {
-  const [isChecked, setChecked] = useState<boolean[]>(new Array(4).fill(false));
+  const [isChecked, setChecked] = useRecoilState<boolean[]>(agreementState);
   const navigate = useNavigate();
 
   useEffect(() => {
+    console.log(isChecked);
     const tempChecked = [...isChecked];
     tempChecked[0] = isChecked[1] && isChecked[2] && isChecked[3];
     setChecked(tempChecked);
