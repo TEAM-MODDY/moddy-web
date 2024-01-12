@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 // eslint-disable-next-line import/no-unresolved
-import OfferInfoApi from './OfferInfoapi';
+import OfferInfoApi from './OfferInfoApi';
 import { UseGetOfferModelProps } from './type';
 
 const useGetModel = () => {
