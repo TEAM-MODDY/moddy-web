@@ -1,29 +1,35 @@
 import { styled } from 'styled-components';
 
-import { APPLY_TYPE } from '../../@common/utils/constants';
+import { APPLY_STATUS } from '../constants/applyStatus';
+import { ModelResponse } from '../hooks/type';
 
 import ApplicationCard from './ApplicationCard';
 
-interface ReceivedOfferProps {
-  applyType: number;
+interface ReceivedOfferProp {
+  data: ModelResponse;
 }
-
-const ReceivedOffer = (props: ReceivedOfferProps) => {
-  const { applyType } = props;
-
+const ReceivedOffer = ({ data }: ReceivedOfferProp) => {
   return (
     <S.ReceivedOfferLayout>
       <S.TitleSpan>도착한 제안서</S.TitleSpan>
-      {applyType === APPLY_TYPE.RECEIVED ? (
+      {data?.status === APPLY_STATUS.RECEIVED ? (
         <S.ReceivedOfferBox>
-          <ApplicationCard />
-          <ApplicationCard />
-          <ApplicationCard />
+          {data.offers.map((offer) => (
+            <ApplicationCard
+              key={offer.offerId}
+              offerId={offer.offerId}
+              name={offer.name}
+              shopName={offer.shopName}
+              imgUrl={offer.imgUrl}
+              isClicked={offer.isClicked}
+              conditions={offer.conditions}
+            />
+          ))}
         </S.ReceivedOfferBox>
       ) : (
         <S.ReceivedOfferEmptyBox>
           <S.HelperTextSpan>
-            {applyType === APPLY_TYPE.NOT_YET
+            {data?.status === APPLY_STATUS.NOTHING
               ? '지금 바로 헤어모델에 지원해 보세요 :)'
               : '첫 제안서를 기다리고 있어요 :)'}
           </S.HelperTextSpan>
