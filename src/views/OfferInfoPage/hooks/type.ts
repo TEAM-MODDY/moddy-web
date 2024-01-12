@@ -20,10 +20,12 @@ interface StyleDetailProps {
 }
 
 export interface UseGetOfferModelProps {
+  designerInfo: DesignerInfoProps;
+  styleDetail: StyleDetailProps;
+}
+
+export interface UseGetOfferModelRes {
   code: number;
   message: string;
-  data: {
-    designerInfo: DesignerInfoProps;
-    styleDetail: StyleDetailProps;
-  };
+  data: UseGetOfferModelProps;
 }

@@ -31,7 +31,7 @@ const router = createBrowserRouter([
   { path: '/application', element: <ApplicationPage /> },
   { path: '/offer-info', element: <OfferInfoPage /> },
   { path: '/my-page', element: <MyPage /> },
-  { path: '/offer-info/check-offer', element: <CheckOfferPage /> },
+  { path: '/offer-info/check-offer/', element: <CheckOfferPage /> },
   { path: '/my-quit', element: <MyQuitPage /> },
   { path: '/model-info/model-offer', element: <ModelOfferPage /> },
   { path: '/application/confirm', element: <ConfirmPage /> },

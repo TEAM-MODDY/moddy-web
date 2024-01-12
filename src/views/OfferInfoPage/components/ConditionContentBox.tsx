@@ -5,14 +5,14 @@ interface ConditionContentBoxProps {
   icon: ReactNode;
   activeIcon: ReactNode;
   condition: string;
-  preferConditions: boolean[];
+  preferConditions?: boolean[];
   index: number;
 }
 
 const ConditionContentBox = ({ icon, activeIcon, condition, preferConditions, index }: ConditionContentBoxProps) => {
   return (
-    <S.ConditionContentLayout $isActive={preferConditions[index]}>
-      {preferConditions[index] ? activeIcon : icon}
+    <S.ConditionContentLayout $isActive={preferConditions?.[index] || false}>
+      {preferConditions?.[index] ? activeIcon : icon}
       <p>{condition}</p>
     </S.ConditionContentLayout>
   );
