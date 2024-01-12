@@ -18,7 +18,10 @@ export interface preferRegionDataType {
   verifyStatus: boolean;
 }
 
-const { persistAtom } = recoilPersist();
+const { persistAtom } = recoilPersist({
+  key: '사용자 타입',
+  storage: sessionStorage,
+});
 
 export const userTypeState = atom({
   key: 'userType',
