@@ -19,6 +19,7 @@
     "embla-carousel-autoplay": "^8.0.0-rc19",
     "embla-carousel-react": "^8.0.0-rc19",
     "file-saver": "^2.0.5",
+    "html2canvas": "^1.4.1",
     "postcss-styled-syntax": "^0.6.3",
     "postcss-syntax": "^0.36.2",
     "react": "^18.2.0",

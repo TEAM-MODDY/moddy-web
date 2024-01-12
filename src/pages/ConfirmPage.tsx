@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
 
-import Button from '../../@common/components/Button';
+import Button from '../views/@common/components/Button';
 
 const ConfirmPage = () => {
   const navigate = useNavigate();
