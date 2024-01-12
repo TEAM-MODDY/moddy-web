@@ -9,8 +9,8 @@ import DesignerInfo from './DesignerInfo';
 import OpenChatLink from './OpenChatLink';
 import PersonalInfo from './PersonalInfo';
 import PhoneNumber from './PhoneNumber';
-import Profile from './Pofile';
 import PrefeRegion from './PreferRegion';
+import Profile from './Profile';
 import ShopInfo from './ShopInfo';
 
 interface EnterProfileProps {

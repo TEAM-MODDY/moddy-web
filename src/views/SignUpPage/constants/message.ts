@@ -8,6 +8,12 @@ export const HELPER_MESSAGE = {
   CREATE_OPENCHAT_LINK: '모델과의 소통을 위해 카카오톡 오픈채팅방을 생성해주세요',
   INPUT_SHOP_NAME: '소속되어 있는 헤어샵(지점명)을 입력해주세요',
   INPUT_DETAIL_ADRESS: '상세 주소를 입력해주세요',
+  INPUT_ADDRESS: '헤어샵 주소를 입력해주세요',
+  INPUT_INSTAGRAM_LINK: '인스타그램 링크를 입력해주세요',
+  INPUT_NAVERPLACE_LINK: '네이버 플레이스 링크를 입력해주세요',
+  PREFER_INPUT_PORTFOLIO: '디자이너님의 스타일 파악을 위해 입력을 권장드려요',
+  VIEW_IMAGE_TO_USER: '모델 제안시 고객에게 보이는 사진이에요',
+  ENTER_WITH_VALUD_NAME: '모디에 등록한 디자이너명으로 입장해주세요',
 };
 
 export const TOAST_MESSAGE = {

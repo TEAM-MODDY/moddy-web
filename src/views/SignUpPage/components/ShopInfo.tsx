@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
 
+import { IcSearch } from '../assets/icons';
 import { days } from '../constants/days';
 import { HELPER_MESSAGE } from '../constants/message';
 import { TOTAL_STEP } from '../constants/step';
@@ -48,10 +49,14 @@ const ShopInfo = ({ setStep }: EnterProfileProp) => {
 
         <Input placeholderText={HELPER_MESSAGE.INPUT_SHOP_NAME} onChangeFn={handlePlaceText} />
         <Field name="주소" isEssential={true} />
-
+        <S.AddressBox>
+          {HELPER_MESSAGE.INPUT_ADDRESS}
+          <IcSearch />
+        </S.AddressBox>
         <Input placeholderText={HELPER_MESSAGE.INPUT_DETAIL_ADRESS} onChangeFn={handleAddressText} />
 
-        <Field name="주소" isEssential={false} />
+        <Field name="휴무" isEssential={false} />
+
         <S.DayOffWrapperBox>
           {days.map((day, index) => (
             <S.DayOffBox key={day} onClick={() => handleDayOffClick(index)} $isClicked={isClicked[index]}>
@@ -93,11 +98,18 @@ const S = {
 
   DayOffWrapperBox: styled.div`
     display: flex;
+    gap: 0.8rem;
     justify-content: space-between;
+
+    width: 100%;
   `,
 
   DayOffBox: styled.div<{ $isClicked: boolean }>`
-    padding: 1.2rem 1.45rem;
+    display: flex;
+    flex: 1;
+    justify-content: center;
+
+    padding: 1.2rem 0;
     border: 1.5px solid ${({ $isClicked, theme }) => ($isClicked ? theme.colors.moddy_blue : theme.colors.moddy_gray20)};
     border-radius: 8px;
 
@@ -107,5 +119,20 @@ const S = {
     ${({ theme }) => theme.fonts.Body02};
 
     ${({ theme }) => theme.fonts.Body02};
+  `,
+  AddressBox: styled.div`
+    display: flex;
+    justify-content: space-between;
+
+    width: 100%;
+    margin-bottom: 0.8rem;
+    padding: 1.2rem 1.6rem;
+    border: 1.5px solid ${({ theme }) => theme.colors.moddy_gray20};
+    border-radius: 8px;
+
+    color: ${({ theme }) => theme.colors.moddy_gray50};
+    ${({ theme }) => theme.fonts.Body02};
+
+    cursor: pointer;
   `,
 };
