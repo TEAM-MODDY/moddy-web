@@ -7,6 +7,7 @@ import { TOTAL_STEP } from '../constants/step';
 import { EnterProfileProp } from '../utils/enterProfileProp';
 
 import Field from './Field';
+import ProfileUpload from './ProfileUpload';
 
 import Button from '@/views/@common/components/Button';
 import Input from '@/views/@common/components/Input';
@@ -16,10 +17,14 @@ import ProgressBar from '@/views/@common/components/ProgressBar';
 const Profile = ({ setStep }: EnterProfileProp) => {
   const navigate = useNavigate();
 
+  const [isImageUploaded, setImageUploaded] = useState(false);
+  const handleImageUpload = () => {
+    setImageUploaded(true);
+  };
   const [isOpenModal, setOpenModal] = useState(false);
   const [InstaIDValue, setInstaIdValue] = useState('');
   const [NaverLinkValue, setNaverLinkValue] = useState('');
-  const isActive = InstaIDValue && NaverLinkValue !== '';
+  const isActive = InstaIDValue && NaverLinkValue !== '' && isImageUploaded;
 
   const handleInstaGramText = (value: string) => {
     setInstaIdValue(value);
@@ -33,6 +38,9 @@ const Profile = ({ setStep }: EnterProfileProp) => {
       <S.ProfileLayout>
         <Field name="프로필 사진" isEssential={true} />
         <S.HelperTextBox>{HELPER_MESSAGE.VIEW_IMAGE_TO_USER}</S.HelperTextBox>
+        <S.ApplicationPagSection>
+          <ProfileUpload onImageUpload={handleImageUpload} />
+        </S.ApplicationPagSection>
 
         <Field name="포트폴리오" isEssential={true} />
         <S.HelperTextBox>{HELPER_MESSAGE.PREFER_INPUT_PORTFOLIO}</S.HelperTextBox>
@@ -76,5 +84,9 @@ const S = {
 
     color: ${({ theme }) => theme.colors.moddy_gray50};
     ${({ theme }) => theme.fonts.Body02};
+  `,
+
+  ApplicationPagSection: styled.section`
+    margin-top: 3.2rem;
   `,
 };
