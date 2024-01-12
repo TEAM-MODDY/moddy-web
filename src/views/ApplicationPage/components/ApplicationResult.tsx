@@ -7,6 +7,7 @@ import Header from '../../@common/components/Header';
 
 const ApplicationResult = () => {
   const navigate = useNavigate();
+
   return (
     <S.ApplicationResultLayout>
       <Header isBackBtnExist={true} isCloseBtnExist={true} title="최종 확인" />
@@ -73,10 +74,12 @@ const ApplicationResult = () => {
         </S.DivideBox>
         <S.ContentBox>
           <h2>상세 희망 스타일</h2>
-          <S.InfoText>더미데이터 </S.InfoText>
+          <S.InfoText>
+            더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터{' '}
+          </S.InfoText>
         </S.ContentBox>
+        <img src={applyImg} alt="로고이미지" />
       </S.ContentSection>
-      <img src={applyImg} alt="로고이미지" />
       <Button
         text="지원하기"
         isFixed={true}
@@ -101,15 +104,6 @@ const S = {
     margin: 5.7rem 0 10rem;
 
     ${({ theme }) => theme.fonts.Body01};
-
-    & > img {
-      position: absolute;
-      right: 1.3rem;
-      bottom: 9.5rem;
-
-      width: 13.4rem;
-      object-fit: cover;
-    }
   `,
 
   ContentSection: styled.section`
@@ -120,18 +114,17 @@ const S = {
     position: relative;
 
     width: 100%;
-    margin-right: 8px;
     padding: 0 2rem 2.3rem;
 
-    &::-webkit-scrollbar {
-      width: 4px;
-    }
+    ${({ theme }) => theme.commons.scrollbar};
 
-    &::-webkit-scrollbar-thumb {
-      border-radius: 12px;
+    & > img {
+      position: absolute;
+      right: 1.3rem;
+      bottom: 0;
 
-      background: ${({ theme }) => theme.colors.moddy_blue3};
-      background-clip: padding box;
+      width: 13.4rem;
+      object-fit: cover;
     }
   `,
 

@@ -1,11 +1,11 @@
 import { styled } from 'styled-components';
 
-import DetailedStyle from '../views/ApplicationPage/components/DetailedStyle';
+import ApplicationResult from '../views/ApplicationPage/components/ApplicationResult';
 
 const ApplicationPage = () => {
   return (
     <ApplicationPagSection>
-      <DetailedStyle />
+      <ApplicationResult />
     </ApplicationPagSection>
   );
 };
@@ -17,5 +17,5 @@ const ApplicationPagSection = styled.section`
   flex-direction: column;
 
   width: 100%;
-  height: 100vh;
+  height: 100dvh;
 `;
