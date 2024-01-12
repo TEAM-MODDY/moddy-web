@@ -26,8 +26,8 @@ export const userTypeState = atom({
   effects_UNSTABLE: [persistAtom],
 });
 
-export const agreementState = atom<boolean>({
-  key: 'agreement',
+export const marketingState = atom<boolean>({
+  key: 'marketing',
   default: false,
 });
 
