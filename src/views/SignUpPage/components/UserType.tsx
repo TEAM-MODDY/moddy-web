@@ -7,7 +7,7 @@ import Header from '../../@common/components/Header';
 import { HELPER_MESSAGE } from '../constants/message';
 import { ON_BOARDING_TEXT } from '../constants/text';
 
-import { userTypeState } from '@/recoil/atoms/signUpState';
+import { tempUserTypeState, userTypeState } from '@/recoil/atoms/signUpState';
 import designerImg from '@images/img_designer.png';
 import modelImg from '@images/img_model.png';
 
@@ -17,7 +17,7 @@ interface SelectUserTypeProp {
 
 const UserType = ({ setStep }: SelectUserTypeProp) => {
   const navigate = useNavigate();
-  const [userType, setUserType] = useRecoilState(userTypeState);
+  const [userType, setUserType] = useRecoilState(tempUserTypeState);
 
   const handleUserType = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUserType(e.target.id);
