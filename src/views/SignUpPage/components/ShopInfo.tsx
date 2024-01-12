@@ -98,7 +98,7 @@ const ShopInfo = ({ setStep }: EnterProfileProp) => {
         </S.ShopInfoLayout>
         <Button text="다음" isFixed={true} disabled={!isActive} onClickFn={() => setStep((prev) => prev + 1)} />
       </>
-      s
+
       {isOpenModal && (
         <Modal
           title="이대로 가입하시겠어요?"
