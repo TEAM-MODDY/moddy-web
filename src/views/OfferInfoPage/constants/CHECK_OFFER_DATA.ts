@@ -3,7 +3,7 @@ export const CHECK_OFFER_DATA = {
   message: '제안서 승낙 성공',
   data: {
     applicationImgUrl:
-      'https://mblogthumb-phinf.pstatic.net/MjAxNzA4MjJfMjcw/MDAxNTAzMzU1NTI5Mjg0.OBV0OZkJQHRZzIWAtVDM60JLl9wq5WwiwnRTwgYqDq4g.II9maLicfuatQ8bxN7F6uUt1ZVa_95hP2OVB0Ig4uf8g.JPEG.doghter4our/IMG_0907.jpg?type=w800',
+      'https://moddy-gallery.s3.ap-northeast-2.amazonaws.com/HAIR_MODEL_PROFILE/btn_photoadd_noicon.png',
     kakaoUrl: 'https://open.kakao.com/o/gukiuI2f',
     designerInfo: {
       imgUrl:
