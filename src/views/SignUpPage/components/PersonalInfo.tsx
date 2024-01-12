@@ -7,7 +7,7 @@ import Button from '../../@common/components/Button';
 import Input from '../../@common/components/Input';
 import ProgressBar from '../../@common/components/ProgressBar';
 import ToastMessage from '../../@common/components/ToastMessage';
-import { USER_TYPE } from '../../@common/utils/userType';
+import { USER_TYPE } from '../../@common/constants/userType';
 import { HELPER_MESSAGE, PLACE_HOLDER_MESSAGE, TOAST_MESSAGE } from '../constants/message';
 import { STEP, TOTAL_STEP } from '../constants/step';
 import { EnterProfileProp } from '../utils/enterProfileProp';
