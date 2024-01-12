@@ -48,11 +48,11 @@ const ShopInfo = ({ setStep }: EnterProfileProp) => {
     setPlaceTextValue(value);
   };
 
-  const [addressAreaValue, setAddressAreaValue] = useState('');
+  const [addressDetailValue, setAddressDetailValue] = useState('');
   const handleAddressText = (value: string) => {
-    setAddressAreaValue(value);
+    setAddressDetailValue(value);
   };
-  const isActive = Address && addressAreaValue !== '' && placeTextValue !== '';
+  const isActive = Address && addressDetailValue !== '' && placeTextValue !== '';
 
   return (
     <>
