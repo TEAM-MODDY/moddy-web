@@ -1,4 +1,4 @@
-export interface DesignerInfoProps {
+interface DesignerInfoProps {
   imgUrl: string;
   shopName: string;
   name: string;
@@ -6,15 +6,24 @@ export interface DesignerInfoProps {
   naverPlaceUrl: string;
   introduction: string;
   gender: string;
-  dayoffs: Array<string>;
+  dayoffs: string[];
   shopAddress: string;
   shopDetailAddress: string;
 }
 
-export interface StyleDetailProps {
+interface StyleDetailProps {
   isAgree: boolean;
-  preferStyle: Array<string>;
+  preferStyle: string[];
   designerOfferDetail: string;
   modelApplicationDetail: string;
-  preferOfferConditions: Array<boolean>;
+  preferOfferConditions: boolean[];
+}
+
+export interface UseGetOfferModelProps {
+  code: number;
+  message: string;
+  data: {
+    designerInfo: DesignerInfoProps;
+    styleDetail: StyleDetailProps;
+  };
 }
