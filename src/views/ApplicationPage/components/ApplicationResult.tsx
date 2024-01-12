@@ -18,11 +18,11 @@ const ApplicationResult = () => {
   };
 
   return (
-    <S.ApplicationResultLayout id="applcationImg">
+    <S.ApplicationResultLayout>
       <Header isBackBtnExist={true} isCloseBtnExist={true} title="최종 확인" />
       <S.MainContent>
         <S.ContentSection>
-          <S.ContentBoxWrapper>
+          <S.ContentBoxWrapper id="applcationImg">
             <S.ContentBox>
               <h2>모델 정보</h2>
               <S.DivideBox>
