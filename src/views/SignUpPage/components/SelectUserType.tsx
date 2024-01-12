@@ -1,39 +1,61 @@
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
 
-import designerImg from '../../@common/assets/images/img_scissor.png';
 import Button from '../../@common/components/Button';
 import Header from '../../@common/components/Header';
+import { HELPER_MESSAGE } from '../constants/message';
+import { ON_BOARDING_TEXT } from '../constants/text';
+
+import designerImg from '@images/img_designer.png';
+import modelImg from '@images/img_model.png';
 
 interface SelectUserTypeProp {
   setStep: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const SelectUserType = ({ setStep }: SelectUserTypeProp) => {
+  const navigate = useNavigate();
+  const [userType, setUserType] = useState('');
+  const [isSelected, setIsSelected] = useState(false);
+
+  const handleUserType = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setUserType(e.target.id);
+    setIsSelected(true);
+  };
+
   return (
     <>
+      <Header
+        isBackBtnExist={true}
+        isCloseBtnExist={false}
+        title=""
+        backFn={() => {
+          navigate(-1);
+        }}
+      />
       <S.SelectUserTypeLayout>
-        <Header isBackBtnExist={true} isCloseBtnExist={false} title="" />
-        <S.OnBoardingSpan>어디에 해당하시나요?</S.OnBoardingSpan>
-        <S.HelperTextSpan>한 번 선택하면 변경할 수 없어요</S.HelperTextSpan>
+        <S.OnBoardingSpan>{ON_BOARDING_TEXT.SELECT_USER_TYPE}</S.OnBoardingSpan>
+        <S.HelperTextSpan>{HELPER_MESSAGE.USER_TYPE_CHANGE_UNAVAILABLE}</S.HelperTextSpan>
         <S.RadioBox>
-          <S.RadioInput type="radio" id="designer" name="user-type" />
+          <S.RadioInput type="radio" id="designer" name="user-type" value={userType} onChange={handleUserType} />
           <S.UserTypeBoxLabel htmlFor="designer">
             <S.ImageBox>
               <img src={designerImg} width="100%" alt="디자이너" />
             </S.ImageBox>
-            <S.UserTypeSpan>헤어 전문가에요</S.UserTypeSpan>
+            <S.UserTypeSpan>헤어 디자이너</S.UserTypeSpan>
             <S.UserTypeInfoSpan>
               포트폴리오 / 홍보를 위한
               <br />
               모델을 찾고 있어요
             </S.UserTypeInfoSpan>
           </S.UserTypeBoxLabel>
-          <S.RadioInput type="radio" id="model" name="user-type" />
+          <S.RadioInput type="radio" id="model" name="user-type" value={userType} onChange={handleUserType} />
           <S.UserTypeBoxLabel htmlFor="model">
             <S.ImageBox>
-              <img src={designerImg} width="100%" alt="디자이너" />
+              <img src={modelImg} width="100%" alt="모델" />
             </S.ImageBox>
-            <S.UserTypeSpan>일반인/모델이에요</S.UserTypeSpan>
+            <S.UserTypeSpan>일반인/모델</S.UserTypeSpan>
             <S.UserTypeInfoSpan>
               예쁜 헤어 스타일을
               <br />
@@ -42,7 +64,7 @@ const SelectUserType = ({ setStep }: SelectUserTypeProp) => {
           </S.UserTypeBoxLabel>
         </S.RadioBox>
       </S.SelectUserTypeLayout>
-      <Button text="다음" isFixed={true} onClickFn={() => setStep(false)} />
+      <Button text="다음" isFixed={true} onClickFn={() => setStep(false)} disabled={!isSelected} />
     </>
   );
 };
@@ -64,7 +86,10 @@ const SelectUserTypeLayout = styled.div`
   display: flex;
   flex-direction: column;
 
+  height: 100dvh;
   padding: 9.2rem 1.6rem;
+
+  background: ${({ theme }) => theme.colors.moddy_wt};
 `;
 
 const RadioBox = styled.div`
@@ -91,9 +116,14 @@ const UserTypeBoxLabel = styled.label`
 
 const ImageBox = styled.div`
   width: 10rem;
+
+  background-color: transparent;
+  filter: drop-shadow(0 0 3rem rgb(82 0 255 / 25%));
 `;
 
 const UserTypeSpan = styled.span`
+  margin-top: 1rem;
+
   color: ${({ theme }) => theme.colors.moddy_bk};
   ${({ theme }) => theme.fonts.Body01};
 `;

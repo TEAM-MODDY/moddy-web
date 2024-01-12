@@ -3,7 +3,6 @@ import styled from 'styled-components';
 
 import Header from '../views/@common/components/Header';
 import LoginText from '../views/LoginPage/components/LoginText';
-
 const LoginPage = () => {
   const navigate = useNavigate();
   return (
@@ -27,6 +26,7 @@ const S = {
     display: flex;
     flex-direction: column;
 
-    padding: 9.1rem 1.6rem;
+    height: 100vh;
+    padding-top: 9.1rem;
   `,
 };

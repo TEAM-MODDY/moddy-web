@@ -4,6 +4,7 @@ import { ThemeProvider } from 'styled-components';
 
 import AgreementPage from './pages/AgreementPage';
 import ApplicationPage from './pages/ApplicationPage';
+import ErrorPage from './pages/ErrorPage';
 import LoginPage from './pages/LoginPage';
 import MainPage from './pages/MainPage';
 import ModelInfo from './pages/ModelInfoPage';
@@ -33,14 +34,13 @@ const router = createBrowserRouter([
   { path: '/application/confirm', element: <ConfirmPage /> },
   { path: '/agreement', element: <AgreementPage /> },
   { path: '/model-info/model-offer/sent-complete', element: <OfferSentCompletePage /> },
+  { path: '/error', element: <ErrorPage /> },
+  // { path: '/model-info/model-offer', element: <ModelOffer /> },
+  { path: '/agreement', element: <AgreementPage /> },
 ]);
 
 const App = () => {
   const setScreenSize = () => {
-    // vh 관련
-    const vh = window.innerHeight * 0.01;
-    document.documentElement.style.setProperty('--vh', `${vh}px`);
-
     // window width 관련
     const windowWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
     const maxWidth = Math.min(375, windowWidth);
