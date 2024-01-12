@@ -9,7 +9,12 @@ export interface HistroyDetailProps {
   period: string;
 }
 
-const ServiceHistoryListItem = () => {
+interface ServiceHistoryListItem {
+  serviceHistoryList: HistroyDetailProps[];
+  sestServiceHistoryList: React.Dispatch<React.SetStateAction<HistroyDetailProps[]>>;
+}
+
+const ServiceHistoryListItem = ({ serviceHistoryList, sestServiceHistoryList }: ServiceHistoryListItem) => {
   const [isServiceClicked, setIsServiceClicked] = useState(false);
   const [isPeriodClicked, setIsPeriodClicked] = useState(false);
   const [historyDetail, setHistoryDetail] = useState<HistroyDetailProps>({ service: '시술 선택', period: '기간 선택' });
@@ -34,6 +39,15 @@ const ServiceHistoryListItem = () => {
     }));
   };
 
+  const deleteHistory = () => {
+    const tempServiceHistoryList = serviceHistoryList.filter(
+      (item) => item.service !== historyDetail.service || item.period !== historyDetail.period,
+    );
+    if (tempServiceHistoryList.length > 0) {
+      sestServiceHistoryList(tempServiceHistoryList);
+    }
+  };
+
   return (
     <S.ServiceHistoryListItemLayout>
       <S.SelectBox>
@@ -45,9 +59,9 @@ const ServiceHistoryListItem = () => {
           <input type="button" value={historyDetail.service} />
           {isServiceClicked ? <IcUpBlue /> : <IcDownGrey />}
         </S.SelectServiceBox>
-        <S.SelectDetailBox>
+        <div>
           {isServiceClicked && (
-            <ul>
+            <S.SelectDetailList>
               <li>
                 <button type="button" onClick={activateServiceBox}>
                   펌
@@ -68,9 +82,9 @@ const ServiceHistoryListItem = () => {
                   컬러 염색
                 </button>
               </li>
-            </ul>
+            </S.SelectDetailList>
           )}
-        </S.SelectDetailBox>
+        </div>
       </S.SelectBox>
       <S.SelectBox>
         <S.SelectPeriodBox
@@ -81,9 +95,9 @@ const ServiceHistoryListItem = () => {
           <input type="button" value={historyDetail.period} />
           {isPeriodClicked ? <IcUpBlue /> : <IcDownGrey />}
         </S.SelectPeriodBox>
-        <S.SelectDetailBox>
+        <div>
           {isPeriodClicked && (
-            <ul>
+            <S.SelectDetailList>
               <li>
                 <button type="button" onClick={activatePeriodBox}>
                   1 개월 미만
@@ -109,11 +123,13 @@ const ServiceHistoryListItem = () => {
                   12개월 초과
                 </button>
               </li>
-            </ul>
+            </S.SelectDetailList>
           )}
-        </S.SelectDetailBox>
+        </div>
       </S.SelectBox>
-      <IcDelete />
+      <button type="button" onClick={deleteHistory}>
+        <IcDelete />
+      </button>
     </S.ServiceHistoryListItemLayout>
   );
 };
@@ -139,18 +155,17 @@ const SelectBox = styled.div`
   position: relative;
 `;
 
-const SelectDetailBox = styled.div`
-  & ul {
-    position: absolute;
-    top: 5rem;
-    left: 0;
+const SelectDetailList = styled.ul`
+  position: absolute;
+  top: 5rem;
+  left: 0;
+  z-index: 1;
 
-    width: 100%;
-    border-radius: 8px;
+  width: 100%;
+  border-radius: 8px;
 
-    background-color: ${({ theme }) => theme.colors.moddy_wt};
-    box-shadow: ${({ theme }) => theme.effects.shadow4};
-  }
+  background-color: ${({ theme }) => theme.colors.moddy_wt};
+  box-shadow: ${({ theme }) => theme.effects.shadow4};
 
   & button {
     padding: 1.1rem 1.2rem;
@@ -176,7 +191,7 @@ const selectBtn = css`
 
   & > input {
     border: none;
-    background-color: transparent;
+    background-color: ${({ theme }) => theme.colors.moddy_wt};
     color: ${({ theme }) => theme.colors.moddy_gray50};
     text-align: left;
     padding: 0;
@@ -201,7 +216,7 @@ const SelectPeriodBox = styled.div<{ $isPeriodClicked: boolean }>`
 const S = {
   ServiceHistoryListItemLayout,
   SelectBox,
-  SelectDetailBox,
+  SelectDetailList,
   SelectServiceBox,
   SelectPeriodBox,
 };
