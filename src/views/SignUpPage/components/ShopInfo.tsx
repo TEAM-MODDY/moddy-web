@@ -152,25 +152,25 @@ const S = {
 
     ${({ theme }) => theme.fonts.Body02};
   `,
+
   AddressBox: styled.div`
     display: flex;
     justify-content: space-between;
+    align-items: center;
 
     width: 100%;
     margin-bottom: 0.8rem;
     padding: 1.2rem 1.6rem;
-    border: 1.5px solid ${({ theme }) => theme.colors.moddy_gray20};
+    border: 1.5px solid;
+    border-color: ${({ theme }) => theme.colors.moddy_gray20};
     border-radius: 8px;
-
-    cursor: pointer;
-  `,
-
-  DefaultText: styled.p`
-    color: ${({ theme }) => theme.colors.moddy_gray50};
-    ${({ theme }) => theme.fonts.Body02};
   `,
   InputAddress: styled.p`
     color: ${({ theme }) => theme.colors.moddy_bk};
+    ${({ theme }) => theme.fonts.Body02};
+  `,
+  DefaultText: styled.p`
+    color: ${({ theme }) => theme.colors.moddy_gray50};
     ${({ theme }) => theme.fonts.Body02};
   `,
 };
