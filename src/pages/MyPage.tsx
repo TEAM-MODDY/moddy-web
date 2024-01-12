@@ -51,5 +51,8 @@ const S = {
   MyPageLayout: styled.div`
     display: flex;
     flex-direction: column;
+
+    height: 100dvh;
+    background: ${({ theme }) => theme.colors.moddy_wt};
   `,
 };

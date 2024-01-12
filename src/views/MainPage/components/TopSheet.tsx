@@ -2,19 +2,20 @@ import { useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import { styled } from 'styled-components';
 
-import { APPLY_TYPE } from '../../@common/utils/constants';
 import { IcLogoHome, IcRightWhite, IcModdyuser } from '../assets/icons';
+import { APPLY_STATUS } from '../constants/applyStatus';
 
 import { userTypeState } from '@/recoil/atoms/signUpState';
-import { USER_TYPE } from '@/views/@common/utils/userType';
+import { USER_TYPE } from '@/views/@common/constants/userType';
 
 interface TopSheetProps {
-  applyType: number;
+  applyType: string | undefined;
+  name: string | undefined;
 }
 
 const TopSheet = (props: TopSheetProps) => {
   const userType = useRecoilValue(userTypeState);
-  const { applyType } = props;
+  const { applyType, name } = props;
   const navigate = useNavigate();
 
   const OnBoardingText = () => {
@@ -28,29 +29,29 @@ const TopSheet = (props: TopSheetProps) => {
     } else if (userType === USER_TYPE.DESIGNER) {
       return (
         <S.OnBoardingParagraph>
-          00님 안녕하세요!
+          {name}님 안녕하세요!
           <br /> 지원자에게 <S.StrongSpan>모델</S.StrongSpan>을 <S.StrongSpan>제안</S.StrongSpan>해보세요
         </S.OnBoardingParagraph>
       );
     } else if (userType === USER_TYPE.MODEL) {
-      if (applyType === APPLY_TYPE.NOT_YET) {
+      if (applyType === APPLY_STATUS.NOTHING) {
         return (
           <S.OnBoardingParagraph>
             헤어 모델 지원하고,
             <br /> <S.StrongSpan>무료/최소금액</S.StrongSpan>으로 예쁜 머리하기
           </S.OnBoardingParagraph>
         );
-      } else if (applyType === APPLY_TYPE.WAITING) {
+      } else if (applyType === APPLY_STATUS.WAITING) {
         return (
           <S.OnBoardingParagraph>
             헤어 디자이너의
             <br /> <S.StrongSpan>제안서</S.StrongSpan>를 기다리고 있어요
           </S.OnBoardingParagraph>
         );
-      } else if (applyType === APPLY_TYPE.RECEIVED) {
+      } else if (applyType === APPLY_STATUS.RECEIVED) {
         return (
           <S.OnBoardingParagraph>
-            00님 안녕하세요!
+            {name}님 안녕하세요!
             <br /> <S.StrongSpan>신규 제안서</S.StrongSpan>가 도착했어요
           </S.OnBoardingParagraph>
         );
@@ -67,15 +68,17 @@ const TopSheet = (props: TopSheetProps) => {
             <IcRightWhite />
           </S.LoginButton>
         ) : (
-          <IcModdyuser />
+          <button type="button" onClick={() => navigate('/my-page')}>
+            <IcModdyuser />
+          </button>
         )}
       </S.HeaderBox>
       <S.OnBoardingBox>
         <OnBoardingText />
       </S.OnBoardingBox>
       {userType !== USER_TYPE.DESIGNER ? (
-        <S.StartButton type="button">
-          <S.StartButtonSpan>{!userType ? '헤어 모델 지원하기 / 제안하기' : '헤어모델 지원하기'}</S.StartButtonSpan>
+        <S.StartButton type="button" onClick={() => (!userType ? navigate('/login') : navigate('/application'))}>
+          <S.StartButtonSpan>{!userType ? '헤어 모델 지원하기 / 제안하기' : '헤어 모델 지원하기'}</S.StartButtonSpan>
           <IcRightWhite />
         </S.StartButton>
       ) : null}
