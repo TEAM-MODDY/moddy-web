@@ -10,41 +10,55 @@ export interface HistroyDetailProps {
 }
 
 interface ServiceHistoryListItem {
+  idx: number;
   serviceHistoryList: HistroyDetailProps[];
-  sestServiceHistoryList: React.Dispatch<React.SetStateAction<HistroyDetailProps[]>>;
+  setServiceHistoryList: React.Dispatch<React.SetStateAction<HistroyDetailProps[]>>;
 }
 
-const ServiceHistoryListItem = ({ serviceHistoryList, sestServiceHistoryList }: ServiceHistoryListItem) => {
+const ServiceHistoryListItem = ({ idx, serviceHistoryList, setServiceHistoryList }: ServiceHistoryListItem) => {
   const [isServiceClicked, setIsServiceClicked] = useState(false);
   const [isPeriodClicked, setIsPeriodClicked] = useState(false);
-  const [historyDetail, setHistoryDetail] = useState<HistroyDetailProps>({ service: '시술 선택', period: '기간 선택' });
 
   const activateServiceBox = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     isServiceClicked ? setIsServiceClicked(false) : setIsServiceClicked(true);
 
     const tempService = event.currentTarget.innerText;
-    setHistoryDetail((historyDetail) => ({
-      ...historyDetail,
-      service: tempService,
-    }));
+    const tempServiceHistoryList = serviceHistoryList.map((item, i) => {
+      if (i === idx) {
+        return {
+          ...item,
+          service: tempService,
+        };
+      }
+      return item;
+    });
+
+    setServiceHistoryList(tempServiceHistoryList);
   };
 
   const activatePeriodBox = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     isPeriodClicked ? setIsPeriodClicked(false) : setIsPeriodClicked(true);
 
     const tempPeriod = event.currentTarget.innerText;
-    setHistoryDetail((historyDetail) => ({
-      ...historyDetail,
-      period: tempPeriod,
-    }));
+    const tempServiceHistoryList = serviceHistoryList.map((item, i) => {
+      if (i === idx) {
+        return {
+          ...item,
+          period: tempPeriod,
+        };
+      }
+      return item;
+    });
+
+    setServiceHistoryList(tempServiceHistoryList);
   };
 
   const deleteHistory = () => {
     const tempServiceHistoryList = serviceHistoryList.filter(
-      (item) => item.service !== historyDetail.service || item.period !== historyDetail.period,
+      (item) => item.service !== serviceHistoryList[idx].service || item.period !== serviceHistoryList[idx].period,
     );
-    if (tempServiceHistoryList.length > 0) {
-      sestServiceHistoryList(tempServiceHistoryList);
+    if (tempServiceHistoryList.length >= 0) {
+      setServiceHistoryList(tempServiceHistoryList);
     }
   };
 
@@ -56,7 +70,7 @@ const ServiceHistoryListItem = ({ serviceHistoryList, sestServiceHistoryList }: 
           onClick={() => {
             isServiceClicked ? setIsServiceClicked(false) : setIsServiceClicked(true);
           }}>
-          <input type="button" value={historyDetail.service} />
+          <input type="button" value={serviceHistoryList[idx].service} />
           {isServiceClicked ? <IcUpBlue /> : <IcDownGrey />}
         </S.SelectServiceBox>
         <div>
@@ -92,7 +106,7 @@ const ServiceHistoryListItem = ({ serviceHistoryList, sestServiceHistoryList }: 
           onClick={() => {
             isPeriodClicked ? setIsPeriodClicked(false) : setIsPeriodClicked(true);
           }}>
-          <input type="button" value={historyDetail.period} />
+          <input type="button" value={serviceHistoryList[idx].period} />
           {isPeriodClicked ? <IcUpBlue /> : <IcDownGrey />}
         </S.SelectPeriodBox>
         <div>

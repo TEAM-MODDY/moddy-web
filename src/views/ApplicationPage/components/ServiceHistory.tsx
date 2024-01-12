@@ -9,12 +9,15 @@ import ServiceHistoryListItem, { HistroyDetailProps } from './ServiceHistoryList
 const ServiceHistory = () => {
   const MAX_LENGTH = 3;
 
-  const [serviceHistoryList, sestServiceHistoryList] = useState<HistroyDetailProps[]>([]);
+  const [serviceHistoryList, setServiceHistoryList] = useState<HistroyDetailProps[]>([]);
 
   const addHistory = () => {
     if (serviceHistoryList.length < MAX_LENGTH) {
-      const tempServiceHistoryList: HistroyDetailProps[] = [...serviceHistoryList, { service: '', period: '' }];
-      sestServiceHistoryList(tempServiceHistoryList);
+      const tempServiceHistoryList: HistroyDetailProps[] = [
+        ...serviceHistoryList,
+        { service: '시술 선택', period: '기간 선택' },
+      ];
+      setServiceHistoryList(tempServiceHistoryList);
     }
   };
 
@@ -29,7 +32,12 @@ const ServiceHistory = () => {
       <S.ServiceHistoryList>
         {serviceHistoryList.map((item: HistroyDetailProps, idx: number) =>
           idx < serviceHistoryList.length ? (
-            <ServiceHistoryListItem key={'history' + item.service + item.period + idx} />
+            <ServiceHistoryListItem
+              key={'history' + item.service + item.period + idx}
+              idx={idx}
+              serviceHistoryList={serviceHistoryList}
+              setServiceHistoryList={setServiceHistoryList}
+            />
           ) : null,
         )}
       </S.ServiceHistoryList>
@@ -74,6 +82,7 @@ const S = {
   ServiceHistoryList: styled.ul`
     display: flex;
     gap: 0.8rem;
+    /* flex-direction: column-reverse; */
     justify-content: space-between;
     position: relative;
     flex-wrap: wrap;
