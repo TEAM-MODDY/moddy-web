@@ -43,7 +43,9 @@ const OfferDetailSection = () => {
           </S.DetailContentBox>
           <S.DetailContentBox>
             <h2>휴무일</h2>
-            <h3>{DesingerInfo?.dayoffs.join(', ')}</h3>
+            <h3>
+              {DesingerInfo?.dayoffs && DesingerInfo.dayoffs.length > 0 ? DesingerInfo.dayoffs.join(', ') : '없음'}
+            </h3>
           </S.DetailContentBox>
           <S.DetailContentBox>
             <h2>주소</h2>
