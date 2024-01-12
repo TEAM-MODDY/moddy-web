@@ -2,10 +2,22 @@ import { atom } from 'recoil';
 import { recoilPersist } from 'recoil-persist';
 
 import { STATUS } from '@/views/SignUpPage/constants/requestStatus';
+
 export interface inputDataType {
   data: string;
   verifyStatus: boolean;
 }
+
+interface verificationDataType {
+  data: string;
+  status: number;
+}
+
+export interface preferRegionDataType {
+  data: boolean[];
+  verifyStatus: boolean;
+}
+
 const { persistAtom } = recoilPersist();
 
 export const userTypeState = atom({
@@ -43,11 +55,6 @@ export const genderState = atom<inputDataType>({
   },
 });
 
-interface verificationDataType {
-  data: string;
-  status: number;
-}
-
 export const phoneNumberState = atom<verificationDataType>({
   key: 'phoneNumber',
   default: {
@@ -63,11 +70,6 @@ export const verifyCodeState = atom<verificationDataType>({
     status: STATUS.NOT_AVAILABLE,
   },
 });
-
-export interface preferRegionDataType {
-  data: boolean[];
-  verifyStatus: boolean;
-}
 
 export const preferRegionState = atom<preferRegionDataType>({
   key: 'preferRegion',
