@@ -2,14 +2,14 @@ import { useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import { styled } from 'styled-components';
 
-import { APPLY_TYPE } from '../../@common/utils/constants';
 import { IcLogoHome, IcRightWhite, IcModdyuser } from '../assets/icons';
+import { APPLY_STATUS } from '../constants/applyStatus';
 
 import { userTypeState } from '@/recoil/atoms/signUpState';
 import { USER_TYPE } from '@/views/@common/utils/userType';
 
 interface TopSheetProps {
-  applyType: number;
+  applyType: string;
 }
 
 const TopSheet = (props: TopSheetProps) => {
@@ -33,21 +33,21 @@ const TopSheet = (props: TopSheetProps) => {
         </S.OnBoardingParagraph>
       );
     } else if (userType === USER_TYPE.MODEL) {
-      if (applyType === APPLY_TYPE.NOT_YET) {
+      if (applyType === APPLY_STATUS.NOTHING) {
         return (
           <S.OnBoardingParagraph>
             헤어 모델 지원하고,
             <br /> <S.StrongSpan>무료/최소금액</S.StrongSpan>으로 예쁜 머리하기
           </S.OnBoardingParagraph>
         );
-      } else if (applyType === APPLY_TYPE.WAITING) {
+      } else if (applyType === APPLY_STATUS.WAITING) {
         return (
           <S.OnBoardingParagraph>
             헤어 디자이너의
             <br /> <S.StrongSpan>제안서</S.StrongSpan>를 기다리고 있어요
           </S.OnBoardingParagraph>
         );
-      } else if (applyType === APPLY_TYPE.RECEIVED) {
+      } else if (applyType === APPLY_STATUS.RECEIVED) {
         return (
           <S.OnBoardingParagraph>
             00님 안녕하세요!
