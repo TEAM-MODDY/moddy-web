@@ -1,17 +1,26 @@
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
 
 import applyImg from '../../@common/assets/images/img_applylogo.png';
 import Button from '../../@common/components/Button';
 import Header from '../../@common/components/Header';
+import { captureApplication } from '../utils/captureApplication';
 
 const ApplicationResult = () => {
+  const [applicationCaptureImgUrl, setApplicationCaptureImgUrl] = useState('');
+
   const navigate = useNavigate();
+
+  const finalPg = () => {
+    setApplicationCaptureImgUrl(captureApplication());
+    navigate(`/application/confirm`);
+  };
 
   return (
     <S.ApplicationResultLayout>
       <Header isBackBtnExist={true} isCloseBtnExist={true} title="최종 확인" />
-      <S.ContentSection>
+      <S.ContentSection id="applcationImg">
         <S.ContentBox>
           <h2>모델 정보</h2>
           <S.DivideBox>
@@ -80,13 +89,7 @@ const ApplicationResult = () => {
           <img src={applyImg} alt="로고이미지" />
         </S.ContentBox>
       </S.ContentSection>
-      <Button
-        text="지원하기"
-        isFixed={true}
-        onClickFn={() => {
-          navigate(`/application/confirm`);
-        }}
-      />
+      <Button text="지원하기" isFixed={true} onClickFn={finalPg} />
     </S.ApplicationResultLayout>
   );
 };
@@ -115,6 +118,8 @@ const S = {
 
     width: 100%;
     padding: 0 0.8rem 0 1rem;
+
+    background-color: ${({ theme }) => theme.colors.moddy_wt};
 
     ${({ theme }) => theme.commons.scrollbar};
   `,
