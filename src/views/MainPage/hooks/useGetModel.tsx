@@ -16,18 +16,15 @@ const useGetModel = () => {
   const [error, setError] = useState<AxiosError>();
 
   const fetchData = async () => {
-    await api
-      .get('/model?page=1&size=4')
-      .then((res) => {
-        setData(res.data.data);
-      })
-      .catch((err) => {
-        setError(err);
-        navigate('/error');
-      })
-      .finally(() => {
-        setLoading(false);
-      });
+    try {
+      const res = await api.get('/model?page=1&size=4');
+      setData(res.data.data);
+    } catch (err) {
+      if (err instanceof AxiosError) setError(err);
+      navigate('/error');
+    } finally {
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
