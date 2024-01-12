@@ -64,7 +64,7 @@ const ServiceHistoryListItem = ({ idx, serviceHistoryList, setServiceHistoryList
 
   return (
     <S.ServiceHistoryListItemLayout>
-      <S.SelectBox>
+      <S.SelectBox $height={idx}>
         <S.SelectServiceBox
           $isServiceClicked={isServiceClicked}
           onClick={() => {
@@ -100,7 +100,7 @@ const ServiceHistoryListItem = ({ idx, serviceHistoryList, setServiceHistoryList
           )}
         </div>
       </S.SelectBox>
-      <S.SelectBox>
+      <S.SelectBox $height={idx}>
         <S.SelectPeriodBox
           $isPeriodClicked={isPeriodClicked}
           onClick={() => {
@@ -163,17 +163,17 @@ const ServiceHistoryListItemLayout = styled.li`
   }
 `;
 
-const SelectBox = styled.div`
+const SelectBox = styled.div<{ $height: number }>`
   display: flex;
   flex: 1;
   position: relative;
+  z-index: ${(props) => 100 - props.$height};
 `;
 
 const SelectDetailList = styled.ul`
   position: absolute;
   top: 5rem;
   left: 0;
-  z-index: 1;
 
   width: 100%;
   border-radius: 8px;
