@@ -165,7 +165,7 @@ const SelectBox = styled.div<{ $height: number }>`
   display: flex;
   flex: 1;
   position: relative;
-  z-index: ${(props) => 100 - props.$height};
+  z-index: ${(props) => 3 - props.$height};
 `;
 
 const SelectDetailList = styled.ul`
