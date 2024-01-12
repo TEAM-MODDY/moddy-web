@@ -4,7 +4,7 @@ import { styled } from 'styled-components';
 
 import Button from '../../@common/components/Button';
 import ProgressBar from '../../@common/components/ProgressBar';
-import { USER_TYPE } from '../../@common/utils/userType';
+import { USER_TYPE } from '../../@common/constants/userType';
 import { HELPER_MESSAGE, PLACE_HOLDER_MESSAGE } from '../constants/message';
 import { STATUS } from '../constants/requestStatus';
 import { STEP, TOTAL_STEP } from '../constants/step';
