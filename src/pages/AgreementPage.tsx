@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 
@@ -13,7 +13,6 @@ const AgreementPage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    console.log(isChecked);
     const tempChecked = [...isChecked];
     tempChecked[0] = isChecked[1] && isChecked[2] && isChecked[3];
     setChecked(tempChecked);
@@ -22,7 +21,7 @@ const AgreementPage = () => {
   return (
     <div>
       <Header title="이용약관" isBackBtnExist backFn={() => navigate(-1)} />
-      <AgreementList isChecked={isChecked} setChecked={setChecked} />
+      <AgreementList />
       <Button text="다음" isFixed onClickFn={() => navigate('/sign-up')} disabled={!isChecked[1] || !isChecked[2]} />
     </div>
   );
