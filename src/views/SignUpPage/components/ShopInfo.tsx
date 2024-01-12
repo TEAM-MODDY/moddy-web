@@ -52,7 +52,7 @@ const ShopInfo = ({ setStep }: EnterProfileProp) => {
   const handleAddressText = (value: string) => {
     setAddressAreaValue(value);
   };
-  const isActive = Address && addressAreaValue !== '' && placeTextValue !== '' && isClicked.some((clicked) => clicked);
+  const isActive = Address && addressAreaValue !== '' && placeTextValue !== '';
 
   return (
     <>
