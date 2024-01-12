@@ -81,11 +81,10 @@ const S = {
 
   ServiceHistoryList: styled.ul`
     display: flex;
+    flex-wrap: wrap;
     gap: 0.8rem;
-    /* flex-direction: column-reverse; */
     justify-content: space-between;
     position: relative;
-    flex-wrap: wrap;
 
     width: 100%;
     margin-top: 2rem;

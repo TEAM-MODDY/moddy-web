@@ -20,8 +20,7 @@ const ServiceHistoryListItem = ({ idx, serviceHistoryList, setServiceHistoryList
   const [isPeriodClicked, setIsPeriodClicked] = useState(false);
 
   const activateServiceBox = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    isServiceClicked ? setIsServiceClicked(false) : setIsServiceClicked(true);
-
+    setIsServiceClicked((prev) => !prev);
     const tempService = event.currentTarget.innerText;
     const tempServiceHistoryList = serviceHistoryList.map((item, i) => {
       if (i === idx) {
@@ -37,8 +36,7 @@ const ServiceHistoryListItem = ({ idx, serviceHistoryList, setServiceHistoryList
   };
 
   const activatePeriodBox = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    isPeriodClicked ? setIsPeriodClicked(false) : setIsPeriodClicked(true);
-
+    setIsPeriodClicked((prev) => !prev);
     const tempPeriod = event.currentTarget.innerText;
     const tempServiceHistoryList = serviceHistoryList.map((item, i) => {
       if (i === idx) {
@@ -66,7 +64,7 @@ const ServiceHistoryListItem = ({ idx, serviceHistoryList, setServiceHistoryList
         <S.SelectServiceBox
           $isServiceClicked={isServiceClicked}
           onClick={() => {
-            isServiceClicked ? setIsServiceClicked(false) : setIsServiceClicked(true);
+            setIsServiceClicked((prev) => !prev);
           }}>
           <input type="button" value={serviceHistoryList[idx].service} />
           {isServiceClicked ? <IcUpBlue /> : <IcDownGrey />}
@@ -102,7 +100,7 @@ const ServiceHistoryListItem = ({ idx, serviceHistoryList, setServiceHistoryList
         <S.SelectPeriodBox
           $isPeriodClicked={isPeriodClicked}
           onClick={() => {
-            isPeriodClicked ? setIsPeriodClicked(false) : setIsPeriodClicked(true);
+            setIsPeriodClicked((prev) => !prev);
           }}>
           <input type="button" value={serviceHistoryList[idx].period} />
           {isPeriodClicked ? <IcUpBlue /> : <IcDownGrey />}
@@ -202,11 +200,13 @@ const selectBtn = css`
   cursor: pointer;
 
   & > input {
+    padding: 0;
     border: none;
+
     background-color: ${({ theme }) => theme.colors.moddy_wt};
+
     color: ${({ theme }) => theme.colors.moddy_gray50};
     text-align: left;
-    padding: 0;
 
     ${({ theme }) => theme.fonts.Body02};
   }
