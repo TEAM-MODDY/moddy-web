@@ -6,7 +6,7 @@ import { useRecoilValue } from 'recoil';
 import { ModelSignUpRequest } from './type';
 
 import {
-  agreementState,
+  marketingState,
   birthYearState,
   genderState,
   nameState,
@@ -26,7 +26,7 @@ const useModelSignUp = () => {
   const gender = useRecoilValue(genderState);
   const phoneNumber = useRecoilValue(phoneNumberState);
   const preferRegions = useRecoilValue(preferRegionState);
-  const isMarketingAgree = useRecoilValue(agreementState);
+  const isMarketingAgree = useRecoilValue(marketingState);
 
   const preferRegion = preferRegions.data.map((value, index) => (value ? index : -1)).filter((index) => index !== -1);
 

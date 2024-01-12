@@ -36,6 +36,7 @@ const S = {
     top: 5rem;
 
     width: 100%;
+    max-width: 43rem;
     padding: 0.5rem;
 
     background-color: ${({ theme }) => theme.colors.moddy_wt};
