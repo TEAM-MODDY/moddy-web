@@ -54,9 +54,7 @@ const ServiceHistoryListItem = ({ idx, serviceHistoryList, setServiceHistoryList
   };
 
   const deleteHistory = () => {
-    const tempServiceHistoryList = serviceHistoryList.filter(
-      (item) => item.service !== serviceHistoryList[idx].service || item.period !== serviceHistoryList[idx].period,
-    );
+    const tempServiceHistoryList = serviceHistoryList.filter((_, i) => i !== idx);
     if (tempServiceHistoryList.length >= 0) {
       setServiceHistoryList(tempServiceHistoryList);
     }
