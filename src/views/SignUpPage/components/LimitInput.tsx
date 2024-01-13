@@ -11,21 +11,21 @@ interface InputProps {
 }
 
 const LimitInput = ({ placeholderText, initialValue, onChangeFn, maxLength }: InputProps) => {
-  const [name, setName] = useState(initialValue ? initialValue : '');
+  const [text, setText] = useState(initialValue ? initialValue : '');
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     let value = e.target.value;
 
     if (maxLength && value.length >= maxLength) {
-      value = name.slice(0, maxLength);
+      value = text.slice(0, maxLength);
     }
-    setName(value);
+    setText(value);
     onChangeFn(value);
   };
 
   return (
     <S.InputLayout>
-      <S.Input placeholder={placeholderText} value={name} onChange={handleInputChange} />
-      {name !== '' && <IcCheckBlue />}
+      <S.Input placeholder={placeholderText} value={text} onChange={handleInputChange} />
+      {text !== '' && <IcCheckBlue />}
     </S.InputLayout>
   );
 };
