@@ -9,10 +9,10 @@ import { TOTAL_STEP } from '../constants/step';
 import { EnterProfileProp } from '../utils/enterProfileProp';
 
 import Field from './Field';
+import LimitInput from './LimitInput';
 import PostCode from './PostCode';
 
 import Button from '@/views/@common/components/Button';
-import Input from '@/views/@common/components/Input';
 import Modal from '@/views/@common/components/Modal';
 import ProgressBar from '@/views/@common/components/ProgressBar';
 
@@ -21,7 +21,7 @@ const ShopInfo = ({ setStep }: EnterProfileProp) => {
   const navigate = useNavigate();
   const [isOpenModal, setOpenModal] = useState(false);
 
-  const [isClicked, setIsClicked] = useState<boolean[]>([false, false, false, false, false, false, false]);
+  const [isClicked, setIsClicked] = useState<boolean[]>(Array(6).fill(false));
   const handleDayOffClick = (index: number) => {
     setIsClicked((prevState) => {
       const newClickedState = [...prevState];
@@ -44,6 +44,7 @@ const ShopInfo = ({ setStep }: EnterProfileProp) => {
 
   //입력 시 CTA 상태변화
   const [placeTextValue, setPlaceTextValue] = useState('');
+
   const handlePlaceText = (value: string) => {
     setPlaceTextValue(value);
   };
@@ -52,6 +53,7 @@ const ShopInfo = ({ setStep }: EnterProfileProp) => {
   const handleAddressText = (value: string) => {
     setAddressDetailValue(value);
   };
+
   const isActive = Address && addressDetailValue !== '' && placeTextValue !== '';
 
   return (
@@ -64,7 +66,12 @@ const ShopInfo = ({ setStep }: EnterProfileProp) => {
         <S.ShopInfoLayout>
           <Field name="소속" isEssential={true} />
 
-          <Input placeholderText={HELPER_MESSAGE.INPUT_SHOP_NAME} onChangeFn={handlePlaceText} />
+          <LimitInput
+            placeholderText={HELPER_MESSAGE.INPUT_SHOP_NAME}
+            initialValue={placeTextValue}
+            onChangeFn={handlePlaceText}
+            maxLength={25}
+          />
           <Field name="주소" isEssential={true} />
           <S.AddressBox onClick={handleOpenAddressModal}>
             {Address ? (
@@ -75,7 +82,11 @@ const ShopInfo = ({ setStep }: EnterProfileProp) => {
 
             <IcSearch />
           </S.AddressBox>
-          <Input placeholderText={HELPER_MESSAGE.INPUT_DETAIL_ADRESS} onChangeFn={handleAddressText} />
+          <LimitInput
+            placeholderText={HELPER_MESSAGE.INPUT_DETAIL_ADRESS}
+            onChangeFn={handleAddressText}
+            maxLength={25}
+          />
 
           <Field name="휴무" isEssential={false} />
 
