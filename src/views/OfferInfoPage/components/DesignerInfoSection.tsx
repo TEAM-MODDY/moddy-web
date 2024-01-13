@@ -1,35 +1,38 @@
 import { styled } from 'styled-components';
 
 import { IcLeft } from '../assets/icons';
-import { OFFER_DATA } from '../constants/OFFER_DATA';
+import useGetOfferModel from '../hooks/useGetOfferModel';
 
 const DesignerInfoSection = () => {
-  const DesingerInfo = OFFER_DATA.data.designerInfo;
+  const { data } = useGetOfferModel();
+
+  const { imgUrl, shopName, name, instagramUrl, naverPlaceUrl, introduction } = data?.designerInfo ?? {};
+
   return (
     <div>
       <S.DesignerInfoLayout>
         <S.ProfileBox>
-          <S.ProfileImg src={DesingerInfo.imgUrl} />
+          <S.ProfileImg src={imgUrl} />
           <S.ProfileTextBox>
-            <h2>{DesingerInfo.shopName}</h2>
-            <h1>{DesingerInfo.name}</h1>
+            <h2>{shopName}</h2>
+            <h1>{name}</h1>
           </S.ProfileTextBox>
         </S.ProfileBox>
         <S.ButtonBox>
-          <a href={DesingerInfo.instagramUrl} target="_blank" rel="noreferrer">
+          <a href={instagramUrl} target="_blank" rel="noreferrer">
             <S.LinkButton type="button">
               <p>인스타그램</p>
               <IcLeft />
             </S.LinkButton>
           </a>
-          <a href={DesingerInfo.naverPlaceUrl} target="_blank" rel="noreferrer">
+          <a href={naverPlaceUrl} target="_blank" rel="noreferrer">
             <S.LinkButton type="button">
               <p>네이버 플레이스</p>
               <IcLeft />
             </S.LinkButton>
           </a>
         </S.ButtonBox>
-        <S.IntroductionBox>{DesingerInfo.introduction}</S.IntroductionBox>
+        <S.IntroductionBox>{introduction}</S.IntroductionBox>
       </S.DesignerInfoLayout>
     </div>
   );
