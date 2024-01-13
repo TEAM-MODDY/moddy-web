@@ -7,4 +7,5 @@ export const limitMaxLength = ({ text, maxLength }: limitMaxLengthProps) => {
   if (text.length >= maxLength) {
     text = text.slice(0, maxLength);
   }
+  return text;
 };

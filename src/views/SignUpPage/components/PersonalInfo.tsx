@@ -4,7 +4,6 @@ import { styled } from 'styled-components';
 
 import { IcCheckBlue, IcInformation } from '../../@common/assets/icons';
 import Button from '../../@common/components/Button';
-import Input from '../../@common/components/Input';
 import ProgressBar from '../../@common/components/ProgressBar';
 import ToastMessage from '../../@common/components/ToastMessage';
 import { USER_TYPE } from '../../@common/constants/userType';
@@ -13,11 +12,12 @@ import { STEP, TOTAL_STEP } from '../constants/step';
 import { EnterProfileProp } from '../utils/enterProfileProp';
 
 import Field from './Field';
+import LimitInput from './LimitInput';
 
-import { birthYearState, genderState, nameState, userTypeState } from '@/recoil/atoms/signUpState';
+import { birthYearState, genderState, nameState, tempUserTypeState } from '@/recoil/atoms/signUpState';
 
 const PersonalInfo = ({ setStep }: EnterProfileProp) => {
-  const userType = useRecoilValue(userTypeState);
+  const userType = useRecoilValue(tempUserTypeState);
 
   const [name, setName] = useRecoilState(nameState);
   const [birthYear, setBirthYear] = useRecoilState(birthYearState);
@@ -84,7 +84,12 @@ const PersonalInfo = ({ setStep }: EnterProfileProp) => {
       <S.PersonalInfoLayout>
         <S.FormBox>
           <Field name={userType === USER_TYPE.DESIGNER ? '디자이너명' : '이름'} isEssential={true} />
-          <Input placeholderText={PLACE_HOLDER_MESSAGE.INPUT_NAME} onChangeFn={handleName} initialValue={name.data} />
+          <LimitInput
+            placeholderText={PLACE_HOLDER_MESSAGE.INPUT_NAME}
+            onChangeFn={handleName}
+            initialValue={name.data}
+            maxLength={5}
+          />
           <S.HelperBox>
             <IcInformation />
             <S.HelperSpan>

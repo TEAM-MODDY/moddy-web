@@ -13,10 +13,10 @@ import { EnterProfileProp } from '../utils/enterProfileProp';
 
 import Field from './Field';
 
-import { phoneNumberState, userTypeState, verifyCodeState } from '@/recoil/atoms/signUpState';
+import { phoneNumberState, tempUserTypeState, verifyCodeState } from '@/recoil/atoms/signUpState';
 
 const PhoneNumber = ({ setStep }: EnterProfileProp) => {
-  const userType = useRecoilValue(userTypeState);
+  const userType = useRecoilValue(tempUserTypeState);
 
   const [phoneNumber, setPhoneNumber] = useRecoilState(phoneNumberState);
   const [verifyCode, setVerifyCode] = useRecoilState(verifyCodeState);
