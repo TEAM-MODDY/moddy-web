@@ -7,10 +7,10 @@ import { TOTAL_STEP } from '../constants/step';
 import { EnterProfileProp } from '../utils/enterProfileProp';
 
 import Field from './Field';
+import LimitInput from './LimitInput';
 import ProfileUpload from './ProfileUpload';
 
 import Button from '@/views/@common/components/Button';
-import Input from '@/views/@common/components/Input';
 import Modal from '@/views/@common/components/Modal';
 import ProgressBar from '@/views/@common/components/ProgressBar';
 
@@ -45,8 +45,16 @@ const Profile = ({ setStep }: EnterProfileProp) => {
         <Field name="포트폴리오" isEssential={true} />
         <S.HelperTextBox>{HELPER_MESSAGE.PREFER_INPUT_PORTFOLIO}</S.HelperTextBox>
         <section>
-          <Input placeholderText={HELPER_MESSAGE.INPUT_INSTAGRAM_LINK} onChangeFn={handleInstaGramText} />
-          <Input placeholderText={HELPER_MESSAGE.INPUT_NAVERPLACE_LINK} onChangeFn={handleNaverPlaceText} />
+          <LimitInput
+            placeholderText={HELPER_MESSAGE.INPUT_INSTAGRAM_LINK}
+            onChangeFn={handleInstaGramText}
+            maxLength={255}
+          />
+          <LimitInput
+            placeholderText={HELPER_MESSAGE.INPUT_NAVERPLACE_LINK}
+            onChangeFn={handleNaverPlaceText}
+            maxLength={255}
+          />
         </section>
       </S.ProfileLayout>
       <Button text="다음" isFixed={true} disabled={!isActive} onClickFn={() => setStep((prev) => prev + 1)} />
