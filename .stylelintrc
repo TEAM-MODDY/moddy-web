@@ -4,7 +4,7 @@
   "overrides": [
     {
       "customSyntax": "@stylelint/postcss-css-in-js",
-      "files": ["**/*.{ts,tsx}"]
+      "files": ["**/*.{ts,tsx,css}"]
     }
   ],
   "rules": {
@@ -12,7 +12,7 @@
       "/^border/": ["px"],
       "font-size": ["rem", "%"]
     },
-    "unit-allowed-list": ["%", "deg", "px", "rem", "ms", "vh", "vw", "s", "dvh"],
+    "unit-allowed-list": ["%", "deg", "px", "rem", "ms", "vw", "s", "dvh"],
     "declaration-empty-line-before": [
       "always",
       {

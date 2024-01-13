@@ -1,16 +1,27 @@
+import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 
 import AgreementItem from './AgreementItem';
 
-interface AgreementListProps {
-  isChecked: boolean[];
-  setChecked: React.Dispatch<React.SetStateAction<boolean[]>>;
-}
-const AgreementList = ({ isChecked, setChecked }: AgreementListProps) => {
+import { agreementState } from '@/recoil/atoms/agreementState';
+import { marketingState } from '@/recoil/atoms/signUpState';
+
+const AgreementList = () => {
+  const [, setMarketingAgree] = useRecoilState(marketingState);
+  const [isChecked, setChecked] = useRecoilState<boolean[]>(agreementState);
+
   const handleCheck = (idx: number) => {
-    const tempCheckedArray = [...isChecked];
-    tempCheckedArray[idx] = !isChecked[idx];
-    setChecked(tempCheckedArray);
+    if (idx === 0) {
+      setChecked(new Array(4).fill(!isChecked[0]));
+      isChecked[3] ? setMarketingAgree(false) : setMarketingAgree(true);
+    } else {
+      if (idx === 3) {
+        isChecked[idx] ? setMarketingAgree(false) : setMarketingAgree(true);
+      }
+      const tempCheckedArray = [...isChecked];
+      tempCheckedArray[idx] = !isChecked[idx];
+      setChecked(tempCheckedArray);
+    }
   };
   return (
     <S.AgreementListLayout>
@@ -19,7 +30,7 @@ const AgreementList = ({ isChecked, setChecked }: AgreementListProps) => {
         text="모든 약관에 동의합니다"
         isChecked={isChecked[0]}
         onClickCheck={() => {
-          setChecked(new Array(4).fill(!isChecked[0]));
+          handleCheck(0);
         }}
       />
       <S.AgreementLine />

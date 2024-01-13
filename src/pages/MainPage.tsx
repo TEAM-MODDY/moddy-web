@@ -1,3 +1,4 @@
+import { useRecoilValue } from 'recoil';
 import { styled } from 'styled-components';
 
 import Banner from '../views/MainPage/components/Banner';
@@ -5,18 +6,19 @@ import Contents from '../views/MainPage/components/Contents';
 import ReceivedOffer from '../views/MainPage/components/ReceivedOffer';
 import StatusBarForiOS from '../views/MainPage/components/StatusBarForiOS';
 import TopSheet from '../views/MainPage/components/TopSheet';
-import { APPLY_TYPE, USER_TYPE } from '../views/MainPage/constants/constants';
+
+import { userTypeState } from '@/recoil/atoms/signUpState';
+import useGetModel from '@/views/MainPage/hooks/useGetModel';
 
 const MainPage = () => {
-  const userType = USER_TYPE.GUEST;
-  const applyType = APPLY_TYPE.NOT_YET;
-
+  const userType = useRecoilValue(userTypeState);
+  const { data } = useGetModel();
   return (
     <MainPageLayout>
       <StatusBarForiOS />
-      <TopSheet userType={userType} applyType={applyType} />
-      <Banner userType={userType} />
-      {userType === USER_TYPE.GUEST ? <Contents /> : <ReceivedOffer applyType={applyType} />}
+      <TopSheet applyType={data?.status} name={data?.userName} />
+      <Banner />
+      {!userType ? <Contents /> : data && <ReceivedOffer data={data} />}
     </MainPageLayout>
   );
 };
@@ -24,5 +26,8 @@ const MainPage = () => {
 export default MainPage;
 
 const MainPageLayout = styled.div`
+  height: 100%;
+  min-height: 100dvh;
+
   background: ${({ theme }) => theme.colors.moddy_wt};
 `;

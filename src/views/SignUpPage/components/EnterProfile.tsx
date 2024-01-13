@@ -1,13 +1,24 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { styled } from 'styled-components';
 
 import Header from '../../@common/components/Header';
 import { STEP } from '../constants/step';
 
+import DesignerInfo from './DesignerInfo';
+import OpenChatLink from './OpenChatLink';
 import PersonalInfo from './PersonalInfo';
-import SelectPrefeRegion from './SelectPreferRegion';
-import VerifyPhoneNumber from './VerifyPhoneNumber';
+import PhoneNumber from './PhoneNumber';
+import PrefeRegion from './PreferRegion';
+import Profile from './Profile';
+import ShopInfo from './ShopInfo';
 
-const EnterProfile = () => {
+interface EnterProfileProps {
+  setIsInitialStep: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const EnterProfile = ({ setIsInitialStep }: EnterProfileProps) => {
+  const navigate = useNavigate();
   const [step, setStep] = useState(STEP.PERSONAL_INFO);
 
   const Contents = () => {
@@ -15,28 +26,61 @@ const EnterProfile = () => {
       case STEP.PERSONAL_INFO:
         return <PersonalInfo setStep={setStep} />;
       case STEP.PHONE_NUMBER_VERIFICATION:
-        return <VerifyPhoneNumber setStep={setStep} />;
-      case STEP.PREFER_REGION:
-        return <SelectPrefeRegion />;
+        return <PhoneNumber setStep={setStep} />;
+      case STEP.MODEL.PREFER_REGION:
+        return <PrefeRegion />;
+      case STEP.DESIGNER.SHOP_INFO:
+        return <ShopInfo setStep={setStep} />;
+      case STEP.DESIGNER.PROFILE:
+        return <Profile setStep={setStep} />;
+      case STEP.DESIGNER.DESIGNER_INFO:
+        return <DesignerInfo setStep={setStep} />;
+      case STEP.DESIGNER.OPEN_CHAT_LINK:
+        return <OpenChatLink />;
     }
   };
-
   const StepHeader = () => {
     switch (step) {
       case STEP.PERSONAL_INFO:
-        return <Header isBackBtnExist={true} isCloseBtnExist={false} title="프로필 작성" />;
-      case STEP.ADDRESS:
-        return <Header isBackBtnExist={true} isCloseBtnExist={true} title="주소 검색" />;
+        return (
+          <Header
+            isBackBtnExist={true}
+            isCloseBtnExist={false}
+            title="프로필 작성"
+            backFn={() => setIsInitialStep(true)}
+          />
+        );
       default:
-        return <Header isBackBtnExist={true} isCloseBtnExist={true} title="프로필 작성" />;
+        return (
+          <>
+            <Header
+              isBackBtnExist={true}
+              isCloseBtnExist={true}
+              title="프로필 작성"
+              backFn={() => setStep((prev) => prev - 1)}
+              closeFn={() => navigate('/')}
+            />
+          </>
+        );
     }
   };
 
   return (
-    <>
+    <S.EnterProfileLayout>
       <StepHeader />
       <Contents />
-    </>
+    </S.EnterProfileLayout>
   );
 };
+
 export default EnterProfile;
+
+const EnterProfileLayout = styled.div`
+  height: calc(100dvh - 8.6rem);
+
+  background-color: ${({ theme }) => theme.colors.moddy_wt};
+`;
+
+const S = {
+  EnterProfileLayout,
+};

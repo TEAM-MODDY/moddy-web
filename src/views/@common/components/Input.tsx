@@ -1,15 +1,16 @@
 import { useState } from 'react';
-import styled from 'styled-components';
+import { styled } from 'styled-components';
 
 import { IcCheckBlue } from '../assets/icons';
 
 interface InputProps {
   placeholderText: string;
+  initialValue?: string;
   onChangeFn: (value: string) => void;
 }
 
-const Input = ({ placeholderText, onChangeFn }: InputProps) => {
-  const [name, setName] = useState('');
+const Input = ({ placeholderText, initialValue, onChangeFn }: InputProps) => {
+  const [name, setName] = useState(initialValue ? initialValue : '');
   return (
     <S.InputLayout>
       <S.Input
