@@ -9,13 +9,13 @@ import { userTypeState } from '@/recoil/atoms/signUpState';
 import { USER_TYPE } from '@/views/@common/constants/userType';
 
 interface TopSheetProps {
+  userType: string | undefined;
   applyType: string | undefined;
   name: string | undefined;
 }
 
 const TopSheet = (props: TopSheetProps) => {
-  const userType = useRecoilValue(userTypeState);
-  const { applyType, name } = props;
+  const { userType, applyType, name } = props;
   const navigate = useNavigate();
 
   const OnBoardingText = () => {
