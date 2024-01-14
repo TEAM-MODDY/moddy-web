@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { styled } from 'styled-components';
 
@@ -17,6 +18,7 @@ const DefaultInfo = () => {
   const [selectedStyle, setSelectedStyle] = useRecoilState(hairStyleState);
   const { length, preference, verifyStatus } = selectedStyle;
   const [lengthState, setLengthState] = useState([false, false, false, false]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     length && preference[0]
@@ -26,7 +28,14 @@ const DefaultInfo = () => {
 
   return (
     <S.DefaultInfoLayout>
-      <Header title={INFO_MESSAGE.TITLE} isBackBtnExist={false} isCloseBtnExist={true} />
+      <Header
+        title={INFO_MESSAGE.TITLE}
+        isBackBtnExist={true}
+        isCloseBtnExist={false}
+        closeFn={() => {
+          navigate(`/`);
+        }}
+      />
       <ProgressBar whole={step.total} current={step.current} />
       <S.MainStyle>
         <S.StyleSection>

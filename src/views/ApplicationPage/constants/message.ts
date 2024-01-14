@@ -14,7 +14,7 @@ export const INFO_MESSAGE = {
 
   SERVICE_TITLE: '시술 이력',
   SERVICE_SUBTITLE: '최근 시술이력을 입력해주세요 (최대 3개)',
-  ADD_HISTORY: '눌러서 추가하기',
+  ADD_HISTORY: '+ 눌러서 추가하기',
   SERVICE_SELECT_BOX: '시술 선택',
   PERIOD_SELECT_BOX: '기간 선택',
 
@@ -23,4 +23,18 @@ export const INFO_MESSAGE = {
   INSTA_TITLE: '인스타그램 아이디',
   INSTA_SUBTITLE: '평소 스타일 파악을 위해 입력을 권장드려요',
   INSTA_INPUT: "아이디를 입력해주세요 ('@' 제외)",
+
+  FINAL_TITLE: '최종 확인',
+  MODEL_INFO: '모델 정보',
+  INFO_NAME: '이름',
+  INFO_GENDER_AGE: '성별/나이',
+  INFO_REGION: '희망 지역',
+  INFO_LENGTH: '현재 기장',
+  HISTORY_INFO: '최근 시술 이력',
+  STYLE_INFO: '희망 스타일',
+  DETAILED_STYLE_INFO: '상세 희망 스타일',
+  FINAL: '지원하기',
+
+  CONFIRM_TITLE: '헤어모델 지원 완료!',
+  CONFIRM_SUBTITLE: '내게 딱 맞는 헤어디자이너의 제안서가<br />곧 도착할 예정이에요.',
 };

@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import { styled } from 'styled-components';
 
@@ -12,10 +13,21 @@ import { applyStepState, deatiledStyleState } from '@/recoil/atoms/applicationSt
 const DetailedStyle = () => {
   const [step, setStep] = useRecoilState(applyStepState);
   const setHairDetail = useSetRecoilState(deatiledStyleState);
+  const navigate = useNavigate();
 
   return (
     <S.ServiceHistoryLayout>
-      <Header isBackBtnExist={true} isCloseBtnExist={true} title={INFO_MESSAGE.TITLE} />
+      <Header
+        isBackBtnExist={true}
+        isCloseBtnExist={true}
+        title={INFO_MESSAGE.TITLE}
+        backFn={() => {
+          setStep({ ...step, current: step.current - 1 });
+        }}
+        closeFn={() => {
+          navigate(`/`);
+        }}
+      />
       <ProgressBar whole={step.total} current={step.current} />
       <S.Title>
         <h2>{INFO_MESSAGE.DETAIL_TITLE}</h2>

@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { styled } from 'styled-components';
 
@@ -7,13 +8,15 @@ import { INFO_MESSAGE } from '../constants/message';
 
 import ServiceHistoryListItem from './ServiceHistoryListItem';
 
-import { historyDetailProps, historyState } from '@/recoil/atoms/applicationState';
+import { applyStepState, historyDetailProps, historyState } from '@/recoil/atoms/applicationState';
 
 const ServiceHistory = () => {
   const MAX_LENGTH = 3;
 
+  const [step, setStep] = useRecoilState(applyStepState);
   const [serviceHistory, setServiceHistory] = useRecoilState(historyState);
   const { hairServiceRecords } = serviceHistory;
+  const navigate = useNavigate();
 
   const addHistory = () => {
     if (hairServiceRecords.length < MAX_LENGTH) {
@@ -22,10 +25,19 @@ const ServiceHistory = () => {
     }
   };
 
-  const moveNext = () => {};
   return (
     <S.ServiceHistoryLayout>
-      <Header isBackBtnExist={true} isCloseBtnExist={true} title={INFO_MESSAGE.TITLE} />
+      <Header
+        title={INFO_MESSAGE.TITLE}
+        isBackBtnExist={true}
+        isCloseBtnExist={true}
+        backFn={() => {
+          setStep({ ...step, current: step.current - 1 });
+        }}
+        closeFn={() => {
+          navigate(`/`);
+        }}
+      />
       <S.Title>
         <h2>{INFO_MESSAGE.SERVICE_TITLE}</h2>
         <h3>{INFO_MESSAGE.SERVICE_SUBTITLE}</h3>
@@ -40,7 +52,13 @@ const ServiceHistory = () => {
       <S.AddHistoryBtn type="button" onClick={addHistory}>
         {INFO_MESSAGE.ADD_HISTORY}
       </S.AddHistoryBtn>
-      <Button text={INFO_MESSAGE.NEXT} isFixed={true} onClickFn={moveNext} />
+      <Button
+        text={INFO_MESSAGE.NEXT}
+        isFixed={true}
+        onClickFn={() => {
+          setStep({ ...step, current: step.current + 1 });
+        }}
+      />
     </S.ServiceHistoryLayout>
   );
 };

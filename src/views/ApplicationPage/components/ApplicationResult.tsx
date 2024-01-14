@@ -1,17 +1,18 @@
 import { useNavigate } from 'react-router-dom';
-import { useSetRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import { styled } from 'styled-components';
 
 import applyImg from '../../@common/assets/images/img_applylogo.png';
 import Button from '../../@common/components/Button';
 import Header from '../../@common/components/Header';
+import { INFO_MESSAGE } from '../constants/message';
 import { captureApplication } from '../utils/captureApplication';
 
-import { applicationCaptureImgUrlState } from '@/recoil/atoms/applicationState';
+import { applicationCaptureImgUrlState, applyStepState } from '@/recoil/atoms/applicationState';
 
 const ApplicationResult = () => {
   const setImgUrl = useSetRecoilState(applicationCaptureImgUrlState);
-
+  const [step, setStep] = useRecoilState(applyStepState);
   const navigate = useNavigate();
 
   const finalPg = () => {
@@ -21,29 +22,39 @@ const ApplicationResult = () => {
 
   return (
     <S.ApplicationResultLayout>
-      <Header isBackBtnExist={true} isCloseBtnExist={true} title="최종 확인" />
+      <Header
+        isBackBtnExist={true}
+        isCloseBtnExist={true}
+        title={INFO_MESSAGE.FINAL_TITLE}
+        backFn={() => {
+          setStep({ ...step, current: step.current - 1 });
+        }}
+        closeFn={() => {
+          navigate(`/`);
+        }}
+      />
       <S.MainContent>
         <S.ContentSection>
           <S.ContentBoxWrapper id="applcationImg">
             <S.ContentBox>
-              <h2>모델 정보</h2>
+              <h2>{INFO_MESSAGE.MODEL_INFO}</h2>
               <S.DivideBox>
                 <img alt="profile" src="src/views/@common/assets/images/img_samplemodel.png" />
                 <S.Info>
                   <li>
-                    <S.InfoTitle>이름</S.InfoTitle>
+                    <S.InfoTitle>{INFO_MESSAGE.INFO_NAME}</S.InfoTitle>
                     <S.InfoSpan>백모디</S.InfoSpan>
                   </li>
                   <li>
-                    <S.InfoTitle>성별/나이</S.InfoTitle>
+                    <S.InfoTitle>{INFO_MESSAGE.INFO_GENDER_AGE}</S.InfoTitle>
                     <S.InfoSpan>여성/25살</S.InfoSpan>
                   </li>
                   <li>
-                    <S.InfoTitle>희망 지역</S.InfoTitle>
+                    <S.InfoTitle>{INFO_MESSAGE.INFO_REGION}</S.InfoTitle>
                     <S.InfoSpan>양천구</S.InfoSpan>
                   </li>
                   <li>
-                    <S.InfoTitle>현재 기장</S.InfoTitle>
+                    <S.InfoTitle>{INFO_MESSAGE.INFO_LENGTH}</S.InfoTitle>
                     <S.InfoSpan>허리 아래</S.InfoSpan>
                   </li>
                 </S.Info>
@@ -51,7 +62,7 @@ const ApplicationResult = () => {
             </S.ContentBox>
             <S.DivideBox>
               <S.ContentBox>
-                <h2>최근 시술 이력</h2>
+                <h2>{INFO_MESSAGE.HISTORY_INFO}</h2>
                 <S.Info>
                   <li>
                     <S.InfoTitle>1개월 미만</S.InfoTitle>
@@ -68,7 +79,7 @@ const ApplicationResult = () => {
                 </S.Info>
               </S.ContentBox>
               <S.ContentBox>
-                <h2>희망 스타일</h2>
+                <h2>{INFO_MESSAGE.STYLE_INFO}</h2>
                 <S.Info>
                   <li>
                     <S.InfoTitle>커트</S.InfoTitle>
@@ -86,7 +97,7 @@ const ApplicationResult = () => {
               </S.ContentBox>
             </S.DivideBox>
             <S.ContentBox>
-              <h2>상세 희망 스타일</h2>
+              <h2>{INFO_MESSAGE.DETAILED_STYLE_INFO}</h2>
               <S.InfoText>
                 더미데이터더미데이터더미데이터더미데이터더미더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터
               </S.InfoText>
@@ -95,7 +106,7 @@ const ApplicationResult = () => {
           <img src={applyImg} alt="로고이미지" />
         </S.ContentSection>
       </S.MainContent>
-      <Button text="지원하기" isFixed={true} onClickFn={finalPg} />
+      <Button text={INFO_MESSAGE.FINAL} isFixed={true} onClickFn={finalPg} />
     </S.ApplicationResultLayout>
   );
 };

@@ -1,4 +1,5 @@
 import { useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { styled } from 'styled-components';
 
@@ -19,6 +20,7 @@ const ProfileUpload = () => {
   const [step, setStep] = useRecoilState(applyStepState);
   const [inputData, setInputData] = useRecoilState(profileState);
   const { verifyStatus } = inputData;
+  const navigate = useNavigate();
 
   const handleInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     const imgUrl = readImg(event);
@@ -27,7 +29,17 @@ const ProfileUpload = () => {
 
   return (
     <S.ProfileUploadLayout>
-      <Header title="모델 지원하기" isBackBtnExist={true} isCloseBtnExist={true} />
+      <Header
+        title="모델 지원하기"
+        isBackBtnExist={true}
+        isCloseBtnExist={true}
+        backFn={() => {
+          setStep({ ...step, current: step.current - 1 });
+        }}
+        closeFn={() => {
+          navigate(`/`);
+        }}
+      />
       <ProgressBar whole={step.total} current={step.current} />
       <S.ProfileInfoSection>
         <S.ProfilePhotoSection>
@@ -59,7 +71,9 @@ const ProfileUpload = () => {
         <S.ProfileInstaSection>
           <S.Title>
             <h2>{INFO_MESSAGE.INSTA_TITLE}</h2>
-            <span>{INFO_MESSAGE.INSTA_SUBTITLE}</span>
+            {INFO_MESSAGE.INSTA_SUBTITLE.split('<br />').map((line) => (
+              <span key={line}>{line}</span>
+            ))}
           </S.Title>
           <Input
             placeholderText={INFO_MESSAGE.INSTA_INPUT}
