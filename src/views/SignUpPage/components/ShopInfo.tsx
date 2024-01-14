@@ -4,52 +4,22 @@ import { useRecoilState } from 'recoil';
 import { styled } from 'styled-components';
 
 import { IcSearch } from '../assets/icons';
-import { days } from '../constants/days';
+import { DAYS } from '../constants/days';
 import { HELPER_MESSAGE } from '../constants/message';
 import { TOTAL_STEP } from '../constants/step';
+import { EnterProfileProp } from '../utils/enterProfileProp';
 
 import Field from './Field';
 import LimitInput from './LimitInput';
 import PostCode from './PostCode';
 
-import { shopInfoState, addressState, detailShopInfoState } from '@/recoil/atoms/signUpState';
+import { shopInfoState, addressState, detailShopInfoState, dateState } from '@/recoil/atoms/signUpState';
 import Button from '@/views/@common/components/Button';
 import Modal from '@/views/@common/components/Modal';
 import ProgressBar from '@/views/@common/components/ProgressBar';
 
-interface ShoplInfoProp {
-  setStep: React.Dispatch<React.SetStateAction<number>>;
-}
-
-const ShopInfo = ({ setStep }: ShoplInfoProp) => {
-  const [shopInfo, setShopInfo] = useRecoilState(shopInfoState);
-  const [addressInfo, setAddressInfo] = useRecoilState(addressState);
-  const [detailAddressInfo, setDetailAddressInfo] = useRecoilState(detailShopInfoState);
-
-  const saveDataToRecoil = () => {
-    setShopInfo((prevShopInfo) => ({
-      ...prevShopInfo,
-      placeTextValue,
-      Address,
-      verifyStatus: true,
-    }));
-
-    setAddressInfo((prevAddressInfo) => ({
-      ...prevAddressInfo,
-      data: Address,
-    }));
-
-    setDetailAddressInfo((prevDetailAddressInfo) => ({
-      ...prevDetailAddressInfo,
-      data: addressDetailValue,
-      verifyStatus: true,
-    }));
-  };
-
-  //이동
-  const navigate = useNavigate();
-  const [isOpenModal, setOpenModal] = useState(false);
-
+const ShopInfo = ({ setStep }: EnterProfileProp) => {
+  // 클릭시 변경되게
   const [isClicked, setIsClicked] = useState<boolean[]>(Array(6).fill(false));
   const handleDayOffClick = (index: number) => {
     setIsClicked((prevState) => {
@@ -58,6 +28,10 @@ const ShopInfo = ({ setStep }: ShoplInfoProp) => {
       return newClickedState;
     });
   };
+
+  //이동
+  const navigate = useNavigate();
+  const [isOpenModal, setOpenModal] = useState(false);
 
   //입력값 넣기
   const [Address, setAddress] = useState<string>('');
@@ -84,6 +58,35 @@ const ShopInfo = ({ setStep }: ShoplInfoProp) => {
   const handleDetialAddressText = (value: string) => {
     setAddressDetailValue(value);
     setDetailAddressInfo({ data: value, verifyStatus: true });
+  };
+
+  //recoil 적용 CTA 클릭시 저장
+  const [shopInfo, setShopInfo] = useRecoilState(shopInfoState);
+  const [addressInfo, setAddressInfo] = useRecoilState(addressState);
+  const [detailAddressInfo, setDetailAddressInfo] = useRecoilState(detailShopInfoState);
+  const [, setDateInfo] = useRecoilState(dateState);
+
+  const saveDataToRecoil = () => {
+    setShopInfo((prevShopInfo) => ({
+      ...prevShopInfo,
+      data: placeTextValue,
+      verifyStatus: true,
+    }));
+
+    setAddressInfo((prevAddressInfo) => ({
+      ...prevAddressInfo,
+      data: Address,
+    }));
+
+    setDetailAddressInfo((prevDetailAddressInfo) => ({
+      ...prevDetailAddressInfo,
+      data: addressDetailValue,
+      verifyStatus: true,
+    }));
+    setDateInfo((prevDateInfo) => ({
+      ...prevDateInfo,
+      data: [...isClicked],
+    }));
   };
 
   const isActive = Address && addressDetailValue !== '' && placeTextValue !== '';
@@ -124,7 +127,7 @@ const ShopInfo = ({ setStep }: ShoplInfoProp) => {
           <Field name="휴무" isEssential={false} />
 
           <S.DayOffWrapperBox>
-            {days.map((day, index) => (
+            {DAYS.map((day, index) => (
               <S.DayOffBox key={day} onClick={() => handleDayOffClick(index)} $isClicked={isClicked[index]}>
                 {day}
               </S.DayOffBox>

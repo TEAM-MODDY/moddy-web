@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useRecoilState } from 'recoil';
 import { styled } from 'styled-components';
 
 import { TOTAL_STEP } from '../constants/step';
@@ -6,6 +7,7 @@ import { EnterProfileProp } from '../utils/enterProfileProp';
 
 import Field from './Field';
 
+import { designerInfoState } from '@/recoil/atoms/signUpState';
 import Button from '@/views/@common/components/Button';
 import ProgressBar from '@/views/@common/components/ProgressBar';
 import TextArea200 from '@/views/@common/components/TextArea200';
@@ -17,6 +19,16 @@ const DesignerInfo = ({ setStep }: EnterProfileProp) => {
   };
   const isActive = textAreaValue !== '';
 
+  const [, setDesignerInfo] = useRecoilState(designerInfoState);
+
+  const saveDataToRecoil = () => {
+    setDesignerInfo((prevDesignerInfo) => ({
+      ...prevDesignerInfo,
+      data: textAreaValue,
+      verifyStatus: true,
+    }));
+  };
+
   return (
     <>
       <ProgressBar whole={TOTAL_STEP.DESIGNER_VIEW} current={5} />
@@ -27,7 +39,15 @@ const DesignerInfo = ({ setStep }: EnterProfileProp) => {
           onChangeFn={handleTextAreaChange}
         />
       </DesignerInfoLayout>
-      <Button text="다음" isFixed={true} onClickFn={() => setStep((prev) => prev + 1)} disabled={!isActive} />
+      <Button
+        text="다음"
+        isFixed={true}
+        onClickFn={() => {
+          setStep((prev) => prev + 1);
+          saveDataToRecoil();
+        }}
+        disabled={!isActive}
+      />
     </>
   );
 };

@@ -20,7 +20,6 @@ export interface preferRegionDataType {
 
 export interface selectDateType {
   data: boolean[];
-  verifyStatus: boolean;
 }
 
 export interface searchAddressType {
@@ -111,9 +110,7 @@ export const shopInfoState = atom<inputDataType>({
 
 export const addressState = atom<searchAddressType>({
   key: 'addressInfo',
-  default: {
-    data: '',
-  },
+  default: { data: '' },
 });
 
 export const detailShopInfoState = atom<inputDataType>({
@@ -126,10 +123,7 @@ export const detailShopInfoState = atom<inputDataType>({
 
 export const dateState = atom<selectDateType>({
   key: 'dateInfo',
-  default: {
-    data: [],
-    verifyStatus: false,
-  },
+  default: { data: [] },
 });
 
 export const profilePicture = atom<inputDataType>({
