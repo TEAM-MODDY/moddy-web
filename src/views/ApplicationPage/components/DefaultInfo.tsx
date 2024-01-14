@@ -146,15 +146,11 @@ const S = {
     display: flex;
     flex-direction: column;
     align-items: center;
-    position: relative;
 
     width: 100%;
     padding-bottom: 2.6rem;
 
     & > hr {
-      position: absolute;
-      top: 18.2rem;
-
       width: 100%;
       height: 4px;
       border: none;
@@ -207,7 +203,6 @@ const S = {
 
     width: 100%;
     margin-top: 2.4rem;
-    padding: 0 1.6rem;
 
     & > p {
       display: flex;
