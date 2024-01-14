@@ -22,13 +22,11 @@ interface ShoplInfoProp {
 }
 
 const ShopInfo = ({ setStep }: ShoplInfoProp) => {
-  const [, setShopInfo] = useRecoilState(shopInfoState);
-  const [, setAddressInfo] = useRecoilState(addressState);
-  const [, setDetailAddressInfo] = useRecoilState(detailShopInfoState);
+  const [shopInfo, setShopInfo] = useRecoilState(shopInfoState);
+  const [addressInfo, setAddressInfo] = useRecoilState(addressState);
+  const [detailAddressInfo, setDetailAddressInfo] = useRecoilState(detailShopInfoState);
 
   const saveDataToRecoil = () => {
-    console.log('SaveData');
-
     setShopInfo((prevShopInfo) => ({
       ...prevShopInfo,
       placeTextValue,
@@ -39,7 +37,6 @@ const ShopInfo = ({ setStep }: ShoplInfoProp) => {
     setAddressInfo((prevAddressInfo) => ({
       ...prevAddressInfo,
       data: Address,
-      verifyStatus: true,
     }));
 
     setDetailAddressInfo((prevDetailAddressInfo) => ({
@@ -67,6 +64,7 @@ const ShopInfo = ({ setStep }: ShoplInfoProp) => {
 
   const handleInputAddress = (value: string) => {
     setAddress(value);
+    setAddressInfo({ data: value });
   };
 
   const [isAddressModal, setIsAddressModal] = useState(false);
@@ -79,12 +77,13 @@ const ShopInfo = ({ setStep }: ShoplInfoProp) => {
 
   const handlePlaceText = (value: string) => {
     setPlaceTextValue(value);
+    setShopInfo({ data: value, verifyStatus: true });
   };
 
   const [addressDetailValue, setAddressDetailValue] = useState('');
-  const handleAddressText = (value: string) => {
+  const handleDetialAddressText = (value: string) => {
     setAddressDetailValue(value);
-    setAddressInfo({ data: value, verifyStatus: false });
+    setDetailAddressInfo({ data: value, verifyStatus: true });
   };
 
   const isActive = Address && addressDetailValue !== '' && placeTextValue !== '';
@@ -101,14 +100,14 @@ const ShopInfo = ({ setStep }: ShoplInfoProp) => {
 
           <LimitInput
             placeholderText={HELPER_MESSAGE.INPUT_SHOP_NAME}
-            initialValue={placeTextValue}
+            initialValue={shopInfo.data}
             onChangeFn={handlePlaceText}
             maxLength={25}
           />
           <Field name="주소" isEssential={true} />
           <S.AddressBox onClick={handleOpenAddressModal}>
             {Address ? (
-              <S.InputAddress>{Address}</S.InputAddress>
+              <S.InputAddress>{addressInfo.data}</S.InputAddress>
             ) : (
               <S.DefaultText>{HELPER_MESSAGE.INPUT_ADDRESS}</S.DefaultText>
             )}
@@ -117,7 +116,8 @@ const ShopInfo = ({ setStep }: ShoplInfoProp) => {
           </S.AddressBox>
           <LimitInput
             placeholderText={HELPER_MESSAGE.INPUT_DETAIL_ADRESS}
-            onChangeFn={handleAddressText}
+            initialValue={detailAddressInfo.data}
+            onChangeFn={handleDetialAddressText}
             maxLength={25}
           />
 

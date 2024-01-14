@@ -23,6 +23,10 @@ export interface selectDateType {
   verifyStatus: boolean;
 }
 
+export interface searchAddressType {
+  data: string;
+}
+
 const { persistAtom } = recoilPersist({
   key: '사용자 타입',
   storage: sessionStorage,
@@ -105,11 +109,10 @@ export const shopInfoState = atom<inputDataType>({
   },
 });
 
-export const addressState = atom<inputDataType>({
+export const addressState = atom<searchAddressType>({
   key: 'addressInfo',
   default: {
     data: '',
-    verifyStatus: false,
   },
 });
 
