@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
 
 import Button from '../../@common/components/Button';
@@ -12,6 +12,9 @@ import { CONDITION_DATA } from '../constants/CONDITION_DATA';
 import Modal from '@/views/@common/components/Modal';
 
 const ModelOfferPage = () => {
+  const location = useLocation();
+  const applicationId = location.state.applicationId;
+  console.log(applicationId);
   //희망 제안 조건 클릭시 활성화 기능
   const [isClicked, setIsClicked] = useState<boolean[]>([true, true, true, false, false, false]);
   const handleConditionClick = (index: number) => {
