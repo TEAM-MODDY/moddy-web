@@ -113,6 +113,10 @@ export const reset = css`
     display: none;
   }
 
+  html {
+    background: ${({ theme }) => theme.colors.moddy_wt};
+  }
+
   #root {
     background: ${({ theme }) => theme.colors.moddy_wt};
   }

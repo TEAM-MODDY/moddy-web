@@ -14,4 +14,4 @@ export interface UserResponse {
   code: number;
   message: string;
   data: UserProps;
-
+}

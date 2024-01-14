@@ -1,32 +1,36 @@
 import { useState } from 'react';
 import { styled } from 'styled-components';
 
-import { IcCheckBlue } from '../assets/icons';
+import { IcCheckBlue } from '@/views/@common/assets/icons';
 
 interface InputProps {
   placeholderText: string;
   initialValue?: string;
   onChangeFn: (value: string) => void;
+  maxLength?: number;
 }
 
-const Input = ({ placeholderText, initialValue, onChangeFn }: InputProps) => {
-  const [name, setName] = useState(initialValue ? initialValue : '');
+const LimitInput = ({ placeholderText, initialValue, onChangeFn, maxLength }: InputProps) => {
+  const [text, setText] = useState(initialValue ? initialValue : '');
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    let value = e.target.value;
+
+    if (maxLength && value.length >= maxLength) {
+      value = text.slice(0, maxLength);
+    }
+    setText(value);
+    onChangeFn(value);
+  };
+
   return (
     <S.InputLayout>
-      <S.Input
-        placeholder={placeholderText}
-        value={name}
-        onChange={(e) => {
-          setName(e.target.value);
-          onChangeFn(e.target.value);
-        }}
-      />
-      {name !== '' && <IcCheckBlue />}
+      <S.Input placeholder={placeholderText} value={text} onChange={handleInputChange} />
+      {text !== '' && <IcCheckBlue />}
     </S.InputLayout>
   );
 };
 
-export default Input;
+export default LimitInput;
 
 const S = {
   InputLayout: styled.div`

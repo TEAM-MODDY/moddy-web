@@ -1,15 +1,19 @@
 import { styled } from 'styled-components';
 
 import ImgPropLogo from '../assets/images/img_proplogo.png';
+import useGetOfferModel from '../hooks/useGetOfferModel';
 
 import { IcBookmark, IcPin } from '@/views/OfferInfoPage/assets/icons';
 import ConditionContentBox from '@/views/OfferInfoPage/components/ConditionContentBox';
 import { CONDITION_DATA } from '@/views/OfferInfoPage/constants/CONDITION_DATA';
-import { OFFER_DATA } from '@/views/OfferInfoPage/constants/OFFER_DATA';
 
 const OfferDetailSection = () => {
-  const DesingerInfo = OFFER_DATA.data.designerInfo;
-  const OfferDetail = OFFER_DATA.data.offerDetail;
+  const { data } = useGetOfferModel();
+
+  const { naverPlaceUrl, gender, dayoffs, shopAddress, shopDetailAddress } = data?.designerInfo || {};
+
+  const { preferStyle, designerOfferDetail, modelApplicationDetail, preferOfferConditions } = data?.styleDetail || {};
+
   return (
     <>
       <S.OfferDetailLayout>
@@ -17,13 +21,13 @@ const OfferDetailSection = () => {
           <IcBookmark />
           <S.DetailMainTitleBox>
             <h2>요청 스타일</h2>
-            <h1>{OfferDetail.preferStyle.join(', ')}</h1>
+            <h1>{preferStyle?.join(', ')}</h1>
           </S.DetailMainTitleBox>
           <S.DesignContentBox>
             <h1>디자이너 상세 제안</h1>
-            <p>{OfferDetail.designerOfferDetail}</p>
+            <p>{designerOfferDetail}</p>
             <h1>상세 희망 스타일</h1>
-            <p>{OfferDetail.modelApplicationDetail}</p>
+            <p>{modelApplicationDetail}</p>
           </S.DesignContentBox>
 
           <S.DetailMainTitleBox>
@@ -31,18 +35,18 @@ const OfferDetailSection = () => {
           </S.DetailMainTitleBox>
           <S.DetailContentBox>
             <h2>성별</h2>
-            <h3>{DesingerInfo.gender}</h3>
+            <h3>{gender === 'FEMALE' ? '여성' : gender === 'MALE' ? '남성' : gender}</h3>
           </S.DetailContentBox>
           <S.DetailContentBox>
             <h2>휴무일</h2>
-            <h3>{DesingerInfo.dayoffs.join(', ')}</h3>
+            <h3>{dayoffs && dayoffs.length > 0 ? dayoffs.join(', ') : '없음'}</h3>
           </S.DetailContentBox>
           <S.DetailContentBox>
             <h2>주소</h2>
             <div>
-              <h3>{DesingerInfo.shopAddress}</h3>
-              <h3>{DesingerInfo.shopDetailAddress}</h3>
-              <a href={DesingerInfo.naverPlaceUrl} target="_blank" rel="noreferrer">
+              <h3>{shopAddress}</h3>
+              <h3>{shopDetailAddress}</h3>
+              <a href={naverPlaceUrl} target="_blank" rel="noreferrer">
                 <button type="button">
                   <IcPin />
                   지도
@@ -61,7 +65,7 @@ const OfferDetailSection = () => {
                 icon={data.icon}
                 activeIcon={data.activeIcon}
                 condition={data.condition}
-                preferConditions={OfferDetail.preferOfferConditions}
+                preferConditions={preferOfferConditions}
                 index={index}
               />
             ))}

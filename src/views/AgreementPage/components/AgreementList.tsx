@@ -3,15 +3,12 @@ import styled from 'styled-components';
 
 import AgreementItem from './AgreementItem';
 
-import { agreementState } from '@/recoil/atoms/signUpState';
+import { agreementState } from '@/recoil/atoms/agreementState';
+import { marketingState } from '@/recoil/atoms/signUpState';
 
-interface AgreementListProps {
-  isChecked: boolean[];
-  setChecked: React.Dispatch<React.SetStateAction<boolean[]>>;
-}
-
-const AgreementList = ({ isChecked, setChecked }: AgreementListProps) => {
-  const [, setMarketingAgree] = useRecoilState(agreementState);
+const AgreementList = () => {
+  const [, setMarketingAgree] = useRecoilState(marketingState);
+  const [isChecked, setChecked] = useRecoilState<boolean[]>(agreementState);
 
   const handleCheck = (idx: number) => {
     if (idx === 0) {

@@ -4,6 +4,16 @@ export const HELPER_MESSAGE = {
   VERIFY_PHONE_NUMBER: '본인 확인을 위해 휴대폰 인증을 진행해주세요',
   USER_TYPE_CHANGE_UNAVAILABLE: '한 번 선택하면 변경할 수 없어요',
   NOW_ONLY_SEOUL_AVAILABE: '지금은 서울특별시에만 운영되고 있어요',
+  INPUT_OPENCHAT_LINK: '오픈채팅방 링크를 입력해주세요',
+  CREATE_OPENCHAT_LINK: '모델과의 소통을 위해 카카오톡 오픈채팅방을 생성해주세요',
+  INPUT_SHOP_NAME: '소속되어 있는 헤어샵(지점명)을 입력해주세요',
+  INPUT_DETAIL_ADRESS: '상세 주소를 입력해주세요',
+  INPUT_ADDRESS: '헤어샵 주소를 입력해주세요',
+  INPUT_INSTAGRAM_LINK: '인스타그램 링크를 입력해주세요',
+  INPUT_NAVERPLACE_LINK: '네이버 플레이스 링크를 입력해주세요',
+  PREFER_INPUT_PORTFOLIO: '디자이너님의 스타일 파악을 위해 입력을 권장드려요',
+  VIEW_IMAGE_TO_USER: '모델 제안시 고객에게 보이는 사진이에요',
+  ENTER_WITH_VALID_NAME: '모디에 등록한 디자이너명으로 입장해주세요',
 };
 
 export const TOAST_MESSAGE = {

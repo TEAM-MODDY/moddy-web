@@ -259,7 +259,7 @@ const BackGroundBox = styled.div`
   left: 0;
 
   width: 100vw;
-  height: 100vh;
+  height: 100dvh;
 `;
 const S = {
   SelectPreferRegionLayout,
