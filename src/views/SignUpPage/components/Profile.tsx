@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { styled } from 'styled-components';
@@ -11,7 +11,7 @@ import Field from './Field';
 import LimitInput from './LimitInput';
 import ProfileUpload from './ProfileUpload';
 
-import { instagramLinkState, naverPlaceState } from '@/recoil/atoms/signUpState';
+import { instagramLinkState, naverPlaceState, profileImgState } from '@/recoil/atoms/signUpState';
 import Button from '@/views/@common/components/Button';
 import Modal from '@/views/@common/components/Modal';
 import ProgressBar from '@/views/@common/components/ProgressBar';
@@ -26,7 +26,7 @@ const Profile = ({ setStep }: EnterProfileProp) => {
   const [isOpenModal, setOpenModal] = useState(false);
   const [InstaIDValue, setInstaIdValue] = useState('');
   const [NaverLinkValue, setNaverLinkValue] = useState('');
-  const isActive = InstaIDValue && NaverLinkValue !== '' && isImageUploaded;
+  const [imageUrlValue, setImageUrlValue] = useState('');
 
   //넣어주기
   const handleInstaGramText = (value: string) => {
@@ -37,10 +37,15 @@ const Profile = ({ setStep }: EnterProfileProp) => {
     setNaverLinkValue(value);
     setNaverPlaceInfo({ data: value, verifyStatus: true });
   };
+  const handleProfileImageUrl = (value: string) => {
+    setImageUrlValue(value);
+    setProfileImgInfo({ data: value });
+  };
 
   //Recoil
   const [instaIdInfo, setInstaIdInfo] = useRecoilState(instagramLinkState);
   const [naverPlaceInfo, setNaverPlaceInfo] = useRecoilState(naverPlaceState);
+  const [profileImgInfo, setProfileImgInfo] = useRecoilState(profileImgState);
 
   const saveDataToRecoil = () => {
     setInstaIdInfo((prevInstaIdInfo) => ({
@@ -54,7 +59,29 @@ const Profile = ({ setStep }: EnterProfileProp) => {
       data: NaverLinkValue,
       verifyStatus: true,
     }));
+
+    setProfileImgInfo((prevProfileImgInfo) => ({
+      ...prevProfileImgInfo,
+      data: imageUrlValue,
+    }));
   };
+
+  useEffect(() => {
+    const applyChanges = async () => {
+      if (profileImgInfo) {
+        {
+          const inputImgUrl = profileImgInfo.data;
+          handleProfileImageUrl(profileImgInfo.data);
+          console.log(inputImgUrl);
+        }
+      }
+    };
+
+    applyChanges();
+  }, []);
+
+  const isActive = instaIdInfo.data && naverPlaceInfo.data !== '' && isImageUploaded;
+
   return (
     <>
       <ProgressBar whole={TOTAL_STEP.DESIGNER_VIEW} current={4} />
@@ -88,7 +115,7 @@ const Profile = ({ setStep }: EnterProfileProp) => {
         disabled={!isActive}
         onClickFn={() => {
           setStep((prev) => prev + 1);
-          saveDataToRecoil;
+          saveDataToRecoil();
         }}
       />
       {isOpenModal && (

@@ -26,6 +26,10 @@ export interface searchAddressType {
   data: string;
 }
 
+export interface inputImgType {
+  data: string;
+}
+
 const { persistAtom } = recoilPersist({
   key: '사용자 타입',
   storage: sessionStorage,
@@ -123,15 +127,14 @@ export const detailShopInfoState = atom<inputDataType>({
 
 export const dateState = atom<selectDateType>({
   key: 'dateInfo',
-  default: { data: [] },
+  default: {
+    data: [],
+  },
 });
 
-export const profilePicture = atom<inputDataType>({
+export const profileImgState = atom<inputImgType>({
   key: 'profilePictureInfo',
-  default: {
-    data: '',
-    verifyStatus: false,
-  },
+  default: { data: '' },
 });
 
 export const instagramLinkState = atom<inputDataType>({

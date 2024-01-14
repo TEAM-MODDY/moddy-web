@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { styled } from 'styled-components';
@@ -22,10 +22,10 @@ const ShopInfo = ({ setStep }: EnterProfileProp) => {
   // 클릭시 변경되게
   const [isClicked, setIsClicked] = useState<boolean[]>(Array(6).fill(false));
   const handleDayOffClick = (index: number) => {
-    setIsClicked((prevState) => {
-      const newClickedState = [...prevState];
-      newClickedState[index] = !prevState[index];
-      return newClickedState;
+    setIsClicked((prevIsClicked) => {
+      const updatedData = prevIsClicked.map((item, idx) => (idx === index ? !item : item));
+      setClickedDateInfo({ data: updatedData });
+      return updatedData;
     });
   };
 
@@ -38,7 +38,10 @@ const ShopInfo = ({ setStep }: EnterProfileProp) => {
 
   const handleInputAddress = (value: string) => {
     setAddress(value);
-    setAddressInfo({ data: value });
+    setAddressInfo((prevAddressInfo) => ({
+      ...prevAddressInfo,
+      data: value,
+    }));
   };
 
   const [isAddressModal, setIsAddressModal] = useState(false);
@@ -64,7 +67,7 @@ const ShopInfo = ({ setStep }: EnterProfileProp) => {
   const [shopInfo, setShopInfo] = useRecoilState(shopInfoState);
   const [addressInfo, setAddressInfo] = useRecoilState(addressState);
   const [detailAddressInfo, setDetailAddressInfo] = useRecoilState(detailShopInfoState);
-  const [, setDateInfo] = useRecoilState(dateState);
+  const [clickedDateInfo, setClickedDateInfo] = useRecoilState(dateState);
 
   const saveDataToRecoil = () => {
     setShopInfo((prevShopInfo) => ({
@@ -83,68 +86,90 @@ const ShopInfo = ({ setStep }: EnterProfileProp) => {
       data: addressDetailValue,
       verifyStatus: true,
     }));
-    setDateInfo((prevDateInfo) => ({
-      ...prevDateInfo,
-      data: [...isClicked],
+
+    setClickedDateInfo((prevClickedInfo) => ({
+      ...prevClickedInfo,
+      data: isClicked,
     }));
   };
 
-  const isActive = Address && addressDetailValue !== '' && placeTextValue !== '';
+  const isActive = Address && shopInfo.data !== '' && detailAddressInfo.data;
+
+  useEffect(() => {
+    const applyChanges = async () => {
+      if (clickedDateInfo) {
+        const clickedIndex = clickedDateInfo.data
+          .map((value, index) => (value ? index : undefined))
+          .filter((index) => index !== undefined) as number[];
+
+        clickedIndex.forEach((index) => {
+          return handleDayOffClick(index);
+        });
+      }
+      if (addressInfo) {
+        {
+          const inputAddress = addressInfo.data;
+          handleInputAddress(inputAddress);
+        }
+      }
+    };
+
+    applyChanges();
+  }, []);
 
   return (
     <>
       <S.PostCodeBox>
         {isAddressModal && <PostCode setIsAddressModal={setIsAddressModal} setAddress={handleInputAddress} />}
       </S.PostCodeBox>
-      <>
-        <ProgressBar whole={TOTAL_STEP.DESIGNER_VIEW} current={3} />
-        <S.ShopInfoLayout>
-          <Field name="소속" isEssential={true} />
 
-          <LimitInput
-            placeholderText={HELPER_MESSAGE.INPUT_SHOP_NAME}
-            initialValue={shopInfo.data}
-            onChangeFn={handlePlaceText}
-            maxLength={25}
-          />
-          <Field name="주소" isEssential={true} />
-          <S.AddressBox onClick={handleOpenAddressModal}>
-            {Address ? (
-              <S.InputAddress>{addressInfo.data}</S.InputAddress>
-            ) : (
-              <S.DefaultText>{HELPER_MESSAGE.INPUT_ADDRESS}</S.DefaultText>
-            )}
+      <ProgressBar whole={TOTAL_STEP.DESIGNER_VIEW} current={3} />
+      <S.ShopInfoLayout>
+        <Field name="소속" isEssential={true} />
 
-            <IcSearch />
-          </S.AddressBox>
-          <LimitInput
-            placeholderText={HELPER_MESSAGE.INPUT_DETAIL_ADRESS}
-            initialValue={detailAddressInfo.data}
-            onChangeFn={handleDetialAddressText}
-            maxLength={25}
-          />
-
-          <Field name="휴무" isEssential={false} />
-
-          <S.DayOffWrapperBox>
-            {DAYS.map((day, index) => (
-              <S.DayOffBox key={day} onClick={() => handleDayOffClick(index)} $isClicked={isClicked[index]}>
-                {day}
-              </S.DayOffBox>
-            ))}
-          </S.DayOffWrapperBox>
-        </S.ShopInfoLayout>
-        <Button
-          text="다음"
-          isFixed={true}
-          disabled={!isActive}
-          onClickFn={() => {
-            setStep((prev) => prev + 1);
-            setOpenModal(true);
-            saveDataToRecoil();
-          }}
+        <LimitInput
+          placeholderText={HELPER_MESSAGE.INPUT_SHOP_NAME}
+          initialValue={shopInfo.data}
+          onChangeFn={handlePlaceText}
+          maxLength={25}
         />
-      </>
+        <Field name="주소" isEssential={true} />
+        <S.AddressBox onClick={handleOpenAddressModal}>
+          {Address ? (
+            <S.InputAddressBox>{addressInfo.data}</S.InputAddressBox>
+          ) : (
+            <S.DefaultText>{HELPER_MESSAGE.INPUT_ADDRESS}</S.DefaultText>
+          )}
+
+          <IcSearch />
+        </S.AddressBox>
+        <LimitInput
+          placeholderText={HELPER_MESSAGE.INPUT_DETAIL_ADRESS}
+          initialValue={detailAddressInfo.data}
+          onChangeFn={handleDetialAddressText}
+          maxLength={25}
+        />
+
+        <Field name="휴무" isEssential={false} />
+
+        <S.DayOffWrapperBox>
+          {DAYS.map((day, index) => (
+            <S.DayOffBox key={day} onClick={() => handleDayOffClick(index)} $isClicked={isClicked[index]}>
+              {day}
+            </S.DayOffBox>
+          ))}
+        </S.DayOffWrapperBox>
+      </S.ShopInfoLayout>
+      <Button
+        text="다음"
+        isFixed={true}
+        disabled={!isActive}
+        onClickFn={() => {
+          setStep((prev) => prev + 1);
+          setOpenModal(true);
+          saveDataToRecoil();
+        }}
+      />
 
       {isOpenModal && (
         <Modal
@@ -159,6 +184,7 @@ const ShopInfo = ({ setStep }: EnterProfileProp) => {
     </>
   );
 };
+
 export default ShopInfo;
 
 const S = {
@@ -212,9 +238,11 @@ const S = {
     border-color: ${({ theme }) => theme.colors.moddy_gray20};
     border-radius: 8px;
   `,
-  InputAddress: styled.p`
+  InputAddressBox: styled.div`
     color: ${({ theme }) => theme.colors.moddy_bk};
     ${({ theme }) => theme.fonts.Body02};
+
+    text-decoration: none;
   `,
   DefaultText: styled.p`
     color: ${({ theme }) => theme.colors.moddy_gray50};

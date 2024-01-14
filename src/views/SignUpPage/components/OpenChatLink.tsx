@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
 import { styled } from 'styled-components';
 
 import { HELPER_MESSAGE } from '../constants/message';
@@ -7,6 +8,7 @@ import { TOTAL_STEP } from '../constants/step';
 
 import Field from './Field';
 
+import { openLinkState } from '@/recoil/atoms/signUpState';
 import { IcInformation } from '@/views/@common/assets/icons';
 import Button from '@/views/@common/components/Button';
 import Input from '@/views/@common/components/Input';
@@ -14,23 +16,32 @@ import Modal from '@/views/@common/components/Modal';
 import ProgressBar from '@/views/@common/components/ProgressBar';
 
 const OpenChatLink = () => {
+  const [textAreaValue, setTextAreaValue] = useState('');
+  const handleTextAreaChange = (value: string) => {
+    setTextAreaValue(value);
+  };
+  const isActive = textAreaValue !== '';
+
+  const [, setLinkInfo] = useRecoilState(openLinkState);
+
+  const saveDataToRecoil = () => {
+    setLinkInfo((prevOpenLink) => ({
+      ...prevOpenLink,
+      data: textAreaValue,
+      verifyStatus: true,
+    }));
+  };
   const navigate = useNavigate();
 
   const [isOpenModal, setOpenModal] = useState(false);
-  const [textAreaValue, setTextAreaValue] = useState('');
 
-  const isActive = textAreaValue !== '';
-
-  const handleText = (value: string) => {
-    setTextAreaValue(value);
-  };
   return (
     <>
       <ProgressBar whole={TOTAL_STEP.DESIGNER_VIEW} current={6} />
       <S.OpenChatLinkLayout>
         <Field name="1:1 오픈채팅방 링크" isEssential={true} />
 
-        <Input placeholderText={HELPER_MESSAGE.INPUT_OPENCHAT_LINK} onChangeFn={handleText} />
+        <Input placeholderText={HELPER_MESSAGE.INPUT_OPENCHAT_LINK} onChangeFn={handleTextAreaChange} />
         <S.HelperBox>
           <IcInformation />
           <S.HelperSpan>{HELPER_MESSAGE.INPUT_DETAIL_ADRESS}</S.HelperSpan>
@@ -42,6 +53,7 @@ const OpenChatLink = () => {
         disabled={!isActive}
         onClickFn={() => {
           setOpenModal(true);
+          saveDataToRecoil;
         }}
       />
       {isOpenModal && (
