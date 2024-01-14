@@ -1,17 +1,18 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { styled } from 'styled-components';
 
 import { APPLY_STATUS } from '../constants/applyStatus';
-import { ModelResponse } from '../hooks/type';
+import { DesignerResponse, ModelResponse } from '../hooks/type';
 
-import ApplicationCard from './ApplicationCard';
+import { OfferCard, ApplicationCard } from './Card';
 
-interface ReceivedOfferProp {
-  data: ModelResponse;
+interface UserContentsProps {
+  data: DesignerResponse | ModelResponse | undefined;
   setPage: React.Dispatch<React.SetStateAction<number>>;
 }
-const ReceivedOffer = (props: ReceivedOfferProp) => {
+
+const ReceivedOffer = (props: UserContentsProps) => {
   const { data, setPage } = props;
   const [ref, inView] = useInView();
 
@@ -25,7 +26,7 @@ const ReceivedOffer = (props: ReceivedOfferProp) => {
       {data?.status === APPLY_STATUS.RECEIVED ? (
         <S.ReceivedOfferBox>
           {data.offers.map((offer, index) => (
-            <ApplicationCard
+            <OfferCard
               key={index}
               offerId={offer.offerId}
               name={offer.name}
@@ -45,11 +46,42 @@ const ReceivedOffer = (props: ReceivedOfferProp) => {
           </S.HelperTextSpan>
         </S.ReceivedOfferEmptyBox>
       )}
-      <div ref={ref}></div>
+      {data && data.length > 4 && <div ref={ref}></div>}
     </S.ReceivedOfferLayout>
   );
 };
-export default ReceivedOffer;
+
+const ReceivedApplication = (props: UserContentsProps) => {
+  const { data, setPage } = props;
+  const [ref, inView] = useInView();
+  console.log(data);
+
+  useEffect(() => {
+    inView && setPage((prev) => prev + 1);
+  }, [inView]);
+
+  return (
+    <S.ReceivedOfferLayout>
+      <S.TitleSpan>도착한 지원서</S.TitleSpan>
+      <S.ReceivedOfferBox>
+        {data.hairModelApplications.map((application, index) => (
+          <ApplicationCard
+            key={index}
+            applicationId={application.applicationId}
+            name={application.name}
+            age={application.age}
+            imgUrl={application.imgUrl}
+            gender={application.gender}
+            preferHairStyles={application.preferHairStyles}
+          />
+        ))}
+      </S.ReceivedOfferBox>
+      {data && data.length > 4 && <div ref={ref}></div>}
+    </S.ReceivedOfferLayout>
+  );
+};
+
+export { ReceivedOffer, ReceivedApplication };
 
 const ReceivedOfferLayout = styled.div`
   padding: 0 1.6rem 4rem;
