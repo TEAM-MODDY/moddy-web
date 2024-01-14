@@ -3,28 +3,55 @@ import { useRecoilValue } from 'recoil';
 import { styled } from 'styled-components';
 
 import Banner from '../views/MainPage/components/Banner';
-import Contents from '../views/MainPage/components/Contents';
-import ReceivedOffer from '../views/MainPage/components/ReceivedOffer';
+import Contents from '../views/MainPage/components/GuestContents';
 import StatusBarForiOS from '../views/MainPage/components/StatusBarForiOS';
 import TopSheet from '../views/MainPage/components/TopSheet';
+import { ReceivedOffer, ReceivedApplication } from '../views/MainPage/components/UserContents';
 
 import { userTypeState } from '@/recoil/atoms/signUpState';
-import useGetModel from '@/views/MainPage/hooks/useGetModel';
+import { USER_TYPE } from '@/views/@common/constants/userType';
+import useGetMain from '@/views/MainPage/hooks/useGetMain';
 
 const MainPage = () => {
-  const userType = useRecoilValue(userTypeState);
-  // const userType = 'model';
+  // const userType = useRecoilValue(userTypeState);
+  const userType = USER_TYPE.DESIGNER;
 
   const [page, setPage] = useState(1);
-  const { data } = useGetModel({ page: page });
+  const { data } = useGetMain({ page: page });
 
+  const MainContents = () => {
+    switch (userType) {
+      case USER_TYPE.GUEST:
+        return <Contents />;
+      case USER_TYPE.DESIGNER:
+        return <ReceivedApplication data={data} setPage={setPage} />;
+      case USER_TYPE.MODEL:
+        return <ReceivedOffer data={data} setPage={setPage} />;
+      default:
+        return null;
+    }
+  };
   return (
     <>
       <MainPageLayout>
         <StatusBarForiOS />
-        <TopSheet applyType={data?.status} name={data?.userName} />
+        {data && (
+          <TopSheet
+            userType={userType}
+            applyType={userType === USER_TYPE.MODEL && 'status' in data ? data.status : undefined}
+            name={
+              userType === USER_TYPE.DESIGNER
+                ? 'name' in data
+                  ? data.name
+                  : undefined
+                : 'userName' in data
+                  ? data.userName
+                  : undefined
+            }
+          />
+        )}
         <Banner />
-        {!userType ? <Contents /> : data && <ReceivedOffer data={data} setPage={setPage} />}
+        {data && <MainContents />}
       </MainPageLayout>
     </>
   );
