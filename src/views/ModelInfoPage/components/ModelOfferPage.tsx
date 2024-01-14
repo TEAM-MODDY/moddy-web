@@ -8,13 +8,14 @@ import TextArea200 from '../../@common/components/TextArea200';
 import ConditionBox from '../../ModelInfoPage/components/ConditionBox';
 import TitleBox from '../../ModelInfoPage/components/TitleBox';
 import { CONDITION_DATA } from '../constants/CONDITION_DATA';
+import usePostApplication from '../hooks/usePostApplication';
 
 import Modal from '@/views/@common/components/Modal';
 
 const ModelOfferPage = () => {
   const location = useLocation();
   const applicationId = location.state.applicationId;
-  console.log(applicationId);
+
   //희망 제안 조건 클릭시 활성화 기능
   const [isClicked, setIsClicked] = useState<boolean[]>([true, true, true, false, false, false]);
   const handleConditionClick = (index: number) => {
@@ -32,10 +33,12 @@ const ModelOfferPage = () => {
 
   const isActive = isClicked.some((clicked) => clicked) && textAreaValue !== '';
 
+  const postApplication = usePostApplication(applicationId, textAreaValue, isClicked);
+
   //페이지 이동
   const navigate = useNavigate();
   const handleClickConfirm = () => {
-    navigate('/model-info/model-offer/sent-complete');
+    postApplication();
   };
 
   //모달 계속하기
