@@ -1,13 +1,10 @@
 import { useNavigate } from 'react-router-dom';
-import { useRecoilValue } from 'recoil';
 import { styled } from 'styled-components';
 
 import { ImgNew } from '../assets/images';
-import { CONDITION } from '../constants/tag';
+import { CONDITION, PREFER_HAIR_STYLE } from '../constants/tag';
 
-import { userTypeState } from '@/recoil/atoms/signUpState';
-
-interface ApplicationCardProps {
+interface OfferCardProps {
   offerId: number;
   name: string;
   shopName: string;
@@ -15,10 +12,19 @@ interface ApplicationCardProps {
   isClicked: boolean;
   conditions: string[];
 }
-const ApplicationCard = (props: ApplicationCardProps) => {
+
+interface ApplicationCardProps {
+  applicationId: number;
+  name: string;
+  age: number;
+  imgUrl: string;
+  gender: string;
+  preferHairStyles: string[];
+}
+
+const OfferCard = (props: OfferCardProps) => {
   const navigate = useNavigate();
   const { offerId, name, shopName, imgUrl, isClicked, conditions } = props;
-  // const userType = useRecoilValue(userTypeState); 디자이너 메인뷰에서 쓸 거
   return (
     <S.ApplicationCardLayout onClick={() => navigate('/offer-info', { state: offerId })}>
       {isClicked ? null : (
@@ -43,7 +49,35 @@ const ApplicationCard = (props: ApplicationCardProps) => {
     </S.ApplicationCardLayout>
   );
 };
-export default ApplicationCard;
+
+const ApplicationCard = (props: ApplicationCardProps) => {
+  const navigate = useNavigate();
+  const { applicationId, name, age, imgUrl, gender, preferHairStyles } = props;
+  return (
+    <S.ApplicationCardLayout onClick={() => navigate('/model-info', { state: applicationId })}>
+      <S.ProfileImageBox>
+        <img src={imgUrl} alt="프로필 이미지" />
+      </S.ProfileImageBox>
+      <S.ModelInfoBox>
+        <S.PersonalInfoBox>
+          <S.NameSpan>{name.slice(0, 5)}</S.NameSpan>
+          <S.AgeGenderSpan>
+            {age}세 / {gender}
+          </S.AgeGenderSpan>
+        </S.PersonalInfoBox>
+        <S.PreferStyleWrapperBox>
+          {preferHairStyles.map((item, index) => (
+            <S.PreferStyleTagBox key={index}>
+              {PREFER_HAIR_STYLE[item as keyof typeof PREFER_HAIR_STYLE]}
+            </S.PreferStyleTagBox>
+          ))}
+        </S.PreferStyleWrapperBox>
+      </S.ModelInfoBox>
+    </S.ApplicationCardLayout>
+  );
+};
+
+export { OfferCard, ApplicationCard };
 
 const ApplicationCardLayout = styled.button`
   flex-grow: 1;
