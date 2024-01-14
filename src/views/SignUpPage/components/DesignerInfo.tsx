@@ -1,12 +1,12 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRecoilState } from 'recoil';
 import { styled } from 'styled-components';
 
 import { TOTAL_STEP } from '../constants/step';
 import { EnterProfileProp } from '../utils/enterProfileProp';
 
+import DesignerTextArea from './DesignerTextArea';
 import Field from './Field';
-import IntroductionTextArea from './IntroductionTextArea';
 
 import { designerInfoState } from '@/recoil/atoms/signUpState';
 import Button from '@/views/@common/components/Button';
@@ -16,6 +16,7 @@ const DesignerInfo = ({ setStep }: EnterProfileProp) => {
   const [textAreaValue, setTextAreaValue] = useState('');
   const handleTextAreaChange = (value: string) => {
     setTextAreaValue(value);
+    setDesignerInfo({ data: value, verifyStatus: true });
   };
   const isActive = textAreaValue !== '';
 
@@ -29,15 +30,28 @@ const DesignerInfo = ({ setStep }: EnterProfileProp) => {
     }));
   };
 
+  useEffect(() => {
+    const applyChanges = async () => {
+      if (designerInfo) {
+        {
+          const inputInfo = designerInfo.data;
+          setTextAreaValue(inputInfo);
+        }
+      }
+    };
+
+    applyChanges();
+  }, []);
+
   return (
     <>
       <ProgressBar whole={TOTAL_STEP.DESIGNER_VIEW} current={5} />
       <DesignerInfoLayout>
         <Field name="디자이너 소개" isEssential={true} />
-        <IntroductionTextArea
+        <DesignerTextArea
           placeholderText="자신에 대한 소개를 입력해주세요&#13;&#10;예시) 경력, 자격증, 강점 등"
-          initValue={designerInfo.data}
           onChangeFn={handleTextAreaChange}
+          value={designerInfo.data}
         />
       </DesignerInfoLayout>
       <Button

@@ -72,7 +72,6 @@ const Profile = ({ setStep }: EnterProfileProp) => {
         {
           const inputImgUrl = profileImgInfo.data;
           handleProfileImageUrl(profileImgInfo.data);
-          console.log(inputImgUrl);
         }
       }
     };

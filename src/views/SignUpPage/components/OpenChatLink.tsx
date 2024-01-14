@@ -22,7 +22,7 @@ const OpenChatLink = () => {
   };
   const isActive = textAreaValue !== '';
 
-  const [, setLinkInfo] = useRecoilState(openLinkState);
+  const [LinkInfo, setLinkInfo] = useRecoilState(openLinkState);
 
   const saveDataToRecoil = () => {
     setLinkInfo((prevOpenLink) => ({
@@ -41,7 +41,11 @@ const OpenChatLink = () => {
       <S.OpenChatLinkLayout>
         <Field name="1:1 오픈채팅방 링크" isEssential={true} />
 
-        <Input placeholderText={HELPER_MESSAGE.INPUT_OPENCHAT_LINK} onChangeFn={handleTextAreaChange} />
+        <Input
+          placeholderText={HELPER_MESSAGE.INPUT_OPENCHAT_LINK}
+          onChangeFn={handleTextAreaChange}
+          initialValue={LinkInfo.data}
+        />
         <S.HelperBox>
           <IcInformation />
           <S.HelperSpan>{HELPER_MESSAGE.INPUT_DETAIL_ADRESS}</S.HelperSpan>

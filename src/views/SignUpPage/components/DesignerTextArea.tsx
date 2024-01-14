@@ -1,14 +1,19 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { styled } from 'styled-components';
 
-interface IntroductionTextAreaProps {
+interface DesignerTextAreaProps {
   placeholderText: string;
   onChangeFn: (value: string) => void;
-  initValue: string;
+  value?: string;
 }
 
-const IntroductionTextArea = ({ placeholderText, onChangeFn, initValue }: IntroductionTextAreaProps) => {
+const DesignerTextArea = ({ placeholderText, onChangeFn, value }: DesignerTextAreaProps) => {
   const [textLength, setTextLength] = useState(0);
+
+  useEffect(() => {
+    setTextLength(value ? value.length : 0);
+  }, [value]);
+
   return (
     <S.TextAreaLayout>
       <S.TextArea
@@ -17,8 +22,8 @@ const IntroductionTextArea = ({ placeholderText, onChangeFn, initValue }: Introd
           setTextLength(e.target.value.length);
           onChangeFn(e.target.value);
         }}
-        value={initValue}
         maxLength={200}
+        value={value}
       />
       <S.TextAreaSpan>
         <S.TextAreaCountSpan $isZero={textLength === 0}>{textLength}</S.TextAreaCountSpan> / 200
@@ -27,7 +32,7 @@ const IntroductionTextArea = ({ placeholderText, onChangeFn, initValue }: Introd
   );
 };
 
-export default IntroductionTextArea;
+export default DesignerTextArea;
 
 const S = {
   TextAreaLayout: styled.div`
