@@ -1,14 +1,16 @@
 import { useNavigate } from 'react-router-dom';
 
+import { CONDITION_LIST } from '../constants/CONDITION_LIST';
+
 import api from '@/views/@common/hooks/api';
 
 const usePostApplication = (applicationId: number, offerDetail: string, preferOfferConditions: boolean[]) => {
   const navigate = useNavigate();
 
-  const CONDITION_LIST = ['CAMERA', 'SNS', 'FREE', 'MASK', 'PHOTOSHOP', 'SMALLPAY'];
   const conditionList = preferOfferConditions
     .map((bool, idx) => (bool ? CONDITION_LIST[idx] : ''))
     .filter((val) => val !== '');
+
   const postApplication = async () => {
     try {
       await api.post(
