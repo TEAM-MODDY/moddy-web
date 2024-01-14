@@ -16,6 +16,7 @@ import OfferInfoPage from './pages/OfferInfoPage';
 import SignUpPage from './pages/SignUpPage';
 import GlobalStyle from './styles/GlobalStyle';
 import theme from './styles/Theme';
+import LoginCallback from './views/LoginPage/components/LoginCallback';
 import ModelOfferPage from './views/ModelInfoPage/components/ModelOfferPage';
 import OfferSentCompletePage from './views/ModelInfoPage/components/OfferSentCompletePage';
 import CheckOfferPage from './views/OfferInfoPage/components/CheckOfferPage';
@@ -23,6 +24,7 @@ import CheckOfferPage from './views/OfferInfoPage/components/CheckOfferPage';
 const router = createBrowserRouter([
   { path: '/', element: <MainPage /> },
   { path: '/login', element: <LoginPage /> },
+  { path: '/login/oauth2/code/kakao', element: <LoginCallback /> },
   { path: '/sign-up', element: <SignUpPage /> },
   { path: '/model-info', element: <ModelInfoPage /> },
   { path: '/sign-up', element: <SignUpPage /> },
