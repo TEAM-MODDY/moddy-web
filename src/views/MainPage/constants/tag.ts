@@ -6,3 +6,12 @@ export const CONDITION = {
   FREE: '전액무료',
   SMALLPAY: '소정의 약값',
 };
+
+export const PREFER_HAIR_STYLE = {
+  NORMAL_CUT: '일반 커트',
+  ALL_COLOR: '전체 염색',
+  ALL_DECOLOR: '전체 탈색',
+  SETTING_PERM: '셋팅펌',
+  NORMAL_PERM: '일반펌',
+  STRAIGHTENING: '매직',
+};
