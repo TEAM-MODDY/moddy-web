@@ -59,9 +59,8 @@ const ApplicationCardLayout = styled.button`
 const ProfileImageBox = styled.div`
   overflow: hidden;
 
-  height: 16.4rem;
   min-width: 16.4rem;
-
+  height: 16.4rem;
   border-radius: 12px 12px 0 0;
 
   & > img {
@@ -84,20 +83,26 @@ const PersonalInfoBox = styled.div`
 `;
 
 const NameSpan = styled.span`
+  overflow: hidden;
+
   color: ${({ theme }) => theme.colors.moddy_bk};
   ${({ theme }) => theme.fonts.Body01};
-  overflow: hidden;
+
   white-space: nowrap;
 `;
 
 const AgeGenderSpan = styled.span`
-  color: ${({ theme }) => theme.colors.moddy_gray50};
-  ${({ theme }) => theme.fonts.Body03};
-  width: 6.5rem;
   overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+
+  width: 6.5rem;
+
+  color: ${({ theme }) => theme.colors.moddy_gray50};
   text-align: left;
+  ${({ theme }) => theme.fonts.Body03};
+
+  text-overflow: ellipsis;
+
+  white-space: nowrap;
 `;
 
 const PreferStyleWrapperBox = styled.div`
