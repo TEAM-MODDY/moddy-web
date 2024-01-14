@@ -12,3 +12,17 @@ export interface ModelResponse {
     isClicked: boolean;
   }[];
 }
+
+export interface DesignerResponse {
+  page: number;
+  size: number;
+  name: string;
+  hairModelApplications: {
+    applicationId: number;
+    name: string;
+    age: number;
+    imgUrl: string;
+    gender: string;
+    preferHairStyles: string[];
+  }[];
+}
