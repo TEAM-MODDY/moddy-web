@@ -1,5 +1,5 @@
-import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useSetRecoilState } from 'recoil';
 import { styled } from 'styled-components';
 
 import applyImg from '../../@common/assets/images/img_applylogo.png';
@@ -7,13 +7,15 @@ import Button from '../../@common/components/Button';
 import Header from '../../@common/components/Header';
 import { captureApplication } from '../utils/captureApplication';
 
+import { applicationCaptureImgUrlState } from '@/recoil/atoms/applicationState';
+
 const ApplicationResult = () => {
-  const [applicationCaptureImgUrl, setApplicationCaptureImgUrl] = useState('');
+  const setImgUrl = useSetRecoilState(applicationCaptureImgUrlState);
 
   const navigate = useNavigate();
 
   const finalPg = () => {
-    setApplicationCaptureImgUrl(captureApplication());
+    setImgUrl({ data: captureApplication() });
     navigate(`/application/confirm`);
   };
 

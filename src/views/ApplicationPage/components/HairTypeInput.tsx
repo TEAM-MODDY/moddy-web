@@ -1,3 +1,4 @@
+import { useRecoilState } from 'recoil';
 import { styled } from 'styled-components';
 
 import shortDefault from '../../@common/assets/images/btn_hair1_default.png';
@@ -9,19 +10,24 @@ import longSelected from '../../@common/assets/images/btn_hair3_selected.png';
 import rapunzelDefault from '../../@common/assets/images/btn_hair4_default.png';
 import rapunzelSelected from '../../@common/assets/images/btn_hair4_selected.png';
 
+import { hairStyleState } from '@/recoil/atoms/applicationState';
+
 interface HairTypeInputProps {
   lengthState: boolean[];
   setLengthState: React.Dispatch<React.SetStateAction<boolean[]>>;
   imgIdx: number;
-  setHairLengthFn: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const HairTypeInput = ({ lengthState, setLengthState, imgIdx, setHairLengthFn }: HairTypeInputProps) => {
+const HairTypeInput = ({ lengthState, setLengthState, imgIdx }: HairTypeInputProps) => {
+  const [selectedStyle, setSelectedStyle] = useRecoilState(hairStyleState);
+
   const onlySelected = () => {
-    setHairLengthFn(hairType);
+    setSelectedStyle({ ...selectedStyle, length: hairType });
 
     const tempLengthState = [...lengthState];
-    tempLengthState.forEach((_, index) => (tempLengthState[index] = index === imgIdx ? true : false));
+    tempLengthState.forEach((_, index) =>
+      index === imgIdx ? (tempLengthState[index] = true) : (tempLengthState[index] = false),
+    );
 
     setLengthState(tempLengthState);
   };

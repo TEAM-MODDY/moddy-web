@@ -1,50 +1,46 @@
-import { useState } from 'react';
+import { useRecoilState } from 'recoil';
 import { styled } from 'styled-components';
 
 import Button from '../../@common/components/Button';
 import Header from '../../@common/components/Header';
+import { INFO_MESSAGE } from '../constants/message';
 
-import ServiceHistoryListItem, { HistroyDetailProps } from './ServiceHistoryListItem';
+import ServiceHistoryListItem from './ServiceHistoryListItem';
+
+import { historyDetailProps, historyState } from '@/recoil/atoms/applicationState';
 
 const ServiceHistory = () => {
   const MAX_LENGTH = 3;
 
-  const [serviceHistoryList, setServiceHistoryList] = useState<HistroyDetailProps[]>([]);
+  const [serviceHistory, setServiceHistory] = useRecoilState(historyState);
+  const { hairServiceRecords } = serviceHistory;
 
   const addHistory = () => {
-    if (serviceHistoryList.length < MAX_LENGTH) {
-      const tempServiceHistoryList: HistroyDetailProps[] = [
-        ...serviceHistoryList,
-        { service: '시술 선택', period: '기간 선택' },
-      ];
-      setServiceHistoryList(tempServiceHistoryList);
+    if (hairServiceRecords.length < MAX_LENGTH) {
+      const tempServiceHistoryList: historyDetailProps[] = [...hairServiceRecords, { service: '', period: '' }];
+      setServiceHistory({ ...serviceHistory, hairServiceRecords: tempServiceHistoryList });
     }
   };
 
   const moveNext = () => {};
   return (
     <S.ServiceHistoryLayout>
-      <Header isBackBtnExist={true} isCloseBtnExist={true} title="모델 지원하기" />
+      <Header isBackBtnExist={true} isCloseBtnExist={true} title={INFO_MESSAGE.TITLE} />
       <S.Title>
-        <h2>시술 이력</h2>
-        <h3>최근 시술이력을 입력해주세요 &#40;최대 3개&#41;</h3>
+        <h2>{INFO_MESSAGE.SERVICE_TITLE}</h2>
+        <h3>{INFO_MESSAGE.SERVICE_SUBTITLE}</h3>
       </S.Title>
       <S.ServiceHistoryList>
-        {serviceHistoryList.map((item: HistroyDetailProps, idx: number) =>
-          idx < serviceHistoryList.length ? (
-            <ServiceHistoryListItem
-              key={'history' + item.service + item.period + idx}
-              idx={idx}
-              serviceHistoryList={serviceHistoryList}
-              setServiceHistoryList={setServiceHistoryList}
-            />
+        {hairServiceRecords.map((item, idx: number) =>
+          idx < hairServiceRecords.length ? (
+            <ServiceHistoryListItem key={'history' + item.service + item.period + idx} idx={idx} />
           ) : null,
         )}
       </S.ServiceHistoryList>
       <S.AddHistoryBtn type="button" onClick={addHistory}>
-        &#43; 눌러서 추가하기
+        {INFO_MESSAGE.ADD_HISTORY}
       </S.AddHistoryBtn>
-      <Button text="다음" isFixed={true} onClickFn={moveNext} />
+      <Button text={INFO_MESSAGE.NEXT} isFixed={true} onClickFn={moveNext} />
     </S.ServiceHistoryLayout>
   );
 };

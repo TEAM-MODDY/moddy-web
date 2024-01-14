@@ -1,33 +1,36 @@
 import { useState } from 'react';
+import { useRecoilState } from 'recoil';
 import { styled } from 'styled-components';
 
 import { IcCheckboxBlue, IcCheckboxGrey } from '../../@common/assets/icons';
 
+import { hairStyleState } from '@/recoil/atoms/applicationState';
+
 interface StyleButtonProps {
   type: string;
   isSelected: boolean;
-  preferStyles: string[];
-  setPreferStyles: React.Dispatch<React.SetStateAction<string[]>>;
 }
 
-const StyleButton = ({ type, isSelected, preferStyles, setPreferStyles }: StyleButtonProps) => {
+const StyleButton = ({ type, isSelected }: StyleButtonProps) => {
+  const [selectedStyle, setSelectedStyle] = useRecoilState(hairStyleState);
+  const { preference } = selectedStyle;
   const [activate, isActivate] = useState(isSelected);
 
   const styleResult = () => {
     if (activate) {
       isActivate(false);
 
-      const tempPreferStyles = [...preferStyles];
+      const tempPreference = [...preference];
 
-      tempPreferStyles.forEach((element, index) => {
-        element === type ? tempPreferStyles.splice(index, 1) : null;
+      tempPreference.forEach((element, index) => {
+        element === type ? tempPreference.splice(index, 1) : null;
       });
-      setPreferStyles(tempPreferStyles);
+      setSelectedStyle({ ...selectedStyle, preference: tempPreference });
     } else {
       isActivate(true);
 
-      const tempPreferStyles = [type, ...preferStyles];
-      setPreferStyles(tempPreferStyles);
+      const tempPreference = [type, ...preference];
+      setSelectedStyle({ ...selectedStyle, preference: tempPreference });
     }
   };
 
