@@ -65,8 +65,9 @@ const HairTypeInput = ({ lengthState, setLengthState, imgIdx, setHairLengthFn }:
 
 const S = {
   HairTypeInput: styled.input`
-    width: 100%;
     display: none;
+
+    width: 100%;
 
     &:checked + label {
       box-shadow: ${({ theme }) => theme.effects.shadow3};
@@ -83,7 +84,7 @@ const S = {
       width: 100%;
       height: 100%;
 
-      object-fit: cover;
+      object-fit: contain;
     }
   `,
 };
