@@ -1,3 +1,5 @@
+import { useEffect, useState } from 'react';
+import { useInView } from 'react-intersection-observer';
 import { styled } from 'styled-components';
 
 import { APPLY_STATUS } from '../constants/applyStatus';
@@ -7,16 +9,24 @@ import ApplicationCard from './ApplicationCard';
 
 interface ReceivedOfferProp {
   data: ModelResponse;
+  setPage: React.Dispatch<React.SetStateAction<number>>;
 }
-const ReceivedOffer = ({ data }: ReceivedOfferProp) => {
+const ReceivedOffer = (props: ReceivedOfferProp) => {
+  const { data, setPage } = props;
+  const [ref, inView] = useInView();
+
+  useEffect(() => {
+    inView && setPage((prev) => prev + 1);
+  }, [inView]);
+
   return (
     <S.ReceivedOfferLayout>
       <S.TitleSpan>도착한 제안서</S.TitleSpan>
       {data?.status === APPLY_STATUS.RECEIVED ? (
         <S.ReceivedOfferBox>
-          {data.offers.map((offer) => (
+          {data.offers.map((offer, index) => (
             <ApplicationCard
-              key={offer.offerId}
+              key={index}
               offerId={offer.offerId}
               name={offer.name}
               shopName={offer.shopName}
@@ -35,6 +45,7 @@ const ReceivedOffer = ({ data }: ReceivedOfferProp) => {
           </S.HelperTextSpan>
         </S.ReceivedOfferEmptyBox>
       )}
+      <div ref={ref}></div>
     </S.ReceivedOfferLayout>
   );
 };

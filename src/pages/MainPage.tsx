@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import { styled } from 'styled-components';
 
@@ -12,14 +13,20 @@ import useGetModel from '@/views/MainPage/hooks/useGetModel';
 
 const MainPage = () => {
   const userType = useRecoilValue(userTypeState);
-  const { data } = useGetModel();
+  // const userType = 'model';
+
+  const [page, setPage] = useState(1);
+  const { data } = useGetModel({ page: page });
+
   return (
-    <MainPageLayout>
-      <StatusBarForiOS />
-      <TopSheet applyType={data?.status} name={data?.userName} />
-      <Banner />
-      {!userType ? <Contents /> : data && <ReceivedOffer data={data} />}
-    </MainPageLayout>
+    <>
+      <MainPageLayout>
+        <StatusBarForiOS />
+        <TopSheet applyType={data?.status} name={data?.userName} />
+        <Banner />
+        {!userType ? <Contents /> : data && <ReceivedOffer data={data} setPage={setPage} />}
+      </MainPageLayout>
+    </>
   );
 };
 

@@ -8,7 +8,11 @@ import { ModelResponse } from './type';
 import { userTypeState } from '@/recoil/atoms/signUpState';
 import api from '@/views/@common/hooks/api';
 
-const useGetModel = () => {
+interface UseGetModelProps {
+  page: number;
+}
+
+const useGetModel = ({ page }: UseGetModelProps) => {
   const navigate = useNavigate();
   const user = useRecoilValue(userTypeState);
   const [data, setData] = useState<ModelResponse>();
@@ -17,8 +21,11 @@ const useGetModel = () => {
 
   const fetchData = async () => {
     try {
-      const res = await api.get('/model?page=1&size=4');
-      setData(res.data.data);
+      const res = await api.get(`/model?page=${page}&size=4`);
+      setData((prev) => ({
+        ...res.data.data,
+        offers: prev?.offers ? [...prev.offers, ...res.data.data.offers] : [...res.data.data.offers],
+      }));
     } catch (err) {
       if (err instanceof AxiosError) setError(err);
       navigate('/error');
@@ -28,13 +35,15 @@ const useGetModel = () => {
   };
 
   useEffect(() => {
-    user && fetchData();
-  }, []);
+    // user && fetchData();
+    fetchData();
+  }, [page]);
 
   return {
     data,
     error,
     loading,
+    fetchData,
   };
 };
 
