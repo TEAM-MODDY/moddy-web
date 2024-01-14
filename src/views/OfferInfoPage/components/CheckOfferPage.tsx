@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
 
 import Header from '../../@common/components/Header';
+import useGetAgree from '../hooks/useGetAgree';
 
 import ButtonBox from './ButtonBox';
 import ImgBox from './ImgBox';
@@ -27,30 +28,36 @@ const CheckOfferPage = () => {
     setIsModal(true);
   };
 
-  return (
-    <>
-      <ScrollToTop />
-      <ImgModal isModal={isModal} onClose={() => setIsModal(false)} />
-      <Header
-        title=""
-        isBackBtnExist={true}
-        isCloseBtnExist={true}
-        backFn={handleClickBack}
-        closeFn={handleClickClose}
-      />
-      <S.CheckOfferLayout>
-        <ImgBox />
-        <S.MainText>
-          디자이너의 오픈채팅방에 입장해
-          <br /> 제안서를 보내주세요
-        </S.MainText>
-        <S.SubTitle>지원 내역 확인 & 1:1 오픈 채팅</S.SubTitle>
-        <ButtonBox onClick={handleModalOpen} />
+  const { data, isLoading, isError } = useGetAgree(1);
 
-        <S.SubTitle>연결 예정 디자이너</S.SubTitle>
-        <ProfileWrapperBox />
-      </S.CheckOfferLayout>
-    </>
+  return (
+    !isLoading &&
+    !isError &&
+    data && (
+      <>
+        <ScrollToTop />
+        <ImgModal isModal={isModal} onClose={() => setIsModal(false)} imgUrl={data.applicationImgUrl} />
+        <Header
+          title=""
+          isBackBtnExist={true}
+          isCloseBtnExist={true}
+          backFn={handleClickBack}
+          closeFn={handleClickClose}
+        />
+        <S.CheckOfferLayout>
+          <ImgBox />
+          <S.MainText>
+            디자이너의 오픈채팅방에 입장해
+            <br /> 제안서를 보내주세요
+          </S.MainText>
+          <S.SubTitle>지원 내역 확인 & 1:1 오픈 채팅</S.SubTitle>
+          <ButtonBox onClick={handleModalOpen} kakaoUrl={data.kakaoUrl} />
+
+          <S.SubTitle>연결 예정 디자이너</S.SubTitle>
+          <ProfileWrapperBox designerInfo={data.designerInfo} />
+        </S.CheckOfferLayout>
+      </>
+    )
   );
 };
 

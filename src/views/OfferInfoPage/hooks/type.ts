@@ -30,7 +30,7 @@ export interface UseGetOfferModelRes {
   data: UseGetOfferModelProps;
 }
 
-interface AgreeDesignerInfoProps {
+export interface AgreeDesignerInfoProps {
   imgUrl: string;
   shopName: string;
   name: string;
