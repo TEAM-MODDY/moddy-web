@@ -1,21 +1,22 @@
 import { styled } from 'styled-components';
 
-import DetailedStyle from '../views/ApplicationPage/components/DetailedStyle';
-
+import ProfileUpload from '../views/ApplicationPage/components/ProfileUpload';
 const ApplicationPage = () => {
   return (
-    <ApplicationPagSection>
-      <DetailedStyle />
-    </ApplicationPagSection>
+    <S.ApplicationPagSection>
+      <ProfileUpload />
+    </S.ApplicationPagSection>
   );
 };
 
 export default ApplicationPage;
 
-const ApplicationPagSection = styled.section`
-  display: flex;
-  flex-direction: column;
+const S = {
+  ApplicationPagSection: styled.section`
+    display: flex;
+    flex-direction: column;
 
-  width: 100%;
-  height: 100vh;
-`;
+    width: 100%;
+    height: 100vh;
+  `,
+};
