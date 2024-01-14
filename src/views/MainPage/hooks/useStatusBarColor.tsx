@@ -1,8 +1,10 @@
 import { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 
 const useStatusBarColor = () => {
+  const location = useLocation();
+
   useEffect(() => {
-    document.body.style.background = '#3287FF';
     const handleScroll = () => {
       if (window.scrollY > 217) {
         document.body.style.backgroundColor = '#ffffff';
@@ -20,8 +22,15 @@ const useStatusBarColor = () => {
         }
       }
     };
-    window.addEventListener('scroll', handleScroll, false);
-  }, []);
+    if (location.pathname === '/') {
+      document.body.style.background = '#3287FF';
+      window.addEventListener('scroll', handleScroll);
+    }
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      document.body.style.backgroundColor = '#ffffff';
+    };
+  }, [location.pathname]);
 };
 
 export default useStatusBarColor;

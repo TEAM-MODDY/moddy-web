@@ -113,6 +113,10 @@ export const reset = css`
     display: none;
   }
 
+  #root {
+    background: ${({ theme }) => theme.colors.moddy_wt};
+  }
+
   body {
     line-height: 1;
 

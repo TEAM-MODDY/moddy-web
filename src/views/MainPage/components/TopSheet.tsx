@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
 
 import { IcLogoHome, IcRightWhite, IcModdyuser } from '../assets/icons';
@@ -9,6 +10,7 @@ interface TopSheetProps {
 }
 const TopSheet = (props: TopSheetProps) => {
   const { userType, applyType } = props;
+  const navigate = useNavigate();
 
   const OnBoardingText = () => {
     if (userType === USER_TYPE.GUEST) {
@@ -55,7 +57,7 @@ const TopSheet = (props: TopSheetProps) => {
       <S.HeaderBox>
         <IcLogoHome />
         {userType === USER_TYPE.GUEST ? (
-          <S.LoginButton type="button">
+          <S.LoginButton type="button" onClick={() => navigate('/login')}>
             <S.LoginSpan>로그인하기</S.LoginSpan>
             <IcRightWhite />
           </S.LoginButton>
