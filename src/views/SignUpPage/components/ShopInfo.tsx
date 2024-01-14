@@ -1,22 +1,54 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
 import { styled } from 'styled-components';
 
 import { IcSearch } from '../assets/icons';
 import { days } from '../constants/days';
 import { HELPER_MESSAGE } from '../constants/message';
 import { TOTAL_STEP } from '../constants/step';
-import { EnterProfileProp } from '../utils/enterProfileProp';
 
 import Field from './Field';
 import LimitInput from './LimitInput';
 import PostCode from './PostCode';
 
+import { shopInfoState, addressState, detailShopInfoState } from '@/recoil/atoms/signUpState';
 import Button from '@/views/@common/components/Button';
 import Modal from '@/views/@common/components/Modal';
 import ProgressBar from '@/views/@common/components/ProgressBar';
 
-const ShopInfo = ({ setStep }: EnterProfileProp) => {
+interface ShoplInfoProp {
+  setStep: React.Dispatch<React.SetStateAction<number>>;
+}
+
+const ShopInfo = ({ setStep }: ShoplInfoProp) => {
+  const [, setShopInfo] = useRecoilState(shopInfoState);
+  const [, setAddressInfo] = useRecoilState(addressState);
+  const [, setDetailAddressInfo] = useRecoilState(detailShopInfoState);
+
+  const saveDataToRecoil = () => {
+    console.log('SaveData');
+
+    setShopInfo((prevShopInfo) => ({
+      ...prevShopInfo,
+      placeTextValue,
+      Address,
+      verifyStatus: true,
+    }));
+
+    setAddressInfo((prevAddressInfo) => ({
+      ...prevAddressInfo,
+      data: Address,
+      verifyStatus: true,
+    }));
+
+    setDetailAddressInfo((prevDetailAddressInfo) => ({
+      ...prevDetailAddressInfo,
+      data: addressDetailValue,
+      verifyStatus: true,
+    }));
+  };
+
   //이동
   const navigate = useNavigate();
   const [isOpenModal, setOpenModal] = useState(false);
@@ -52,6 +84,7 @@ const ShopInfo = ({ setStep }: EnterProfileProp) => {
   const [addressDetailValue, setAddressDetailValue] = useState('');
   const handleAddressText = (value: string) => {
     setAddressDetailValue(value);
+    setAddressInfo({ data: value, verifyStatus: false });
   };
 
   const isActive = Address && addressDetailValue !== '' && placeTextValue !== '';
@@ -97,17 +130,17 @@ const ShopInfo = ({ setStep }: EnterProfileProp) => {
               </S.DayOffBox>
             ))}
           </S.DayOffWrapperBox>
-
-          <Button
-            text="완료"
-            isFixed={true}
-            disabled={!isActive}
-            onClickFn={() => {
-              setOpenModal(true);
-            }}
-          />
         </S.ShopInfoLayout>
-        <Button text="다음" isFixed={true} disabled={!isActive} onClickFn={() => setStep((prev) => prev + 1)} />
+        <Button
+          text="다음"
+          isFixed={true}
+          disabled={!isActive}
+          onClickFn={() => {
+            setStep((prev) => prev + 1);
+            setOpenModal(true);
+            saveDataToRecoil();
+          }}
+        />
       </>
 
       {isOpenModal && (
