@@ -3,35 +3,35 @@ import { styled } from 'styled-components';
 import CopyButton from '@/views/ModelInfoPage/components/CopyButton';
 import DetailBox from '@/views/ModelInfoPage/components/DetailBox';
 import OfferDetail from '@/views/ModelInfoPage/components/OfferDetail';
-import { MODEL_INFO_DATA } from '@/views/ModelInfoPage/constants/MODEL_INFO_DATA';
+import { ModelInfoPageProps } from '@/views/ModelInfoPage/hooks/types';
 
 interface OfferDetailProps {
   handleCopyClipBoard: (text: string) => Promise<void>;
+  data: ModelInfoPageProps;
 }
 
-const OfferDetailSection = ({ handleCopyClipBoard }: OfferDetailProps) => {
-  const ApplicationInfo = MODEL_INFO_DATA.data.applicationInfo;
-  const ModelInfo = MODEL_INFO_DATA.data.modelInfo;
+const OfferDetailSection = ({ handleCopyClipBoard, data }: OfferDetailProps) => {
+  const { applicationInfo, modelInfo } = data;
 
   return (
     <>
       <S.OfferDetailsBox>
         <h1>지원내역</h1>
         <S.ContentDetailBox>
-          <OfferDetail content={ApplicationInfo.hairLength}>현재 기장</OfferDetail>
-          <OfferDetail content={ApplicationInfo.preferHairstyles.join(', ')}>희망스타일</OfferDetail>
+          <OfferDetail content={applicationInfo.hairLength}>현재 기장</OfferDetail>
+          <OfferDetail content={applicationInfo.preferHairstyles.join(', ')}>희망스타일</OfferDetail>
           <h2>시술이력</h2>
-          <DetailBox />
+          <DetailBox applicationInfo={applicationInfo} />
         </S.ContentDetailBox>
       </S.OfferDetailsBox>
       <S.OfferDetailsBox>
         <h1>모델 정보</h1>
-        <OfferDetail content={ModelInfo.name}>이름</OfferDetail>
-        <OfferDetail content={ModelInfo.age}>나이</OfferDetail>
-        <OfferDetail content={ModelInfo.gender}>성별</OfferDetail>
-        <OfferDetail content={ModelInfo.preferRegions.join(', ')}>희망 지역</OfferDetail>
-        <OfferDetail content={ModelInfo.instagramId}>인스타그램</OfferDetail>
-        <CopyButton onClickFn={() => handleCopyClipBoard(ModelInfo.instagramId)} />
+        <OfferDetail content={modelInfo.name}>이름</OfferDetail>
+        <OfferDetail content={modelInfo.age}>나이</OfferDetail>
+        <OfferDetail content={modelInfo.gender}>성별</OfferDetail>
+        <OfferDetail content={modelInfo.preferRegions.join(', ')}>희망 지역</OfferDetail>
+        <OfferDetail content={modelInfo.instagramId}>인스타그램</OfferDetail>
+        <CopyButton onClickFn={() => handleCopyClipBoard(modelInfo.instagramId)} />
       </S.OfferDetailsBox>
     </>
   );

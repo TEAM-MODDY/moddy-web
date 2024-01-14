@@ -21,7 +21,6 @@ const useGetApplication = (applicationId: number) => {
         },
       });
       setData(response.data.data);
-      console.log(response.data.data);
     } catch (err) {
       if (err instanceof AxiosError) setError(err);
       else {
@@ -36,7 +35,7 @@ const useGetApplication = (applicationId: number) => {
     fetchData();
   }, []);
 
-  return data;
+  return { data, isLoading, isError };
 };
 
 export default useGetApplication;
