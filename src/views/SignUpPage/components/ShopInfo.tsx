@@ -22,11 +22,9 @@ const ShopInfo = ({ setStep }: EnterProfileProp) => {
   // 클릭시 변경되게
   const [isClicked, setIsClicked] = useState<boolean[]>(Array(6).fill(false));
   const handleDayOffClick = (index: number) => {
-    setIsClicked((prevIsClicked) => {
-      const updatedData = prevIsClicked.map((item, idx) => (idx === index ? !item : item));
-      setClickedDateInfo({ data: updatedData });
-      return updatedData;
-    });
+    const tempClicked = [...isClicked];
+    tempClicked[index] = !tempClicked[index];
+    setIsClicked(tempClicked);
   };
 
   //이동
