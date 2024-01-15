@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import { styled } from 'styled-components';
 
@@ -17,20 +17,21 @@ const MainPage = () => {
   const userType = USER_TYPE.DESIGNER;
 
   const [page, setPage] = useState(1);
-  const { data } = useGetMain({ page: page });
+  const { data } = useGetMain({ user: userType, page: page });
 
   const MainContents = () => {
     switch (userType) {
       case USER_TYPE.GUEST:
         return <Contents />;
       case USER_TYPE.DESIGNER:
-        return <ReceivedApplication data={data} setPage={setPage} />;
+        return data && <ReceivedApplication data={data} setPage={setPage} />;
       case USER_TYPE.MODEL:
-        return <ReceivedOffer data={data} setPage={setPage} />;
+        return data && <ReceivedOffer data={data} setPage={setPage} />;
       default:
         return null;
     }
   };
+
   return (
     <>
       <MainPageLayout>
@@ -38,20 +39,12 @@ const MainPage = () => {
         {data && (
           <TopSheet
             userType={userType}
-            applyType={userType === USER_TYPE.MODEL && 'status' in data ? data.status : undefined}
-            name={
-              userType === USER_TYPE.DESIGNER
-                ? 'name' in data
-                  ? data.name
-                  : undefined
-                : 'userName' in data
-                  ? data.userName
-                  : undefined
-            }
+            applyType={userType === USER_TYPE.MODEL && data && 'status' in data ? data.status : ''}
+            name={data.name}
           />
         )}
         <Banner />
-        {data && <MainContents />}
+        <MainContents />
       </MainPageLayout>
     </>
   );
