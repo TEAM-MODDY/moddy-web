@@ -14,9 +14,16 @@ const DirectionModal = ({ isModal, onClose }: DirectionModalProps) => {
   const { postOffer } = usePutOfferModel();
   const navigate = useNavigate();
 
+  // 임시 offerId. 추후 OfferInfoPage에서 fetch해온 데이터에서 id를 추출하여 해당 Modal로 내려줘야함.
+  const TEST_OFFER_ID = 1;
+
   const handleOnClickContinue = () => {
     postOffer();
-    navigate('/offer-info/check-offer');
+    navigate('/offer-info/check-offer', {
+      state: {
+        offerId: TEST_OFFER_ID,
+      },
+    });
   };
 
   const handleModalClose = () => {

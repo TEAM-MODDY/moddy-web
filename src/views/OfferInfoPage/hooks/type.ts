@@ -30,6 +30,25 @@ export interface UseGetOfferModelRes {
   data: UseGetOfferModelProps;
 }
 
+export interface AgreeDesignerInfoProps {
+  imgUrl: string;
+  shopName: string;
+  name: string;
+  introduction: string;
+}
+
+export interface UseGetAgreeProps {
+  applicationImgUrl: string;
+  kakaoUrl: string;
+  designerInfo: AgreeDesignerInfoProps;
+}
+
+export interface UseGetAgreeRes {
+  code: number;
+  message: string;
+  data: UseGetAgreeProps;
+}
+
 export interface OfferInfoProps {
   code: number;
   messsage: string;
