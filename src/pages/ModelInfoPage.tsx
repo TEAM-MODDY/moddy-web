@@ -8,12 +8,13 @@ import Header from '../views/@common/components/Header';
 import OfferDetailSection from './OfferDetailSection';
 
 import ToastMessage from '@/views/@common/components/ToastMessage';
-import { MODEL_INFO_DATA } from '@/views/ModelInfoPage/constants/MODEL_INFO_DATA';
+import useGetApplication from '@/views/ModelInfoPage/hooks/useGetApplication';
 
 const ModelInfoPage = () => {
-  //서버측 데이터 구조
-  const ApplicationInfo = MODEL_INFO_DATA.data.applicationInfo;
+  // 임시용 applicationId
+  const APPLICATION_ID = 1;
 
+  const { data, isLoading, isError } = useGetApplication(APPLICATION_ID);
   //페이지 이동
   const navigate = useNavigate();
   const handleOnClickOffer = () => {
@@ -34,15 +35,19 @@ const ModelInfoPage = () => {
   };
 
   return (
-    <>
-      <Header isBackBtnExist={true} title="모델 지원 정보" />
-      <S.ModelInfoLayout>
-        <S.ImageBox src={ApplicationInfo.modelImgUrl} alt="모델 이미지"></S.ImageBox>
-        <OfferDetailSection handleCopyClipBoard={handleCopyClipBoard} />
-      </S.ModelInfoLayout>
-      <Button text="제안하기" isFixed={false} onClickFn={handleOnClickOffer} />
-      {isToastOpen && <ToastMessage text="아이디 복사가 완료되었습니다." setter={setToastOpen} />}
-    </>
+    !isError &&
+    !isLoading &&
+    data && (
+      <>
+        <Header isBackBtnExist={true} title="모델 지원 정보" />
+        <S.ModelInfoLayout>
+          <S.ImageBox src={data.applicationInfo.modelImgUrl} alt="모델 이미지"></S.ImageBox>
+          <OfferDetailSection handleCopyClipBoard={handleCopyClipBoard} data={data} />
+        </S.ModelInfoLayout>
+        <Button text="제안하기" isFixed={false} onClickFn={handleOnClickOffer} />
+        {isToastOpen && <ToastMessage text="아이디 복사가 완료되었습니다." setter={setToastOpen} />}
+      </>
+    )
   );
 };
 

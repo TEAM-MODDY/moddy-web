@@ -1,16 +1,15 @@
 import { styled } from 'styled-components';
 
-import { MODEL_INFO_DATA } from '../constants/MODEL_INFO_DATA';
+import { ApplicationInfo } from '../hooks/types';
 
 import OfferDetailBox from './OfferDetailBox';
 
-const DetailBox = () => {
-  const ApplicationInfo = MODEL_INFO_DATA.data.applicationInfo;
+const DetailBox = ({ applicationInfo }: { applicationInfo: ApplicationInfo }) => {
   return (
     <>
       <S.DetailWrapperBox>
-        {ApplicationInfo.hairServiceRecords && ApplicationInfo.hairServiceRecords.length > 0 ? (
-          ApplicationInfo.hairServiceRecords.map((record, idx) => (
+        {applicationInfo.hairServiceRecords && applicationInfo.hairServiceRecords.length > 0 ? (
+          applicationInfo.hairServiceRecords.map((record, idx) => (
             <OfferDetailBox key={idx} hairServiceTerm={record.hairServiceTerm} hairService={record.hairService} />
           ))
         ) : (
@@ -19,7 +18,7 @@ const DetailBox = () => {
       </S.DetailWrapperBox>
       <h2>상세 희망 스타일</h2>
       <S.DetailWrapperBox>
-        <S.FillText>{ApplicationInfo.hairDetail}</S.FillText>
+        <S.FillText>{applicationInfo.hairDetail}</S.FillText>
       </S.DetailWrapperBox>
     </>
   );
