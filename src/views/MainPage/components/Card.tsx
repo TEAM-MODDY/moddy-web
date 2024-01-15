@@ -1,13 +1,9 @@
 import { useNavigate } from 'react-router-dom';
-import { useRecoilValue } from 'recoil';
 import { styled } from 'styled-components';
 
 import { ImgNew } from '../assets/images';
-import { CONDITION } from '../constants/tag';
 
-import { userTypeState } from '@/recoil/atoms/signUpState';
-
-interface ApplicationCardProps {
+interface OfferCardProps {
   offerId: number;
   name: string;
   shopName: string;
@@ -15,10 +11,19 @@ interface ApplicationCardProps {
   isClicked: boolean;
   conditions: string[];
 }
-const ApplicationCard = (props: ApplicationCardProps) => {
+
+interface ApplicationCardProps {
+  applicationId: number;
+  name: string;
+  age: number;
+  imgUrl: string;
+  gender: string;
+  preferHairStyles: string[];
+}
+
+const OfferCard = (props: OfferCardProps) => {
   const navigate = useNavigate();
   const { offerId, name, shopName, imgUrl, isClicked, conditions } = props;
-  // const userType = useRecoilValue(userTypeState); 디자이너 메인뷰에서 쓸 거
   return (
     <S.ApplicationCardLayout onClick={() => navigate('/offer-info', { state: offerId })}>
       {isClicked ? null : (
@@ -36,14 +41,40 @@ const ApplicationCard = (props: ApplicationCardProps) => {
         </S.PersonalInfoBox>
         <S.PreferStyleWrapperBox>
           {conditions.map((item, index) => (
-            <S.PreferStyleTagBox key={index}>{CONDITION[item as keyof typeof CONDITION]}</S.PreferStyleTagBox>
+            <S.PreferStyleTagBox key={index}>{item}</S.PreferStyleTagBox>
           ))}
         </S.PreferStyleWrapperBox>
       </S.ModelInfoBox>
     </S.ApplicationCardLayout>
   );
 };
-export default ApplicationCard;
+
+const ApplicationCard = (props: ApplicationCardProps) => {
+  const navigate = useNavigate();
+  const { applicationId, name, age, imgUrl, gender, preferHairStyles } = props;
+  return (
+    <S.ApplicationCardLayout onClick={() => navigate('/model-info', { state: applicationId })}>
+      <S.ProfileImageBox>
+        <img src={imgUrl} alt="프로필 이미지" />
+      </S.ProfileImageBox>
+      <S.ModelInfoBox>
+        <S.PersonalInfoBox>
+          <S.NameSpan>{name.slice(0, 5)}</S.NameSpan>
+          <S.AgeGenderSpan>
+            {age}세 / {gender}
+          </S.AgeGenderSpan>
+        </S.PersonalInfoBox>
+        <S.PreferStyleWrapperBox>
+          {preferHairStyles.map((item, index) => (
+            <S.PreferStyleTagBox key={index}>{item}</S.PreferStyleTagBox>
+          ))}
+        </S.PreferStyleWrapperBox>
+      </S.ModelInfoBox>
+    </S.ApplicationCardLayout>
+  );
+};
+
+export { OfferCard, ApplicationCard };
 
 const ApplicationCardLayout = styled.button`
   flex-grow: 1;
@@ -59,9 +90,8 @@ const ApplicationCardLayout = styled.button`
 const ProfileImageBox = styled.div`
   overflow: hidden;
 
-  height: 16.4rem;
   min-width: 16.4rem;
-
+  height: 16.4rem;
   border-radius: 12px 12px 0 0;
 
   & > img {
@@ -84,20 +114,26 @@ const PersonalInfoBox = styled.div`
 `;
 
 const NameSpan = styled.span`
+  overflow: hidden;
+
   color: ${({ theme }) => theme.colors.moddy_bk};
   ${({ theme }) => theme.fonts.Body01};
-  overflow: hidden;
+
   white-space: nowrap;
 `;
 
 const AgeGenderSpan = styled.span`
-  color: ${({ theme }) => theme.colors.moddy_gray50};
-  ${({ theme }) => theme.fonts.Body03};
-  width: 6.5rem;
   overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+
+  width: 6.5rem;
+
+  color: ${({ theme }) => theme.colors.moddy_gray50};
   text-align: left;
+  ${({ theme }) => theme.fonts.Body03};
+
+  text-overflow: ellipsis;
+
+  white-space: nowrap;
 `;
 
 const PreferStyleWrapperBox = styled.div`
