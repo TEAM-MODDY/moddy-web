@@ -1,0 +1,7 @@
+export const STEP = {
+  STYLE_BASIC: 1,
+  STYLE_DETAILED: 2,
+  SERVICE_HISTORY: 3,
+  PROFILE: 4,
+  RESULT: 5,
+};

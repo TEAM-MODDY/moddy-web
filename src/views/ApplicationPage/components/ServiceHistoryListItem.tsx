@@ -1,28 +1,25 @@
 import { useState } from 'react';
+import { useRecoilState } from 'recoil';
 import { css, styled } from 'styled-components';
 
 import { IcDownGrey, IcUpBlue } from '../../@common/assets/icons';
 import { IcDelete } from '../assets/icons';
 
-export interface HistroyDetailProps {
-  service: string;
-  period: string;
-}
-
+import { historyState } from '@/recoil/atoms/applicationState';
 interface ServiceHistoryListItem {
   idx: number;
-  serviceHistoryList: HistroyDetailProps[];
-  setServiceHistoryList: React.Dispatch<React.SetStateAction<HistroyDetailProps[]>>;
 }
 
-const ServiceHistoryListItem = ({ idx, serviceHistoryList, setServiceHistoryList }: ServiceHistoryListItem) => {
+const ServiceHistoryListItem = ({ idx }: ServiceHistoryListItem) => {
+  const [serviceHistory, setServiceHistory] = useRecoilState(historyState);
+  const { hairServiceRecords } = serviceHistory;
   const [isServiceClicked, setIsServiceClicked] = useState(false);
   const [isPeriodClicked, setIsPeriodClicked] = useState(false);
 
   const activateServiceBox = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     setIsServiceClicked((prev) => !prev);
     const tempService = event.currentTarget.innerText;
-    const tempServiceHistoryList = serviceHistoryList.map((item, i) => {
+    const tempServiceHistoryList = hairServiceRecords.map((item, i) => {
       if (i === idx) {
         return {
           ...item,
@@ -32,13 +29,13 @@ const ServiceHistoryListItem = ({ idx, serviceHistoryList, setServiceHistoryList
       return item;
     });
 
-    setServiceHistoryList(tempServiceHistoryList);
+    setServiceHistory({ ...serviceHistory, hairServiceRecords: tempServiceHistoryList });
   };
 
   const activatePeriodBox = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     setIsPeriodClicked((prev) => !prev);
     const tempPeriod = event.currentTarget.innerText;
-    const tempServiceHistoryList = serviceHistoryList.map((item, i) => {
+    const tempServiceHistoryList = hairServiceRecords.map((item, i) => {
       if (i === idx) {
         return {
           ...item,
@@ -48,13 +45,13 @@ const ServiceHistoryListItem = ({ idx, serviceHistoryList, setServiceHistoryList
       return item;
     });
 
-    setServiceHistoryList(tempServiceHistoryList);
+    setServiceHistory({ ...serviceHistory, hairServiceRecords: tempServiceHistoryList });
   };
 
   const deleteHistory = () => {
-    const tempServiceHistoryList = serviceHistoryList.filter((_, i) => i !== idx);
+    const tempServiceHistoryList = hairServiceRecords.filter((_, i) => i !== idx);
     if (tempServiceHistoryList.length >= 0) {
-      setServiceHistoryList(tempServiceHistoryList);
+      setServiceHistory({ ...serviceHistory, hairServiceRecords: tempServiceHistoryList });
     }
   };
 
@@ -66,7 +63,10 @@ const ServiceHistoryListItem = ({ idx, serviceHistoryList, setServiceHistoryList
           onClick={() => {
             setIsServiceClicked((prev) => !prev);
           }}>
-          <input type="button" value={serviceHistoryList[idx].service} />
+          <input
+            type="button"
+            value={hairServiceRecords[idx].service !== '' ? hairServiceRecords[idx].service : '시술 선택'}
+          />
           {isServiceClicked ? <IcUpBlue /> : <IcDownGrey />}
         </S.SelectServiceBox>
         <div>
@@ -102,7 +102,10 @@ const ServiceHistoryListItem = ({ idx, serviceHistoryList, setServiceHistoryList
           onClick={() => {
             setIsPeriodClicked((prev) => !prev);
           }}>
-          <input type="button" value={serviceHistoryList[idx].period} />
+          <input
+            type="button"
+            value={hairServiceRecords[idx].period !== '' ? hairServiceRecords[idx].period : '기간 선택'}
+          />
           {isPeriodClicked ? <IcUpBlue /> : <IcDownGrey />}
         </S.SelectPeriodBox>
         <div>

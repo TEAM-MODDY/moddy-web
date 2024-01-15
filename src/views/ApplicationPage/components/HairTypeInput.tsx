@@ -1,3 +1,5 @@
+import { useEffect, useState } from 'react';
+import { useRecoilState } from 'recoil';
 import { styled } from 'styled-components';
 
 import shortDefault from '../../@common/assets/images/btn_hair1_default.png';
@@ -9,55 +11,58 @@ import longSelected from '../../@common/assets/images/btn_hair3_selected.png';
 import rapunzelDefault from '../../@common/assets/images/btn_hair4_default.png';
 import rapunzelSelected from '../../@common/assets/images/btn_hair4_selected.png';
 
+import { hairStyleState } from '@/recoil/atoms/applicationState';
+
 interface HairTypeInputProps {
-  lengthState: boolean[];
-  setLengthState: React.Dispatch<React.SetStateAction<boolean[]>>;
   imgIdx: number;
-  setHairLengthFn: React.Dispatch<React.SetStateAction<string>>;
+  type: string;
 }
 
-const HairTypeInput = ({ lengthState, setLengthState, imgIdx, setHairLengthFn }: HairTypeInputProps) => {
+const HairTypeInput = ({ imgIdx, type }: HairTypeInputProps) => {
+  const [selectedStyle, setSelectedStyle] = useRecoilState(hairStyleState);
+  const { length, lengthStatus } = selectedStyle;
+  const [hairImg, setHairImg] = useState<string[]>(['', '']);
+
+  useEffect(() => {
+    let images;
+    switch (imgIdx) {
+      case 0:
+        images = [shortDefault, shortSelected];
+        break;
+      case 1:
+        images = [mediumDefault, mediumSelected];
+        break;
+      case 2:
+        images = [longDefault, longSelected];
+        break;
+      case 3:
+        images = [rapunzelDefault, rapunzelSelected];
+        break;
+      default:
+        images = ['', ''];
+    }
+    setHairImg(images);
+
+    const tempLengthState = [...lengthStatus];
+
+    type === length ? (tempLengthState[imgIdx] = true) : (tempLengthState[imgIdx] = false);
+    setSelectedStyle({ ...selectedStyle, lengthStatus: tempLengthState });
+  }, []);
+
   const onlySelected = () => {
-    setHairLengthFn(hairType);
+    const tempLengthState = [...lengthStatus];
+    tempLengthState.forEach((_, index) =>
+      index === imgIdx ? (tempLengthState[index] = true) : (tempLengthState[index] = false),
+    );
 
-    const tempLengthState = [...lengthState];
-    tempLengthState.forEach((_, index) => (tempLengthState[index] = index === imgIdx ? true : false));
-
-    setLengthState(tempLengthState);
+    setSelectedStyle({ ...selectedStyle, lengthStatus: tempLengthState, length: type });
   };
-
-  let hairType = '';
-  let hairImgDefault = '';
-  let hairImgChecked = '';
-
-  switch (imgIdx) {
-    case 0:
-      hairType = '숏';
-      hairImgDefault = shortDefault;
-      hairImgChecked = shortSelected;
-      break;
-    case 1:
-      hairType = '단발';
-      hairImgDefault = mediumDefault;
-      hairImgChecked = mediumSelected;
-      break;
-    case 2:
-      hairType = '어깨 아래';
-      hairImgDefault = longDefault;
-      hairImgChecked = longSelected;
-      break;
-    case 3:
-      hairType = '허리 아래';
-      hairImgDefault = rapunzelDefault;
-      hairImgChecked = rapunzelSelected;
-      break;
-  }
 
   return (
     <>
-      <S.HairTypeInput type="radio" id={hairType} name="hairtype" onChange={onlySelected} />
-      <S.HairType htmlFor={hairType}>
-        <img src={lengthState[imgIdx] ? hairImgChecked : hairImgDefault} alt="hairImg" />
+      <S.HairTypeInput type="radio" id={type} name="hairtype" onChange={onlySelected} />
+      <S.HairType htmlFor={type}>
+        <img src={lengthStatus[imgIdx] ? hairImg[1] : hairImg[0]} alt="hairImg" />
       </S.HairType>
     </>
   );

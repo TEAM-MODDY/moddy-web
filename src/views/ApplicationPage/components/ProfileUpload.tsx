@@ -1,4 +1,6 @@
-import { useRef, useState } from 'react';
+import { useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
 import { styled } from 'styled-components';
 
 import { IcEssential } from '../../@common/assets/icons';
@@ -8,40 +10,51 @@ import Header from '../../@common/components/Header';
 import Input from '../../@common/components/Input';
 import ProgressBar from '../../@common/components/ProgressBar';
 import { IcPencilcircle } from '../assets/icons';
+import { INFO_MESSAGE } from '../constants/message';
 import { readImg } from '../utils/readImg';
+
+import { applyStepState, profileState } from '@/recoil/atoms/applicationState';
 
 const ProfileUpload = () => {
   const inputRef = useRef<HTMLInputElement>(null);
-  const [modelImgurl, setmodelImgUrl] = useState<File>();
-  const [instagramId, setInstagramId] = useState('');
-  const [verified, isVerified] = useState(true);
+  const [step, setStep] = useRecoilState(applyStepState);
+  const [inputData, setInputData] = useRecoilState(profileState);
+  const { modelImgUrl, instagramId, verifyStatus } = inputData;
+  const navigate = useNavigate();
 
-  const uploadImg = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const imgObj = event.target.files;
-
-    readImg({ input: imgObj, setUrl: setmodelImgUrl, setVerified: isVerified });
-  };
-
-  const moveNext = () => {
-    console.log(modelImgurl);
-    console.log(instagramId);
+  const handleInput = (event: React.ChangeEvent<HTMLInputElement>) => {
+    readImg(event)
+      .then((dataUrl) => {
+        setInputData({ ...inputData, modelImgUrl: dataUrl, verifyStatus: true });
+      })
+      .catch(() => {
+        navigate('/error');
+      });
   };
 
   return (
     <S.ProfileUploadLayout>
-      <Header title="모델 지원하기" isBackBtnExist={true} isCloseBtnExist={true} />
-      <ProgressBar whole={4} current={4} />
+      <Header
+        title="모델 지원하기"
+        isBackBtnExist={true}
+        isCloseBtnExist={true}
+        backFn={() => {
+          setStep({ ...step, current: step.current - 1 });
+        }}
+        closeFn={() => {
+          navigate(`/`);
+        }}
+      />
+      <ProgressBar whole={step.total} current={step.current} />
       <S.ProfileInfoSection>
         <S.ProfilePhotoSection>
           <S.Title>
             <h2>
-              지원 사진 <IcEssential />
+              {INFO_MESSAGE.PROFILE_TITLE} <IcEssential />
             </h2>
-            <span>
-              딱 맞는 스타일 제안을 위해,
-              <br />
-              반드시 본인사진을 등록해주세요
-            </span>
+            {INFO_MESSAGE.PROFILE_SUBTITLE.split('<br />').map((line) => (
+              <span key={line}>{line}</span>
+            ))}
           </S.Title>
           <S.ProfileUploadBtnBox>
             <S.ProfileUploadBtn
@@ -49,16 +62,14 @@ const ProfileUpload = () => {
               onClick={() => {
                 inputRef.current?.click();
               }}>
-              <S.Profile src={beforeUpload} alt="profileImg" id="profileImg" />
+              <S.Profile src={modelImgUrl ? modelImgUrl : beforeUpload} alt="profileImg" id="profileImg" />
               <input
                 id="uploadButton"
                 name="uploadButton"
                 ref={inputRef}
                 type="file"
                 accept="image/*"
-                onChange={(e) => {
-                  uploadImg(e);
-                }}
+                onChange={handleInput}
               />
               <IcPencilcircle />
             </S.ProfileUploadBtn>
@@ -66,13 +77,25 @@ const ProfileUpload = () => {
         </S.ProfilePhotoSection>
         <S.ProfileInstaSection>
           <S.Title>
-            <h2>인스타그램 아이디</h2>
-            <span>평소 스타일 파악을 위해 입력을 권장드려요</span>
+            <h2>{INFO_MESSAGE.INSTA_TITLE}</h2>
+            <span>{INFO_MESSAGE.INSTA_SUBTITLE} </span>
           </S.Title>
-          <Input placeholderText="아이디를 입력해주세요 &#40;&#39;@&#39; 제외&#41;" onChangeFn={setInstagramId} />
+          <Input
+            placeholderText={INFO_MESSAGE.INSTA_INPUT}
+            initialValue={instagramId}
+            onChangeFn={(e) => {
+              setInputData({ ...inputData, instagramId: e });
+            }}
+          />
         </S.ProfileInstaSection>
       </S.ProfileInfoSection>
-      <Button text="완료" onClickFn={moveNext} disabled={verified} />
+      <Button
+        text={INFO_MESSAGE.LAST}
+        onClickFn={() => {
+          setStep({ ...step, current: step.current + 1 });
+        }}
+        disabled={!verifyStatus}
+      />
     </S.ProfileUploadLayout>
   );
 };
@@ -93,9 +116,9 @@ const S = {
     display: flex;
     flex-direction: column;
     gap: 4.8rem;
-    padding: 0 1.6rem;
 
     width: 100%;
+    padding: 0 1.6rem;
   `,
 
   ProfilePhotoSection: styled.section`
@@ -115,9 +138,8 @@ const S = {
   `,
 
   ProfileUploadBtn: styled.button`
-    height: 100%;
     width: 100%;
-
+    height: 100%;
     border: 1.5px dashed ${({ theme }) => theme.colors.moddy_blue2};
     border-radius: 10px;
 
@@ -127,6 +149,7 @@ const S = {
       bottom: 0.8rem;
       z-index: 1;
     }
+
     & > input {
       display: none;
     }
@@ -135,7 +158,6 @@ const S = {
   Profile: styled.img`
     width: 100%;
     height: 100%;
-
     border-radius: 10px;
     object-fit: cover;
   `,
@@ -149,11 +171,12 @@ const S = {
   Title: styled.div`
     display: flex;
     flex-direction: column;
-    gap: 0.8rem;
 
     & > h2 {
       display: flex;
       justify-content: flex-start;
+
+      margin-bottom: 0.8rem;
 
       color: ${({ theme }) => theme.colors.moddy_bk};
 
