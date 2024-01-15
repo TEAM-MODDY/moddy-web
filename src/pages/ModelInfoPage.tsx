@@ -15,7 +15,6 @@ const ModelInfoPage = () => {
   const APPLICATION_ID = 1;
 
   const { data, isLoading, isError } = useGetApplication(APPLICATION_ID);
-  // const isSend = data?.applicationInfo.isSend;
   const isSend = data?.applicationInfo.isSend;
   //페이지 이동
   const navigate = useNavigate();
