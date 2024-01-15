@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { DesignerResponse, ModelResponse } from './type';
 
+import { USER_TYPE } from '@/views/@common/constants/userType';
 import api from '@/views/@common/hooks/api';
 
 interface UseGetModelProps {
@@ -47,7 +48,7 @@ const useGetMain = ({ user, page }: UseGetModelProps) => {
   };
 
   useEffect(() => {
-    user && fetchData();
+    user !== USER_TYPE.GUEST && fetchData();
   }, [page]);
 
   return {
