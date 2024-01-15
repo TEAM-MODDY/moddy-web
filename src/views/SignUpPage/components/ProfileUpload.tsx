@@ -14,11 +14,9 @@ interface ProfileUpLoadProps {
 
 const ProfileUpload = ({ onImageUpload }: ProfileUpLoadProps) => {
   const [imageUrl, setImageUrl] = useRecoilState(profileImgState);
-  const urlString = Object.values(imageUrl).join('');
-
-  const inputRef = useRef<HTMLInputElement>(null);
   const [, setmodelImgUrl] = useState<File>();
   const [, isVerified] = useState(true);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const uploadImg = (event: React.ChangeEvent<HTMLInputElement>) => {
     const imgObj = event.target.files;
@@ -40,7 +38,7 @@ const ProfileUpload = ({ onImageUpload }: ProfileUpLoadProps) => {
           onClick={() => {
             inputRef.current?.click();
           }}>
-          <S.Profile src={urlString || beforeUpload} alt="profileImg" id="profileImg" />
+          <S.Profile src={imageUrl?.data || beforeUpload} alt="profileImg" id="profileImg" />
           <input
             id="uploadButton"
             name="uploadButton"

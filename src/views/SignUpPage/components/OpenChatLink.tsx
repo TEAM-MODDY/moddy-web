@@ -16,13 +16,10 @@ import Modal from '@/views/@common/components/Modal';
 import ProgressBar from '@/views/@common/components/ProgressBar';
 
 const OpenChatLink = () => {
-  const [textAreaValue, setTextAreaValue] = useState('');
-  const handleTextAreaChange = (value: string) => {
-    setTextAreaValue(value);
-  };
-  const isActive = textAreaValue !== '';
-
   const [LinkInfo, setLinkInfo] = useRecoilState(openLinkState);
+  const [textAreaValue, setTextAreaValue] = useState(LinkInfo.data);
+  const [isOpenModal, setOpenModal] = useState(false);
+  const navigate = useNavigate();
 
   const saveDataToRecoil = () => {
     setLinkInfo((prevOpenLink) => ({
@@ -31,9 +28,12 @@ const OpenChatLink = () => {
       verifyStatus: true,
     }));
   };
-  const navigate = useNavigate();
 
-  const [isOpenModal, setOpenModal] = useState(false);
+  const handleTextAreaChange = (value: string) => {
+    setTextAreaValue(value);
+  };
+
+  const isActive = textAreaValue !== '';
 
   return (
     <>

@@ -19,20 +19,24 @@ import Modal from '@/views/@common/components/Modal';
 import ProgressBar from '@/views/@common/components/ProgressBar';
 
 const ShopInfo = ({ setStep }: EnterProfileProp) => {
-  // 클릭시 변경되게
   const [isClicked, setIsClicked] = useState<boolean[]>(Array(6).fill(false));
+  const [isOpenModal, setOpenModal] = useState(false);
+  const [Address, setAddress] = useState<string>('');
+  const [isAddressModal, setIsAddressModal] = useState(false);
+  const navigate = useNavigate();
+
+  //recoil 적용 CTA 클릭시 저장
+  const [shopInfo, setShopInfo] = useRecoilState(shopInfoState);
+  const [addressInfo, setAddressInfo] = useRecoilState(addressState);
+  const [detailAddressInfo, setDetailAddressInfo] = useRecoilState(detailShopInfoState);
+  const [clickedDateInfo, setClickedDateInfo] = useRecoilState(dateState);
+  const [placeTextValue, setPlaceTextValue] = useState(shopInfo.data);
+
   const handleDayOffClick = (index: number) => {
     const tempClicked = [...isClicked];
     tempClicked[index] = !tempClicked[index];
     setIsClicked(tempClicked);
   };
-
-  //이동
-  const navigate = useNavigate();
-  const [isOpenModal, setOpenModal] = useState(false);
-
-  //입력값 넣기
-  const [Address, setAddress] = useState<string>('');
 
   const handleInputAddress = (value: string) => {
     setAddress(value);
@@ -42,30 +46,20 @@ const ShopInfo = ({ setStep }: EnterProfileProp) => {
     }));
   };
 
-  const [isAddressModal, setIsAddressModal] = useState(false);
   const handleOpenAddressModal = () => {
     setIsAddressModal(true);
   };
-
-  //입력 시 CTA 상태변화
-  const [placeTextValue, setPlaceTextValue] = useState('');
 
   const handlePlaceText = (value: string) => {
     setPlaceTextValue(value);
     setShopInfo({ data: value, verifyStatus: true });
   };
 
-  const [addressDetailValue, setAddressDetailValue] = useState('');
+  const [addressDetailValue, setAddressDetailValue] = useState(detailAddressInfo.data);
   const handleDetialAddressText = (value: string) => {
     setAddressDetailValue(value);
     setDetailAddressInfo({ data: value, verifyStatus: true });
   };
-
-  //recoil 적용 CTA 클릭시 저장
-  const [shopInfo, setShopInfo] = useRecoilState(shopInfoState);
-  const [addressInfo, setAddressInfo] = useRecoilState(addressState);
-  const [detailAddressInfo, setDetailAddressInfo] = useRecoilState(detailShopInfoState);
-  const [clickedDateInfo, setClickedDateInfo] = useRecoilState(dateState);
 
   const saveDataToRecoil = () => {
     setShopInfo((prevShopInfo) => ({
@@ -91,8 +85,6 @@ const ShopInfo = ({ setStep }: EnterProfileProp) => {
     }));
   };
 
-  const isActive = Address && shopInfo.data !== '' && detailAddressInfo.data;
-
   useEffect(() => {
     const applyChanges = () => {
       if (clickedDateInfo) {
@@ -115,6 +107,8 @@ const ShopInfo = ({ setStep }: EnterProfileProp) => {
 
     applyChanges();
   }, []);
+
+  const isActive = Address && shopInfo.data !== '' && detailAddressInfo.data;
 
   return (
     <>

@@ -17,17 +17,21 @@ import Modal from '@/views/@common/components/Modal';
 import ProgressBar from '@/views/@common/components/ProgressBar';
 
 const Profile = ({ setStep }: EnterProfileProp) => {
+  //Recoil
+  const [instaIdInfo, setInstaIdInfo] = useRecoilState(instagramLinkState);
+  const [naverPlaceInfo, setNaverPlaceInfo] = useRecoilState(naverPlaceState);
+  const [profileImgInfo, setProfileImgInfo] = useRecoilState(profileImgState);
   const navigate = useNavigate();
+  const [isOpenModal, setOpenModal] = useState(false);
+  const [InstaIDValue, setInstaIdValue] = useState(instaIdInfo.data);
+  const [NaverLinkValue, setNaverLinkValue] = useState(naverPlaceInfo.data);
+  const [imageUrlValue, setImageUrlValue] = useState('');
 
   const [isImageUploaded, setImageUploaded] = useState(false);
   const handleImageUpload = (imgUrl: string) => {
     setImageUploaded(true);
     setImageUrlValue(imgUrl);
   };
-  const [isOpenModal, setOpenModal] = useState(false);
-  const [InstaIDValue, setInstaIdValue] = useState('');
-  const [NaverLinkValue, setNaverLinkValue] = useState('');
-  const [imageUrlValue, setImageUrlValue] = useState('');
 
   //넣어주기
   const handleInstaGramText = (value: string) => {
@@ -38,11 +42,6 @@ const Profile = ({ setStep }: EnterProfileProp) => {
     setNaverLinkValue(value);
     setNaverPlaceInfo({ data: value, verifyStatus: true });
   };
-
-  //Recoil
-  const [instaIdInfo, setInstaIdInfo] = useRecoilState(instagramLinkState);
-  const [naverPlaceInfo, setNaverPlaceInfo] = useRecoilState(naverPlaceState);
-  const [profileImgInfo, setProfileImgInfo] = useRecoilState(profileImgState);
 
   const saveDataToRecoil = () => {
     setInstaIdInfo((prevInstaIdInfo) => ({
