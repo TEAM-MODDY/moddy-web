@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
 import { styled } from 'styled-components';
 
 import { HELPER_MESSAGE } from '../constants/message';
@@ -10,28 +11,71 @@ import Field from './Field';
 import LimitInput from './LimitInput';
 import ProfileUpload from './ProfileUpload';
 
+import { instagramLinkState, naverPlaceState, profileImgState } from '@/recoil/atoms/signUpState';
 import Button from '@/views/@common/components/Button';
 import Modal from '@/views/@common/components/Modal';
 import ProgressBar from '@/views/@common/components/ProgressBar';
 
 const Profile = ({ setStep }: EnterProfileProp) => {
+  //Recoil
+  const [instaIdInfo, setInstaIdInfo] = useRecoilState(instagramLinkState);
+  const [naverPlaceInfo, setNaverPlaceInfo] = useRecoilState(naverPlaceState);
+  const [profileImgInfo, setProfileImgInfo] = useRecoilState(profileImgState);
   const navigate = useNavigate();
+  const [isOpenModal, setOpenModal] = useState(false);
+  const [InstaIDValue, setInstaIdValue] = useState(instaIdInfo.data);
+  const [NaverLinkValue, setNaverLinkValue] = useState(naverPlaceInfo.data);
+  const [imageUrlValue, setImageUrlValue] = useState('');
 
   const [isImageUploaded, setImageUploaded] = useState(false);
-  const handleImageUpload = () => {
+  const handleImageUpload = (imgUrl: string) => {
     setImageUploaded(true);
+    setImageUrlValue(imgUrl);
   };
-  const [isOpenModal, setOpenModal] = useState(false);
-  const [InstaIDValue, setInstaIdValue] = useState('');
-  const [NaverLinkValue, setNaverLinkValue] = useState('');
-  const isActive = InstaIDValue && NaverLinkValue !== '' && isImageUploaded;
 
+  //넣어주기
   const handleInstaGramText = (value: string) => {
     setInstaIdValue(value);
+    setInstaIdInfo({ data: value, verifyStatus: true });
   };
   const handleNaverPlaceText = (value: string) => {
     setNaverLinkValue(value);
+    setNaverPlaceInfo({ data: value, verifyStatus: true });
   };
+
+  const saveDataToRecoil = () => {
+    setInstaIdInfo((prevInstaIdInfo) => ({
+      ...prevInstaIdInfo,
+      data: InstaIDValue,
+      verifyStatus: true,
+    }));
+
+    setNaverPlaceInfo((prevNaverPlaceInfo) => ({
+      ...prevNaverPlaceInfo,
+      data: NaverLinkValue,
+      verifyStatus: true,
+    }));
+
+    setProfileImgInfo((prevProfileImgInfo) => ({
+      ...prevProfileImgInfo,
+      data: imageUrlValue,
+    }));
+  };
+
+  useEffect(() => {
+    const applyChanges = async () => {
+      if (profileImgInfo) {
+        {
+          handleImageUpload(profileImgInfo.data);
+        }
+      }
+    };
+
+    applyChanges();
+  }, [profileImgInfo]);
+
+  const isActive = instaIdInfo.data && naverPlaceInfo.data !== '' && isImageUploaded;
+
   return (
     <>
       <ProgressBar whole={TOTAL_STEP.DESIGNER_VIEW} current={4} />
@@ -47,17 +91,27 @@ const Profile = ({ setStep }: EnterProfileProp) => {
         <section>
           <LimitInput
             placeholderText={HELPER_MESSAGE.INPUT_INSTAGRAM_LINK}
+            initialValue={instaIdInfo.data}
             onChangeFn={handleInstaGramText}
             maxLength={255}
           />
           <LimitInput
             placeholderText={HELPER_MESSAGE.INPUT_NAVERPLACE_LINK}
+            initialValue={naverPlaceInfo.data}
             onChangeFn={handleNaverPlaceText}
             maxLength={255}
           />
         </section>
       </S.ProfileLayout>
-      <Button text="다음" isFixed={true} disabled={!isActive} onClickFn={() => setStep((prev) => prev + 1)} />
+      <Button
+        text="다음"
+        isFixed={true}
+        disabled={!isActive}
+        onClickFn={() => {
+          setStep((prev) => prev + 1);
+          saveDataToRecoil();
+        }}
+      />
       {isOpenModal && (
         <Modal
           title="이대로 가입하시겠어요?"

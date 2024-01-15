@@ -18,6 +18,18 @@ export interface preferRegionDataType {
   verifyStatus: boolean;
 }
 
+export interface selectDateType {
+  data: boolean[];
+}
+
+export interface searchAddressType {
+  data: string;
+}
+
+export interface inputImgType {
+  data: string;
+}
+
 const { persistAtom } = recoilPersist({
   key: '사용자 타입',
   storage: sessionStorage,
@@ -63,6 +75,19 @@ export const genderState = atom<inputDataType>({
   },
 });
 
+export const preferRegionState = atom<preferRegionDataType>({
+  key: 'preferRegion',
+  default: {
+    data: [],
+    verifyStatus: false,
+  },
+});
+
+export const regionState = atom<{ id: number; name: string }[]>({
+  key: 'region',
+  default: [],
+});
+
 export const phoneNumberState = atom<verificationDataType>({
   key: 'phoneNumber',
   default: {
@@ -79,15 +104,67 @@ export const verifyCodeState = atom<verificationDataType>({
   },
 });
 
-export const preferRegionState = atom<preferRegionDataType>({
-  key: 'preferRegion',
+export const shopInfoState = atom<inputDataType>({
+  key: 'shopInfo',
   default: {
-    data: [],
+    data: '',
     verifyStatus: false,
   },
 });
 
-export const regionState = atom<{ id: number; name: string }[]>({
-  key: 'region',
-  default: [],
+export const addressState = atom<searchAddressType>({
+  key: 'addressInfo',
+  default: { data: '' },
+});
+
+export const detailShopInfoState = atom<inputDataType>({
+  key: 'detailShopInfo',
+  default: {
+    data: '',
+    verifyStatus: false,
+  },
+});
+
+export const dateState = atom<selectDateType>({
+  key: 'dateInfo',
+  default: {
+    data: [],
+  },
+});
+
+export const profileImgState = atom<inputImgType>({
+  key: 'profilePictureInfo',
+  default: { data: '' },
+});
+
+export const instagramLinkState = atom<inputDataType>({
+  key: 'instagramLinkInfo',
+  default: {
+    data: '',
+    verifyStatus: false,
+  },
+});
+
+export const naverPlaceState = atom<inputDataType>({
+  key: 'naverPlaceInfo',
+  default: {
+    data: '',
+    verifyStatus: false,
+  },
+});
+
+export const designerInfoState = atom<inputDataType>({
+  key: 'deisgnerInfo',
+  default: {
+    data: '',
+    verifyStatus: false,
+  },
+});
+
+export const openLinkState = atom<inputDataType>({
+  key: 'openLinkInfo',
+  default: {
+    data: '',
+    verifyStatus: false,
+  },
 });
