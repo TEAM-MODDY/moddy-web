@@ -5,6 +5,7 @@ import { styled } from 'styled-components';
 
 import { HELPER_MESSAGE } from '../constants/message';
 import { TOTAL_STEP } from '../constants/step';
+import usePostDesignerSignUp from '../hooks/usePostDesignerSignUp';
 
 import Field from './Field';
 
@@ -19,6 +20,7 @@ const OpenChatLink = () => {
   const [LinkInfo, setLinkInfo] = useRecoilState(openLinkState);
   const [textAreaValue, setTextAreaValue] = useState(LinkInfo.data);
   const [isOpenModal, setOpenModal] = useState(false);
+  const postModelSignUp = usePostDesignerSignUp();
   const navigate = useNavigate();
 
   const saveDataToRecoil = () => {
@@ -34,6 +36,10 @@ const OpenChatLink = () => {
   };
 
   const isActive = textAreaValue !== '';
+
+  const handleSignUp = async () => {
+    await postModelSignUp();
+  };
 
   return (
     <>
@@ -57,7 +63,7 @@ const OpenChatLink = () => {
         disabled={!isActive}
         onClickFn={() => {
           setOpenModal(true);
-          saveDataToRecoil;
+          saveDataToRecoil();
         }}
       />
       {isOpenModal && (
@@ -67,7 +73,7 @@ const OpenChatLink = () => {
           leftBtnText="돌아가기"
           rightBtnText="확인"
           leftBtnFn={() => setOpenModal(false)}
-          rightBtnFn={() => navigate('/')}
+          rightBtnFn={() => handleSignUp()}
         />
       )}
     </>
