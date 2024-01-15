@@ -1,18 +1,20 @@
 import { styled } from 'styled-components';
 
-import { CHECK_OFFER_DATA } from '../constants/CHECK_OFFER_DATA';
+import { AgreeDesignerInfoProps } from '../hooks/type';
 
-const ProfileWrapperBox = () => {
+const ProfileWrapperBox = ({ designerInfo }: { designerInfo: AgreeDesignerInfoProps }) => {
+  const { imgUrl, shopName, name, introduction }: AgreeDesignerInfoProps = designerInfo;
+
   return (
     <S.ProfileWrapperLayout>
       <S.ProfileBox>
-        <img src={CHECK_OFFER_DATA.data.designerInfo.imgUrl} alt="디자이너 프로필 이미지" />
+        <img src={imgUrl} alt="디자이너 프로필 이미지" />
         <div>
-          <h3>모디 헤어 강남점</h3>
-          <h2>너무 졸려 디자이너</h2>
+          <h3>{shopName}</h3>
+          <h2>{name}</h2>
         </div>
       </S.ProfileBox>
-      <p>{CHECK_OFFER_DATA.data.designerInfo.introduction}</p>
+      <p>{introduction}</p>
     </S.ProfileWrapperLayout>
   );
 };
