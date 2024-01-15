@@ -1,6 +1,15 @@
-export const readImg = (event: React.ChangeEvent<HTMLInputElement>): string | null => {
+// export interface readImgProps {
+//   event: React.ChangeEvent<HTMLInputElement>;
+//   setUrl: React.Dispatch<React.SetStateAction<string>>;
+// }
+
+import { useRecoilState } from 'recoil';
+
+import { profileState } from '@/recoil/atoms/applicationState';
+
+export const useReadImg = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const [url, setUrl] = useRecoilState(profileState);
   const input = event.target.files;
-  let imgUrl = '';
 
   // 인풋 태그에 파일이 있는 경우
   if (input && input[0]) {
@@ -15,12 +24,10 @@ export const readImg = (event: React.ChangeEvent<HTMLInputElement>): string | nu
 
       if (typeof e.target!.result === 'string') {
         previewImg.src = e.target!.result;
-        imgUrl = e.target!.result;
+        setUrl({ ...url, modelImgUrl: e.target!.result });
       }
-      console.log(imgUrl);
     };
   }
-  return imgUrl;
 };
 // const formData = new FormData();
 // formData.append('image', file); API request body의 key에 맞게 설정

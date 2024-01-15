@@ -62,7 +62,7 @@ export const historyState = atom<historyType>({
 });
 
 export interface profileType {
-  modelImgUrl: string | null;
+  modelImgUrl: string;
   instagramId: string;
   verifyStatus: boolean;
 }
