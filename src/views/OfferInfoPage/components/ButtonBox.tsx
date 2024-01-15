@@ -2,17 +2,16 @@ import { styled } from 'styled-components';
 
 import Button from '../../@common/components/Button';
 import { IcDownload, IcLink } from '../assets/icons';
-import { CHECK_OFFER_DATA } from '../constants/CHECK_OFFER_DATA';
 
 interface ButtonBoxProps {
   onClick: () => void;
+  kakaoUrl: string;
 }
 
-const ButtonBox = ({ onClick }: ButtonBoxProps) => {
+const ButtonBox = ({ onClick, kakaoUrl }: ButtonBoxProps) => {
   //오픈채팅방 연결
-  const OpenChatLink = CHECK_OFFER_DATA.data.kakaoUrl;
   const handleClickChat = () => {
-    window.open(OpenChatLink, '_blank');
+    window.open(kakaoUrl, '_blank');
   };
 
   return (

@@ -3,16 +3,16 @@ import { styled } from 'styled-components';
 
 import { IcBookmark } from '../assets/icons';
 import ImgApplicationLogo from '../assets/images/img_applicationlogo.png';
-import { CHECK_OFFER_DATA } from '../constants/CHECK_OFFER_DATA';
 
 import { IcCloseBlack } from '@/views/@common/assets/icons';
 
 interface ImgModalProps {
   isModal?: boolean;
   onClose: () => void;
+  imgUrl: string;
 }
 
-const ImgModal = ({ isModal, onClose }: ImgModalProps) => {
+const ImgModal = ({ isModal, onClose, imgUrl }: ImgModalProps) => {
   //모달 닫기
   const handleModalClose = () => {
     onClose();
@@ -22,7 +22,7 @@ const ImgModal = ({ isModal, onClose }: ImgModalProps) => {
 
   const fetchImage = async () => {
     try {
-      const response = await fetch(CHECK_OFFER_DATA.data.applicationImgUrl);
+      const response = await fetch(imgUrl);
       if (!response.ok) {
         throw new Error(`이미지 저장 실패`);
       }
@@ -45,7 +45,7 @@ const ImgModal = ({ isModal, onClose }: ImgModalProps) => {
             <S.CloseBtnBox onClick={handleModalClose}>
               <IcCloseBlack />
             </S.CloseBtnBox>
-            <S.MyRecordImg src={CHECK_OFFER_DATA.data.applicationImgUrl} />
+            <S.MyRecordImg src={imgUrl} />
             <S.LogoBox src={ImgApplicationLogo} />
             <S.SaveBtn
               onClick={() => {
