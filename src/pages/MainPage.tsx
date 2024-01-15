@@ -3,7 +3,7 @@ import { useRecoilValue } from 'recoil';
 import { styled } from 'styled-components';
 
 import Banner from '../views/MainPage/components/Banner';
-import Contents from '../views/MainPage/components/GuestContents';
+import GuestContents from '../views/MainPage/components/GuestContents';
 import StatusBarForiOS from '../views/MainPage/components/StatusBarForiOS';
 import TopSheet from '../views/MainPage/components/TopSheet';
 import { ReceivedOffer, ReceivedApplication } from '../views/MainPage/components/UserContents';
@@ -13,8 +13,8 @@ import { USER_TYPE } from '@/views/@common/constants/userType';
 import useGetMain from '@/views/MainPage/hooks/useGetMain';
 
 const MainPage = () => {
-  // const userType = useRecoilValue(userTypeState);
-  const userType = USER_TYPE.DESIGNER;
+  const userType = useRecoilValue(userTypeState);
+  // const userType = USER_TYPE.GUEST;
 
   const [page, setPage] = useState(1);
   const { data } = useGetMain({ user: userType, page: page });
@@ -22,7 +22,7 @@ const MainPage = () => {
   const MainContents = () => {
     switch (userType) {
       case USER_TYPE.GUEST:
-        return <Contents />;
+        return <GuestContents />;
       case USER_TYPE.DESIGNER:
         return data && <ReceivedApplication data={data} setPage={setPage} />;
       case USER_TYPE.MODEL:
@@ -36,13 +36,11 @@ const MainPage = () => {
     <>
       <MainPageLayout>
         <StatusBarForiOS />
-        {data && (
-          <TopSheet
-            userType={userType}
-            applyType={userType === USER_TYPE.MODEL && data && 'status' in data ? data.status : ''}
-            name={data.name}
-          />
-        )}
+        <TopSheet
+          userType={userType}
+          applyType={userType === USER_TYPE.MODEL && data && 'status' in data ? data.status : ''}
+          name={data ? data.name : ''}
+        />
         <Banner />
         <MainContents />
       </MainPageLayout>
