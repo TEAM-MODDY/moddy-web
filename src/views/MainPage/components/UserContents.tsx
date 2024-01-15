@@ -8,7 +8,7 @@ import { DesignerResponse, ModelResponse } from '../hooks/type';
 import { OfferCard, ApplicationCard } from './Card';
 
 interface UserContentsProps {
-  data: DesignerResponse | ModelResponse | undefined;
+  data: DesignerResponse | ModelResponse;
   setPage: React.Dispatch<React.SetStateAction<number>>;
 }
 
@@ -21,10 +21,10 @@ const ReceivedOffer = (props: UserContentsProps) => {
   }, [inView]);
 
   return (
-    <S.ReceivedOfferLayout>
+    <S.UserContentsLayout>
       <S.TitleSpan>도착한 제안서</S.TitleSpan>
-      {data?.status === APPLY_STATUS.RECEIVED ? (
-        <S.ReceivedOfferBox>
+      {'status' in data && data.status === APPLY_STATUS.RECEIVED ? (
+        <S.ContentsBox>
           {data.offers.map((offer, index) => (
             <OfferCard
               key={index}
@@ -36,54 +36,54 @@ const ReceivedOffer = (props: UserContentsProps) => {
               conditions={offer.conditions}
             />
           ))}
-        </S.ReceivedOfferBox>
+        </S.ContentsBox>
       ) : (
-        <S.ReceivedOfferEmptyBox>
+        <S.EmptyBox>
           <S.HelperTextSpan>
-            {data?.status === APPLY_STATUS.NOTHING
+            {'status' in data && data.status === APPLY_STATUS.NOTHING
               ? '지금 바로 헤어모델에 지원해 보세요 :)'
               : '첫 제안서를 기다리고 있어요 :)'}
           </S.HelperTextSpan>
-        </S.ReceivedOfferEmptyBox>
+        </S.EmptyBox>
       )}
-      {data && data.length > 4 && <div ref={ref}></div>}
-    </S.ReceivedOfferLayout>
+      {'offers' in data && data.offers.length < data.total && <div ref={ref}></div>}
+    </S.UserContentsLayout>
   );
 };
 
 const ReceivedApplication = (props: UserContentsProps) => {
   const { data, setPage } = props;
   const [ref, inView] = useInView();
-  console.log(data);
 
   useEffect(() => {
     inView && setPage((prev) => prev + 1);
   }, [inView]);
 
   return (
-    <S.ReceivedOfferLayout>
+    <S.UserContentsLayout>
       <S.TitleSpan>도착한 지원서</S.TitleSpan>
-      <S.ReceivedOfferBox>
-        {data.hairModelApplications.map((application, index) => (
-          <ApplicationCard
-            key={index}
-            applicationId={application.applicationId}
-            name={application.name}
-            age={application.age}
-            imgUrl={application.imgUrl}
-            gender={application.gender}
-            preferHairStyles={application.preferHairStyles}
-          />
-        ))}
-      </S.ReceivedOfferBox>
-      {data && data.length > 4 && <div ref={ref}></div>}
-    </S.ReceivedOfferLayout>
+      <S.ContentsBox>
+        {'hairModelApplications' in data &&
+          data.hairModelApplications.map((application, index) => (
+            <ApplicationCard
+              key={index}
+              applicationId={application.applicationId}
+              name={application.name}
+              age={application.age}
+              imgUrl={application.imgUrl}
+              gender={application.gender}
+              preferHairStyles={application.preferHairStyles}
+            />
+          ))}
+      </S.ContentsBox>
+      {'hairModelApplications' in data && data.hairModelApplications.length < data.total && <div ref={ref}></div>}
+    </S.UserContentsLayout>
   );
 };
 
 export { ReceivedOffer, ReceivedApplication };
 
-const ReceivedOfferLayout = styled.div`
+const UserContentsLayout = styled.div`
   padding: 0 1.6rem 4rem;
 `;
 
@@ -92,7 +92,7 @@ const TitleSpan = styled.span`
   ${({ theme }) => theme.fonts.Body01};
 `;
 
-const ReceivedOfferEmptyBox = styled.div`
+const EmptyBox = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -110,7 +110,7 @@ const HelperTextSpan = styled.span`
   ${({ theme }) => theme.fonts.Headline04};
 `;
 
-const ReceivedOfferBox = styled.div`
+const ContentsBox = styled.div`
   display: flex;
   flex-wrap: wrap;
   gap: 1.2rem;
@@ -119,9 +119,9 @@ const ReceivedOfferBox = styled.div`
   margin-top: 1.2rem;
 `;
 const S = {
-  ReceivedOfferLayout,
-  ReceivedOfferEmptyBox,
+  UserContentsLayout,
+  EmptyBox,
   TitleSpan,
   HelperTextSpan,
-  ReceivedOfferBox,
+  ContentsBox,
 };
