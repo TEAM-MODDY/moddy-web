@@ -96,14 +96,15 @@ const ShopInfo = ({ setStep }: EnterProfileProp) => {
   const isActive = Address && shopInfo.data !== '' && detailAddressInfo.data;
 
   useEffect(() => {
-    const applyChanges = async () => {
+    const applyChanges = () => {
       if (clickedDateInfo) {
         const clickedIndex = clickedDateInfo.data
           .map((value, index) => (value ? index : undefined))
           .filter((index) => index !== undefined) as number[];
 
-        clickedIndex.forEach((index) => {
-          return handleDayOffClick(index);
+        setIsClicked((prevIsClicked) => {
+          const updatedData = prevIsClicked.map((item, idx) => (clickedIndex.includes(idx) ? !item : item));
+          return updatedData;
         });
       }
       if (addressInfo) {
@@ -167,6 +168,7 @@ const ShopInfo = ({ setStep }: EnterProfileProp) => {
         onClickFn={() => {
           setStep((prev) => prev + 1);
           setOpenModal(true);
+
           saveDataToRecoil();
         }}
       />
