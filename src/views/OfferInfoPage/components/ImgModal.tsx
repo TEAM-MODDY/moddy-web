@@ -13,7 +13,6 @@ interface ImgModalProps {
 }
 
 const ImgModal = ({ isModal, onClose, imgUrl }: ImgModalProps) => {
-  console.log(imgUrl);
   //모달 닫기
   const handleModalClose = () => {
     onClose();

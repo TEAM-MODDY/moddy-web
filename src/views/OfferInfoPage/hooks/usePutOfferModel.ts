@@ -24,8 +24,7 @@ const usePutOfferModel = () => {
     } catch (err) {
       if (err instanceof AxiosError) {
         setError(err);
-        console.log(err);
-        // navigate('/error');
+        navigate('/error');
       }
     } finally {
       setLoading(false);
