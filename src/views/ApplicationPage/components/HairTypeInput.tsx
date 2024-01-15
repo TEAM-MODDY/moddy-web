@@ -14,14 +14,13 @@ import rapunzelSelected from '../../@common/assets/images/btn_hair4_selected.png
 import { hairStyleState } from '@/recoil/atoms/applicationState';
 
 interface HairTypeInputProps {
-  lengthState: boolean[];
-  setLengthState: React.Dispatch<React.SetStateAction<boolean[]>>;
   imgIdx: number;
   type: string;
 }
 
-const HairTypeInput = ({ lengthState, setLengthState, imgIdx, type }: HairTypeInputProps) => {
+const HairTypeInput = ({ imgIdx, type }: HairTypeInputProps) => {
   const [selectedStyle, setSelectedStyle] = useRecoilState(hairStyleState);
+  const { length, lengthStatus } = selectedStyle;
   const [hairImg, setHairImg] = useState<string[]>(['', '']);
 
   useEffect(() => {
@@ -44,32 +43,26 @@ const HairTypeInput = ({ lengthState, setLengthState, imgIdx, type }: HairTypeIn
     }
     setHairImg(images);
 
-    const tempLengthState = [...lengthState];
+    const tempLengthState = [...lengthStatus];
 
-    lengthState.forEach((_, index) =>
-      type === selectedStyle.length && imgIdx === index
-        ? (tempLengthState[index] = true)
-        : (tempLengthState[index] = false),
-    );
-    setLengthState(tempLengthState);
+    type === length ? (tempLengthState[imgIdx] = true) : (tempLengthState[imgIdx] = false);
+    setSelectedStyle({ ...selectedStyle, lengthStatus: tempLengthState });
   }, []);
 
   const onlySelected = () => {
-    setSelectedStyle({ ...selectedStyle, length: type });
-
-    const tempLengthState = [...lengthState];
+    const tempLengthState = [...lengthStatus];
     tempLengthState.forEach((_, index) =>
       index === imgIdx ? (tempLengthState[index] = true) : (tempLengthState[index] = false),
     );
 
-    setLengthState(tempLengthState);
+    setSelectedStyle({ ...selectedStyle, lengthStatus: tempLengthState, length: type });
   };
 
   return (
     <>
       <S.HairTypeInput type="radio" id={type} name="hairtype" onChange={onlySelected} />
       <S.HairType htmlFor={type}>
-        <img src={lengthState[imgIdx] ? hairImg[1] : hairImg[0]} alt="hairImg" />
+        <img src={lengthStatus[imgIdx] ? hairImg[1] : hairImg[0]} alt="hairImg" />
       </S.HairType>
     </>
   );

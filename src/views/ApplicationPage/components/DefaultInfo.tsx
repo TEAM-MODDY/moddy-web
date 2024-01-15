@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { styled } from 'styled-components';
@@ -17,11 +17,10 @@ const DefaultInfo = () => {
   const [step, setStep] = useRecoilState(applyStepState);
   const [selectedStyle, setSelectedStyle] = useRecoilState(hairStyleState);
   const { length, preference, verifyStatus } = selectedStyle;
-  const [lengthState, setLengthState] = useState([false, false, false, false]);
   const navigate = useNavigate();
 
   useEffect(() => {
-    length && preference[0]
+    length && preference.length > 0
       ? setSelectedStyle({ ...selectedStyle, verifyStatus: true })
       : setSelectedStyle({ ...selectedStyle, verifyStatus: false });
   }, [length, preference]);
@@ -48,10 +47,10 @@ const DefaultInfo = () => {
               <span>{INFO_MESSAGE.LENGTH_SUBTITLE}</span>
             </S.Title>
             <S.HairTypeInputBox>
-              <HairTypeInput lengthState={lengthState} setLengthState={setLengthState} imgIdx={0} type="숏" />
-              <HairTypeInput lengthState={lengthState} setLengthState={setLengthState} imgIdx={1} type="단발" />
-              <HairTypeInput lengthState={lengthState} setLengthState={setLengthState} imgIdx={2} type="어깨 아래" />
-              <HairTypeInput lengthState={lengthState} setLengthState={setLengthState} imgIdx={3} type="허리 아래" />
+              <HairTypeInput imgIdx={0} type="숏" />
+              <HairTypeInput imgIdx={1} type="단발" />
+              <HairTypeInput imgIdx={2} type="어깨 아래" />
+              <HairTypeInput imgIdx={3} type="허리 아래" />
             </S.HairTypeInputBox>
           </S.HairLengthSection>
           <hr />
