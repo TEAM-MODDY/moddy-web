@@ -20,7 +20,6 @@ const useGetUser = () => {
         },
       });
       setData(data.data.data);
-      console.log(data.data.data);
     } catch (err) {
       if (err instanceof AxiosError) setError(err);
       else {
