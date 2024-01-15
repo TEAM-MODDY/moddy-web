@@ -21,6 +21,7 @@ const usePutOfferModel = () => {
         },
       });
       setData(response.data);
+      console.log(response.data);
     } catch (err) {
       if (err instanceof AxiosError) {
         setError(err);

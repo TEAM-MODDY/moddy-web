@@ -14,9 +14,15 @@ const DirectionModal = ({ isModal, onClose }: DirectionModalProps) => {
   const { postOffer } = usePutOfferModel();
   const navigate = useNavigate();
 
+  const TEST_OFFER_ID = 2;
+
   const handleOnClickContinue = () => {
     postOffer();
-    navigate('/offer-info/check-offer');
+    navigate('/offer-info/check-offer', {
+      state: {
+        offerId: TEST_OFFER_ID,
+      },
+    });
   };
 
   const handleModalClose = () => {
