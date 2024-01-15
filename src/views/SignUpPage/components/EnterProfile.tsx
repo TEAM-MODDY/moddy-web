@@ -50,17 +50,25 @@ const EnterProfile = ({ setIsInitialStep }: EnterProfileProps) => {
             backFn={() => setIsInitialStep(true)}
           />
         );
+      case STEP.DESIGNER.SHOP_INFO:
+        return (
+          <Header
+            isBackBtnExist={true}
+            isCloseBtnExist={true}
+            title="프로필 작성"
+            backFn={() => setStep(STEP.PHONE_NUMBER_VERIFICATION)}
+            closeFn={() => navigate('/')}
+          />
+        );
       default:
         return (
-          <>
-            <Header
-              isBackBtnExist={true}
-              isCloseBtnExist={true}
-              title="프로필 작성"
-              backFn={() => setStep((prev) => prev - 1)}
-              closeFn={() => navigate('/')}
-            />
-          </>
+          <Header
+            isBackBtnExist={true}
+            isCloseBtnExist={true}
+            title="프로필 작성"
+            backFn={() => setStep((prev) => prev - 1)}
+            closeFn={() => navigate('/')}
+          />
         );
     }
   };
