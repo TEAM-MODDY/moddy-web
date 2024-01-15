@@ -1,10 +1,11 @@
 import { styled } from 'styled-components';
 
-import ProfileUpload from '../views/ApplicationPage/components/ProfileUpload';
+import ApplicationResult from '@/views/ApplicationPage/components/ApplicationResult';
+
 const ApplicationPage = () => {
   return (
     <S.ApplicationPagSection>
-      <ProfileUpload />
+      <ApplicationResult />
     </S.ApplicationPagSection>
   );
 };
@@ -17,6 +18,6 @@ const S = {
     flex-direction: column;
 
     width: 100%;
-    height: 100vh;
+    height: 100dvh;
   `,
 };

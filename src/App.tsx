@@ -5,6 +5,7 @@ import { ThemeProvider } from 'styled-components';
 
 import AgreementPage from './pages/AgreementPage';
 import ApplicationPage from './pages/ApplicationPage';
+import ConfirmPage from './pages/ConfirmPage';
 import ErrorPage from './pages/ErrorPage';
 import LoginPage from './pages/LoginPage';
 import MainPage from './pages/MainPage';
@@ -15,7 +16,6 @@ import OfferInfoPage from './pages/OfferInfoPage';
 import SignUpPage from './pages/SignUpPage';
 import GlobalStyle from './styles/GlobalStyle';
 import theme from './styles/Theme';
-import ConfirmPage from './views/ApplicationPage/pages/ConfirmPage';
 import LoginCallback from './views/LoginPage/components/LoginCallback';
 import ModelOfferPage from './views/ModelInfoPage/components/ModelOfferPage';
 import OfferSentCompletePage from './views/ModelInfoPage/components/OfferSentCompletePage';

@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
 
-import Button from '../../@common/components/Button';
+import Button from '../views/@common/components/Button';
 
 const ConfirmPage = () => {
   const navigate = useNavigate();
@@ -37,7 +37,7 @@ const S = {
     align-items: center;
 
     width: 100%;
-    height: 100vh;
+    height: 100dvh;
     padding: 9rem;
 
     & > img {
