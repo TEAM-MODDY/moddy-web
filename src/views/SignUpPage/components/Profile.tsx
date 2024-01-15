@@ -20,8 +20,9 @@ const Profile = ({ setStep }: EnterProfileProp) => {
   const navigate = useNavigate();
 
   const [isImageUploaded, setImageUploaded] = useState(false);
-  const handleImageUpload = () => {
+  const handleImageUpload = (imgUrl: string) => {
     setImageUploaded(true);
+    setImageUrlValue(imgUrl);
   };
   const [isOpenModal, setOpenModal] = useState(false);
   const [InstaIDValue, setInstaIdValue] = useState('');
@@ -36,10 +37,6 @@ const Profile = ({ setStep }: EnterProfileProp) => {
   const handleNaverPlaceText = (value: string) => {
     setNaverLinkValue(value);
     setNaverPlaceInfo({ data: value, verifyStatus: true });
-  };
-  const handleProfileImageUrl = (value: string) => {
-    setImageUrlValue(value);
-    setProfileImgInfo({ data: value });
   };
 
   //Recoil
@@ -70,14 +67,13 @@ const Profile = ({ setStep }: EnterProfileProp) => {
     const applyChanges = async () => {
       if (profileImgInfo) {
         {
-          const inputImgUrl = profileImgInfo.data;
-          handleProfileImageUrl(profileImgInfo.data);
+          handleImageUpload(profileImgInfo.data);
         }
       }
     };
 
     applyChanges();
-  }, []);
+  }, [profileImgInfo]);
 
   const isActive = instaIdInfo.data && naverPlaceInfo.data !== '' && isImageUploaded;
 
