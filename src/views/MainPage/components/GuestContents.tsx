@@ -11,7 +11,7 @@ import { IcCloseBlack } from '@/views/@common/assets/icons';
 interface DetailPageProps {
   imgSrc: string;
 }
-const Contents = () => {
+const GuestContents = () => {
   const [isOpenDetail, setOpenDetail] = useState(0);
 
   useEffect(() => {
@@ -63,7 +63,7 @@ const Contents = () => {
     </S.ContentsLayout>
   );
 };
-export default Contents;
+export default GuestContents;
 
 const ContentsLayout = styled.div`
   padding: 0 1.6rem 3rem;

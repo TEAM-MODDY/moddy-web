@@ -132,6 +132,7 @@ const S = {
 
     width: 100%;
     height: max-content;
+    min-height: 100%;
 
     ${({ theme }) => theme.commons.scrollbar};
   `,
