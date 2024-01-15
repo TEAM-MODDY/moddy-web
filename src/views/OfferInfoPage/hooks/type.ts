@@ -48,3 +48,8 @@ export interface UseGetAgreeRes {
   message: string;
   data: UseGetAgreeProps;
 }
+
+export interface OfferInfoProps {
+  code: number;
+  messsage: string;
+}

@@ -4,6 +4,7 @@ import { AgreeDesignerInfoProps } from '../hooks/type';
 
 const ProfileWrapperBox = ({ designerInfo }: { designerInfo: AgreeDesignerInfoProps }) => {
   const { imgUrl, shopName, name, introduction }: AgreeDesignerInfoProps = designerInfo;
+
   return (
     <S.ProfileWrapperLayout>
       <S.ProfileBox>
