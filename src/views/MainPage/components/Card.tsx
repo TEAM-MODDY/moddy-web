@@ -2,7 +2,6 @@ import { useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
 
 import { ImgNew } from '../assets/images';
-import { CONDITION, PREFER_HAIR_STYLE } from '../constants/tag';
 
 interface OfferCardProps {
   offerId: number;
@@ -42,7 +41,7 @@ const OfferCard = (props: OfferCardProps) => {
         </S.PersonalInfoBox>
         <S.PreferStyleWrapperBox>
           {conditions.map((item, index) => (
-            <S.PreferStyleTagBox key={index}>{CONDITION[item as keyof typeof CONDITION]}</S.PreferStyleTagBox>
+            <S.PreferStyleTagBox key={index}>{item}</S.PreferStyleTagBox>
           ))}
         </S.PreferStyleWrapperBox>
       </S.ModelInfoBox>
@@ -67,9 +66,7 @@ const ApplicationCard = (props: ApplicationCardProps) => {
         </S.PersonalInfoBox>
         <S.PreferStyleWrapperBox>
           {preferHairStyles.map((item, index) => (
-            <S.PreferStyleTagBox key={index}>
-              {PREFER_HAIR_STYLE[item as keyof typeof PREFER_HAIR_STYLE]}
-            </S.PreferStyleTagBox>
+            <S.PreferStyleTagBox key={index}>{item}</S.PreferStyleTagBox>
           ))}
         </S.PreferStyleWrapperBox>
       </S.ModelInfoBox>
