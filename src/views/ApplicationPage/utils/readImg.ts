@@ -7,8 +7,8 @@ import { useRecoilState } from 'recoil';
 
 import { profileState } from '@/recoil/atoms/applicationState';
 
-export const useReadImg = (event: React.ChangeEvent<HTMLInputElement>) => {
-  const [url, setUrl] = useRecoilState(profileState);
+export const readImg = (event: React.ChangeEvent<HTMLInputElement>) => {
+  // const [url, setUrl] = useRecoilState(profileState);
   const input = event.target.files;
 
   // 인풋 태그에 파일이 있는 경우

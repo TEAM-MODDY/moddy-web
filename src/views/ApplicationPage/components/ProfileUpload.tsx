@@ -11,7 +11,7 @@ import Input from '../../@common/components/Input';
 import ProgressBar from '../../@common/components/ProgressBar';
 import { IcPencilcircle } from '../assets/icons';
 import { INFO_MESSAGE } from '../constants/message';
-import { useReadImg } from '../utils/readImg';
+import { readImg } from '../utils/readImg';
 
 import { applyStepState, profileState } from '@/recoil/atoms/applicationState';
 
@@ -23,7 +23,7 @@ const ProfileUpload = () => {
   const navigate = useNavigate();
 
   const handleInput = (event: React.ChangeEvent<HTMLInputElement>) => {
-    // useReadImg(event);
+    readImg(event);
     setInputData({ ...inputData, verifyStatus: true });
   };
 
