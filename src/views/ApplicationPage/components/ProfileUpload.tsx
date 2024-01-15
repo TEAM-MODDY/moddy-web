@@ -19,11 +19,12 @@ const ProfileUpload = () => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [step, setStep] = useRecoilState(applyStepState);
   const [inputData, setInputData] = useRecoilState(profileState);
-  const { verifyStatus } = inputData;
+  const { modelImgUrl, instagramId, verifyStatus } = inputData;
   const navigate = useNavigate();
 
   const handleInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     const imgUrl = readImg(event);
+    console.log(readImg(event));
     setInputData({ ...inputData, modelImgUrl: imgUrl, verifyStatus: true });
   };
 
@@ -55,7 +56,7 @@ const ProfileUpload = () => {
               onClick={() => {
                 inputRef.current?.click();
               }}>
-              <S.Profile src={beforeUpload} alt="profileImg" id="profileImg" />
+              <S.Profile src={modelImgUrl ? modelImgUrl : beforeUpload} alt="profileImg" id="profileImg" />
               <input
                 id="uploadButton"
                 name="uploadButton"
@@ -77,6 +78,7 @@ const ProfileUpload = () => {
           </S.Title>
           <Input
             placeholderText={INFO_MESSAGE.INSTA_INPUT}
+            initialValue={instagramId}
             onChangeFn={(e) => {
               setInputData({ ...inputData, instagramId: e });
             }}

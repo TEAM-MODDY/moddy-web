@@ -48,10 +48,10 @@ const DefaultInfo = () => {
               <span>{INFO_MESSAGE.LENGTH_SUBTITLE}</span>
             </S.Title>
             <S.HairTypeInputBox>
-              <HairTypeInput lengthState={lengthState} setLengthState={setLengthState} imgIdx={0} />
-              <HairTypeInput lengthState={lengthState} setLengthState={setLengthState} imgIdx={1} />
-              <HairTypeInput lengthState={lengthState} setLengthState={setLengthState} imgIdx={2} />
-              <HairTypeInput lengthState={lengthState} setLengthState={setLengthState} imgIdx={3} />
+              <HairTypeInput lengthState={lengthState} setLengthState={setLengthState} imgIdx={0} type="숏" />
+              <HairTypeInput lengthState={lengthState} setLengthState={setLengthState} imgIdx={1} type="단발" />
+              <HairTypeInput lengthState={lengthState} setLengthState={setLengthState} imgIdx={2} type="어깨 아래" />
+              <HairTypeInput lengthState={lengthState} setLengthState={setLengthState} imgIdx={3} type="허리 아래" />
             </S.HairTypeInputBox>
           </S.HairLengthSection>
           <hr />

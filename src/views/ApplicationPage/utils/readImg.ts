@@ -1,5 +1,6 @@
-export const readImg = (event: React.ChangeEvent<HTMLInputElement>): File | undefined => {
+export const readImg = (event: React.ChangeEvent<HTMLInputElement>): string | null => {
   const input = event.target.files;
+  let imgUrl = '';
 
   // 인풋 태그에 파일이 있는 경우
   if (input && input[0]) {
@@ -14,13 +15,12 @@ export const readImg = (event: React.ChangeEvent<HTMLInputElement>): File | unde
 
       if (typeof e.target!.result === 'string') {
         previewImg.src = e.target!.result;
-        const modelImgUrl = input[0];
-
-        return modelImgUrl;
+        imgUrl = e.target!.result;
       }
+      console.log(imgUrl);
     };
   }
-  return undefined;
+  return imgUrl;
 };
 // const formData = new FormData();
 // formData.append('image', file); API request body의 key에 맞게 설정

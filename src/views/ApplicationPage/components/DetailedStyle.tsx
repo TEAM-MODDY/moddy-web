@@ -12,7 +12,7 @@ import { applyStepState, deatiledStyleState } from '@/recoil/atoms/applicationSt
 
 const DetailedStyle = () => {
   const [step, setStep] = useRecoilState(applyStepState);
-  const setHairDetail = useSetRecoilState(deatiledStyleState);
+  const [hairDetail, setHairDetail] = useRecoilState(deatiledStyleState);
   const navigate = useNavigate();
 
   return (
@@ -34,7 +34,7 @@ const DetailedStyle = () => {
         <h3>{INFO_MESSAGE.DETAIL_SUBTITLE}</h3>
       </S.Title>
       <TextArea200
-        placeholderText={INFO_MESSAGE.DETAIL_INPUT}
+        placeholderText={hairDetail.data ? hairDetail.data : INFO_MESSAGE.DETAIL_INPUT}
         onChangeFn={(value) => {
           setHairDetail({ data: value });
         }}

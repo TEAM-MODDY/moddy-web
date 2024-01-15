@@ -63,7 +63,10 @@ const ServiceHistoryListItem = ({ idx }: ServiceHistoryListItem) => {
           onClick={() => {
             setIsServiceClicked((prev) => !prev);
           }}>
-          <input type="button" value={hairServiceRecords[idx] ? hairServiceRecords[idx].service : '시술 선택'} />
+          <input
+            type="button"
+            value={hairServiceRecords[idx].service !== '' ? hairServiceRecords[idx].service : '시술 선택'}
+          />
           {isServiceClicked ? <IcUpBlue /> : <IcDownGrey />}
         </S.SelectServiceBox>
         <div>
@@ -99,7 +102,10 @@ const ServiceHistoryListItem = ({ idx }: ServiceHistoryListItem) => {
           onClick={() => {
             setIsPeriodClicked((prev) => !prev);
           }}>
-          <input type="button" value={hairServiceRecords[idx] ? hairServiceRecords[idx].period : '기간 선택'} />
+          <input
+            type="button"
+            value={hairServiceRecords[idx].period !== '' ? hairServiceRecords[idx].period : '기간 선택'}
+          />
           {isPeriodClicked ? <IcUpBlue /> : <IcDownGrey />}
         </S.SelectPeriodBox>
         <div>
