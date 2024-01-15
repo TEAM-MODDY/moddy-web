@@ -14,3 +14,11 @@ export interface ModelSignUpRequest {
   isMarketingAgree: boolean;
   preferRegions: number[];
 }
+export interface PhoneNumberRequest {
+  phoneNumber: string;
+}
+
+export interface VerifyPhoneNumberRequest {
+  phoneNumber: string;
+  verifyCode: string;
+}
