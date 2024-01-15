@@ -23,8 +23,13 @@ const ProfileUpload = () => {
   const navigate = useNavigate();
 
   const handleInput = (event: React.ChangeEvent<HTMLInputElement>) => {
-    readImg(event);
-    setInputData({ ...inputData, verifyStatus: true });
+    readImg(event)
+      .then((dataUrl) => {
+        setInputData({ ...inputData, modelImgUrl: dataUrl, verifyStatus: true });
+      })
+      .catch(() => {
+        navigate('/error');
+      });
   };
 
   return (
