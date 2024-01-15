@@ -1,21 +1,19 @@
 import { useNavigate } from 'react-router-dom';
-import { useRecoilValue } from 'recoil';
 import { styled } from 'styled-components';
 
 import { IcLogoHome, IcRightWhite, IcModdyuser } from '../assets/icons';
 import { APPLY_STATUS } from '../constants/applyStatus';
 
-import { userTypeState } from '@/recoil/atoms/signUpState';
 import { USER_TYPE } from '@/views/@common/constants/userType';
 
 interface TopSheetProps {
-  applyType: string | undefined;
-  name: string | undefined;
+  userType: string;
+  applyType: string;
+  name: string;
 }
 
 const TopSheet = (props: TopSheetProps) => {
-  const userType = useRecoilValue(userTypeState);
-  const { applyType, name } = props;
+  const { userType, applyType, name } = props;
   const navigate = useNavigate();
 
   const OnBoardingText = () => {
