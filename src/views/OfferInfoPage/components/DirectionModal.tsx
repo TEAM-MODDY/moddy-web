@@ -3,6 +3,7 @@ import { styled } from 'styled-components';
 
 import { IcCloseBlack } from '../../@common/assets/icons';
 import { IcFlowiconImage, IcFlowiconLink, IcFlowiconPeople, IcFlowdot } from '../assets/icons';
+import usePutOfferModel from '../hooks/usePutOfferModel';
 
 interface DirectionModalProps {
   isModal?: boolean;
@@ -10,9 +11,11 @@ interface DirectionModalProps {
 }
 
 const DirectionModal = ({ isModal, onClose }: DirectionModalProps) => {
+  const { postOffer } = usePutOfferModel();
   const navigate = useNavigate();
 
   const handleOnClickContinue = () => {
+    postOffer();
     navigate('/offer-info/check-offer');
   };
 

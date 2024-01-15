@@ -29,3 +29,8 @@ export interface UseGetOfferModelRes {
   message: string;
   data: UseGetOfferModelProps;
 }
+
+export interface OfferInfoProps {
+  code: number;
+  messsage: string;
+}
