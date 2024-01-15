@@ -8,7 +8,7 @@ interface TextArea200Props {
 }
 
 const TextArea200 = ({ placeholderText, initialValue, onChangeFn }: TextArea200Props) => {
-  const [textLength, setTextLength] = useState(0);
+  const [textLength, setTextLength] = useState(initialValue ? initialValue.length : 0);
   const [name, setName] = useState(initialValue ? initialValue : '');
 
   return (
