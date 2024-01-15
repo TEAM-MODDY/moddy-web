@@ -19,7 +19,7 @@ export interface preferRegionDataType {
 }
 
 export interface selectDateType {
-  data: boolean[];
+  data: string[];
 }
 
 export interface searchAddressType {
@@ -128,7 +128,7 @@ export const detailShopInfoState = atom<inputDataType>({
 export const dateState = atom<selectDateType>({
   key: 'dateInfo',
   default: {
-    data: [],
+    data: ['', '', '', '', '', '', ''],
   },
 });
 

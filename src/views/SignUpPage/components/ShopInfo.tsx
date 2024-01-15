@@ -19,12 +19,6 @@ import Modal from '@/views/@common/components/Modal';
 import ProgressBar from '@/views/@common/components/ProgressBar';
 
 const ShopInfo = ({ setStep }: EnterProfileProp) => {
-  const [isClicked, setIsClicked] = useState<boolean[]>(Array(6).fill(false));
-  const [isOpenModal, setOpenModal] = useState(false);
-  const [Address, setAddress] = useState<string>('');
-  const [isAddressModal, setIsAddressModal] = useState(false);
-  const navigate = useNavigate();
-
   //recoil 적용 CTA 클릭시 저장
   const [shopInfo, setShopInfo] = useRecoilState(shopInfoState);
   const [addressInfo, setAddressInfo] = useRecoilState(addressState);
@@ -32,9 +26,24 @@ const ShopInfo = ({ setStep }: EnterProfileProp) => {
   const [clickedDateInfo, setClickedDateInfo] = useRecoilState(dateState);
   const [placeTextValue, setPlaceTextValue] = useState(shopInfo.data);
 
-  const handleDayOffClick = (index: number) => {
+  const [isClicked, setIsClicked] = useState<string[]>(clickedDateInfo.data);
+  const [isOpenModal, setOpenModal] = useState(false);
+  const [Address, setAddress] = useState<string>('');
+  const [isAddressModal, setIsAddressModal] = useState(false);
+  const navigate = useNavigate();
+  const handleDayOffClick = (event: React.MouseEvent<HTMLButtonElement>, index: number) => {
+    const dayValue = event.currentTarget.value;
+
     const tempClicked = [...isClicked];
-    tempClicked[index] = !tempClicked[index];
+    if (tempClicked[index] === '') {
+      tempClicked[index] = DAYS[dayValue as keyof typeof DAYS];
+    } else {
+      tempClicked[index] = '';
+    }
+    setClickedDateInfo((prevClickedInfo) => ({
+      ...prevClickedInfo,
+      data: tempClicked,
+    }));
     setIsClicked(tempClicked);
   };
 
@@ -78,25 +87,10 @@ const ShopInfo = ({ setStep }: EnterProfileProp) => {
       data: addressDetailValue,
       verifyStatus: true,
     }));
-
-    setClickedDateInfo((prevClickedInfo) => ({
-      ...prevClickedInfo,
-      data: isClicked,
-    }));
   };
 
   useEffect(() => {
     const applyChanges = () => {
-      if (clickedDateInfo) {
-        const clickedIndex = clickedDateInfo.data
-          .map((value, index) => (value ? index : undefined))
-          .filter((index) => index !== undefined) as number[];
-
-        setIsClicked((prevIsClicked) => {
-          const updatedData = prevIsClicked.map((item, idx) => (clickedIndex.includes(idx) ? !item : item));
-          return updatedData;
-        });
-      }
       if (addressInfo) {
         {
           const inputAddress = addressInfo.data;
@@ -146,10 +140,14 @@ const ShopInfo = ({ setStep }: EnterProfileProp) => {
         <Field name="휴무" isEssential={false} />
 
         <S.DayOffWrapperBox>
-          {DAYS.map((day, index) => (
-            <S.DayOffBox key={day} onClick={() => handleDayOffClick(index)} $isClicked={isClicked[index]}>
+          {Object.keys(DAYS).map((day, index) => (
+            <S.DayOffButton
+              key={day}
+              value={day}
+              onClick={(e) => handleDayOffClick(e, index)}
+              $isClicked={isClicked[index]}>
               {day}
-            </S.DayOffBox>
+            </S.DayOffButton>
           ))}
         </S.DayOffWrapperBox>
       </S.ShopInfoLayout>
@@ -203,18 +201,19 @@ const S = {
     width: 100%;
   `,
 
-  DayOffBox: styled.div<{ $isClicked: boolean }>`
+  DayOffButton: styled.button<{ $isClicked: string }>`
     display: flex;
     flex: 1;
     justify-content: center;
 
     padding: 1.2rem 0;
-    border: 1.5px solid ${({ $isClicked, theme }) => ($isClicked ? theme.colors.moddy_blue : theme.colors.moddy_gray20)};
+    border: 1.5px solid
+      ${({ $isClicked, theme }) => ($isClicked !== '' ? theme.colors.moddy_blue : theme.colors.moddy_gray20)};
     border-radius: 8px;
 
-    box-shadow: ${({ $isClicked, theme }) => ($isClicked ? theme.effects.shadow3 : '0 0 0 transparent')};
+    box-shadow: ${({ $isClicked, theme }) => ($isClicked !== '' ? theme.effects.shadow3 : '0 0 0 transparent')};
 
-    color: ${({ $isClicked, theme }) => ($isClicked ? theme.colors.moddy_blue : theme.colors.moddy_gray50)};
+    color: ${({ $isClicked, theme }) => ($isClicked !== '' ? theme.colors.moddy_blue : theme.colors.moddy_gray50)};
     ${({ theme }) => theme.fonts.Body02};
 
     ${({ theme }) => theme.fonts.Body02};
