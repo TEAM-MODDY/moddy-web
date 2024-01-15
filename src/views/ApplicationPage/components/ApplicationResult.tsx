@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import { styled } from 'styled-components';
@@ -80,6 +81,7 @@ const ApplicationResult = () => {
               </S.ContentBox>
               <S.ContentBox>
                 <h2>{INFO_MESSAGE.STYLE_INFO}</h2>
+
                 <S.Info>
                   <li>
                     <S.InfoTitle>커트</S.InfoTitle>
@@ -132,6 +134,7 @@ const S = {
 
     width: 100%;
     height: max-content;
+    min-height: 100%;
 
     ${({ theme }) => theme.commons.scrollbar};
   `,
