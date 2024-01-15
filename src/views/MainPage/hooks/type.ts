@@ -2,7 +2,8 @@ export interface ModelResponse {
   page: number;
   size: number;
   status: string;
-  userName: string;
+  name: string;
+  total: number;
   offers: {
     offerId: number;
     imgUrl: string;
@@ -17,6 +18,7 @@ export interface DesignerResponse {
   page: number;
   size: number;
   name: string;
+  total: number;
   hairModelApplications: {
     applicationId: number;
     name: string;
