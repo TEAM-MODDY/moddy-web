@@ -22,3 +22,23 @@ export interface VerifyPhoneNumberRequest {
   phoneNumber: string;
   verifyCode: string;
 }
+
+export interface DesignerSignUpRequest {
+  profileImg: string;
+  name: string;
+  gender: string;
+  phoneNumber: string;
+  isMarketingAgree: boolean;
+  hairShop: {
+    name: string;
+    address: string;
+    detailAddress: string;
+  };
+  portfolio: {
+    instagramUrl: string;
+    naverPlaceUrl: string;
+  };
+  introduction: string;
+  kakaoOpenChatUrl: string;
+  dayOffs: string[];
+}
