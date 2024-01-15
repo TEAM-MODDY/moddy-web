@@ -9,6 +9,7 @@ import { INFO_MESSAGE } from '../constants/message';
 import ServiceHistoryListItem from './ServiceHistoryListItem';
 
 import { applyStepState, historyDetailProps, historyState } from '@/recoil/atoms/applicationState';
+import ProgressBar from '@/views/@common/components/ProgressBar';
 
 const ServiceHistory = () => {
   const MAX_LENGTH = 3;
@@ -38,6 +39,7 @@ const ServiceHistory = () => {
           navigate(`/`);
         }}
       />
+      <ProgressBar whole={step.total} current={step.current} />
       <S.Title>
         <h2>{INFO_MESSAGE.SERVICE_TITLE}</h2>
         <h3>{INFO_MESSAGE.SERVICE_SUBTITLE}</h3>
@@ -69,7 +71,7 @@ const S = {
     align-items: center;
 
     width: 100%;
-    margin-top: 5.7rem;
+    margin-top: 8.5rem;
     padding: 0 1.5rem;
   `,
 

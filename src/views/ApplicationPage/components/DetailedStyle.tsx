@@ -58,7 +58,7 @@ const S = {
     align-items: center;
 
     width: 100%;
-    margin-top: 7.54rem;
+    margin-top: 8.5rem;
     padding: 0 1.5rem;
   `,
 
@@ -68,7 +68,7 @@ const S = {
     gap: 0.8rem;
 
     width: 100%;
-    margin: 2.2rem 0 1.2rem;
+    margin-bottom: 1.2rem;
 
     & > h2 {
       color: ${({ theme }) => theme.colors.moddy_bk};

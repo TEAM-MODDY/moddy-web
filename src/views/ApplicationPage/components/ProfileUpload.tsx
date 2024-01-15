@@ -48,7 +48,9 @@ const ProfileUpload = () => {
             <h2>
               {INFO_MESSAGE.PROFILE_TITLE} <IcEssential />
             </h2>
-            <span>{INFO_MESSAGE.PROFILE_SUBTITLE} </span>
+            {INFO_MESSAGE.PROFILE_SUBTITLE.split('<br />').map((line) => (
+              <span key={line}>{line}</span>
+            ))}
           </S.Title>
           <S.ProfileUploadBtnBox>
             <S.ProfileUploadBtn
@@ -72,9 +74,7 @@ const ProfileUpload = () => {
         <S.ProfileInstaSection>
           <S.Title>
             <h2>{INFO_MESSAGE.INSTA_TITLE}</h2>
-            {INFO_MESSAGE.INSTA_SUBTITLE.split('<br />').map((line) => (
-              <span key={line}>{line}</span>
-            ))}
+            <span>{INFO_MESSAGE.INSTA_SUBTITLE} </span>
           </S.Title>
           <Input
             placeholderText={INFO_MESSAGE.INSTA_INPUT}
@@ -167,11 +167,12 @@ const S = {
   Title: styled.div`
     display: flex;
     flex-direction: column;
-    gap: 0.8rem;
 
     & > h2 {
       display: flex;
       justify-content: flex-start;
+
+      margin-bottom: 0.8rem;
 
       color: ${({ theme }) => theme.colors.moddy_bk};
 

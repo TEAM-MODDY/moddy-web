@@ -15,14 +15,14 @@ const TextArea200 = ({ placeholderText, initialValue, onChangeFn }: TextArea200P
     <S.TextAreaLayout>
       <S.TextArea
         placeholder={placeholderText}
+        defaultValue={name}
         onChange={(e) => {
           setTextLength(e.target.value.length);
           setName(e.target.value);
           onChangeFn(e.target.value);
         }}
-        maxLength={200}>
-        {name}
-      </S.TextArea>
+        maxLength={200}
+      />
       <S.TextAreaSpan>
         <S.TextAreaCountSpan $isZero={textLength === 0}>{textLength}</S.TextAreaCountSpan> / 200
       </S.TextAreaSpan>
