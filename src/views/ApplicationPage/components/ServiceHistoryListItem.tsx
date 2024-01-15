@@ -4,6 +4,7 @@ import { css, styled } from 'styled-components';
 
 import { IcDownGrey, IcUpBlue } from '../../@common/assets/icons';
 import { IcDelete } from '../assets/icons';
+import { SELECT_PERIOD, SELECT_SERVICE } from '../constants/filter';
 
 import { historyState } from '@/recoil/atoms/applicationState';
 interface ServiceHistoryListItem {
@@ -55,6 +56,9 @@ const ServiceHistoryListItem = ({ idx }: ServiceHistoryListItem) => {
     }
   };
 
+  const services = Object.keys(SELECT_SERVICE);
+  const periods = Object.keys(SELECT_PERIOD);
+
   return (
     <S.ServiceHistoryListItemLayout>
       <S.SelectBox $height={idx}>
@@ -72,26 +76,13 @@ const ServiceHistoryListItem = ({ idx }: ServiceHistoryListItem) => {
         <div>
           {isServiceClicked && (
             <S.SelectDetailList>
-              <li>
-                <button type="button" onClick={activateServiceBox}>
-                  펌
-                </button>
-              </li>
-              <li>
-                <button type="button" onClick={activateServiceBox}>
-                  탈색
-                </button>
-              </li>
-              <li>
-                <button type="button" onClick={activateServiceBox}>
-                  블랙 염색
-                </button>
-              </li>
-              <li>
-                <button type="button" onClick={activateServiceBox}>
-                  컬러 염색
-                </button>
-              </li>
+              {services.map((value, key) => (
+                <li key={key}>
+                  <button type="button" onClick={activateServiceBox}>
+                    {value}
+                  </button>
+                </li>
+              ))}
             </S.SelectDetailList>
           )}
         </div>
@@ -111,31 +102,13 @@ const ServiceHistoryListItem = ({ idx }: ServiceHistoryListItem) => {
         <div>
           {isPeriodClicked && (
             <S.SelectDetailList>
-              <li>
-                <button type="button" onClick={activatePeriodBox}>
-                  1 개월 미만
-                </button>
-              </li>
-              <li>
-                <button type="button" onClick={activatePeriodBox}>
-                  1 - 3 개월
-                </button>
-              </li>
-              <li>
-                <button type="button" onClick={activatePeriodBox}>
-                  4 - 6개월
-                </button>
-              </li>
-              <li>
-                <button type="button" onClick={activatePeriodBox}>
-                  7 - 12개월
-                </button>
-              </li>
-              <li>
-                <button type="button" onClick={activatePeriodBox}>
-                  12개월 초과
-                </button>
-              </li>
+              {periods.map((value, key) => (
+                <li key={key}>
+                  <button type="button" onClick={activatePeriodBox}>
+                    {value}
+                  </button>
+                </li>
+              ))}
             </S.SelectDetailList>
           )}
         </div>

@@ -52,7 +52,7 @@ const ProfileUpload = () => {
             <h2>
               {INFO_MESSAGE.PROFILE_TITLE} <IcEssential />
             </h2>
-            {INFO_MESSAGE.PROFILE_SUBTITLE.split('<br />').map((line) => (
+            {INFO_MESSAGE.PROFILE_SUBTITLE.split('<br />').map((line: string) => (
               <span key={line}>{line}</span>
             ))}
           </S.Title>
