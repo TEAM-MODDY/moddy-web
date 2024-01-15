@@ -56,9 +56,6 @@ const ServiceHistoryListItem = ({ idx }: ServiceHistoryListItem) => {
     }
   };
 
-  const services = Object.keys(SELECT_SERVICE);
-  const periods = Object.keys(SELECT_PERIOD);
-
   return (
     <S.ServiceHistoryListItemLayout>
       <S.SelectBox $height={idx}>
@@ -76,7 +73,7 @@ const ServiceHistoryListItem = ({ idx }: ServiceHistoryListItem) => {
         <div>
           {isServiceClicked && (
             <S.SelectDetailList>
-              {services.map((value, key) => (
+              {Object.keys(SELECT_SERVICE).map((value, key) => (
                 <li key={key}>
                   <button type="button" onClick={activateServiceBox}>
                     {value}
@@ -102,7 +99,7 @@ const ServiceHistoryListItem = ({ idx }: ServiceHistoryListItem) => {
         <div>
           {isPeriodClicked && (
             <S.SelectDetailList>
-              {periods.map((value, key) => (
+              {Object.keys(SELECT_PERIOD).map((value, key) => (
                 <li key={key}>
                   <button type="button" onClick={activatePeriodBox}>
                     {value}

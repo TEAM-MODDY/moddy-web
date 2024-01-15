@@ -3,6 +3,8 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 
+import { SELECT_PERIOD, SELECT_SERVICE, SELECT_STYLE } from '../constants/filter';
+
 import { applyResProps } from './type';
 
 import {
@@ -25,16 +27,44 @@ const usePostApplication = () => {
   const { modelImgUrl, instagramId } = useRecoilValue(profileState);
   const applicationCaptureImgUrl = useRecoilValue(applicationCaptureImgUrlState);
 
+  const tempHairServiceRecords = hairServiceRecords.map((element) => {
+    const tempElement = { ...element };
+    Object.keys(SELECT_SERVICE).forEach((key) => {
+      if (key === element.service) {
+        tempElement.service = SELECT_SERVICE[key as keyof typeof SELECT_SERVICE];
+      }
+    });
+    Object.keys(SELECT_PERIOD).forEach((key) => {
+      if (key === element.period) {
+        tempElement.period = SELECT_PERIOD[key as keyof typeof SELECT_PERIOD];
+      }
+    });
+    return tempElement;
+  });
+
+  const tempPreference = preference.map((element) => {
+    let tempElement = element;
+    Object.keys(SELECT_STYLE).forEach((key) => {
+      if (key === element) {
+        tempElement = SELECT_STYLE[key as keyof typeof SELECT_STYLE];
+      }
+    });
+    return tempElement;
+  });
+  console.log(tempPreference);
+
   const postApplication = async () => {
     const requestBody: applyResProps = {
       hairLength: length,
-      preferHairStyles: preference,
+      preferHairStyles: tempPreference,
       hairDetail: hairDetail.data,
-      hairServiceRecords,
+      hairServiceRecords: tempHairServiceRecords,
       modelImgUrl,
       instagramId,
       applicationCaptureImgUrl: applicationCaptureImgUrl.data,
     };
+    console.log(requestBody);
+
     try {
       await api.post('/model/application', requestBody, {
         headers: {
