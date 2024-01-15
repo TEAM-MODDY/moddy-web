@@ -1,23 +1,28 @@
 import { useState } from 'react';
-import styled from 'styled-components';
+import { styled } from 'styled-components';
 
 interface TextArea200Props {
   placeholderText: string;
+  initialValue?: string;
   onChangeFn: (value: string) => void;
 }
 
-const TextArea200 = ({ placeholderText, onChangeFn }: TextArea200Props) => {
+const TextArea200 = ({ placeholderText, initialValue, onChangeFn }: TextArea200Props) => {
   const [textLength, setTextLength] = useState(0);
+  const [name, setName] = useState(initialValue ? initialValue : '');
+
   return (
     <S.TextAreaLayout>
       <S.TextArea
         placeholder={placeholderText}
         onChange={(e) => {
           setTextLength(e.target.value.length);
+          setName(e.target.value);
           onChangeFn(e.target.value);
         }}
-        maxLength={200}
-      />
+        maxLength={200}>
+        {name}
+      </S.TextArea>
       <S.TextAreaSpan>
         <S.TextAreaCountSpan $isZero={textLength === 0}>{textLength}</S.TextAreaCountSpan> / 200
       </S.TextAreaSpan>

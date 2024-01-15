@@ -34,7 +34,8 @@ const DetailedStyle = () => {
         <h3>{INFO_MESSAGE.DETAIL_SUBTITLE}</h3>
       </S.Title>
       <TextArea200
-        placeholderText={hairDetail.data ? hairDetail.data : INFO_MESSAGE.DETAIL_INPUT}
+        placeholderText={INFO_MESSAGE.DETAIL_INPUT}
+        initialValue={hairDetail.data}
         onChangeFn={(value) => {
           setHairDetail({ data: value });
         }}
