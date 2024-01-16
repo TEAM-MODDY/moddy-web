@@ -35,7 +35,7 @@ const OfferDetailSection = () => {
           </S.DetailMainTitleBox>
           <S.DetailContentBox>
             <h2>성별</h2>
-            <h3>{gender === 'FEMALE' ? '여성' : gender === 'MALE' ? '남성' : gender}</h3>
+            <h3>{gender}</h3>
           </S.DetailContentBox>
           <S.DetailContentBox>
             <h2>휴무일</h2>
