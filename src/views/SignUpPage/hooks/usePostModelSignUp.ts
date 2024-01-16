@@ -20,8 +20,8 @@ import api from '@/views/@common/hooks/api';
 const usePostModelSignUp = () => {
   const navigate = useNavigate();
 
-  const [isLoading, setLoading] = useState(true);
-  const [isError, setError] = useState<AxiosError>();
+  const [, setLoading] = useState(true);
+  const [, setError] = useState<AxiosError>();
 
   const tempUserType = useRecoilValue(tempUserTypeState);
   const setSessionUserType = useSetRecoilState(userTypeState);
