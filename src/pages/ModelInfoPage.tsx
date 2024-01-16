@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
 
 import Button from '../views/@common/components/Button';
@@ -11,17 +11,18 @@ import ToastMessage from '@/views/@common/components/ToastMessage';
 import useGetApplication from '@/views/ModelInfoPage/hooks/useGetApplication';
 
 const ModelInfoPage = () => {
-  // 임시용 applicationId
-  const APPLICATION_ID = 1;
+  const { state } = useLocation();
+  const offerId = state;
 
-  const { data, isLoading, isError } = useGetApplication(APPLICATION_ID);
+  const { data, isLoading, isError } = useGetApplication(offerId);
   const isSend = data?.applicationInfo.isSend;
+
   //페이지 이동
   const navigate = useNavigate();
   const handleOnClickOffer = () => {
     navigate('/model-info/model-offer', {
       state: {
-        applicationId: APPLICATION_ID,
+        applicationId: offerId,
       },
     });
   };
@@ -44,7 +45,7 @@ const ModelInfoPage = () => {
     !isLoading &&
     data && (
       <>
-        <Header isBackBtnExist={true} title="모델 지원 정보" />
+        <Header isBackBtnExist={true} title="모델 지원 정보" backFn={() => navigate(-1)} />
         <S.ModelInfoLayout>
           <S.ImageBox src={data.applicationInfo.modelImgUrl} alt="모델 이미지"></S.ImageBox>
           <OfferDetailSection handleCopyClipBoard={handleCopyClipBoard} data={data} />

@@ -1,18 +1,15 @@
 import { useNavigate } from 'react-router-dom';
 
-import api, { removeToken } from '@/views/@common/hooks/api';
+import api from '@/views/@common/hooks/api';
+import removeToken from '@/views/@common/utils/removeToken';
 
 const usePostLogout = () => {
   const navigate = useNavigate();
 
   const postLogout = async () => {
     try {
-      await api.post('/auth/logout', null, {
-        headers: {
-          Authorization: 'Bearer ~',
-        },
-      });
-      //removeToken();
+      await api.post('/auth/logout', null);
+      removeToken();
       navigate('/');
     } catch (err) {
       console.log(err);
