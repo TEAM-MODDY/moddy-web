@@ -14,11 +14,7 @@ const useGetAgree = (offerId: number) => {
 
   const fetchData = async () => {
     try {
-      const response = await api.get(`/model/${offerId}/agree`, {
-        headers: {
-          Authorization: 'Bearer ~',
-        },
-      });
+      const response = await api.get(`/model/${offerId}/agree`);
       setData(response.data.data);
     } catch (err) {
       if (err instanceof AxiosError) setError(err);

@@ -14,11 +14,7 @@ const useGetModel = () => {
 
   const fetchData = async () => {
     try {
-      const response = await api.get('/model/offer/2', {
-        headers: {
-          Authorization: `Bearer ~`,
-        },
-      });
+      const response = await api.get('/model/offer/2');
       setData(response.data.data);
     } catch (err) {
       if (err instanceof AxiosError) {
