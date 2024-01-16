@@ -5,6 +5,7 @@ import { ThemeProvider } from 'styled-components';
 
 import AgreementPage from './pages/AgreementPage';
 import ApplicationPage from './pages/ApplicationPage';
+import ConfirmPage from './pages/ConfirmPage';
 import ErrorPage from './pages/ErrorPage';
 import LoginPage from './pages/LoginPage';
 import MainPage from './pages/MainPage';
