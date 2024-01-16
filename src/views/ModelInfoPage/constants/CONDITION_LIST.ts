@@ -1,0 +1,1 @@
+export const CONDITION_LIST = ['CAMERA', 'SNS', 'FREE', 'MASK', 'PHOTOSHOP', 'SMALLPAY'];

@@ -1,25 +1,26 @@
 import { AxiosError } from 'axios';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { UseGetOfferModelProps } from './type';
+import { OfferInfoProps } from './type';
 
 import api from '@/views/@common/hooks/api';
 
-const useGetModel = () => {
+const usePutOfferModel = () => {
   const navigate = useNavigate();
-  const [data, setData] = useState<UseGetOfferModelProps>();
+
+  const [data, setData] = useState<OfferInfoProps>();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<AxiosError>();
 
-  const fetchData = async () => {
+  const postOffer = async () => {
     try {
-      const response = await api.get('/model/offer/2', {
+      const response = await api.put('/model/offer/2', null, {
         headers: {
           Authorization: `Bearer ~`,
         },
       });
-      setData(response.data.data);
+      setData(response.data);
     } catch (err) {
       if (err instanceof AxiosError) {
         setError(err);
@@ -30,15 +31,12 @@ const useGetModel = () => {
     }
   };
 
-  useEffect(() => {
-    fetchData();
-  }, []);
-
   return {
+    postOffer,
     data,
     error,
     loading,
   };
 };
 
-export default useGetModel;
+export default usePutOfferModel;

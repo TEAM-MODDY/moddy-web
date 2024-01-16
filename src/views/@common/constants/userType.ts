@@ -1,5 +1,5 @@
 export const USER_TYPE = {
-  GUEST: null,
+  GUEST: '',
   DESIGNER: 'designer',
   MODEL: 'model',
 };

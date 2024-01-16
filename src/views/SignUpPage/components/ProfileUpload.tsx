@@ -1,23 +1,35 @@
 import { useRef, useState } from 'react';
+import { useRecoilState } from 'recoil';
 import { styled } from 'styled-components';
 
 import beforeUpload from '../../@common/assets/images/img_photoadd_profile.png';
 import { readImg } from '../utils/readImg';
 
+import { profileImgState } from '@/recoil/atoms/signUpState';
 import { IcPencilcircle } from '@/views/ApplicationPage/assets/icons';
 
-const ProfileUpload = ({ onImageUpload }: { onImageUpload: () => void }) => {
-  const inputRef = useRef<HTMLInputElement>(null);
+interface ProfileUpLoadProps {
+  onImageUpload: (imgUrl: string) => void;
+}
+
+const ProfileUpload = ({ onImageUpload }: ProfileUpLoadProps) => {
+  const [imageUrl, setImageUrl] = useRecoilState(profileImgState);
   const [, setmodelImgUrl] = useState<File>();
   const [, isVerified] = useState(true);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const uploadImg = (event: React.ChangeEvent<HTMLInputElement>) => {
     const imgObj = event.target.files;
 
     readImg({ input: imgObj, setUrl: setmodelImgUrl, setVerified: isVerified });
 
-    onImageUpload();
+    if (imgObj && imgObj[0]) {
+      const imgUrl = URL.createObjectURL(imgObj[0]);
+      setImageUrl({ data: imgUrl, file: imgObj[0] });
+      onImageUpload(imgUrl);
+    }
   };
+
   return (
     <div>
       <S.ProfileUploadBtnBox>
@@ -26,7 +38,7 @@ const ProfileUpload = ({ onImageUpload }: { onImageUpload: () => void }) => {
           onClick={() => {
             inputRef.current?.click();
           }}>
-          <S.Profile src={beforeUpload} alt="profileImg" id="profileImg" />
+          <S.Profile src={imageUrl?.data || beforeUpload} alt="profileImg" id="profileImg" />
           <input
             id="uploadButton"
             name="uploadButton"

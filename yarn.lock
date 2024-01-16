@@ -3219,6 +3219,11 @@ react@^18.2.0:
   dependencies:
     loose-envify "^1.1.0"
 
+recoil-devtools@^0.5.0:
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/recoil-devtools/-/recoil-devtools-0.5.0.tgz#60ab60055cfc644367676b18d2eb1c890086dbc9"
+  integrity sha512-bglR4IUISSkKohofAsgEGEH9bDkBAQ7de7Nj0bgMoEuIRZKJMQfWR3fMqxgsBgfXJ9YVjWPFawmCVfSzZwpQiA==
+
 recoil-persist@^5.1.0:
   version "5.1.0"
   resolved "https://registry.yarnpkg.com/recoil-persist/-/recoil-persist-5.1.0.tgz#c4232fe04f2e4b6afcc815baff56f2521f6dcde1"
