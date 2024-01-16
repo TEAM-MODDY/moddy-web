@@ -14,11 +14,7 @@ const useGetApplication = (applicationId: number) => {
 
   const fetchData = async () => {
     try {
-      const response = await api.get(`/designer/${applicationId}`, {
-        headers: {
-          Authorization: 'Bearer ~',
-        },
-      });
+      const response = await api.get(`/designer/${applicationId}`);
       setData(response.data.data);
     } catch (err) {
       if (err instanceof AxiosError) setError(err);

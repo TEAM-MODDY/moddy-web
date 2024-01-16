@@ -13,18 +13,10 @@ const usePostApplication = (applicationId: number, offerDetail: string, preferOf
 
   const postApplication = async () => {
     try {
-      await api.post(
-        `/designer/${applicationId}/offer`,
-        {
-          offerDetail: offerDetail,
-          preferOfferConditions: conditionList,
-        },
-        {
-          headers: {
-            Authorization: 'Bearer ~',
-          },
-        },
-      );
+      await api.post(`/designer/${applicationId}/offer`, {
+        offerDetail: offerDetail,
+        preferOfferConditions: conditionList,
+      });
       navigate('/model-info/model-offer/sent-complete');
     } catch (err) {
       navigate('/error');
