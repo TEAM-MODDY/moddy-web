@@ -17,7 +17,7 @@ import {
 } from '@/recoil/atoms/signUpState';
 import api from '@/views/@common/hooks/api';
 
-const useModelSignUp = () => {
+const usePostModelSignUp = () => {
   const navigate = useNavigate();
 
   const [isLoading, setLoading] = useState(true);
@@ -34,7 +34,7 @@ const useModelSignUp = () => {
 
   const preferRegion = preferRegions.data.map((value, index) => (value ? index : -1)).filter((index) => index !== -1);
 
-  const postSignUp = async () => {
+  const postModelSignUp = async () => {
     const requestBody: ModelSignUpRequest = {
       name: name.data,
       year: birthYear.data,
@@ -62,7 +62,7 @@ const useModelSignUp = () => {
     setLoading(false);
   };
 
-  return postSignUp;
+  return postModelSignUp;
 };
 
-export default useModelSignUp;
+export default usePostModelSignUp;
