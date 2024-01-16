@@ -37,6 +37,7 @@ const ApplicationResult = () => {
       navigate('/error');
     }
   };
+
   return (
     <S.ApplicationResultLayout>
       <Header
