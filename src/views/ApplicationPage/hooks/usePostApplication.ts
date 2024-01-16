@@ -48,16 +48,21 @@ const usePostApplication = () => {
   });
 
   const postApplication = async () => {
+    const objApplicationInfo = {
+      hairLength: length,
+      preferHairStyles: tempPreference,
+      hairDetail: hairDetail.data,
+      hairServiceRecords: tempHairServiceRecords,
+      instagramId,
+    };
+
+    const jsonApplicationInfo = JSON.stringify(objApplicationInfo);
+    const applicationInfo = new Blob([jsonApplicationInfo], { type: 'application/json' });
+
     const requestbody = {
       modelImgUrl: modelImgData,
       applicationCaptureImgUrl: applicationCaptureImgUrl,
-      applicationInfo: {
-        hairLength: length,
-        preferHairStyles: tempPreference,
-        hairDetail: hairDetail.data,
-        hairServiceRecords: tempHairServiceRecords,
-        instagramId,
-      },
+      applicationInfo,
     };
 
     try {
@@ -67,7 +72,6 @@ const usePostApplication = () => {
           'Content-Type': 'multipart/form-data',
         },
       });
-      navigate('/application/confirm');
     } catch (err) {
       if (err instanceof AxiosError) navigate('/error');
     }
