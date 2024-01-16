@@ -51,7 +51,6 @@ const usePostApplication = () => {
     });
     return tempElement;
   });
-  console.log(tempPreference);
 
   const postApplication = async () => {
     const requestBody: applyResProps = {
@@ -69,6 +68,7 @@ const usePostApplication = () => {
       await api.post('/model/application', requestBody, {
         headers: {
           Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJBQ0NFU1NfVE9LRU4iLCJpYXQiOjE3MDQ5OTg0NzksImV4cCI6MTcwNzU5MDQ3OSwiVVNFUl9JRCI6IjcifQ.wUuXuo-7AmfPwpn838vYHUeTan1IVv_B78rg3cGQ-1cvwiB3MNFbYGzWkUS_P6Lj`,
+          'Content-Type': 'multipart/form-data',
         },
       });
       navigate('/application/confirm');
