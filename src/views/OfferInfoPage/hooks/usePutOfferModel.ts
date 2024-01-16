@@ -15,11 +15,7 @@ const usePutOfferModel = () => {
 
   const postOffer = async () => {
     try {
-      const response = await api.put('/model/offer/2', null, {
-        headers: {
-          Authorization: `Bearer ~`,
-        },
-      });
+      const response = await api.put('/model/offer/2', null);
       setData(response.data);
     } catch (err) {
       if (err instanceof AxiosError) {
