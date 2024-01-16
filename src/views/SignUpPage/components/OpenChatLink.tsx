@@ -21,7 +21,6 @@ const OpenChatLink = () => {
   const [textAreaValue, setTextAreaValue] = useState(LinkInfo.data);
   const [isOpenModal, setOpenModal] = useState(false);
   const postModelSignUp = usePostDesignerSignUp();
-  const navigate = useNavigate();
 
   const saveDataToRecoil = () => {
     setLinkInfo((prevOpenLink) => ({
