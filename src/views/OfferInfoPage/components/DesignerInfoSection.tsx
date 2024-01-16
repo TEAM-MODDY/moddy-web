@@ -3,8 +3,8 @@ import { styled } from 'styled-components';
 import { IcLeft } from '../assets/icons';
 import useGetOfferModel from '../hooks/useGetOfferModel';
 
-const DesignerInfoSection = () => {
-  const { data } = useGetOfferModel();
+const DesignerInfoSection = ({ offerId }: { offerId: number }) => {
+  const { data } = useGetOfferModel(offerId);
 
   const { imgUrl, shopName, name, instagramUrl, naverPlaceUrl, introduction } = data?.designerInfo ?? {};
 
