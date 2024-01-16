@@ -48,21 +48,20 @@ const usePostApplication = () => {
   });
 
   const postApplication = async () => {
-    const formData = new FormData();
-
-    // const modelImgBlob = new Blob([modelImgData], { type: 'image/*' });
-    // const captureImgBlob = new Blob([JSON.stringify(applicationCaptureImgUrl)], { type: 'image/*' });
-
-    formData.append('hairLength', length);
-    formData.append('preferHairStyles', 'NORMAL_CUT');
-    formData.append('hairDetail', hairDetail.data);
-    formData.append('hairServiceRecords', JSON.stringify(tempHairServiceRecords));
-    formData.append('modelImgUrl', modelImgData);
-    formData.append('instagramId', instagramId);
-    formData.append('applicationCaptureImgUrl', applicationCaptureImgUrl);
+    const requestbody = {
+      modelImgUrl: modelImgData,
+      applicationCaptureImgUrl: applicationCaptureImgUrl,
+      applicationInfo: {
+        hairLength: length,
+        preferHairStyles: tempPreference,
+        hairDetail: hairDetail.data,
+        hairServiceRecords: tempHairServiceRecords,
+        instagramId,
+      },
+    };
 
     try {
-      await api.post('/model/application', formData, {
+      await api.post('/model/application', requestbody, {
         headers: {
           Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJBQ0NFU1NfVE9LRU4iLCJpYXQiOjE3MDU0MDQzMjIsImV4cCI6MTcwNzk5NjMyMiwiVVNFUl9JRCI6IjQifQ.Dr0QFpx2TtD-zqNclP3H1sIZBUuVRreVZxZmmTfVt3Xpcl6nR_xkDPl4yXlp6QgL`,
           'Content-Type': 'multipart/form-data',
@@ -74,7 +73,7 @@ const usePostApplication = () => {
     }
   };
 
-  postApplication();
+  return postApplication;
 };
 
 export default usePostApplication;
