@@ -6,7 +6,7 @@ import { OfferInfoProps } from './type';
 
 import api from '@/views/@common/hooks/api';
 
-const usePutOfferModel = () => {
+const usePutOfferModel = (offerId: number) => {
   const navigate = useNavigate();
 
   const [data, setData] = useState<OfferInfoProps>();
@@ -15,7 +15,7 @@ const usePutOfferModel = () => {
 
   const postOffer = async () => {
     try {
-      const response = await api.put('/model/offer/2', null);
+      const response = await api.put(`/model/offer/${offerId}`, null);
       setData(response.data);
     } catch (err) {
       if (err instanceof AxiosError) {
