@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
 
 import Button from '../../@common/components/Button';
@@ -7,13 +7,17 @@ import Header from '../../@common/components/Header';
 import TextArea200 from '../../@common/components/TextArea200';
 import ConditionBox from '../../ModelInfoPage/components/ConditionBox';
 import TitleBox from '../../ModelInfoPage/components/TitleBox';
-import { conditionData } from '../../ModelInfoPage/constants/conditionData';
+import { CONDITION_DATA } from '../constants/CONDITION_DATA';
+import usePostApplication from '../hooks/usePostApplication';
 
 import Modal from '@/views/@common/components/Modal';
 
 const ModelOfferPage = () => {
+  const location = useLocation();
+  const applicationId = location.state.applicationId;
+
   //희망 제안 조건 클릭시 활성화 기능
-  const [isClicked, setIsClicked] = useState<boolean[]>([true, true, false, false, false, false]);
+  const [isClicked, setIsClicked] = useState<boolean[]>([true, true, true, false, false, false]);
   const handleConditionClick = (index: number) => {
     setIsClicked((prevState) => {
       const newClickedState = [...prevState];
@@ -29,10 +33,12 @@ const ModelOfferPage = () => {
 
   const isActive = isClicked.some((clicked) => clicked) && textAreaValue !== '';
 
+  const postApplication = usePostApplication(applicationId, textAreaValue, isClicked);
+
   //페이지 이동
   const navigate = useNavigate();
   const handleClickConfirm = () => {
-    navigate('/model-info/model-offer/sent-complete');
+    postApplication();
   };
 
   //모달 계속하기
@@ -64,7 +70,7 @@ const ModelOfferPage = () => {
         <S.ModelOfferBox>
           <TitleBox title="희망 제안 조건" subtitle="원하는 조건을 모두 선택해주세요" isNeccessary={true} />
           <S.ContainerGridBox>
-            {conditionData.map((data, index) => (
+            {CONDITION_DATA.map((data, index) => (
               <ConditionBox
                 key={index}
                 icon={data.icon}

@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import styled from 'styled-components';
+import { styled } from 'styled-components';
 
 interface ToastMessageProps {
   text: string;
@@ -37,7 +37,8 @@ const S = {
 
     width: 100%;
     max-width: 43rem;
-    height: 100vh;
+    height: 100dvh;
+
     background-color: ${({ theme }) => theme.colors.moddy_bk20};
   `,
   ToastSection: styled.section`
