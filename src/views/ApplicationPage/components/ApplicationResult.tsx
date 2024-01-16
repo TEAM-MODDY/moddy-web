@@ -7,6 +7,7 @@ import applyImg from '../../@common/assets/images/img_applylogo.png';
 import Button from '../../@common/components/Button';
 import Header from '../../@common/components/Header';
 import { INFO_MESSAGE } from '../constants/message';
+import usePostApplication from '../hooks/usePostApplication';
 import { captureApplication } from '../utils/captureApplication';
 
 import { applicationCaptureImgUrlState, applyStepState } from '@/recoil/atoms/applicationState';
@@ -15,6 +16,7 @@ const ApplicationResult = () => {
   const setImgUrl = useSetRecoilState(applicationCaptureImgUrlState);
   const [step, setStep] = useRecoilState(applyStepState);
   const navigate = useNavigate();
+  const postApplication = usePostApplication();
 
   useEffect(() => {
     captureApplication()
@@ -25,6 +27,16 @@ const ApplicationResult = () => {
         navigate('/error');
       });
   }, []);
+
+  const handleApplication = async () => {
+    try {
+      await postApplication();
+      navigate(`/application/confirm`);
+    } catch (err) {
+      console.log(err);
+      navigate('/error');
+    }
+  };
 
   return (
     <S.ApplicationResultLayout>
@@ -112,13 +124,7 @@ const ApplicationResult = () => {
           <img src={applyImg} alt="로고이미지" />
         </S.ContentSection>
       </S.MainContent>
-      <Button
-        text={INFO_MESSAGE.FINAL}
-        isFixed={true}
-        onClickFn={() => {
-          navigate(`/application/confirm`);
-        }}
-      />
+      <Button text={INFO_MESSAGE.FINAL} isFixed={true} onClickFn={handleApplication} />
     </S.ApplicationResultLayout>
   );
 };
