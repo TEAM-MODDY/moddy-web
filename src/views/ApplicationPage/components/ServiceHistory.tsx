@@ -21,7 +21,10 @@ const ServiceHistory = () => {
 
   const addHistory = () => {
     if (hairServiceRecords.length < MAX_LENGTH) {
-      const tempServiceHistoryList: historyDetailProps[] = [...hairServiceRecords, { service: '', period: '' }];
+      const tempServiceHistoryList: historyDetailProps[] = [
+        ...hairServiceRecords,
+        { hairService: '', hairServiceTerm: '' },
+      ];
       setServiceHistory({ ...serviceHistory, hairServiceRecords: tempServiceHistoryList });
     }
   };
@@ -47,7 +50,7 @@ const ServiceHistory = () => {
       <S.ServiceHistoryList>
         {hairServiceRecords.map((item, idx: number) =>
           idx < hairServiceRecords.length ? (
-            <ServiceHistoryListItem key={'history' + item.service + item.period + idx} idx={idx} />
+            <ServiceHistoryListItem key={'history' + item.hairService + item.hairServiceTerm + idx} idx={idx} />
           ) : null,
         )}
       </S.ServiceHistoryList>

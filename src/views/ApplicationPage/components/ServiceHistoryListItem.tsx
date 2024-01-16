@@ -24,7 +24,7 @@ const ServiceHistoryListItem = ({ idx }: ServiceHistoryListItem) => {
       if (i === idx) {
         return {
           ...item,
-          service: tempService,
+          hairService: tempService,
         };
       }
       return item;
@@ -40,7 +40,7 @@ const ServiceHistoryListItem = ({ idx }: ServiceHistoryListItem) => {
       if (i === idx) {
         return {
           ...item,
-          period: tempPeriod,
+          hairServiceTerm: tempPeriod,
         };
       }
       return item;
@@ -66,7 +66,7 @@ const ServiceHistoryListItem = ({ idx }: ServiceHistoryListItem) => {
           }}>
           <input
             type="button"
-            value={hairServiceRecords[idx].service !== '' ? hairServiceRecords[idx].service : '시술 선택'}
+            value={hairServiceRecords[idx].hairService !== '' ? hairServiceRecords[idx].hairService : '시술 선택'}
           />
           {isServiceClicked ? <IcUpBlue /> : <IcDownGrey />}
         </S.SelectServiceBox>
@@ -92,7 +92,9 @@ const ServiceHistoryListItem = ({ idx }: ServiceHistoryListItem) => {
           }}>
           <input
             type="button"
-            value={hairServiceRecords[idx].period !== '' ? hairServiceRecords[idx].period : '기간 선택'}
+            value={
+              hairServiceRecords[idx].hairServiceTerm !== '' ? hairServiceRecords[idx].hairServiceTerm : '기간 선택'
+            }
           />
           {isPeriodClicked ? <IcUpBlue /> : <IcDownGrey />}
         </S.SelectPeriodBox>

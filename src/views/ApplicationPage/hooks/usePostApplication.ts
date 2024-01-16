@@ -30,13 +30,13 @@ const usePostApplication = () => {
   const tempHairServiceRecords = hairServiceRecords.map((element) => {
     const tempElement = { ...element };
     Object.keys(SELECT_SERVICE).forEach((key) => {
-      if (key === element.service) {
-        tempElement.service = SELECT_SERVICE[key as keyof typeof SELECT_SERVICE];
+      if (key === element.hairService) {
+        tempElement.hairService = SELECT_SERVICE[key as keyof typeof SELECT_SERVICE];
       }
     });
     Object.keys(SELECT_PERIOD).forEach((key) => {
-      if (key === element.period) {
-        tempElement.period = SELECT_PERIOD[key as keyof typeof SELECT_PERIOD];
+      if (key === element.hairServiceTerm) {
+        tempElement.hairServiceTerm = SELECT_PERIOD[key as keyof typeof SELECT_PERIOD];
       }
     });
     return tempElement;
@@ -60,7 +60,7 @@ const usePostApplication = () => {
       hairServiceRecords: tempHairServiceRecords,
       modelImgUrl: modelImgData,
       instagramId,
-      applicationCaptureImgUrl: applicationCaptureImgUrl.data,
+      applicationCaptureImgUrl: modelImgData,
     };
     console.log(requestBody);
 

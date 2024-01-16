@@ -42,8 +42,8 @@ export const deatiledStyleState = atom<stringInputType>({
 });
 
 export interface historyDetailProps {
-  service: string;
-  period: string;
+  hairService: string;
+  hairServiceTerm: string;
 }
 
 export interface historyType {
@@ -78,9 +78,13 @@ export const profileState = atom<profileType>({
   },
 });
 
-export const applicationCaptureImgUrlState = atom<stringInputType>({
+export interface imgDataType {
+  applicationCaptureImgUrl: FormData;
+}
+
+export const applicationCaptureImgUrlState = atom<imgDataType>({
   key: 'applicationCaptureImgUrl',
   default: {
-    data: '',
+    applicationCaptureImgUrl: new FormData(),
   },
 });
