@@ -1,8 +1,6 @@
-import styled from 'styled-components';
+import { styled } from 'styled-components';
 
 import useGetUser from '../hooks/useGetUser';
-
-import imgHdprofile from '@images/img_hdprofile.png';
 
 const MyInfo = () => {
   const { data, isLoading, isError } = useGetUser();

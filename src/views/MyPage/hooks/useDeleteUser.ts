@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 
-import api, { removeToken } from '@/views/@common/hooks/api';
+import api from '@/views/@common/hooks/api';
 
 const useDeleteUser = () => {
   const navigate = useNavigate();
@@ -12,7 +12,7 @@ const useDeleteUser = () => {
           Authorization: 'Bearer ~',
         },
       });
-      //removeToken();
+
       navigate('/');
     } catch (err) {
       navigate('/error');
