@@ -1,5 +1,4 @@
 import { AxiosError } from 'axios';
-import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 
@@ -18,8 +17,6 @@ import api from '@/views/@common/hooks/api';
 
 const usePostApplication = () => {
   const navigate = useNavigate();
-  const [isLoading, setLoading] = useState(false);
-  const [isError, setError] = useState<AxiosError>();
 
   const { length, preference } = useRecoilValue(hairStyleState);
   const hairDetail = useRecoilValue(deatiledStyleState);
@@ -60,7 +57,7 @@ const usePostApplication = () => {
       hairServiceRecords: tempHairServiceRecords,
       modelImgUrl: modelImgData,
       instagramId,
-      applicationCaptureImgUrl: modelImgData,
+      applicationCaptureImgUrl: applicationCaptureImgUrl,
     };
     console.log(requestBody);
 
@@ -73,15 +70,11 @@ const usePostApplication = () => {
       });
       navigate('/application/confirm');
     } catch (err) {
-      if (err instanceof AxiosError) setError(err);
-      navigate('/error');
+      if (err instanceof AxiosError) navigate('/error');
     }
-    setLoading(false);
   };
 
   postApplication();
-
-  return { isLoading, isError };
 };
 
 export default usePostApplication;

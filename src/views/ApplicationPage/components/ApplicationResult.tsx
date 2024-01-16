@@ -16,15 +16,15 @@ const ApplicationResult = () => {
   const [step, setStep] = useRecoilState(applyStepState);
   const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   captureApplication()
-  //     .then((dataUrl) => {
-  //       setImgUrl({ applicationCaptureImgUrl: dataUrl });
-  //     })
-  //     .catch(() => {
-  //       navigate('/error');
-  //     });
-  // }, []);
+  useEffect(() => {
+    captureApplication()
+      .then((dataUrl) => {
+        setImgUrl({ applicationCaptureImgUrl: dataUrl });
+      })
+      .catch(() => {
+        navigate('/error');
+      });
+  }, []);
 
   return (
     <S.ApplicationResultLayout>

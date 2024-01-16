@@ -79,12 +79,12 @@ export const profileState = atom<profileType>({
 });
 
 export interface imgDataType {
-  applicationCaptureImgUrl: FormData;
+  applicationCaptureImgUrl: File | undefined;
 }
 
 export const applicationCaptureImgUrlState = atom<imgDataType>({
   key: 'applicationCaptureImgUrl',
   default: {
-    applicationCaptureImgUrl: new FormData(),
+    applicationCaptureImgUrl: undefined,
   },
 });

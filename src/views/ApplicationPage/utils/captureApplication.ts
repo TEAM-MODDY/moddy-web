@@ -1,10 +1,19 @@
 import html2canvas from 'html2canvas';
 
-export const captureApplication = async (): Promise<FormData> => {
-  const canvas = await html2canvas(document.getElementById('applicationImg')!);
-  const blob = await fetch(canvas.toDataURL()).then((res) => res.blob());
-  const formData = new FormData();
-  formData.append('applicationCaptureImgUrl', blob);
+export const captureApplication = async (): Promise<File> => {
+  let imgUrl = '';
+  html2canvas(document.getElementById('applcationImg')!).then((canvas) => {
+    imgUrl = canvas.toDataURL();
+  });
 
-  return formData;
+  try {
+    const response = await fetch(imgUrl);
+    const blob = await response.blob();
+    const file = new File([blob], 'captureApplication.png', { type: 'image/png' });
+
+    return file;
+  } catch (e) {
+    console.error(e);
+    throw e;
+  }
 };
