@@ -25,7 +25,7 @@ const ProfileUpload = ({ onImageUpload }: ProfileUpLoadProps) => {
 
     if (imgObj && imgObj[0]) {
       const imgUrl = URL.createObjectURL(imgObj[0]);
-      setImageUrl({ data: imgUrl });
+      setImageUrl({ data: imgUrl, file: imgObj[0] });
       onImageUpload(imgUrl);
     }
   };

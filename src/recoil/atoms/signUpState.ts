@@ -28,6 +28,7 @@ export interface searchAddressType {
 
 export interface inputImgType {
   data: string;
+  file: File;
 }
 
 const { persistAtom } = recoilPersist({
@@ -134,7 +135,10 @@ export const dateState = atom<selectDateType>({
 
 export const profileImgState = atom<inputImgType>({
   key: 'profilePictureInfo',
-  default: { data: '' },
+  default: {
+    data: '',
+    file: new File([], 'empty.txt'),
+  },
 });
 
 export const instagramLinkState = atom<inputDataType>({
