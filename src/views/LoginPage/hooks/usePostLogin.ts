@@ -21,7 +21,6 @@ const usePostLogin = () => {
       })
       .then((res: loginResProps) => {
         console.log('로그인 성공');
-        console.log(res.data.data.accessToken);
         // 로그인완료되고 메인뷰로 이동
         setToken(res.data.data.accessToken);
         setUserType(res.data.data.role);
