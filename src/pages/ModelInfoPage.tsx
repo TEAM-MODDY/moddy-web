@@ -15,6 +15,7 @@ const ModelInfoPage = () => {
   const APPLICATION_ID = 1;
 
   const { data, isLoading, isError } = useGetApplication(APPLICATION_ID);
+  const isSend = data?.applicationInfo.isSend;
   //페이지 이동
   const navigate = useNavigate();
   const handleOnClickOffer = () => {
@@ -48,7 +49,12 @@ const ModelInfoPage = () => {
           <S.ImageBox src={data.applicationInfo.modelImgUrl} alt="모델 이미지"></S.ImageBox>
           <OfferDetailSection handleCopyClipBoard={handleCopyClipBoard} data={data} />
         </S.ModelInfoLayout>
-        <Button text="제안하기" isFixed={false} onClickFn={handleOnClickOffer} />
+        <Button
+          text={isSend ? '제안완료' : '제안하기'}
+          isFixed={false}
+          onClickFn={handleOnClickOffer}
+          disabled={isSend ? true : false}
+        />
         {isToastOpen && <ToastMessage text="아이디 복사가 완료되었습니다." setter={setToastOpen} />}
       </>
     )
