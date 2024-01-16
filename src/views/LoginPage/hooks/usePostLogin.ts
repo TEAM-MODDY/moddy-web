@@ -20,8 +20,9 @@ const usePostLogin = () => {
         },
       })
       .then((res: loginResProps) => {
-        setToken(res.data.data.accessToken);
-        setUserType(res.data.data.role);
+        const { role, accessToken } = res.data.data;
+        setToken(accessToken);
+        setUserType(role === 'MODEL' ? 'model' : 'designer');
         navigate('/');
       })
       .catch((err: loginErrorProps) => {
