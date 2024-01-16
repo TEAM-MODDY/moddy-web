@@ -2,6 +2,7 @@ import { styled } from 'styled-components';
 
 import { IcBookmark } from '../assets/icons';
 import ImgApplicationLogo from '../assets/images/img_applicationlogo.png';
+import usePostDownloadUrlOffer from '../hooks/usePostDownloadUrlOffer';
 
 import { IcCloseBlack } from '@/views/@common/assets/icons';
 
@@ -12,6 +13,18 @@ interface ImgModalProps {
 }
 
 const ImgModal = ({ isModal, onClose, imgUrl }: ImgModalProps) => {
+  const data = usePostDownloadUrlOffer(imgUrl);
+
+  const handleImgDownload = () => {
+    if (!data) return;
+    const a = document.createElement('a');
+    a.href = data.downloadUrl;
+    a.style.display = 'none';
+    a.download = 'apply_moddy.png';
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+  };
   //모달 닫기
   const handleModalClose = () => {
     onClose();
@@ -31,7 +44,7 @@ const ImgModal = ({ isModal, onClose, imgUrl }: ImgModalProps) => {
             <S.LogoBox src={ImgApplicationLogo} />
             <S.SaveBtn
               onClick={() => {
-                // 이미지 다운로드
+                handleImgDownload();
                 handleModalClose();
               }}>
               이미지 저장하기
