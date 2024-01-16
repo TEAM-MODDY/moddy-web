@@ -20,18 +20,43 @@ const ImgModal = ({ isModal, onClose, imgUrl }: ImgModalProps) => {
 
   //이미지 저장
 
-  const fetchImage = async () => {
-    try {
-      const response = await fetch(imgUrl);
-      if (!response.ok) {
-        throw new Error(`이미지 저장 실패`);
-      }
+  // const fetchImage = async () => {
+  //   try {
+  //     const response = await fetch(imgUrl);
+  //     if (!response.ok) {
+  //       throw new Error(`이미지 저장 실패`);
+  //     }
 
-      const blob = await response.blob();
-      saveAs(blob, 'MyRecords.png');
-    } catch (error) {
-      alert('이미지 저장 실패');
-    }
+  //     const blob = await response.blob();
+  //     saveAs(blob, 'MyRecords.png');
+  //   } catch (error) {
+  //     alert('이미지 저장 실패');
+  //   }
+  // };
+
+  const toDataURL = (url: string) => {
+    return fetch(url, {
+      method: 'GET',
+    })
+      .then((response) => {
+        return response.blob();
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+      .then((blob) => {
+        return URL.createObjectURL(blob);
+      });
+  };
+
+  const downloadFile = async (url: string, fileName?: string) => {
+    const a = document.createElement('a');
+    a.href = await toDataURL(url);
+    a.download = fileName ?? 'download';
+
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
   };
 
   return (
@@ -45,11 +70,17 @@ const ImgModal = ({ isModal, onClose, imgUrl }: ImgModalProps) => {
             <S.CloseBtnBox onClick={handleModalClose}>
               <IcCloseBlack />
             </S.CloseBtnBox>
-            <S.MyRecordImg src={imgUrl} />
+            <S.MyRecordImg
+              src={'https://moddy-gallery.s3.ap-northeast-2.amazonaws.com/HAIR_MODEL_PROFILE/model_default_profile.png'}
+            />
             <S.LogoBox src={ImgApplicationLogo} />
             <S.SaveBtn
               onClick={() => {
-                fetchImage();
+                //fetchImage();
+                downloadFile(
+                  'https://moddy-gallery.s3.ap-northeast-2.amazonaws.com/HAIR_MODEL_PROFILE/model_default_profile.png',
+                  'test',
+                );
                 handleModalClose();
               }}>
               이미지 저장하기

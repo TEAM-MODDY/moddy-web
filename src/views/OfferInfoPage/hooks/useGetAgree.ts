@@ -16,7 +16,8 @@ const useGetAgree = (offerId: number) => {
     try {
       const response = await api.get(`/model/${offerId}/agree`, {
         headers: {
-          Authorization: 'Bearer ~',
+          Authorization:
+            'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJBQ0NFU1NfVE9LRU4iLCJpYXQiOjE3MDU0MDQzNDksImV4cCI6MTcwNzk5NjM0OSwiVVNFUl9JRCI6IjUifQ.xAlesUHb75qBMCwYZ9cA0lWLtTTlEd5kamBJQ-Z66QLL5zR6GMmfzcqe3YL72JDu',
         },
       });
       setData(response.data.data);
