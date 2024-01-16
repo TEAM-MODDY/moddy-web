@@ -19,7 +19,7 @@ export interface preferRegionDataType {
 }
 
 export interface selectDateType {
-  data: boolean[];
+  data: string[];
 }
 
 export interface searchAddressType {
@@ -28,6 +28,7 @@ export interface searchAddressType {
 
 export interface inputImgType {
   data: string;
+  file: File;
 }
 
 const { persistAtom } = recoilPersist({
@@ -128,13 +129,16 @@ export const detailShopInfoState = atom<inputDataType>({
 export const dateState = atom<selectDateType>({
   key: 'dateInfo',
   default: {
-    data: [],
+    data: ['', '', '', '', '', '', ''],
   },
 });
 
 export const profileImgState = atom<inputImgType>({
   key: 'profilePictureInfo',
-  default: { data: '' },
+  default: {
+    data: '',
+    file: new File([], 'empty.txt'),
+  },
 });
 
 export const instagramLinkState = atom<inputDataType>({
