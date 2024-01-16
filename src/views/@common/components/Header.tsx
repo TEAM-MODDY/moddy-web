@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
 
 import { IcCloseBlack, IcLeftBlack } from '../assets/icons';
@@ -14,6 +15,7 @@ interface HeaderProps {
 }
 
 const Header = ({ isBackBtnExist, isCloseBtnExist, title, backFn, closeFn }: HeaderProps) => {
+  const navigate = useNavigate();
   const [isOpenModal, setOpenModal] = useState(false);
   const onClose = () => {
     setOpenModal(true);
@@ -21,7 +23,9 @@ const Header = ({ isBackBtnExist, isCloseBtnExist, title, backFn, closeFn }: Hea
   return (
     <S.HeaderLayout>
       <S.HeaderBox>
-        <button onClick={backFn}>{isBackBtnExist ? <IcLeftBlack /> : <S.HeaderBlankBox />}</button>
+        <button onClick={backFn ? backFn : () => navigate(-1)}>
+          {isBackBtnExist ? <IcLeftBlack /> : <S.HeaderBlankBox />}
+        </button>
         <S.HeaderH1>{title}</S.HeaderH1>
         <button onClick={() => onClose()}>{isCloseBtnExist ? <IcCloseBlack /> : <S.HeaderBlankBox />}</button>
       </S.HeaderBox>
