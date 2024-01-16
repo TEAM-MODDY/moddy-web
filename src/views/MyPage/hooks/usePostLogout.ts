@@ -2,12 +2,12 @@ import { useNavigate } from 'react-router-dom';
 
 import api, { removeToken } from '@/views/@common/hooks/api';
 
-const useDeleteUser = () => {
+const usePostLogout = () => {
   const navigate = useNavigate();
 
-  const deleteUser = async () => {
+  const postLogout = async () => {
     try {
-      await api.delete('/user', {
+      await api.post('/auth/logout', null, {
         headers: {
           Authorization: 'Bearer ~',
         },
@@ -15,11 +15,12 @@ const useDeleteUser = () => {
       //removeToken();
       navigate('/');
     } catch (err) {
+      console.log(err);
       navigate('/error');
     }
   };
 
-  return deleteUser;
+  return postLogout;
 };
 
-export default useDeleteUser;
+export default usePostLogout;

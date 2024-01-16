@@ -1,19 +1,27 @@
 import styled from 'styled-components';
 
+import useGetUser from '../hooks/useGetUser';
+
 import imgHdprofile from '@images/img_hdprofile.png';
 
 const MyInfo = () => {
+  const { data, isLoading, isError } = useGetUser();
+
   return (
-    <S.MyInfoLayout>
-      <S.MyInfoBox>
-        <img src={imgHdprofile} alt="마이페이지 프로필" />
-        <S.MyInfoTextBox>
-          <h1>강재훈님, 안녕하세요!</h1>
-          <p>헤어 디자이너</p>
-        </S.MyInfoTextBox>
-      </S.MyInfoBox>
-      <img src="src/views/@common/assets/images/img_mylogo.png" alt="마이페이지 로고" className="mylogo" />
-    </S.MyInfoLayout>
+    !isLoading &&
+    !isError &&
+    data && (
+      <S.MyInfoLayout>
+        <S.MyInfoBox>
+          <img src={data.profileImgUrl} alt="마이페이지 프로필" />
+          <S.MyInfoTextBox>
+            <h1>{data.name}님, 안녕하세요!</h1>
+            <p>헤어 {data.role === 'MODEL' ? '모델' : '디자이너'}</p>
+          </S.MyInfoTextBox>
+        </S.MyInfoBox>
+        <img src="src/views/@common/assets/images/img_mylogo.png" alt="마이페이지 로고" className="mylogo" />
+      </S.MyInfoLayout>
+    )
   );
 };
 
