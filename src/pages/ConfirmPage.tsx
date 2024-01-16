@@ -1,30 +1,29 @@
-import { useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
 
 import Button from '../views/@common/components/Button';
 
 import { INFO_MESSAGE } from '@/views/ApplicationPage/constants/message';
+import usePostApplication from '@/views/ApplicationPage/hooks/usePostApplication';
 
 const ConfirmPage = () => {
-  const navigate = useNavigate();
+  const postApplication = usePostApplication();
+
+  const handleApplication = async () => {
+    await postApplication;
+  };
+
   return (
     <S.ConfirmPage>
-      <img src="/src/views/@common/assets/images/img_letter.png" alt="letter" />
+      <img src="/src/views/@common/assets/images/img_letter.png" alt="letterImg" />
       <S.Info>
         <h1>{INFO_MESSAGE.CONFIRM_TITLE}</h1>
         <S.Description>
-          {INFO_MESSAGE.CONFIRM_SUBTITLE.split('<br />').map((line) => (
+          {INFO_MESSAGE.CONFIRM_SUBTITLE.split('<br />').map((line: string) => (
             <p key={line}>{line}</p>
           ))}
         </S.Description>
       </S.Info>
-      <Button
-        text="닫기"
-        isFixed={true}
-        onClickFn={() => {
-          navigate(`/`);
-        }}
-      />
+      <Button text={INFO_MESSAGE.CLOSE} isFixed={true} onClickFn={handleApplication} />
     </S.ConfirmPage>
   );
 };

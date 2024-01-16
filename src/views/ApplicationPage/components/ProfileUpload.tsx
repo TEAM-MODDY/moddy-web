@@ -25,7 +25,12 @@ const ProfileUpload = () => {
   const handleInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     readImg(event)
       .then((dataUrl) => {
-        setInputData({ ...inputData, modelImgUrl: dataUrl, verifyStatus: true });
+        setInputData({
+          ...inputData,
+          modelImgUrl: dataUrl.previewSrc,
+          modelImgData: dataUrl.imgUrl,
+          verifyStatus: true,
+        });
       })
       .catch(() => {
         navigate('/error');
@@ -52,7 +57,7 @@ const ProfileUpload = () => {
             <h2>
               {INFO_MESSAGE.PROFILE_TITLE} <IcEssential />
             </h2>
-            {INFO_MESSAGE.PROFILE_SUBTITLE.split('<br />').map((line) => (
+            {INFO_MESSAGE.PROFILE_SUBTITLE.split('<br />').map((line: string) => (
               <span key={line}>{line}</span>
             ))}
           </S.Title>
