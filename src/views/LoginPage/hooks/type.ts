@@ -14,6 +14,10 @@ export interface loginErrorProps {
     data: {
       code: number;
       message: string;
+      data: {
+        accessToken: string;
+        refreshToken: string;
+      };
     };
   };
 }
