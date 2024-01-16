@@ -9,11 +9,13 @@ import MyInfo from '../views/MyPage/components/MyInfo';
 import MyMenuList from '../views/MyPage/components/MyMenuList';
 
 import { LOGOUT_MODAL } from '@/views/@common/constants/modalText';
+import usePostLogout from '@/views/MyPage/hooks/usePostLogout';
 
 const MyPage = () => {
   const [isModalOpen, setModalOpen] = useState(false);
 
   const navigate = useNavigate();
+  const postLogout = usePostLogout();
 
   return (
     <S.MyPageLayout>
@@ -35,9 +37,7 @@ const MyPage = () => {
           rightBtnText={LOGOUT_MODAL.rightBtn}
           leftBtnFn={() => setModalOpen && setModalOpen(false)}
           rightBtnFn={() => {
-            navigate('/');
-            console.log('test');
-            // 로그아웃 api 붙이기
+            postLogout();
           }}
         />
       )}
@@ -53,6 +53,7 @@ const S = {
     flex-direction: column;
 
     height: 100dvh;
+
     background: ${({ theme }) => theme.colors.moddy_wt};
   `,
 };

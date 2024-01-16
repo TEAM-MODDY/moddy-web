@@ -9,12 +9,14 @@ import MyQuitCheck from '../views/MyQuit/components/MyQuitCheck';
 import MyQuitText from '../views/MyQuit/components/MyQuitText';
 
 import { QUIT_MODAL } from '@/views/@common/constants/modalText';
+import useDeleteUser from '@/views/MyPage/hooks/useDeleteUser';
 
 const MyQuitPage = () => {
   const [isChecked, setChecked] = useState(false);
   const [isModalOpen, setModalOpen] = useState(false);
 
   const navigate = useNavigate();
+  const deleteUser = useDeleteUser();
 
   return (
     <S.MyQuitPageLayout>
@@ -30,9 +32,8 @@ const MyQuitPage = () => {
           rightBtnText={QUIT_MODAL.rightBtn}
           leftBtnFn={() => setModalOpen && setModalOpen(false)}
           rightBtnFn={() => {
-            console.log('회원탈퇴 완료');
+            deleteUser();
             navigate('/');
-            // 회원탈퇴 api
           }}
         />
       )}
