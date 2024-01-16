@@ -25,7 +25,7 @@ const usePostApplication = () => {
   const hairDetail = useRecoilValue(deatiledStyleState);
   const { hairServiceRecords } = useRecoilValue(historyState);
   const { modelImgData, instagramId } = useRecoilValue(profileState);
-  const applicationCaptureImgUrl = useRecoilValue(applicationCaptureImgUrlState);
+  const { applicationCaptureImgUrl } = useRecoilValue(applicationCaptureImgUrlState);
 
   const tempHairServiceRecords = hairServiceRecords.map((element) => {
     const tempElement = { ...element };
@@ -67,7 +67,7 @@ const usePostApplication = () => {
     try {
       await api.post('/model/application', requestBody, {
         headers: {
-          Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJBQ0NFU1NfVE9LRU4iLCJpYXQiOjE3MDQ5OTg0NzksImV4cCI6MTcwNzU5MDQ3OSwiVVNFUl9JRCI6IjcifQ.wUuXuo-7AmfPwpn838vYHUeTan1IVv_B78rg3cGQ-1cvwiB3MNFbYGzWkUS_P6Lj`,
+          Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJBQ0NFU1NfVE9LRU4iLCJpYXQiOjE3MDU0MDQzMjIsImV4cCI6MTcwNzk5NjMyMiwiVVNFUl9JRCI6IjQifQ.Dr0QFpx2TtD-zqNclP3H1sIZBUuVRreVZxZmmTfVt3Xpcl6nR_xkDPl4yXlp6QgL`,
           'Content-Type': 'multipart/form-data',
         },
       });

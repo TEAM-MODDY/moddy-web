@@ -12,19 +12,19 @@ import { captureApplication } from '../utils/captureApplication';
 import { applicationCaptureImgUrlState, applyStepState } from '@/recoil/atoms/applicationState';
 
 const ApplicationResult = () => {
-  const [url, setImgUrl] = useRecoilState(applicationCaptureImgUrlState);
+  const setImgUrl = useSetRecoilState(applicationCaptureImgUrlState);
   const [step, setStep] = useRecoilState(applyStepState);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    captureApplication()
-      .then((res: string) => {
-        console.log(url);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, []);
+  // useEffect(() => {
+  //   captureApplication()
+  //     .then((dataUrl) => {
+  //       setImgUrl({ applicationCaptureImgUrl: dataUrl });
+  //     })
+  //     .catch(() => {
+  //       navigate('/error');
+  //     });
+  // }, []);
 
   return (
     <S.ApplicationResultLayout>

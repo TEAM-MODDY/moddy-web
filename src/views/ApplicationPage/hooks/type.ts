@@ -5,9 +5,9 @@ export interface applyResProps {
   preferHairStyles: string[];
   hairDetail: string;
   hairServiceRecords: historyDetailProps[];
-  modelImgUrl: FormData;
+  modelImgUrl: File | undefined;
   instagramId: string;
-  applicationCaptureImgUrl: FormData;
+  applicationCaptureImgUrl: File | undefined;
 }
 
 export interface applyErrorProps {

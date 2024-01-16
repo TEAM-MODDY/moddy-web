@@ -28,7 +28,7 @@ const ProfileUpload = () => {
         setInputData({
           ...inputData,
           modelImgUrl: dataUrl.previewSrc,
-          modelImgData: dataUrl.formData,
+          modelImgData: dataUrl.imgUrl,
           verifyStatus: true,
         });
       })
