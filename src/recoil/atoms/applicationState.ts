@@ -63,7 +63,7 @@ export const historyState = atom<historyType>({
 
 export interface profileType {
   modelImgUrl: string;
-  modelImgData: File | undefined;
+  modelImgData: File;
   instagramId: string;
   verifyStatus: boolean;
 }
@@ -72,19 +72,19 @@ export const profileState = atom<profileType>({
   key: 'profile',
   default: {
     modelImgUrl: '',
-    modelImgData: undefined,
+    modelImgData: new File([], 'empty.text'),
     instagramId: '',
     verifyStatus: false,
   },
 });
 
 export interface imgDataType {
-  applicationCaptureImgUrl: File | undefined;
+  applicationCaptureImgUrl: File;
 }
 
 export const applicationCaptureImgUrlState = atom<imgDataType>({
   key: 'applicationCaptureImgUrl',
   default: {
-    applicationCaptureImgUrl: undefined,
+    applicationCaptureImgUrl: new File([], 'empty.text'),
   },
 });

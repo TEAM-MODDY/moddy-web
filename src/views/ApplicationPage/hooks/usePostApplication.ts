@@ -4,8 +4,6 @@ import { useRecoilValue } from 'recoil';
 
 import { SELECT_PERIOD, SELECT_SERVICE, SELECT_STYLE } from '../constants/filter';
 
-import { applyResProps } from './type';
-
 import {
   applicationCaptureImgUrlState,
   deatiledStyleState,
@@ -50,19 +48,21 @@ const usePostApplication = () => {
   });
 
   const postApplication = async () => {
-    const requestBody: applyResProps = {
-      hairLength: length,
-      preferHairStyles: tempPreference,
-      hairDetail: hairDetail.data,
-      hairServiceRecords: tempHairServiceRecords,
-      modelImgUrl: modelImgData,
-      instagramId,
-      applicationCaptureImgUrl: applicationCaptureImgUrl,
-    };
-    console.log(requestBody);
+    const formData = new FormData();
+
+    // const modelImgBlob = new Blob([modelImgData], { type: 'image/*' });
+    // const captureImgBlob = new Blob([JSON.stringify(applicationCaptureImgUrl)], { type: 'image/*' });
+
+    formData.append('hairLength', length);
+    formData.append('preferHairStyles', 'NORMAL_CUT');
+    formData.append('hairDetail', hairDetail.data);
+    formData.append('hairServiceRecords', JSON.stringify(tempHairServiceRecords));
+    formData.append('modelImgUrl', modelImgData);
+    formData.append('instagramId', instagramId);
+    formData.append('applicationCaptureImgUrl', applicationCaptureImgUrl);
 
     try {
-      await api.post('/model/application', requestBody, {
+      await api.post('/model/application', formData, {
         headers: {
           Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJBQ0NFU1NfVE9LRU4iLCJpYXQiOjE3MDU0MDQzMjIsImV4cCI6MTcwNzk5NjMyMiwiVVNFUl9JRCI6IjQifQ.Dr0QFpx2TtD-zqNclP3H1sIZBUuVRreVZxZmmTfVt3Xpcl6nR_xkDPl4yXlp6QgL`,
           'Content-Type': 'multipart/form-data',
