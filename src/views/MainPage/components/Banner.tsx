@@ -53,7 +53,6 @@ const BannerLayout = styled.div`
 `;
 
 const BannerBox = styled.div`
-  height: 8.4rem;
   border-radius: 8px;
 
   & img {
