@@ -18,7 +18,11 @@ const ModelInfoPage = () => {
   //페이지 이동
   const navigate = useNavigate();
   const handleOnClickOffer = () => {
-    navigate('/model-info/model-offer');
+    navigate('/model-info/model-offer', {
+      state: {
+        applicationId: APPLICATION_ID,
+      },
+    });
   };
 
   //클립보드 완료시 토스트창
