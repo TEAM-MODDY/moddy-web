@@ -2,24 +2,20 @@ import { AxiosError } from 'axios';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { UserProps } from './type';
+import { ModelInfoPageProps } from './types';
 
 import api from '@/views/@common/hooks/api';
 
-const useGetUser = () => {
+const useGetApplication = (applicationId: number) => {
   const navigate = useNavigate();
-  const [data, setData] = useState<UserProps>();
+  const [data, setData] = useState<ModelInfoPageProps>();
   const [isLoading, setLoading] = useState(true);
   const [isError, setError] = useState<AxiosError>();
 
   const fetchData = async () => {
     try {
-      const data = await api.get('/user', {
-        headers: {
-          Authorization: `Bearer ~`,
-        },
-      });
-      setData(data.data.data);
+      const response = await api.get(`/designer/${applicationId}`);
+      setData(response.data.data);
     } catch (err) {
       if (err instanceof AxiosError) setError(err);
       else {
@@ -34,11 +30,7 @@ const useGetUser = () => {
     fetchData();
   }, []);
 
-  return {
-    data,
-    isLoading,
-    isError,
-  };
+  return { data, isLoading, isError };
 };
 
-export default useGetUser;
+export default useGetApplication;

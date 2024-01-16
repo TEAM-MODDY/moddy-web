@@ -1,5 +1,5 @@
 import { AxiosError } from 'axios';
-import { useEffect, useMemo, useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 
@@ -17,7 +17,7 @@ import {
 } from '@/recoil/atoms/signUpState';
 import api from '@/views/@common/hooks/api';
 
-const useModelSignUp = () => {
+const usePostModelSignUp = () => {
   const navigate = useNavigate();
 
   const [isLoading, setLoading] = useState(true);
@@ -34,7 +34,7 @@ const useModelSignUp = () => {
 
   const preferRegion = preferRegions.data.map((value, index) => (value ? index : -1)).filter((index) => index !== -1);
 
-  const postSignUp = async () => {
+  const postModelSignUp = async () => {
     const requestBody: ModelSignUpRequest = {
       name: name.data,
       year: birthYear.data,
@@ -44,11 +44,7 @@ const useModelSignUp = () => {
       preferRegions: preferRegion,
     };
     try {
-      const data = await api.post('/auth/signup/model', requestBody, {
-        headers: {
-          Authorization: `Bearer ~`,
-        },
-      });
+      const data = await api.post('/auth/signup/model', requestBody);
       console.log(data);
       setSessionUserType(tempUserType);
       navigate('/');
@@ -62,7 +58,7 @@ const useModelSignUp = () => {
     setLoading(false);
   };
 
-  return postSignUp;
+  return postModelSignUp;
 };
 
-export default useModelSignUp;
+export default usePostModelSignUp;

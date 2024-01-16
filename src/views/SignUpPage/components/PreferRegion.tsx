@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { styled } from 'styled-components';
 
@@ -9,7 +8,7 @@ import ProgressBar from '../../@common/components/ProgressBar';
 import { IcCloseSmblue } from '../assets/icons';
 import { HELPER_MESSAGE, PLACE_HOLDER_MESSAGE } from '../constants/message';
 import useGetRegion from '../hooks/useGetRegion';
-import useModelSignUp from '../hooks/useModelSignUp';
+import usePostModelSignUp from '../hooks/usePostModelSignUp';
 
 import Field from './Field';
 import RegionItem from './RegionItem';
@@ -20,7 +19,7 @@ import Modal from '@/views/@common/components/Modal';
 const PreferRegion = () => {
   useGetRegion();
   const regionList = useRecoilValue(regionState);
-  const postSignUp = useModelSignUp();
+  const postModelSignUp = usePostModelSignUp();
   const [isShowCategory, setIsShowCategory] = useState(false);
   const [isCheckedList, setIsCheckedList] = useRecoilState(preferRegionState);
   const [isShowBottomSheet, setIsShowBottomSheet] = useState(false);
@@ -31,7 +30,7 @@ const PreferRegion = () => {
   const selectorBoxRef = useRef<HTMLDivElement>(null);
 
   const handleSignUp = async () => {
-    await postSignUp();
+    await postModelSignUp();
   };
 
   useEffect(() => {

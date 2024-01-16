@@ -29,6 +29,7 @@
     "react-router-dom": "^6.21.1",
     "react-slick": "^0.29.0",
     "recoil": "^0.7.7",
+    "recoil-devtools": "^0.5.0",
     "recoil-persist": "^5.1.0",
     "styled-components": "^6.1.6",
     "stylelint": "^16.1.0",
