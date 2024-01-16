@@ -18,8 +18,14 @@
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+
+    "baseUrl": "src",
+    "paths": {
+      "@/*": ["*"],
+      "@images/*": ["views/@common/assets/images/*"]
+    }
   },
-  "include": ["src", "/src/assets/asset.d.ts"],
+  "include": ["src", "/src/asset.d.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
