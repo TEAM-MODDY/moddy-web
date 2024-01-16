@@ -14,10 +14,6 @@ export const setToken = (token: string) => {
   localStorage.setItem(ACCESS_TOKEN, token);
 };
 
-export const removeToken = () => {
-  localStorage.removeItem(ACCESS_TOKEN);
-};
-
 api.interceptors.request.use((config) => {
   const accessToken = getToken();
   if (accessToken) {
