@@ -1,33 +1,50 @@
-import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
 import { styled } from 'styled-components';
 
 import Button from '../../@common/components/Button';
 import Header from '../../@common/components/Header';
 import ProgressBar from '../../@common/components/ProgressBar';
 import TextArea200 from '../../@common/components/TextArea200';
+import { INFO_MESSAGE } from '../constants/message';
+
+import { applyStepState, deatiledStyleState } from '@/recoil/atoms/applicationState';
 
 const DetailedStyle = () => {
-  const [hairDetail, setHairDetail] = useState('');
+  const [step, setStep] = useRecoilState(applyStepState);
+  const [hairDetail, setHairDetail] = useRecoilState(deatiledStyleState);
+  const navigate = useNavigate();
 
   return (
     <S.ServiceHistoryLayout>
-      <Header isBackBtnExist={true} isCloseBtnExist={true} title="모델 지원하기" />
-      <ProgressBar whole={4} current={2} />
+      <Header
+        isBackBtnExist={true}
+        isCloseBtnExist={true}
+        title={INFO_MESSAGE.TITLE}
+        backFn={() => {
+          setStep({ ...step, current: step.current - 1 });
+        }}
+        closeFn={() => {
+          navigate(`/`);
+        }}
+      />
+      <ProgressBar whole={step.total} current={step.current} />
       <S.Title>
-        <h2>상세 희망 스타일</h2>
-        <h3>자세히 적을수록 디자이너의 이해도를 높일 수 있어요</h3>
+        <h2>{INFO_MESSAGE.DETAIL_TITLE}</h2>
+        <h3>{INFO_MESSAGE.DETAIL_SUBTITLE}</h3>
       </S.Title>
       <TextArea200
-        placeholderText="원하시는 스타일을 자세하게 설명해주세요"
+        placeholderText={INFO_MESSAGE.DETAIL_INPUT}
+        initialValue={hairDetail.data}
         onChangeFn={(value) => {
-          setHairDetail(value);
+          setHairDetail({ data: value });
         }}
       />
       <Button
-        text="다음"
+        text={INFO_MESSAGE.NEXT}
         isFixed={true}
         onClickFn={() => {
-          console.log(hairDetail);
+          setStep({ ...step, current: step.current + 1 });
         }}
       />
     </S.ServiceHistoryLayout>
@@ -41,7 +58,7 @@ const S = {
     align-items: center;
 
     width: 100%;
-    margin-top: 7.54rem;
+    margin-top: 8.5rem;
     padding: 0 1.5rem;
   `,
 
@@ -51,7 +68,7 @@ const S = {
     gap: 0.8rem;
 
     width: 100%;
-    margin: 2.2rem 0 1.2rem;
+    margin-bottom: 1.2rem;
 
     & > h2 {
       color: ${({ theme }) => theme.colors.moddy_bk};

@@ -1,7 +1,9 @@
 import { useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
 
-import Button from '../../@common/components/Button';
+import Button from '../views/@common/components/Button';
+
+import { INFO_MESSAGE } from '@/views/ApplicationPage/constants/message';
 
 const ConfirmPage = () => {
   const navigate = useNavigate();
@@ -9,11 +11,12 @@ const ConfirmPage = () => {
     <S.ConfirmPage>
       <img src="/src/views/@common/assets/images/img_letter.png" alt="letter" />
       <S.Info>
-        <h1>헤어모델 지원 완료!</h1>
-        <p>
-          내게 딱 맞는 헤어디자이너의 제안서가
-          <br />곧 도착할 예정이에요.
-        </p>
+        <h1>{INFO_MESSAGE.CONFIRM_TITLE}</h1>
+        <S.Description>
+          {INFO_MESSAGE.CONFIRM_SUBTITLE.split('<br />').map((line) => (
+            <p key={line}>{line}</p>
+          ))}
+        </S.Description>
       </S.Info>
       <Button
         text="닫기"
@@ -37,7 +40,7 @@ const S = {
     align-items: center;
 
     width: 100%;
-    height: 100vh;
+    height: 100dvh;
     padding: 9rem;
 
     & > img {
@@ -56,13 +59,15 @@ const S = {
     display: flex;
     flex-direction: column;
     gap: 0.8rem;
+    align-items: center;
 
     & > h1 {
       color: ${({ theme }) => theme.colors.moddy_bk};
 
       ${({ theme }) => theme.fonts.Title01};
     }
-
+  `,
+  Description: styled.div`
     & > p {
       color: ${({ theme }) => theme.colors.moddy_gray50};
       text-align: center;
