@@ -63,6 +63,7 @@ export const historyState = atom<historyType>({
 
 export interface profileType {
   modelImgUrl: string;
+  modelImgData: FormData;
   instagramId: string;
   verifyStatus: boolean;
 }
@@ -71,6 +72,7 @@ export const profileState = atom<profileType>({
   key: 'profile',
   default: {
     modelImgUrl: '',
+    modelImgData: new FormData(),
     instagramId: '',
     verifyStatus: false,
   },

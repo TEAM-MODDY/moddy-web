@@ -5,7 +5,7 @@ export interface applyResProps {
   preferHairStyles: string[];
   hairDetail: string;
   hairServiceRecords: historyDetailProps[];
-  modelImgUrl: string;
+  modelImgUrl: FormData;
   instagramId: string;
   applicationCaptureImgUrl: string;
 }

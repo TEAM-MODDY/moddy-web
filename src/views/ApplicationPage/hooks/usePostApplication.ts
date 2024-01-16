@@ -24,7 +24,7 @@ const usePostApplication = () => {
   const { length, preference } = useRecoilValue(hairStyleState);
   const hairDetail = useRecoilValue(deatiledStyleState);
   const { hairServiceRecords } = useRecoilValue(historyState);
-  const { modelImgUrl, instagramId } = useRecoilValue(profileState);
+  const { modelImgData, instagramId } = useRecoilValue(profileState);
   const applicationCaptureImgUrl = useRecoilValue(applicationCaptureImgUrlState);
 
   const tempHairServiceRecords = hairServiceRecords.map((element) => {
@@ -58,7 +58,7 @@ const usePostApplication = () => {
       preferHairStyles: tempPreference,
       hairDetail: hairDetail.data,
       hairServiceRecords: tempHairServiceRecords,
-      modelImgUrl,
+      modelImgUrl: modelImgData,
       instagramId,
       applicationCaptureImgUrl: applicationCaptureImgUrl.data,
     };

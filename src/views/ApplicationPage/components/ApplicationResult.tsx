@@ -19,7 +19,6 @@ const ApplicationResult = () => {
   useEffect(() => {
     captureApplication()
       .then((res: string) => {
-        setImgUrl(res);
         console.log(url);
       })
       .catch((error) => {
