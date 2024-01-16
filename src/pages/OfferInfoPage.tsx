@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import { styled } from 'styled-components';
 
 import { IcCheckboxGrey, IcCheckboxBlue } from '../views/@common/assets/icons';
@@ -10,6 +11,9 @@ import DesignerInfoSection from '@/views/OfferInfoPage/components/DesignerInfoSe
 import OfferDetailSection from '@/views/OfferInfoPage/components/OfferDetailSection';
 
 const OfferInfoPage = () => {
+  const { state } = useLocation();
+  const offerId = state.offerid;
+
   // 체크 표시 클릭시 CTA 버튼 활성화
   const [isChecked, setIsChecked] = useState(false);
   const handleCheckBoxClick = () => {
@@ -24,12 +28,12 @@ const OfferInfoPage = () => {
 
   return (
     <>
-      <DirectionModal isModal={isModal} onClose={() => setIsModal(false)} />
+      <DirectionModal isModal={isModal} onClose={() => setIsModal(false)} offerId={offerId} />
       <Header title="도착한 제안서" isBackBtnExist={true} />
       <S.OfferInfoLayout>
-        <DesignerInfoSection />
+        <DesignerInfoSection offerId={offerId} />
         <S.DivisionLine />
-        <OfferDetailSection />
+        <OfferDetailSection offerId={offerId} />
         <S.AgreementBox>
           <S.CheckboxBtn onClick={handleCheckBoxClick}>
             {isChecked ? <IcCheckboxBlue /> : <IcCheckboxGrey />}

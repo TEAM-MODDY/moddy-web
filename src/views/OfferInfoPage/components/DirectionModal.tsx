@@ -8,19 +8,18 @@ import usePutOfferModel from '../hooks/usePutOfferModel';
 interface DirectionModalProps {
   isModal?: boolean;
   onClose: () => void;
+  offerId: number;
 }
 
-const DirectionModal = ({ isModal, onClose }: DirectionModalProps) => {
-  const { postOffer } = usePutOfferModel();
+const DirectionModal = ({ isModal, onClose, offerId }: DirectionModalProps) => {
   const navigate = useNavigate();
-
-  const TEST_OFFER_ID = 2;
+  const { postOffer } = usePutOfferModel(offerId);
 
   const handleOnClickContinue = () => {
     postOffer();
     navigate('/offer-info/check-offer', {
       state: {
-        offerId: TEST_OFFER_ID,
+        offerId: offerId,
       },
     });
   };

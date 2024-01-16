@@ -7,7 +7,7 @@ import Header from '../../@common/components/Header';
 import { HELPER_MESSAGE } from '../constants/message';
 import { ON_BOARDING_TEXT } from '../constants/text';
 
-import { tempUserTypeState, userTypeState } from '@/recoil/atoms/signUpState';
+import { tempUserTypeState } from '@/recoil/atoms/signUpState';
 import designerImg from '@images/img_designer.png';
 import modelImg from '@images/img_model.png';
 

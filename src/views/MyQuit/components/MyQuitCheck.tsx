@@ -1,5 +1,4 @@
-import { useState } from 'react';
-import styled from 'styled-components';
+import { styled } from 'styled-components';
 
 import { IcCheckboxBlue, IcCheckboxGrey } from '../../@common/assets/icons';
 

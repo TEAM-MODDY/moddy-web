@@ -29,7 +29,7 @@ const CheckOfferPage = () => {
   };
 
   const location = useLocation();
-  const { data, isLoading, isError } = useGetAgree(location.state.offerId);
+  const { data, isLoading, isError } = useGetAgree(1);
 
   return (
     !isLoading &&

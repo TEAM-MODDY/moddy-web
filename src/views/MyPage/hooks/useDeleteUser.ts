@@ -1,18 +1,15 @@
 import { useNavigate } from 'react-router-dom';
 
-import api, { removeToken } from '@/views/@common/hooks/api';
+import api from '@/views/@common/hooks/api';
+import removeToken from '@/views/@common/utils/removeToken';
 
 const useDeleteUser = () => {
   const navigate = useNavigate();
 
   const deleteUser = async () => {
     try {
-      await api.delete('/user', {
-        headers: {
-          Authorization: 'Bearer ~',
-        },
-      });
-      //removeToken();
+      await api.delete('/user');
+      removeToken();
       navigate('/');
     } catch (err) {
       navigate('/error');
