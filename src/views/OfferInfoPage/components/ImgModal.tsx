@@ -1,4 +1,3 @@
-import { saveAs } from 'file-saver';
 import { styled } from 'styled-components';
 
 import { IcBookmark } from '../assets/icons';
@@ -17,48 +16,6 @@ const ImgModal = ({ isModal, onClose, imgUrl }: ImgModalProps) => {
   const handleModalClose = () => {
     onClose();
   };
-
-  //이미지 저장
-
-  // const fetchImage = async () => {
-  //   try {
-  //     const response = await fetch(imgUrl);
-  //     if (!response.ok) {
-  //       throw new Error(`이미지 저장 실패`);
-  //     }
-
-  //     const blob = await response.blob();
-  //     saveAs(blob, 'MyRecords.png');
-  //   } catch (error) {
-  //     alert('이미지 저장 실패');
-  //   }
-  // };
-
-  const toDataURL = (url: string) => {
-    return fetch(url, {
-      method: 'GET',
-    })
-      .then((response) => {
-        return response.blob();
-      })
-      .catch((err) => {
-        console.log(err);
-      })
-      .then((blob) => {
-        return URL.createObjectURL(blob);
-      });
-  };
-
-  const downloadFile = async (url: string, fileName?: string) => {
-    const a = document.createElement('a');
-    a.href = await toDataURL(url);
-    a.download = fileName ?? 'download';
-
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-  };
-
   return (
     <>
       {isModal && (
@@ -70,17 +27,11 @@ const ImgModal = ({ isModal, onClose, imgUrl }: ImgModalProps) => {
             <S.CloseBtnBox onClick={handleModalClose}>
               <IcCloseBlack />
             </S.CloseBtnBox>
-            <S.MyRecordImg
-              src={'https://moddy-gallery.s3.ap-northeast-2.amazonaws.com/HAIR_MODEL_PROFILE/model_default_profile.png'}
-            />
+            <S.MyRecordImg src={imgUrl} />
             <S.LogoBox src={ImgApplicationLogo} />
             <S.SaveBtn
               onClick={() => {
-                //fetchImage();
-                downloadFile(
-                  'https://moddy-gallery.s3.ap-northeast-2.amazonaws.com/HAIR_MODEL_PROFILE/model_default_profile.png',
-                  'test',
-                );
+                // 이미지 다운로드
                 handleModalClose();
               }}>
               이미지 저장하기
@@ -130,7 +81,7 @@ const S = {
     margin-top: 6.8rem;
   `,
 
-  SaveBtn: styled.button`
+  SaveBtn: styled.a`
     width: 100%;
     margin: 4rem 0 3.2rem;
     padding: 1.25rem 0;
