@@ -1,8 +1,8 @@
-import { saveAs } from 'file-saver';
 import { styled } from 'styled-components';
 
 import { IcBookmark } from '../assets/icons';
 import ImgApplicationLogo from '../assets/images/img_applicationlogo.png';
+import usePostDownloadUrlOffer from '../hooks/usePostDownloadUrlOffer';
 
 import { IcCloseBlack } from '@/views/@common/assets/icons';
 
@@ -13,27 +13,22 @@ interface ImgModalProps {
 }
 
 const ImgModal = ({ isModal, onClose, imgUrl }: ImgModalProps) => {
+  const data = usePostDownloadUrlOffer(imgUrl);
+
+  const handleImgDownload = () => {
+    if (!data) return;
+    const a = document.createElement('a');
+    a.href = data.downloadUrl;
+    a.style.display = 'none';
+    a.download = 'apply_moddy.png';
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+  };
   //모달 닫기
   const handleModalClose = () => {
     onClose();
   };
-
-  //이미지 저장
-
-  const fetchImage = async () => {
-    try {
-      const response = await fetch(imgUrl);
-      if (!response.ok) {
-        throw new Error(`이미지 저장 실패`);
-      }
-
-      const blob = await response.blob();
-      saveAs(blob, 'MyRecords.png');
-    } catch (error) {
-      alert('이미지 저장 실패');
-    }
-  };
-
   return (
     <>
       {isModal && (
@@ -49,7 +44,7 @@ const ImgModal = ({ isModal, onClose, imgUrl }: ImgModalProps) => {
             <S.LogoBox src={ImgApplicationLogo} />
             <S.SaveBtn
               onClick={() => {
-                fetchImage();
+                handleImgDownload();
                 handleModalClose();
               }}>
               이미지 저장하기
@@ -99,7 +94,7 @@ const S = {
     margin-top: 6.8rem;
   `,
 
-  SaveBtn: styled.button`
+  SaveBtn: styled.a`
     width: 100%;
     margin: 4rem 0 3.2rem;
     padding: 1.25rem 0;

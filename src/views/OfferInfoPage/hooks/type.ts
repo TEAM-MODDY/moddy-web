@@ -53,3 +53,7 @@ export interface OfferInfoProps {
   code: number;
   messsage: string;
 }
+
+export interface UserGetDownloadUrlOfferProps {
+  downloadUrl: string;
+}

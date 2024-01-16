@@ -14,11 +14,7 @@ const useGetUser = () => {
 
   const fetchData = async () => {
     try {
-      const data = await api.get('/user', {
-        headers: {
-          Authorization: `Bearer ~`,
-        },
-      });
+      const data = await api.get('/user');
       setData(data.data.data);
     } catch (err) {
       if (err instanceof AxiosError) setError(err);

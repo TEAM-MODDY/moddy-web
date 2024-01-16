@@ -7,8 +7,8 @@ import { IcBookmark, IcPin } from '@/views/OfferInfoPage/assets/icons';
 import ConditionContentBox from '@/views/OfferInfoPage/components/ConditionContentBox';
 import { CONDITION_DATA } from '@/views/OfferInfoPage/constants/CONDITION_DATA';
 
-const OfferDetailSection = () => {
-  const { data } = useGetOfferModel();
+const OfferDetailSection = ({ offerId }: { offerId: number }) => {
+  const { data } = useGetOfferModel(offerId);
 
   const { naverPlaceUrl, gender, dayoffs, shopAddress, shopDetailAddress } = data?.designerInfo || {};
 
