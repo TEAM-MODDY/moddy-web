@@ -18,7 +18,6 @@ export const removeToken = () => {
   localStorage.removeItem(ACCESS_TOKEN);
 };
 
-// access token key 로컬스토리지에서 관리 예정
 api.interceptors.request.use((config) => {
   const accessToken = getToken();
   if (accessToken) {
