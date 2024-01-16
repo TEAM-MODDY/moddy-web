@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 
 import api from '@/views/@common/hooks/api';
+import removeToken from '@/views/@common/utils/removeToken';
 
 const usePostLogout = () => {
   const navigate = useNavigate();
@@ -8,7 +9,7 @@ const usePostLogout = () => {
   const postLogout = async () => {
     try {
       await api.post('/auth/logout', null);
-      //removeToken();
+      removeToken();
       navigate('/');
     } catch (err) {
       console.log(err);
