@@ -4,6 +4,7 @@ import { css, styled } from 'styled-components';
 
 import { IcDownGrey, IcUpBlue } from '../../@common/assets/icons';
 import { IcDelete } from '../assets/icons';
+import { SELECT_PERIOD, SELECT_SERVICE } from '../constants/filter';
 
 import { historyState } from '@/recoil/atoms/applicationState';
 interface ServiceHistoryListItem {
@@ -23,7 +24,7 @@ const ServiceHistoryListItem = ({ idx }: ServiceHistoryListItem) => {
       if (i === idx) {
         return {
           ...item,
-          service: tempService,
+          hairService: tempService,
         };
       }
       return item;
@@ -39,7 +40,7 @@ const ServiceHistoryListItem = ({ idx }: ServiceHistoryListItem) => {
       if (i === idx) {
         return {
           ...item,
-          period: tempPeriod,
+          hairServiceTerm: tempPeriod,
         };
       }
       return item;
@@ -65,33 +66,20 @@ const ServiceHistoryListItem = ({ idx }: ServiceHistoryListItem) => {
           }}>
           <input
             type="button"
-            value={hairServiceRecords[idx].service !== '' ? hairServiceRecords[idx].service : '시술 선택'}
+            value={hairServiceRecords[idx].hairService !== '' ? hairServiceRecords[idx].hairService : '시술 선택'}
           />
           {isServiceClicked ? <IcUpBlue /> : <IcDownGrey />}
         </S.SelectServiceBox>
         <div>
           {isServiceClicked && (
             <S.SelectDetailList>
-              <li>
-                <button type="button" onClick={activateServiceBox}>
-                  펌
-                </button>
-              </li>
-              <li>
-                <button type="button" onClick={activateServiceBox}>
-                  탈색
-                </button>
-              </li>
-              <li>
-                <button type="button" onClick={activateServiceBox}>
-                  블랙 염색
-                </button>
-              </li>
-              <li>
-                <button type="button" onClick={activateServiceBox}>
-                  컬러 염색
-                </button>
-              </li>
+              {Object.keys(SELECT_SERVICE).map((value, key) => (
+                <li key={key}>
+                  <button type="button" onClick={activateServiceBox}>
+                    {value}
+                  </button>
+                </li>
+              ))}
             </S.SelectDetailList>
           )}
         </div>
@@ -104,38 +92,22 @@ const ServiceHistoryListItem = ({ idx }: ServiceHistoryListItem) => {
           }}>
           <input
             type="button"
-            value={hairServiceRecords[idx].period !== '' ? hairServiceRecords[idx].period : '기간 선택'}
+            value={
+              hairServiceRecords[idx].hairServiceTerm !== '' ? hairServiceRecords[idx].hairServiceTerm : '기간 선택'
+            }
           />
           {isPeriodClicked ? <IcUpBlue /> : <IcDownGrey />}
         </S.SelectPeriodBox>
         <div>
           {isPeriodClicked && (
             <S.SelectDetailList>
-              <li>
-                <button type="button" onClick={activatePeriodBox}>
-                  1 개월 미만
-                </button>
-              </li>
-              <li>
-                <button type="button" onClick={activatePeriodBox}>
-                  1 - 3 개월
-                </button>
-              </li>
-              <li>
-                <button type="button" onClick={activatePeriodBox}>
-                  4 - 6개월
-                </button>
-              </li>
-              <li>
-                <button type="button" onClick={activatePeriodBox}>
-                  7 - 12개월
-                </button>
-              </li>
-              <li>
-                <button type="button" onClick={activatePeriodBox}>
-                  12개월 초과
-                </button>
-              </li>
+              {Object.keys(SELECT_PERIOD).map((value, key) => (
+                <li key={key}>
+                  <button type="button" onClick={activatePeriodBox}>
+                    {value}
+                  </button>
+                </li>
+              ))}
             </S.SelectDetailList>
           )}
         </div>

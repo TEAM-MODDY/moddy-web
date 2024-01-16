@@ -47,10 +47,10 @@ const DefaultInfo = () => {
               <span>{INFO_MESSAGE.LENGTH_SUBTITLE}</span>
             </S.Title>
             <S.HairTypeInputBox>
-              <HairTypeInput imgIdx={0} type="숏" />
-              <HairTypeInput imgIdx={1} type="단발" />
-              <HairTypeInput imgIdx={2} type="어깨 아래" />
-              <HairTypeInput imgIdx={3} type="허리 아래" />
+              <HairTypeInput imgIdx={0} type="SHORT" />
+              <HairTypeInput imgIdx={1} type="ABOVE_SHOULDER" />
+              <HairTypeInput imgIdx={2} type="UNDER_SHOULDER" />
+              <HairTypeInput imgIdx={3} type="UNDER_WAIST" />
             </S.HairTypeInputBox>
           </S.HairLengthSection>
           <hr />

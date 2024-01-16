@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import { styled } from 'styled-components';
@@ -15,10 +16,15 @@ const ApplicationResult = () => {
   const [step, setStep] = useRecoilState(applyStepState);
   const navigate = useNavigate();
 
-  const finalPg = () => {
-    setImgUrl({ data: captureApplication() });
-    navigate(`/application/confirm`);
-  };
+  useEffect(() => {
+    captureApplication()
+      .then((dataUrl) => {
+        setImgUrl({ applicationCaptureImgUrl: dataUrl });
+      })
+      .catch(() => {
+        navigate('/error');
+      });
+  }, []);
 
   return (
     <S.ApplicationResultLayout>
@@ -80,7 +86,6 @@ const ApplicationResult = () => {
               </S.ContentBox>
               <S.ContentBox>
                 <h2>{INFO_MESSAGE.STYLE_INFO}</h2>
-
                 <S.Info>
                   <li>
                     <S.InfoTitle>커트</S.InfoTitle>
@@ -107,7 +112,13 @@ const ApplicationResult = () => {
           <img src={applyImg} alt="로고이미지" />
         </S.ContentSection>
       </S.MainContent>
-      <Button text={INFO_MESSAGE.FINAL} isFixed={true} onClickFn={finalPg} />
+      <Button
+        text={INFO_MESSAGE.FINAL}
+        isFixed={true}
+        onClickFn={() => {
+          navigate(`/application/confirm`);
+        }}
+      />
     </S.ApplicationResultLayout>
   );
 };
