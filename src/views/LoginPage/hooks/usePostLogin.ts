@@ -4,13 +4,13 @@ import { useSetRecoilState } from 'recoil';
 
 import { loginErrorProps, loginResProps } from './type';
 
-import { kakaoCodeState } from '@/recoil/atoms/kakaoCodeState';
-import api from '@/views/@common/hooks/api';
+import { userTypeState } from '@/recoil/atoms/signUpState';
+import api, { setToken } from '@/views/@common/hooks/api';
 
 const usePostLogin = () => {
   const KAKAO_CODE = new URL(window.location.href).searchParams.get('code');
   const navigate = useNavigate();
-  const setKakaoCode = useSetRecoilState(kakaoCodeState);
+  const setUserType = useSetRecoilState(userTypeState);
 
   useEffect(() => {
     api
@@ -20,13 +20,14 @@ const usePostLogin = () => {
         },
       })
       .then((res: loginResProps) => {
-        console.log('로그인 성공');
-        console.log(res);
-        // 로그인완료되고 메인뷰로 이동
+        const { role, accessToken } = res.data.data;
+        setToken(accessToken);
+        setUserType(role === 'MODEL' ? 'model' : 'designer');
+        navigate('/');
       })
       .catch((err: loginErrorProps) => {
         if (err.response.data.code === 404) {
-          setKakaoCode(KAKAO_CODE);
+          setToken(err.response.data.data.accessToken);
           navigate('/agreement');
         } else {
           navigate('/error');

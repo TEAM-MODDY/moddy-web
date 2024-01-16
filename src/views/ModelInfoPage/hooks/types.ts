@@ -3,7 +3,7 @@ interface HairServiceRecord {
   hairService: string;
 }
 
-interface ApplicationInfo {
+export interface ApplicationInfo {
   applicationId: number;
   modelImgUrl: string;
   hairLength: string;
@@ -23,8 +23,6 @@ interface ModelInfo {
 }
 
 export interface ModelInfoPageProps {
-  data: {
-    applicationInfo: ApplicationInfo;
-    modelInfo: ModelInfo;
-  };
+  applicationInfo: ApplicationInfo;
+  modelInfo: ModelInfo;
 }

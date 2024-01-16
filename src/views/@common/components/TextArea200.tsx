@@ -1,19 +1,24 @@
 import { useState } from 'react';
-import styled from 'styled-components';
+import { styled } from 'styled-components';
 
 interface TextArea200Props {
   placeholderText: string;
+  initialValue?: string;
   onChangeFn: (value: string) => void;
 }
 
-const TextArea200 = ({ placeholderText, onChangeFn }: TextArea200Props) => {
-  const [textLength, setTextLength] = useState(0);
+const TextArea200 = ({ placeholderText, initialValue, onChangeFn }: TextArea200Props) => {
+  const [textLength, setTextLength] = useState(initialValue ? initialValue.length : 0);
+  const [name, setName] = useState(initialValue ? initialValue : '');
+
   return (
     <S.TextAreaLayout>
       <S.TextArea
         placeholder={placeholderText}
+        defaultValue={name}
         onChange={(e) => {
           setTextLength(e.target.value.length);
+          setName(e.target.value);
           onChangeFn(e.target.value);
         }}
         maxLength={200}

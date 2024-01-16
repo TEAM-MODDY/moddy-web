@@ -34,7 +34,7 @@ const S = {
     align-items: center;
     position: relative;
 
-    height: calc(100vh - 9.4rem);
+    height: calc(100dvh - 9.4rem);
 
     text-align: center;
 

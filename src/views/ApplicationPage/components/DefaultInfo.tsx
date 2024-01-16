@@ -1,102 +1,126 @@
-import styled from 'styled-components';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
+import { styled } from 'styled-components';
 
 import { IcEssential } from '../../@common/assets/icons';
 import Button from '../../@common/components/Button';
 import Header from '../../@common/components/Header';
 import ProgressBar from '../../@common/components/ProgressBar';
+import { INFO_MESSAGE } from '../constants/message';
 
+import HairTypeInput from './HairTypeInput';
 import StyleButton from './StyleButton';
 
+import { applyStepState, hairStyleState } from '@/recoil/atoms/applicationState';
 const DefaultInfo = () => {
-  const moveNext = () => {};
+  const [step, setStep] = useRecoilState(applyStepState);
+  const [selectedStyle, setSelectedStyle] = useRecoilState(hairStyleState);
+  const { length, preference, verifyStatus } = selectedStyle;
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    length && preference.length > 0
+      ? setSelectedStyle({ ...selectedStyle, verifyStatus: true })
+      : setSelectedStyle({ ...selectedStyle, verifyStatus: false });
+  }, [length, preference]);
 
   return (
     <S.DefaultInfoLayout>
-      <Header title="모델 지원하기" isBackBtnExist={true} isCloseBtnExist={true} />
-      <ProgressBar whole={4} current={1} />
-      <S.StyleSection>
-        <S.HairLengthSection>
-          <S.Title>
-            <h2>
-              머리 기장 <IcEssential />
-            </h2>
-            <span>현재 머리 기장을 선택해주세요</span>
-          </S.Title>
-          <S.HairImgList>
-            <button type="button">
-              <img src="src/views/@common/assets/images/btn_hair1_default.png" alt="숏" />
-            </button>
-            <button type="button">
-              <img src="src/views/@common/assets/images/btn_hair2_default.png" alt="단발" />
-            </button>
-            <button type="button">
-              <img src="src/views/@common/assets/images/btn_hair3_default.png" alt="어깨 아래" />
-            </button>
-            <button type="button">
-              <img src="src/views/@common/assets/images/btn_hair4_default.png" alt="허리 아래" />
-            </button>
-          </S.HairImgList>
-        </S.HairLengthSection>
-        <hr />
-        <S.DeserveStyleSection>
-          <S.Title>
-            <h2>
-              희망 스타일 <IcEssential />
-            </h2>
-            <span>원하시는 시술을 모두 선택해주세요</span>
-          </S.Title>
-          <S.StyleBox>
-            <h3>커트</h3>
-            <StyleButton isSelected={true} type="일반 커트" />
-          </S.StyleBox>
+      <Header
+        title={INFO_MESSAGE.TITLE}
+        isBackBtnExist={true}
+        isCloseBtnExist={false}
+        closeFn={() => {
+          navigate(`/`);
+        }}
+      />
+      <ProgressBar whole={step.total} current={step.current} />
+      <S.MainStyle>
+        <S.StyleSection>
+          <S.HairLengthSection>
+            <S.Title>
+              <h2>
+                {INFO_MESSAGE.LENGTH_TITLE}
+                <IcEssential />
+              </h2>
+              <span>{INFO_MESSAGE.LENGTH_SUBTITLE}</span>
+            </S.Title>
+            <S.HairTypeInputBox>
+              <HairTypeInput imgIdx={0} type="숏" />
+              <HairTypeInput imgIdx={1} type="단발" />
+              <HairTypeInput imgIdx={2} type="어깨 아래" />
+              <HairTypeInput imgIdx={3} type="허리 아래" />
+            </S.HairTypeInputBox>
+          </S.HairLengthSection>
           <hr />
-          <S.StyleBox>
-            <h3>컬러</h3>
-            <S.SelectList>
-              <StyleButton isSelected={false} type="전체 염색" />
-              <StyleButton isSelected={false} type="전체 탈색" />
-            </S.SelectList>
-          </S.StyleBox>
-          <hr />
-          <S.StyleBox>
-            <h3>펌</h3>
-            <S.SelectList>
-              <StyleButton isSelected={false} type="셋팅펌" />
-              <StyleButton isSelected={false} type="일반펌" />
-              <StyleButton isSelected={false} type="매직" />
-            </S.SelectList>
-          </S.StyleBox>
-        </S.DeserveStyleSection>
-      </S.StyleSection>
-      <Button text="다음" onClickFn={moveNext} isFixed={true} />
+          <S.DeserveStyleSection>
+            <S.Title>
+              <h2>
+                {INFO_MESSAGE.PREFERENCE_TITLE} <IcEssential />
+              </h2>
+              <span>{INFO_MESSAGE.PREFERENCE_SUBTITLE}</span>
+            </S.Title>
+            <S.StyleBox>
+              <h3>커트</h3>
+              <StyleButton isSelected={false} type="일반 커트" />
+            </S.StyleBox>
+            <hr />
+            <S.StyleBox>
+              <h3>컬러</h3>
+              <S.SelectList>
+                <StyleButton isSelected={false} type="전체 염색" />
+                <StyleButton isSelected={false} type="전체 탈색" />
+              </S.SelectList>
+            </S.StyleBox>
+            <hr />
+            <S.StyleBox>
+              <h3>펌</h3>
+              <S.SelectList>
+                <StyleButton isSelected={false} type="셋팅펌" />
+                <StyleButton isSelected={false} type="일반펌" />
+                <StyleButton isSelected={false} type="매직" />
+              </S.SelectList>
+            </S.StyleBox>
+          </S.DeserveStyleSection>
+        </S.StyleSection>
+      </S.MainStyle>
+      <Button
+        text={INFO_MESSAGE.NEXT}
+        onClickFn={() => {
+          setStep({ ...step, current: step.current + 1 });
+        }}
+        isFixed={true}
+        disabled={!verifyStatus}
+      />
     </S.DefaultInfoLayout>
   );
 };
 
 const S = {
-  DefaultInfoLayout: styled.main`
+  DefaultInfoLayout: styled.section`
     display: flex;
     overflow: hidden;
 
     width: 100%;
   `,
 
+  MainStyle: styled.main`
+    margin: 8.5rem 1rem 10rem;
+    padding: 0 0.8rem 0 1rem;
+
+    ${({ theme }) => theme.commons.scrollbar};
+  `,
+
   StyleSection: styled.section`
     display: flex;
     flex-direction: column;
     align-items: center;
-    position: relative;
 
     width: 100%;
-    margin: 8.5rem auto 10rem;
     padding-bottom: 2.6rem;
 
-    ${({ theme }) => theme.commons.scrollbar};
-
     & > hr {
-      position: absolute;
-      top: 18.2rem;
-
       width: 100%;
       height: 4px;
       border: none;
@@ -110,7 +134,6 @@ const S = {
     flex-direction: column;
 
     width: 100%;
-    padding: 0 1.6rem;
   `,
 
   Title: styled.div`
@@ -134,7 +157,7 @@ const S = {
     }
   `,
 
-  HairImgList: styled.ul`
+  HairTypeInputBox: styled.div`
     display: flex;
     gap: 1.2rem;
     justify-content: space-between;
@@ -142,25 +165,6 @@ const S = {
     width: 100%;
     height: 9.2rem;
     margin: 2rem 0 2.8rem;
-
-    & img {
-      overflow: hidden;
-
-      height: 100%;
-      object-fit: contain;
-    }
-  `,
-
-  HairImgItem: styled.li`
-    display: flex;
-    flex: 1;
-
-    height: 100%;
-    padding: 0 0.7rem;
-    border: 1px solid ${({ theme }) => theme.colors.moddy_gray20};
-    border-radius: 8px;
-
-    background-color: ${({ theme }) => theme.colors.moddy_wt};
   `,
 
   DeserveStyleSection: styled.section`
@@ -169,7 +173,6 @@ const S = {
 
     width: 100%;
     margin-top: 2.4rem;
-    padding: 0 1.6rem;
 
     & > p {
       display: flex;
