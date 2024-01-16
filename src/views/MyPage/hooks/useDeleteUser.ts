@@ -7,12 +7,7 @@ const useDeleteUser = () => {
 
   const deleteUser = async () => {
     try {
-      await api.delete('/user', {
-        headers: {
-          Authorization: 'Bearer ~',
-        },
-      });
-
+      await api.delete('/user');
       navigate('/');
     } catch (err) {
       navigate('/error');

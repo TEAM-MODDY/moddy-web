@@ -7,11 +7,7 @@ const usePostLogout = () => {
 
   const postLogout = async () => {
     try {
-      await api.post('/auth/logout', null, {
-        headers: {
-          Authorization: 'Bearer ~',
-        },
-      });
+      await api.post('/auth/logout', null);
       //removeToken();
       navigate('/');
     } catch (err) {
