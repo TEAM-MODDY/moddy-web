@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
 
 import Header from '../../@common/components/Header';
@@ -28,8 +28,7 @@ const CheckOfferPage = () => {
     setIsModal(true);
   };
 
-  const location = useLocation();
-  const { data, isLoading, isError } = useGetAgree(location.state.offerId);
+  const { data, isLoading, isError } = useGetAgree(1);
 
   return (
     !isLoading &&

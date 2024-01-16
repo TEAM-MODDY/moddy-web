@@ -42,8 +42,8 @@ export const deatiledStyleState = atom<stringInputType>({
 });
 
 export interface historyDetailProps {
-  service: string;
-  period: string;
+  hairService: string;
+  hairServiceTerm: string;
 }
 
 export interface historyType {
@@ -63,6 +63,7 @@ export const historyState = atom<historyType>({
 
 export interface profileType {
   modelImgUrl: string;
+  modelImgData: File;
   instagramId: string;
   verifyStatus: boolean;
 }
@@ -71,14 +72,19 @@ export const profileState = atom<profileType>({
   key: 'profile',
   default: {
     modelImgUrl: '',
+    modelImgData: new File([], 'empty.text'),
     instagramId: '',
     verifyStatus: false,
   },
 });
 
-export const applicationCaptureImgUrlState = atom<stringInputType>({
+export interface imgDataType {
+  applicationCaptureImgUrl: File;
+}
+
+export const applicationCaptureImgUrlState = atom<imgDataType>({
   key: 'applicationCaptureImgUrl',
   default: {
-    data: '',
+    applicationCaptureImgUrl: new File([], 'empty.text'),
   },
 });
