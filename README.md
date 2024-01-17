@@ -5,7 +5,7 @@
 
 
 
-### 💈서비스 플로우 및 핵심 기능
+### 서비스 플로우 및 핵심 기능
 
 ![서비스 플로우](https://github.com/TEAM-MODDY/moddy-web/assets/111034927/e803de51-7602-4dff-91af-8c7941f51a89)
 
@@ -27,9 +27,6 @@
 
 <br/>
 
-## References
-🔗 [Team Convention](https://sparkle-uni.notion.site/Moddy-FE-Convention-ebeeadc8d4bf419484a8e9f4ad82f125?pvs=4)
-🔗 [Project Kanban](https://github.com/orgs/TEAM-MODDY/projects/1)
 
 <br/>
 
@@ -37,3 +34,7 @@
 
 
 ![웹 과제5](https://github.com/TEAM-MODDY/moddy-web/assets/111034927/b33fcd98-ac17-4169-9141-674b28081747)
+
+## References
+🔗 [Team Convention](https://sparkle-uni.notion.site/Moddy-FE-Convention-ebeeadc8d4bf419484a8e9f4ad82f125?pvs=4)
+🔗 [Project Kanban](https://github.com/orgs/TEAM-MODDY/projects/1)
