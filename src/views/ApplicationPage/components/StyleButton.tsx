@@ -8,13 +8,12 @@ import { hairStyleState } from '@/recoil/atoms/applicationState';
 
 interface StyleButtonProps {
   type: string;
-  title: string;
   isSelected: boolean;
 }
 
-const StyleButton = ({ type, title, isSelected }: StyleButtonProps) => {
+const StyleButton = ({ type, isSelected }: StyleButtonProps) => {
   const [selectedStyle, setSelectedStyle] = useRecoilState(hairStyleState);
-  const { preference, preferenceTitle } = selectedStyle;
+  const { preference } = selectedStyle;
   const [activate, setActivate] = useState(isSelected);
 
   useEffect(() => {
@@ -28,21 +27,18 @@ const StyleButton = ({ type, title, isSelected }: StyleButtonProps) => {
       setActivate(false);
 
       const tempPreference = [...preference];
-      const tempPreferenceTitle = [...preferenceTitle];
 
       tempPreference.forEach((element, index) => {
         if (element === type) {
           tempPreference.splice(index, 1);
-          tempPreferenceTitle.splice(index, 1);
         }
       });
-      setSelectedStyle({ ...selectedStyle, preference: tempPreference, preferenceTitle: tempPreferenceTitle });
+      setSelectedStyle({ ...selectedStyle, preference: tempPreference });
     } else {
       setActivate(true);
 
       const tempPreference = [type, ...preference];
-      const tempPreferenceTitle = [title, ...preferenceTitle];
-      setSelectedStyle({ ...selectedStyle, preference: tempPreference, preferenceTitle: tempPreferenceTitle });
+      setSelectedStyle({ ...selectedStyle, preference: tempPreference });
     }
   };
 

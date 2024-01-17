@@ -18,7 +18,6 @@ import {
   historyState,
   profileState,
 } from '@/recoil/atoms/applicationState';
-import { birthYearState, genderState, nameState, preferRegionState } from '@/recoil/atoms/signUpState';
 
 const ApplicationResult = () => {
   const setImgUrl = useSetRecoilState(applicationCaptureImgUrlState);
@@ -26,10 +25,6 @@ const ApplicationResult = () => {
   const navigate = useNavigate();
   const postApplication = usePostApplication();
   //지원서에 update할 state들
-  const name = useRecoilValue(nameState);
-  const gender = useRecoilValue(genderState);
-  const birthyear = useRecoilValue(birthYearState);
-  const preferRegion = useRecoilValue(preferRegionState);
   const { modelImgUrl } = useRecoilValue(profileState);
   const { length, preference } = useRecoilValue(hairStyleState);
   const detailedStyle = useRecoilValue(deatiledStyleState);
@@ -52,6 +47,39 @@ const ApplicationResult = () => {
     } catch (err) {
       console.log(err);
       navigate('/error');
+    }
+  };
+
+  const setLenghth = () => {
+    switch (length) {
+      case 'SHORT':
+        return '숏';
+      case 'ABOVE_SHOULDER':
+        return '단발';
+      case 'UNDER_SHOULDER':
+        return '어깨 아래';
+      case 'UNDER_WAIST':
+        return '허리 아래';
+      default:
+        '없음';
+    }
+  };
+
+  const setHairStyle = (style: string) => {
+    let res = [];
+
+    switch (style) {
+      case '커트':
+        res = preference.filter((value) => value.includes('커트'));
+        return res;
+      case '컬러':
+        res = preference.filter((value) => value.includes('색'));
+        return res;
+      case '펌':
+        res = preference.filter((value) => value.includes('펌'));
+        return res;
+      default:
+        '선택 없음';
     }
   };
 
@@ -78,21 +106,19 @@ const ApplicationResult = () => {
                 <S.Info>
                   <li>
                     <S.InfoTitle>{INFO_MESSAGE.INFO_NAME}</S.InfoTitle>
-                    <S.InfoSpan>{name.data}</S.InfoSpan>
+                    <S.InfoSpan>서버 이름</S.InfoSpan>
                   </li>
                   <li>
                     <S.InfoTitle>{INFO_MESSAGE.INFO_GENDER_AGE}</S.InfoTitle>
-                    <S.InfoSpan>
-                      {gender.data}/{birthyear.data}
-                    </S.InfoSpan>
+                    <S.InfoSpan>서버 성별 / 서버 년도</S.InfoSpan>
                   </li>
                   <li>
                     <S.InfoTitle>{INFO_MESSAGE.INFO_REGION}</S.InfoTitle>
-                    <S.InfoSpan>양천구</S.InfoSpan>
+                    <S.InfoSpan>서버 지역</S.InfoSpan>
                   </li>
                   <li>
                     <S.InfoTitle>{INFO_MESSAGE.INFO_LENGTH}</S.InfoTitle>
-                    <S.InfoSpan>{length}</S.InfoSpan>
+                    <S.InfoSpan>{setLenghth()}</S.InfoSpan>
                   </li>
                 </S.Info>
               </S.DivideBox>
@@ -114,15 +140,27 @@ const ApplicationResult = () => {
                 <S.Info>
                   <li>
                     <S.InfoTitle>커트</S.InfoTitle>
-                    <S.InfoSpan>일반 커트 </S.InfoSpan>
+                    {JSON.stringify(setHairStyle('커트')) === JSON.stringify([]) ? (
+                      <S.InfoSpan>선택 없음</S.InfoSpan>
+                    ) : (
+                      setHairStyle('커트')?.map((item) => <S.InfoSpan key={item}>{item}</S.InfoSpan>)
+                    )}
                   </li>
                   <li>
                     <S.InfoTitle>컬러</S.InfoTitle>
-                    <S.InfoSpan>선택 없음</S.InfoSpan>
+                    {JSON.stringify(setHairStyle('컬러')) === JSON.stringify([]) ? (
+                      <S.InfoSpan>선택 없음</S.InfoSpan>
+                    ) : (
+                      setHairStyle('컬러')?.map((item) => <S.InfoSpan key={item}>{item}</S.InfoSpan>)
+                    )}
                   </li>
                   <li>
                     <S.InfoTitle>펌</S.InfoTitle>
-                    <S.InfoSpan>일반펌</S.InfoSpan>
+                    {JSON.stringify(setHairStyle('펌')) === JSON.stringify([]) ? (
+                      <S.InfoSpan>선택 없음</S.InfoSpan>
+                    ) : (
+                      setHairStyle('펌')?.map((item) => <S.InfoSpan key={item}>{item}</S.InfoSpan>)
+                    )}
                   </li>
                 </S.Info>
               </S.ContentBox>
