@@ -1,3 +1,9 @@
+export const SELECT_TYPE = {
+  CUT: '커트',
+  COLOR: '컬러',
+  PERM: '펌',
+};
+
 export const SELECT_SERVICE = {
   펌: 'PERM',
   탈색: 'DECOLOR',

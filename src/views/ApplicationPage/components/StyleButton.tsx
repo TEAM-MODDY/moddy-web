@@ -29,7 +29,9 @@ const StyleButton = ({ type, isSelected }: StyleButtonProps) => {
       const tempPreference = [...preference];
 
       tempPreference.forEach((element, index) => {
-        element === type ? tempPreference.splice(index, 1) : null;
+        if (element === type) {
+          tempPreference.splice(index, 1);
+        }
       });
       setSelectedStyle({ ...selectedStyle, preference: tempPreference });
     } else {
