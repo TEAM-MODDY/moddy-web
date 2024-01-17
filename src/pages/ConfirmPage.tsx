@@ -4,13 +4,14 @@ import { styled } from 'styled-components';
 import Button from '../views/@common/components/Button';
 
 import { INFO_MESSAGE } from '@/views/ApplicationPage/constants/message';
+import ImgLetter from '@images/img_letter.png';
 
 const ConfirmPage = () => {
   const navigate = useNavigate();
 
   return (
     <S.ConfirmPage>
-      <img src="/src/views/@common/assets/images/img_letter.png" alt="letterImg" />
+      <img src={ImgLetter} alt="letterImg" />
       <S.Info>
         <h1>{INFO_MESSAGE.CONFIRM_TITLE}</h1>
         <S.Description>
