@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { styled } from 'styled-components';
@@ -77,7 +77,7 @@ const ApplicationResult = () => {
         res = preference.filter((value) => value.includes('색'));
         return res;
       case SELECT_TYPE.PERM:
-        res = preference.filter((value) => value.includes('펌' || '매직'));
+        res = preference.filter((value) => value.includes('펌') || value.includes('매직'));
         return res;
       default:
         '선택 없음';
@@ -142,11 +142,18 @@ const ApplicationResult = () => {
                   {Object.values(SELECT_TYPE).map((item) => (
                     <li key={item}>
                       <S.InfoTitle>{item}</S.InfoTitle>
-                      {JSON.stringify(setHairStyle(item)) === JSON.stringify([]) ? (
-                        <S.InfoSpan>선택 없음</S.InfoSpan>
-                      ) : (
-                        setHairStyle(item)?.map((value) => <S.InfoSpan key={value}>{value}</S.InfoSpan>)
-                      )}
+                      <S.InfoSpan>
+                        {JSON.stringify(setHairStyle(item)) === JSON.stringify([]) ? (
+                          <S.InfoSpan>선택 없음</S.InfoSpan>
+                        ) : (
+                          setHairStyle(item)?.map((value, index, arr) => (
+                            <React.Fragment key={value}>
+                              {value}
+                              {index !== arr.length - 1 && ', '}
+                            </React.Fragment>
+                          ))
+                        )}
+                      </S.InfoSpan>
                     </li>
                   ))}
                 </S.Info>
