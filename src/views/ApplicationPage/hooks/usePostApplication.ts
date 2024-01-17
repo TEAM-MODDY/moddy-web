@@ -2,7 +2,7 @@ import { AxiosError } from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 
-import { SELECT_PERIOD, SELECT_SERVICE, SELECT_STYLE } from '../constants/filter';
+import { SELECT_PERIOD, SELECT_SERVICE } from '../constants/filter';
 
 import {
   applicationCaptureImgUrlState,
@@ -16,7 +16,7 @@ import api from '@/views/@common/hooks/api';
 const usePostApplication = () => {
   const navigate = useNavigate();
 
-  const { length, preference } = useRecoilValue(hairStyleState);
+  const { length } = useRecoilValue(hairStyleState);
   const hairDetail = useRecoilValue(deatiledStyleState);
   const { hairServiceRecords } = useRecoilValue(historyState);
   const { modelImgData, instagramId } = useRecoilValue(profileState);
@@ -32,16 +32,6 @@ const usePostApplication = () => {
     Object.keys(SELECT_PERIOD).forEach((key) => {
       if (key === element.hairServiceTerm) {
         tempElement.hairServiceTerm = SELECT_PERIOD[key as keyof typeof SELECT_PERIOD];
-      }
-    });
-    return tempElement;
-  });
-
-  const tempPreference = preference.map((element) => {
-    let tempElement = element;
-    Object.keys(SELECT_STYLE).forEach((key) => {
-      if (key === element) {
-        tempElement = SELECT_STYLE[key as keyof typeof SELECT_STYLE];
       }
     });
     return tempElement;
