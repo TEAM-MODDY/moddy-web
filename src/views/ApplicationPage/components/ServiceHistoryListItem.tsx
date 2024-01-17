@@ -4,7 +4,7 @@ import { css, styled } from 'styled-components';
 
 import { IcDownGrey, IcUpBlue } from '../../@common/assets/icons';
 import { IcDelete } from '../assets/icons';
-import { SELECT_PERIOD, SELECT_SERVICE } from '../constants/filter';
+import { SELECT_PERIOD, SELECT_SERVICE } from '../constants/select';
 
 import { historyState } from '@/recoil/atoms/applicationState';
 interface ServiceHistoryListItem {
