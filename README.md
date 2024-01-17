@@ -1,9 +1,7 @@
 ![웹 과제1](https://github.com/TEAM-MODDY/moddy-web/assets/111034927/9d916fbb-f2d0-4cc0-a7d8-f2663b8cf11f)
-![웹 과제2](https://github.com/TEAM-MODDY/moddy-web/assets/111034927/6eb313a4-fb1b-4981-9fd3-fef0248d18c8)
-![웹 과제3](https://github.com/TEAM-MODDY/moddy-web/assets/111034927/e73613b7-cae9-468a-953f-4255999c10b5)
-![웹 과제4](https://github.com/TEAM-MODDY/moddy-web/assets/111034927/d653aa59-baa3-4bdb-956f-df1a1e4ed963)
-
-
+![웹 과제2](https://github.com/TEAM-MODDY/moddy-web/assets/111034927/14238b9d-2d53-4c8e-b201-b633c43e13be)
+![웹 과제3](https://github.com/TEAM-MODDY/moddy-web/assets/111034927/c0e55938-e5d6-46bc-9419-cbd64e021ae5)
+![웹 과제4](https://github.com/TEAM-MODDY/moddy-web/assets/111034927/99ac65cf-5474-4fc0-8197-2edf71a7e737)
 
 ### 서비스 플로우 및 핵심 기능
 
