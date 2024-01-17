@@ -70,14 +70,14 @@ const ApplicationResult = () => {
     let res = [];
 
     switch (style) {
-      case '커트':
+      case SELECT_TYPE.CUT:
         res = preference.filter((value) => value.includes('커트'));
         return res;
-      case '컬러':
+      case SELECT_TYPE.COLOR:
         res = preference.filter((value) => value.includes('색'));
         return res;
-      case '펌':
-        res = preference.filter((value) => value.includes('펌'));
+      case SELECT_TYPE.PERM:
+        res = preference.filter((value) => value.includes('펌' || '매직'));
         return res;
       default:
         '선택 없음';
