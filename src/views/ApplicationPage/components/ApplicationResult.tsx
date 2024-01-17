@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useRecoilState, useSetRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { styled } from 'styled-components';
 
 import applyImg from '../../@common/assets/images/img_applylogo.png';
@@ -10,13 +10,30 @@ import { INFO_MESSAGE } from '../constants/message';
 import usePostApplication from '../hooks/usePostApplication';
 import { captureApplication } from '../utils/captureApplication';
 
-import { applicationCaptureImgUrlState, applyStepState } from '@/recoil/atoms/applicationState';
+import {
+  applicationCaptureImgUrlState,
+  applyStepState,
+  deatiledStyleState,
+  hairStyleState,
+  historyState,
+  profileState,
+} from '@/recoil/atoms/applicationState';
+import { birthYearState, genderState, nameState, preferRegionState } from '@/recoil/atoms/signUpState';
 
 const ApplicationResult = () => {
   const setImgUrl = useSetRecoilState(applicationCaptureImgUrlState);
   const [step, setStep] = useRecoilState(applyStepState);
   const navigate = useNavigate();
   const postApplication = usePostApplication();
+  //지원서에 update할 state들
+  const name = useRecoilValue(nameState);
+  const gender = useRecoilValue(genderState);
+  const birthyear = useRecoilValue(birthYearState);
+  const preferRegion = useRecoilValue(preferRegionState);
+  const { modelImgUrl } = useRecoilValue(profileState);
+  const { length, preference } = useRecoilValue(hairStyleState);
+  const detailedStyle = useRecoilValue(deatiledStyleState);
+  const { hairServiceRecords } = useRecoilValue(historyState);
 
   useEffect(() => {
     captureApplication()
@@ -57,15 +74,17 @@ const ApplicationResult = () => {
             <S.ContentBox>
               <h2>{INFO_MESSAGE.MODEL_INFO}</h2>
               <S.DivideBox>
-                <img alt="profile" src="src/views/@common/assets/images/img_samplemodel.png" />
+                <img alt="profile" src={modelImgUrl} />
                 <S.Info>
                   <li>
                     <S.InfoTitle>{INFO_MESSAGE.INFO_NAME}</S.InfoTitle>
-                    <S.InfoSpan>백모디</S.InfoSpan>
+                    <S.InfoSpan>{name.data}</S.InfoSpan>
                   </li>
                   <li>
                     <S.InfoTitle>{INFO_MESSAGE.INFO_GENDER_AGE}</S.InfoTitle>
-                    <S.InfoSpan>여성/25살</S.InfoSpan>
+                    <S.InfoSpan>
+                      {gender.data}/{birthyear.data}
+                    </S.InfoSpan>
                   </li>
                   <li>
                     <S.InfoTitle>{INFO_MESSAGE.INFO_REGION}</S.InfoTitle>
@@ -73,7 +92,7 @@ const ApplicationResult = () => {
                   </li>
                   <li>
                     <S.InfoTitle>{INFO_MESSAGE.INFO_LENGTH}</S.InfoTitle>
-                    <S.InfoSpan>허리 아래</S.InfoSpan>
+                    <S.InfoSpan>{length}</S.InfoSpan>
                   </li>
                 </S.Info>
               </S.DivideBox>
@@ -82,18 +101,12 @@ const ApplicationResult = () => {
               <S.ContentBox>
                 <h2>{INFO_MESSAGE.HISTORY_INFO}</h2>
                 <S.Info>
-                  <li>
-                    <S.InfoTitle>1개월 미만</S.InfoTitle>
-                    <S.InfoSpan>블랙 염색</S.InfoSpan>
-                  </li>
-                  <li>
-                    <S.InfoTitle>7 - 12개월</S.InfoTitle>
-                    <S.InfoSpan>컬러 염색</S.InfoSpan>
-                  </li>
-                  <li>
-                    <S.InfoTitle>12개월 초과</S.InfoTitle>
-                    <S.InfoSpan>탈색</S.InfoSpan>
-                  </li>
+                  {hairServiceRecords.map((record) => (
+                    <li key={record.hairService + record.hairServiceTerm}>
+                      <S.InfoTitle>{record.hairServiceTerm}</S.InfoTitle>
+                      <S.InfoSpan>{record.hairService}</S.InfoSpan>
+                    </li>
+                  ))}
                 </S.Info>
               </S.ContentBox>
               <S.ContentBox>
@@ -101,7 +114,7 @@ const ApplicationResult = () => {
                 <S.Info>
                   <li>
                     <S.InfoTitle>커트</S.InfoTitle>
-                    <S.InfoSpan>일반 커트</S.InfoSpan>
+                    <S.InfoSpan>일반 커트 </S.InfoSpan>
                   </li>
                   <li>
                     <S.InfoTitle>컬러</S.InfoTitle>
@@ -116,9 +129,7 @@ const ApplicationResult = () => {
             </S.DivideBox>
             <S.ContentBox>
               <h2>{INFO_MESSAGE.DETAILED_STYLE_INFO}</h2>
-              <S.InfoText>
-                더미데이터더미데이터더미데이터더미데이터더미더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터
-              </S.InfoText>
+              <S.InfoText>{detailedStyle.data}</S.InfoText>
             </S.ContentBox>
           </S.ContentBoxWrapper>
           <img src={applyImg} alt="로고이미지" />

@@ -13,6 +13,7 @@ import HairTypeInput from './HairTypeInput';
 import StyleButton from './StyleButton';
 
 import { applyStepState, hairStyleState } from '@/recoil/atoms/applicationState';
+
 const DefaultInfo = () => {
   const [step, setStep] = useRecoilState(applyStepState);
   const [selectedStyle, setSelectedStyle] = useRecoilState(hairStyleState);
@@ -63,23 +64,23 @@ const DefaultInfo = () => {
             </S.Title>
             <S.StyleBox>
               <h3>커트</h3>
-              <StyleButton isSelected={false} type="일반 커트" />
+              <StyleButton isSelected={false} title="커트" type="일반 커트" />
             </S.StyleBox>
             <hr />
             <S.StyleBox>
               <h3>컬러</h3>
               <S.SelectList>
-                <StyleButton isSelected={false} type="전체 염색" />
-                <StyleButton isSelected={false} type="전체 탈색" />
+                <StyleButton isSelected={false} title="컬러" type="전체 염색" />
+                <StyleButton isSelected={false} title="컬러" type="전체 탈색" />
               </S.SelectList>
             </S.StyleBox>
             <hr />
             <S.StyleBox>
               <h3>펌</h3>
               <S.SelectList>
-                <StyleButton isSelected={false} type="셋팅펌" />
-                <StyleButton isSelected={false} type="일반펌" />
-                <StyleButton isSelected={false} type="매직" />
+                <StyleButton isSelected={false} title="펌" type="셋팅펌" />
+                <StyleButton isSelected={false} title="펌" type="일반펌" />
+                <StyleButton isSelected={false} title="펌" type="매직" />
               </S.SelectList>
             </S.StyleBox>
           </S.DeserveStyleSection>
