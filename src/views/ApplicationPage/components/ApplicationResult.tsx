@@ -8,6 +8,7 @@ import Button from '../../@common/components/Button';
 import Header from '../../@common/components/Header';
 import { INFO_MESSAGE } from '../constants/message';
 import { SELECT_TYPE } from '../constants/select';
+import useGetUser from '../hooks/useGetUser';
 import usePostApplication from '../hooks/usePostApplication';
 import { captureApplication } from '../utils/captureApplication';
 
@@ -40,6 +41,8 @@ const ApplicationResult = () => {
         navigate('/error');
       });
   }, []);
+
+  const modelInfo = useGetUser();
 
   const handleApplication = async () => {
     try {
@@ -107,15 +110,24 @@ const ApplicationResult = () => {
                 <S.Info>
                   <li>
                     <S.InfoTitle>{INFO_MESSAGE.INFO_NAME}</S.InfoTitle>
-                    <S.InfoSpan>서버 이름</S.InfoSpan>
+                    <S.InfoSpan>{modelInfo?.name}</S.InfoSpan>
                   </li>
                   <li>
                     <S.InfoTitle>{INFO_MESSAGE.INFO_GENDER_AGE}</S.InfoTitle>
-                    <S.InfoSpan>서버 성별 / 서버 년도</S.InfoSpan>
+                    <S.InfoSpan>
+                      {modelInfo?.gender} / {modelInfo?.age}
+                    </S.InfoSpan>
                   </li>
                   <li>
                     <S.InfoTitle>{INFO_MESSAGE.INFO_REGION}</S.InfoTitle>
-                    <S.InfoSpan>서버 지역</S.InfoSpan>
+                    <S.InfoSpan>
+                      {modelInfo?.preferRegions.map((value, index, arr) => (
+                        <React.Fragment key={value}>
+                          {value}
+                          {index !== arr.length - 1 && ', '}
+                        </React.Fragment>
+                      ))}
+                    </S.InfoSpan>
                   </li>
                   <li>
                     <S.InfoTitle>{INFO_MESSAGE.INFO_LENGTH}</S.InfoTitle>
