@@ -15,7 +15,7 @@ const LimitInput = ({ placeholderText, initialValue, onChangeFn, maxLength }: In
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     let value = e.target.value;
 
-    if (maxLength && value.length >= maxLength) {
+    if (maxLength && value.length > maxLength) {
       value = text.slice(0, maxLength);
     }
     setText(value);
