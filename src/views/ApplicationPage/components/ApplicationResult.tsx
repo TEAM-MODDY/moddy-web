@@ -1,20 +1,36 @@
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useRecoilState, useSetRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { styled } from 'styled-components';
 
 import applyImg from '../../@common/assets/images/img_applylogo.png';
 import Button from '../../@common/components/Button';
 import Header from '../../@common/components/Header';
 import { INFO_MESSAGE } from '../constants/message';
+import { SELECT_TYPE } from '../constants/select';
+import useGetUser from '../hooks/useGetUser';
+import usePostApplication from '../hooks/usePostApplication';
 import { captureApplication } from '../utils/captureApplication';
 
-import { applicationCaptureImgUrlState, applyStepState } from '@/recoil/atoms/applicationState';
+import {
+  applicationCaptureImgUrlState,
+  applyStepState,
+  deatiledStyleState,
+  hairStyleState,
+  historyState,
+  profileState,
+} from '@/recoil/atoms/applicationState';
 
 const ApplicationResult = () => {
   const setImgUrl = useSetRecoilState(applicationCaptureImgUrlState);
   const [step, setStep] = useRecoilState(applyStepState);
   const navigate = useNavigate();
+  const postApplication = usePostApplication();
+  //지원서에 update할 state들
+  const { modelImgUrl } = useRecoilValue(profileState);
+  const { length, preference } = useRecoilValue(hairStyleState);
+  const detailedStyle = useRecoilValue(deatiledStyleState);
+  const { hairServiceRecords } = useRecoilValue(historyState);
 
   useEffect(() => {
     captureApplication()
@@ -26,100 +42,147 @@ const ApplicationResult = () => {
       });
   }, []);
 
+  const modelInfo = useGetUser();
+
+  const handleApplication = async () => {
+    try {
+      await postApplication();
+      navigate(`/application/confirm`);
+    } catch (err) {
+      console.log(err);
+      navigate('/error');
+    }
+  };
+
+  const setLenghth = () => {
+    switch (length) {
+      case 'SHORT':
+        return '숏';
+      case 'ABOVE_SHOULDER':
+        return '단발';
+      case 'UNDER_SHOULDER':
+        return '어깨 아래';
+      case 'UNDER_WAIST':
+        return '허리 아래';
+      default:
+        '없음';
+    }
+  };
+
+  const setHairStyle = (style: string) => {
+    let res = [];
+
+    switch (style) {
+      case SELECT_TYPE.CUT:
+        res = preference.filter((value) => value.includes('커트'));
+        return res;
+      case SELECT_TYPE.COLOR:
+        res = preference.filter((value) => value.includes('색'));
+        return res;
+      case SELECT_TYPE.PERM:
+        res = preference.filter((value) => value.includes('펌') || value.includes('매직'));
+        return res;
+      default:
+        '선택 없음';
+    }
+  };
+
   return (
-    <S.ApplicationResultLayout>
-      <Header
-        isBackBtnExist={true}
-        isCloseBtnExist={true}
-        title={INFO_MESSAGE.FINAL_TITLE}
-        backFn={() => {
-          setStep({ ...step, current: step.current - 1 });
-        }}
-        closeFn={() => {
-          navigate(`/`);
-        }}
-      />
-      <S.MainContent>
-        <S.ContentSection>
-          <S.ContentBoxWrapper id="applcationImg">
-            <S.ContentBox>
-              <h2>{INFO_MESSAGE.MODEL_INFO}</h2>
+    modelInfo && (
+      <S.ApplicationResultLayout>
+        <Header
+          isBackBtnExist={true}
+          isCloseBtnExist={true}
+          title={INFO_MESSAGE.FINAL_TITLE}
+          backFn={() => {
+            setStep({ ...step, current: step.current - 1 });
+          }}
+          closeFn={() => {
+            navigate(`/`);
+          }}
+        />
+        <S.MainContent>
+          <S.ContentSection>
+            <S.ContentBoxWrapper id="applcationImg">
+              <S.ContentBox>
+                <h2>{INFO_MESSAGE.MODEL_INFO}</h2>
+                <S.DivideBox>
+                  <img alt="profile" src={modelImgUrl} />
+                  <S.Info>
+                    <li>
+                      <S.InfoTitle>{INFO_MESSAGE.INFO_NAME}</S.InfoTitle>
+                      <S.InfoSpan>{modelInfo.name}</S.InfoSpan>
+                    </li>
+                    <li>
+                      <S.InfoTitle>{INFO_MESSAGE.INFO_GENDER_AGE}</S.InfoTitle>
+                      <S.InfoSpan>
+                        {modelInfo.gender} / {modelInfo.age}
+                      </S.InfoSpan>
+                    </li>
+                    <li>
+                      <S.InfoTitle>{INFO_MESSAGE.INFO_REGION}</S.InfoTitle>
+                      <S.InfoSpan>
+                        {modelInfo.preferRegions.map((value, index, arr) => (
+                          <React.Fragment key={value}>
+                            {value}
+                            {index !== arr.length - 1 && ', '}
+                          </React.Fragment>
+                        ))}
+                      </S.InfoSpan>
+                    </li>
+                    <li>
+                      <S.InfoTitle>{INFO_MESSAGE.INFO_LENGTH}</S.InfoTitle>
+                      <S.InfoSpan>{setLenghth()}</S.InfoSpan>
+                    </li>
+                  </S.Info>
+                </S.DivideBox>
+              </S.ContentBox>
               <S.DivideBox>
-                <img alt="profile" src="src/views/@common/assets/images/img_samplemodel.png" />
-                <S.Info>
-                  <li>
-                    <S.InfoTitle>{INFO_MESSAGE.INFO_NAME}</S.InfoTitle>
-                    <S.InfoSpan>백모디</S.InfoSpan>
-                  </li>
-                  <li>
-                    <S.InfoTitle>{INFO_MESSAGE.INFO_GENDER_AGE}</S.InfoTitle>
-                    <S.InfoSpan>여성/25살</S.InfoSpan>
-                  </li>
-                  <li>
-                    <S.InfoTitle>{INFO_MESSAGE.INFO_REGION}</S.InfoTitle>
-                    <S.InfoSpan>양천구</S.InfoSpan>
-                  </li>
-                  <li>
-                    <S.InfoTitle>{INFO_MESSAGE.INFO_LENGTH}</S.InfoTitle>
-                    <S.InfoSpan>허리 아래</S.InfoSpan>
-                  </li>
-                </S.Info>
+                <S.ContentBox>
+                  <h2>{INFO_MESSAGE.HISTORY_INFO}</h2>
+                  <S.Info>
+                    {hairServiceRecords.map((record) => (
+                      <li key={record.hairService + record.hairServiceTerm}>
+                        <S.InfoTitle>{record.hairServiceTerm}</S.InfoTitle>
+                        <S.InfoSpan>{record.hairService}</S.InfoSpan>
+                      </li>
+                    ))}
+                  </S.Info>
+                </S.ContentBox>
+                <S.ContentBox>
+                  <h2>{INFO_MESSAGE.STYLE_INFO}</h2>
+                  <S.Info>
+                    {Object.values(SELECT_TYPE).map((item) => (
+                      <li key={item}>
+                        <S.InfoTitle>{item}</S.InfoTitle>
+                        <S.InfoSpan>
+                          {JSON.stringify(setHairStyle(item)) === JSON.stringify([]) ? (
+                            <S.InfoSpan>선택 없음</S.InfoSpan>
+                          ) : (
+                            setHairStyle(item)?.map((value, index, arr) => (
+                              <React.Fragment key={value}>
+                                {value}
+                                {index !== arr.length - 1 && ', '}
+                              </React.Fragment>
+                            ))
+                          )}
+                        </S.InfoSpan>
+                      </li>
+                    ))}
+                  </S.Info>
+                </S.ContentBox>
               </S.DivideBox>
-            </S.ContentBox>
-            <S.DivideBox>
               <S.ContentBox>
-                <h2>{INFO_MESSAGE.HISTORY_INFO}</h2>
-                <S.Info>
-                  <li>
-                    <S.InfoTitle>1개월 미만</S.InfoTitle>
-                    <S.InfoSpan>블랙 염색</S.InfoSpan>
-                  </li>
-                  <li>
-                    <S.InfoTitle>7 - 12개월</S.InfoTitle>
-                    <S.InfoSpan>컬러 염색</S.InfoSpan>
-                  </li>
-                  <li>
-                    <S.InfoTitle>12개월 초과</S.InfoTitle>
-                    <S.InfoSpan>탈색</S.InfoSpan>
-                  </li>
-                </S.Info>
+                <h2>{INFO_MESSAGE.DETAILED_STYLE_INFO}</h2>
+                <S.InfoText>{detailedStyle.data}</S.InfoText>
               </S.ContentBox>
-              <S.ContentBox>
-                <h2>{INFO_MESSAGE.STYLE_INFO}</h2>
-                <S.Info>
-                  <li>
-                    <S.InfoTitle>커트</S.InfoTitle>
-                    <S.InfoSpan>일반 커트</S.InfoSpan>
-                  </li>
-                  <li>
-                    <S.InfoTitle>컬러</S.InfoTitle>
-                    <S.InfoSpan>선택 없음</S.InfoSpan>
-                  </li>
-                  <li>
-                    <S.InfoTitle>펌</S.InfoTitle>
-                    <S.InfoSpan>일반펌</S.InfoSpan>
-                  </li>
-                </S.Info>
-              </S.ContentBox>
-            </S.DivideBox>
-            <S.ContentBox>
-              <h2>{INFO_MESSAGE.DETAILED_STYLE_INFO}</h2>
-              <S.InfoText>
-                더미데이터더미데이터더미데이터더미데이터더미더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터더미데이터
-              </S.InfoText>
-            </S.ContentBox>
-          </S.ContentBoxWrapper>
-          <img src={applyImg} alt="로고이미지" />
-        </S.ContentSection>
-      </S.MainContent>
-      <Button
-        text={INFO_MESSAGE.FINAL}
-        isFixed={true}
-        onClickFn={() => {
-          navigate(`/application/confirm`);
-        }}
-      />
-    </S.ApplicationResultLayout>
+            </S.ContentBoxWrapper>
+            <img src={applyImg} alt="로고이미지" />
+          </S.ContentSection>
+        </S.MainContent>
+        <Button text={INFO_MESSAGE.FINAL} isFixed={true} onClickFn={handleApplication} />
+      </S.ApplicationResultLayout>
+    )
   );
 };
 

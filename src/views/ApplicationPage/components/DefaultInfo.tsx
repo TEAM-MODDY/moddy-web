@@ -13,6 +13,7 @@ import HairTypeInput from './HairTypeInput';
 import StyleButton from './StyleButton';
 
 import { applyStepState, hairStyleState } from '@/recoil/atoms/applicationState';
+
 const DefaultInfo = () => {
   const [step, setStep] = useRecoilState(applyStepState);
   const [selectedStyle, setSelectedStyle] = useRecoilState(hairStyleState);
