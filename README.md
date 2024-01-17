@@ -1,4 +1,9 @@
-![image](https://github.com/TEAM-MODDY/moddy-web/assets/81505421/3503369c-9dfe-4a86-8e3f-27b095692aa6)
+![웹 과제1](https://github.com/TEAM-MODDY/moddy-web/assets/111034927/9d916fbb-f2d0-4cc0-a7d8-f2663b8cf11f)
+![웹 과제2](https://github.com/TEAM-MODDY/moddy-web/assets/111034927/6eb313a4-fb1b-4981-9fd3-fef0248d18c8)
+![웹 과제3](https://github.com/TEAM-MODDY/moddy-web/assets/111034927/e73613b7-cae9-468a-953f-4255999c10b5)
+![웹 과제4](https://github.com/TEAM-MODDY/moddy-web/assets/111034927/d653aa59-baa3-4bdb-956f-df1a1e4ed963)
+
+
 # moddy
 
 ### 💬 **모디**는,
@@ -46,3 +51,9 @@
 🔗 [Team Convention](https://sparkle-uni.notion.site/Moddy-FE-Convention-ebeeadc8d4bf419484a8e9f4ad82f125?pvs=4)
 🔗 [Project Kanban](https://github.com/orgs/TEAM-MODDY/projects/1)
 
+<br/>
+
+## Team
+
+
+![웹 과제5](https://github.com/TEAM-MODDY/moddy-web/assets/111034927/b33fcd98-ac17-4169-9141-674b28081747)
