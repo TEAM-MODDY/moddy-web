@@ -7,6 +7,7 @@ import applyImg from '../../@common/assets/images/img_applylogo.png';
 import Button from '../../@common/components/Button';
 import Header from '../../@common/components/Header';
 import { INFO_MESSAGE } from '../constants/message';
+import { SELECT_TYPE } from '../constants/select';
 import usePostApplication from '../hooks/usePostApplication';
 import { captureApplication } from '../utils/captureApplication';
 
@@ -138,30 +139,16 @@ const ApplicationResult = () => {
               <S.ContentBox>
                 <h2>{INFO_MESSAGE.STYLE_INFO}</h2>
                 <S.Info>
-                  <li>
-                    <S.InfoTitle>커트</S.InfoTitle>
-                    {JSON.stringify(setHairStyle('커트')) === JSON.stringify([]) ? (
-                      <S.InfoSpan>선택 없음</S.InfoSpan>
-                    ) : (
-                      setHairStyle('커트')?.map((item) => <S.InfoSpan key={item}>{item}</S.InfoSpan>)
-                    )}
-                  </li>
-                  <li>
-                    <S.InfoTitle>컬러</S.InfoTitle>
-                    {JSON.stringify(setHairStyle('컬러')) === JSON.stringify([]) ? (
-                      <S.InfoSpan>선택 없음</S.InfoSpan>
-                    ) : (
-                      setHairStyle('컬러')?.map((item) => <S.InfoSpan key={item}>{item}</S.InfoSpan>)
-                    )}
-                  </li>
-                  <li>
-                    <S.InfoTitle>펌</S.InfoTitle>
-                    {JSON.stringify(setHairStyle('펌')) === JSON.stringify([]) ? (
-                      <S.InfoSpan>선택 없음</S.InfoSpan>
-                    ) : (
-                      setHairStyle('펌')?.map((item) => <S.InfoSpan key={item}>{item}</S.InfoSpan>)
-                    )}
-                  </li>
+                  {Object.values(SELECT_TYPE).map((item) => (
+                    <li key={item}>
+                      <S.InfoTitle>{item}</S.InfoTitle>
+                      {JSON.stringify(setHairStyle(item)) === JSON.stringify([]) ? (
+                        <S.InfoSpan>선택 없음</S.InfoSpan>
+                      ) : (
+                        setHairStyle(item)?.map((value) => <S.InfoSpan key={value}>{value}</S.InfoSpan>)
+                      )}
+                    </li>
+                  ))}
                 </S.Info>
               </S.ContentBox>
             </S.DivideBox>

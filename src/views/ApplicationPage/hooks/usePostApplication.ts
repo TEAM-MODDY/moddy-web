@@ -2,7 +2,7 @@ import { AxiosError } from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 
-import { SELECT_PERIOD, SELECT_SERVICE, SELECT_STYLE } from '../constants/filter';
+import { SELECT_PERIOD, SELECT_SERVICE, SELECT_STYLE } from '../constants/select';
 
 import {
   applicationCaptureImgUrlState,
