@@ -1,9 +1,9 @@
+import { useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
 
 import Button from '../views/@common/components/Button';
 
 import { INFO_MESSAGE } from '@/views/ApplicationPage/constants/message';
-import usePostApplication from '@/views/ApplicationPage/hooks/usePostApplication';
 
 const ConfirmPage = () => {
   const navigate = useNavigate();
