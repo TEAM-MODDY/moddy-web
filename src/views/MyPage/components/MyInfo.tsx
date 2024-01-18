@@ -54,6 +54,11 @@ const S = {
     & > img {
       width: 8rem;
       height: 8rem;
+      border: 1.5px solid ${({ theme }) => theme.colors.moddy_blue};
+      border-radius: 8px;
+      object-fit: cover;
+
+      background-color: ${({ theme }) => theme.colors.moddy_wt};
     }
   `,
   MyInfoTextBox: styled.div`

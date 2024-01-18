@@ -33,10 +33,10 @@ const Header = ({ isBackBtnExist, isCloseBtnExist, title, backFn, closeFn }: Hea
         <Modal
           title="작성을 취소하시겠습니까?"
           description="지금 작성을 취소하면<br/>작성 중인 내용이 사라져요."
-          leftBtnText="취소하기"
-          rightBtnText="계속하기"
+          leftBtnText="계속하기"
+          rightBtnText="취소하기"
           leftBtnFn={() => setOpenModal(false)}
-          rightBtnFn={() => closeFn && closeFn()}
+          rightBtnFn={() => (closeFn ? closeFn() : navigate('/'))}
         />
       )}
     </S.HeaderLayout>
