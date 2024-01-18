@@ -1,21 +1,13 @@
-import saveAs from 'file-saver';
-import html2canvas from 'html2canvas';
-import React, { useEffect, useRef, useState } from 'react';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
+import React, { useRef } from 'react';
+import { useRecoilValue } from 'recoil';
 import { styled } from 'styled-components';
 
 import { INFO_MESSAGE } from '../constants/message';
 import { SELECT_TYPE } from '../constants/select';
 import useGetUser from '../hooks/useGetUser';
-import { useCaptureApplication } from '../utils/captureApplication';
+import { useCaptureApplication } from '../utils/useCaptureApplication';
 
-import {
-  applicationCaptureImgUrlState,
-  deatiledStyleState,
-  hairStyleState,
-  historyState,
-  profileState,
-} from '@/recoil/atoms/applicationState';
+import { deatiledStyleState, hairStyleState, historyState, profileState } from '@/recoil/atoms/applicationState';
 
 const CaptureSection = () => {
   //지원서에 update할 state들
@@ -23,7 +15,6 @@ const CaptureSection = () => {
   const { length, preference } = useRecoilValue(hairStyleState);
   const detailedStyle = useRecoilValue(deatiledStyleState);
   const { hairServiceRecords } = useRecoilValue(historyState);
-  const setImgUrl = useSetRecoilState(applicationCaptureImgUrlState);
   const modelInfo = useGetUser();
 
   const ref = useRef<HTMLElement>(null);
