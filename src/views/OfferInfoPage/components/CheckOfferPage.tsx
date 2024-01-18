@@ -46,6 +46,7 @@ const CheckOfferPage = () => {
           isCloseBtnExist={true}
           backFn={handleClickBack}
           closeFn={handleClickClose}
+          isNoModal
         />
         <S.CheckOfferLayout>
           <ImgBox />
