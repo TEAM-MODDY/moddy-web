@@ -36,7 +36,7 @@ const Header = ({ isBackBtnExist, isCloseBtnExist, title, backFn, closeFn }: Hea
           leftBtnText="계속하기"
           rightBtnText="취소하기"
           leftBtnFn={() => setOpenModal(false)}
-          rightBtnFn={() => closeFn && closeFn()}
+          rightBtnFn={() => (closeFn ? closeFn() : navigate('/'))}
         />
       )}
     </S.HeaderLayout>
