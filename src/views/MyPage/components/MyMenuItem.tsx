@@ -26,6 +26,8 @@ const S = {
     align-items: center;
     position: relative;
 
+    cursor: pointer;
+
     & > svg:nth-child(3) {
       position: absolute;
       right: 0;
