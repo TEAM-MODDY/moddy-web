@@ -1,38 +1,13 @@
 import { useNavigate } from 'react-router-dom';
-import { useResetRecoilState } from 'recoil';
 import { styled } from 'styled-components';
 
 import Button from '../views/@common/components/Button';
 
-import {
-  applicationCaptureImgUrlState,
-  applyStepState,
-  deatiledStyleState,
-  hairStyleState,
-  historyState,
-  profileState,
-} from '@/recoil/atoms/applicationState';
 import { INFO_MESSAGE } from '@/views/ApplicationPage/constants/message';
 import ImgLetter from '@images/img_letter.png';
 
 const ConfirmPage = () => {
   const navigate = useNavigate();
-  //state 초기화
-  const stepReset = useResetRecoilState(applyStepState);
-  const styleReset = useResetRecoilState(hairStyleState);
-  const detailedStyleReset = useResetRecoilState(deatiledStyleState);
-  const historyReset = useResetRecoilState(historyState);
-  const profileReset = useResetRecoilState(profileState);
-  const imgUrlReset = useResetRecoilState(applicationCaptureImgUrlState);
-
-  const resetAtom = () => {
-    stepReset();
-    styleReset();
-    detailedStyleReset();
-    historyReset();
-    profileReset();
-    imgUrlReset();
-  };
 
   return (
     <S.ConfirmPage>
@@ -50,7 +25,6 @@ const ConfirmPage = () => {
         isFixed={true}
         onClickFn={() => {
           navigate(`/`);
-          resetAtom();
         }}
       />
     </S.ConfirmPage>
