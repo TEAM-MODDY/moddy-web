@@ -3,7 +3,6 @@ import { styled } from 'styled-components';
 
 import { IcCloseBlack } from '../../@common/assets/icons';
 import { IcFlowiconImage, IcFlowiconLink, IcFlowiconPeople, IcFlowdot } from '../assets/icons';
-import useGetAgree from '../hooks/useGetAgree';
 import usePutOfferModel from '../hooks/usePutOfferModel';
 
 interface DirectionModalProps {
