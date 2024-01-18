@@ -120,6 +120,7 @@ const UserTypeBoxLabel = styled.label`
   flex-grow: 1;
 
   width: 16.4rem;
+  height: 18.7rem;
   padding: 1.4rem 0;
   border: 1.5px solid ${({ theme }) => theme.colors.moddy_gray20};
   border-radius: 12px;
@@ -129,6 +130,7 @@ const UserTypeBoxLabel = styled.label`
 
 const ImageBox = styled.div`
   width: 10rem;
+  height: 9.7rem;
 
   background-color: transparent;
   filter: drop-shadow(0 0 3rem rgb(82 0 255 / 25%));

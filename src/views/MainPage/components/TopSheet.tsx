@@ -113,6 +113,8 @@ const LoginSpan = styled.span`
 `;
 
 const OnBoardingParagraph = styled.p`
+  height: 5.6rem;
+
   color: ${({ theme }) => theme.colors.moddy_wt};
   ${({ theme }) => theme.fonts.Title02};
 `;
