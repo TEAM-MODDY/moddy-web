@@ -12,7 +12,7 @@ import OfferDetailSection from '@/views/OfferInfoPage/components/OfferDetailSect
 
 const OfferInfoPage = () => {
   const { state } = useLocation();
-  const offerId = state.offerid;
+  const offerId = state;
 
   // 체크 표시 클릭시 CTA 버튼 활성화
   const [isChecked, setIsChecked] = useState(false);
