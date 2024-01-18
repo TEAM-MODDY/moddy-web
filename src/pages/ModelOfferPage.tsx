@@ -41,20 +41,6 @@ const ModelOfferPage = () => {
     postApplication();
   };
 
-  //모달 계속하기
-  const [isModal, SetIsModal] = useState(false);
-  const handleActivateModal = () => {
-    SetIsModal(true);
-  };
-  //취소
-  const handleClickCancel = () => {
-    SetIsModal(false);
-  };
-  //확인
-  const handleClickModalConfirm = () => {
-    navigate('/');
-  };
-
   return (
     <>
       <Header
@@ -64,7 +50,7 @@ const ModelOfferPage = () => {
         backFn={() => {
           navigate(-1);
         }}
-        closeFn={() => handleActivateModal()}
+        closeFn={() => navigate('/')}
       />
       <S.ModelOfferLayout>
         <S.ModelOfferBox>
@@ -92,16 +78,6 @@ const ModelOfferPage = () => {
         </S.ModelOfferBox>
       </S.ModelOfferLayout>
       <Button text="완료" isFixed={true} onClickFn={handleClickConfirm} disabled={!isActive} />
-      {isModal && (
-        <Modal
-          title="작성을 취소하시겠습니까?"
-          description="지금 작성을 취소하면<br/>작성 중인 내용이 사라져요."
-          leftBtnFn={handleClickModalConfirm}
-          rightBtnFn={handleClickCancel}
-          leftBtnText={'계속하기'}
-          rightBtnText={'취소하기'}
-        />
-      )}
     </>
   );
 };
