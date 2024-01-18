@@ -21,7 +21,7 @@ const AgreementPage = () => {
 
   const handleChurn = () => {
     removeToken();
-    navigate('/');
+    navigate('/login');
   };
 
   return (
