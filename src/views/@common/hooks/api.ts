@@ -7,11 +7,11 @@ const api: AxiosInstance = axios.create({
 const ACCESS_TOKEN = 'token';
 
 export const getToken = () => {
-  return localStorage.getItem(ACCESS_TOKEN);
+  return sessionStorage.getItem(ACCESS_TOKEN);
 };
 
 export const setToken = (token: string) => {
-  localStorage.setItem(ACCESS_TOKEN, token);
+  sessionStorage.setItem(ACCESS_TOKEN, token);
 };
 
 api.interceptors.request.use((config) => {

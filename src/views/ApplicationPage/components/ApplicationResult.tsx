@@ -209,7 +209,9 @@ const S = {
     height: max-content;
     min-height: 100%;
 
-    ${({ theme }) => theme.commons.scrollbar};
+    &::-webkit-scrollbar {
+      width: 0;
+    }
   `,
 
   ContentSection: styled.section`
@@ -265,6 +267,7 @@ const S = {
       overflow: hidden;
 
       width: 9rem;
+      height: 9rem;
       margin-right: 0.2rem;
       border-radius: 6px;
       object-fit: cover;

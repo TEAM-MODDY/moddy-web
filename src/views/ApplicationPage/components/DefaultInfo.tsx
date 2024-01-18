@@ -8,6 +8,7 @@ import Button from '../../@common/components/Button';
 import Header from '../../@common/components/Header';
 import ProgressBar from '../../@common/components/ProgressBar';
 import { INFO_MESSAGE } from '../constants/message';
+import { SELECT_TYPE } from '../constants/select';
 
 import HairTypeInput from './HairTypeInput';
 import StyleButton from './StyleButton';
@@ -63,12 +64,12 @@ const DefaultInfo = () => {
               <span>{INFO_MESSAGE.PREFERENCE_SUBTITLE}</span>
             </S.Title>
             <S.StyleBox>
-              <h3>커트</h3>
+              <h3>{SELECT_TYPE.CUT}</h3>
               <StyleButton isSelected={false} type="일반 커트" />
             </S.StyleBox>
             <hr />
             <S.StyleBox>
-              <h3>컬러</h3>
+              <h3>{SELECT_TYPE.COLOR}</h3>
               <S.SelectList>
                 <StyleButton isSelected={false} type="전체 염색" />
                 <StyleButton isSelected={false} type="전체 탈색" />
@@ -76,7 +77,7 @@ const DefaultInfo = () => {
             </S.StyleBox>
             <hr />
             <S.StyleBox>
-              <h3>펌</h3>
+              <h3>{SELECT_TYPE.PERM}</h3>
               <S.SelectList>
                 <StyleButton isSelected={false} type="셋팅펌" />
                 <StyleButton isSelected={false} type="일반펌" />
@@ -90,6 +91,7 @@ const DefaultInfo = () => {
         text={INFO_MESSAGE.NEXT}
         onClickFn={() => {
           setStep({ ...step, current: step.current + 1 });
+          console.log(selectedStyle);
         }}
         isFixed={true}
         disabled={!verifyStatus}
@@ -107,10 +109,15 @@ const S = {
   `,
 
   MainStyle: styled.main`
+    overflow-y: scroll;
+
+    width: 100%;
     margin: 8.5rem 1rem 10rem;
     padding: 0 0.8rem 0 1rem;
 
-    ${({ theme }) => theme.commons.scrollbar};
+    &::-webkit-scrollbar {
+      width: 0;
+    }
   `,
 
   StyleSection: styled.section`
