@@ -27,6 +27,10 @@ const DefaultInfo = () => {
       : setSelectedStyle({ ...selectedStyle, verifyStatus: false });
   }, [length, preference]);
 
+  const activateCheckbox = (type: string): boolean => {
+    return preference.includes(type);
+  };
+
   return (
     <S.DefaultInfoLayout>
       <Header
@@ -65,23 +69,23 @@ const DefaultInfo = () => {
             </S.Title>
             <S.StyleBox>
               <h3>{SELECT_TYPE.CUT}</h3>
-              <StyleButton isSelected={false} type="일반 커트" />
+              <StyleButton isSelected={activateCheckbox('일반 커트')} type="일반 커트" />
             </S.StyleBox>
             <hr />
             <S.StyleBox>
               <h3>{SELECT_TYPE.COLOR}</h3>
               <S.SelectList>
-                <StyleButton isSelected={false} type="전체 염색" />
-                <StyleButton isSelected={false} type="전체 탈색" />
+                <StyleButton isSelected={activateCheckbox('전체 염색')} type="전체 염색" />
+                <StyleButton isSelected={activateCheckbox('전체 탈색')} type="전체 탈색" />
               </S.SelectList>
             </S.StyleBox>
             <hr />
             <S.StyleBox>
               <h3>{SELECT_TYPE.PERM}</h3>
               <S.SelectList>
-                <StyleButton isSelected={false} type="셋팅펌" />
-                <StyleButton isSelected={false} type="일반펌" />
-                <StyleButton isSelected={false} type="매직" />
+                <StyleButton isSelected={activateCheckbox('셋팅펌')} type="셋팅펌" />
+                <StyleButton isSelected={activateCheckbox('일반펌')} type="일반펌" />
+                <StyleButton isSelected={activateCheckbox('매직')} type="매직" />
               </S.SelectList>
             </S.StyleBox>
           </S.DeserveStyleSection>
@@ -91,7 +95,6 @@ const DefaultInfo = () => {
         text={INFO_MESSAGE.NEXT}
         onClickFn={() => {
           setStep({ ...step, current: step.current + 1 });
-          console.log(selectedStyle);
         }}
         isFixed={true}
         disabled={!verifyStatus}
