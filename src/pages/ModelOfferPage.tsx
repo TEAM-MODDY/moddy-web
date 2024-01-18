@@ -2,13 +2,13 @@ import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
 
-import Button from '../../@common/components/Button';
-import Header from '../../@common/components/Header';
-import TextArea200 from '../../@common/components/TextArea200';
-import ConditionBox from '../../ModelInfoPage/components/ConditionBox';
-import TitleBox from '../../ModelInfoPage/components/TitleBox';
-import { CONDITION_DATA } from '../constants/CONDITION_DATA';
-import usePostApplication from '../hooks/usePostApplication';
+import Button from '../views/@common/components/Button';
+import Header from '../views/@common/components/Header';
+import TextArea200 from '../views/@common/components/TextArea200';
+import ConditionBox from '../views/ModelInfoPage/components/ConditionBox';
+import TitleBox from '../views/ModelInfoPage/components/TitleBox';
+import { CONDITION_DATA } from '../views/ModelInfoPage/constants/CONDITION_DATA';
+import usePostApplication from '../views/ModelInfoPage/hooks/usePostApplication';
 
 import Modal from '@/views/@common/components/Modal';
 
