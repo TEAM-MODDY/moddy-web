@@ -1,11 +1,13 @@
-import React, { useEffect } from 'react';
+import saveAs from 'file-saver';
+import html2canvas from 'html2canvas';
+import React, { useEffect, useRef, useState } from 'react';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { styled } from 'styled-components';
 
 import { INFO_MESSAGE } from '../constants/message';
 import { SELECT_TYPE } from '../constants/select';
 import useGetUser from '../hooks/useGetUser';
-import { captureApplication } from '../utils/captureApplication';
+import { useCaptureApplication } from '../utils/captureApplication';
 
 import {
   applicationCaptureImgUrlState,
@@ -23,14 +25,9 @@ const CaptureSection = () => {
   const { hairServiceRecords } = useRecoilValue(historyState);
   const setImgUrl = useSetRecoilState(applicationCaptureImgUrlState);
   const modelInfo = useGetUser();
-  useEffect(() => {
-    captureApplication().then((dataUrl) => {
-      dataUrl && setImgUrl({ applicationCaptureImgUrl: dataUrl });
-    });
-    // .catch(() => {
-    //   navigate('/error');
-    // });
-  }, []);
+
+  const ref = useRef<HTMLElement>(null);
+  useCaptureApplication(ref.current);
 
   const setLenghth = () => {
     switch (length) {
@@ -66,82 +63,84 @@ const CaptureSection = () => {
   };
 
   return (
-    modelInfo && (
-      <S.ContentSectioLayout id="applicationImg">
-        <S.ContentBox>
-          <h2>{INFO_MESSAGE.MODEL_INFO}</h2>
-          <S.DivideBox>
-            <img alt="profile" id="weird_test" src={modelImgUrl} />
-            <S.Info>
-              <li>
-                <S.InfoTitle>{INFO_MESSAGE.INFO_NAME}</S.InfoTitle>
-                <S.InfoSpan>{modelInfo.name}</S.InfoSpan>
-              </li>
-              <li>
-                <S.InfoTitle>{INFO_MESSAGE.INFO_GENDER_AGE}</S.InfoTitle>
-                <S.InfoSpan>
-                  {modelInfo.gender} / {modelInfo.age}
-                </S.InfoSpan>
-              </li>
-              <li>
-                <S.InfoTitle>{INFO_MESSAGE.INFO_REGION}</S.InfoTitle>
-                <S.InfoSpan>
-                  {modelInfo.preferRegions.map((value, index, arr) => (
-                    <React.Fragment key={value}>
-                      {value}
-                      {index !== arr.length - 1 && ', '}
-                    </React.Fragment>
-                  ))}
-                </S.InfoSpan>
-              </li>
-              <li>
-                <S.InfoTitle>{INFO_MESSAGE.INFO_LENGTH}</S.InfoTitle>
-                <S.InfoSpan>{setLenghth()}</S.InfoSpan>
-              </li>
-            </S.Info>
-          </S.DivideBox>
-        </S.ContentBox>
-        <S.DivideBox>
+    <S.ContentSectioLayout ref={ref}>
+      {modelInfo && (
+        <>
           <S.ContentBox>
-            <h2>{INFO_MESSAGE.HISTORY_INFO}</h2>
-            <S.Info>
-              {hairServiceRecords.map((record) => (
-                <li key={record.hairService + record.hairServiceTerm}>
-                  <S.InfoTitle>{record.hairServiceTerm}</S.InfoTitle>
-                  <S.InfoSpan>{record.hairService}</S.InfoSpan>
+            <h2>{INFO_MESSAGE.MODEL_INFO}</h2>
+            <S.DivideBox>
+              <img alt="profile" id="weird_test" src={modelImgUrl} />
+              <S.Info>
+                <li>
+                  <S.InfoTitle>{INFO_MESSAGE.INFO_NAME}</S.InfoTitle>
+                  <S.InfoSpan>{modelInfo.name}</S.InfoSpan>
                 </li>
-              ))}
-            </S.Info>
-          </S.ContentBox>
-          <S.ContentBox>
-            <h2>{INFO_MESSAGE.STYLE_INFO}</h2>
-            <S.Info>
-              {Object.values(SELECT_TYPE).map((item) => (
-                <li key={item}>
-                  <S.InfoTitle>{item}</S.InfoTitle>
+                <li>
+                  <S.InfoTitle>{INFO_MESSAGE.INFO_GENDER_AGE}</S.InfoTitle>
                   <S.InfoSpan>
-                    {JSON.stringify(setHairStyle(item)) === JSON.stringify([]) ? (
-                      <S.InfoSpan>선택 없음</S.InfoSpan>
-                    ) : (
-                      setHairStyle(item)?.map((value, index, arr) => (
-                        <React.Fragment key={value}>
-                          {value}
-                          {index !== arr.length - 1 && ', '}
-                        </React.Fragment>
-                      ))
-                    )}
+                    {modelInfo.gender} / {modelInfo.age}
                   </S.InfoSpan>
                 </li>
-              ))}
-            </S.Info>
+                <li>
+                  <S.InfoTitle>{INFO_MESSAGE.INFO_REGION}</S.InfoTitle>
+                  <S.InfoSpan>
+                    {modelInfo.preferRegions.map((value, index, arr) => (
+                      <React.Fragment key={value}>
+                        {value}
+                        {index !== arr.length - 1 && ', '}
+                      </React.Fragment>
+                    ))}
+                  </S.InfoSpan>
+                </li>
+                <li>
+                  <S.InfoTitle>{INFO_MESSAGE.INFO_LENGTH}</S.InfoTitle>
+                  <S.InfoSpan>{setLenghth()}</S.InfoSpan>
+                </li>
+              </S.Info>
+            </S.DivideBox>
           </S.ContentBox>
-        </S.DivideBox>
-        <S.ContentBox>
-          <h2>{INFO_MESSAGE.DETAILED_STYLE_INFO}</h2>
-          <S.InfoText>{detailedStyle.data}</S.InfoText>
-        </S.ContentBox>
-      </S.ContentSectioLayout>
-    )
+          <S.DivideBox>
+            <S.ContentBox>
+              <h2>{INFO_MESSAGE.HISTORY_INFO}</h2>
+              <S.Info>
+                {hairServiceRecords.map((record) => (
+                  <li key={record.hairService + record.hairServiceTerm}>
+                    <S.InfoTitle>{record.hairServiceTerm}</S.InfoTitle>
+                    <S.InfoSpan>{record.hairService}</S.InfoSpan>
+                  </li>
+                ))}
+              </S.Info>
+            </S.ContentBox>
+            <S.ContentBox>
+              <h2>{INFO_MESSAGE.STYLE_INFO}</h2>
+              <S.Info>
+                {Object.values(SELECT_TYPE).map((item) => (
+                  <li key={item}>
+                    <S.InfoTitle>{item}</S.InfoTitle>
+                    <S.InfoSpan>
+                      {JSON.stringify(setHairStyle(item)) === JSON.stringify([]) ? (
+                        <S.InfoSpan>선택 없음</S.InfoSpan>
+                      ) : (
+                        setHairStyle(item)?.map((value, index, arr) => (
+                          <React.Fragment key={value}>
+                            {value}
+                            {index !== arr.length - 1 && ', '}
+                          </React.Fragment>
+                        ))
+                      )}
+                    </S.InfoSpan>
+                  </li>
+                ))}
+              </S.Info>
+            </S.ContentBox>
+          </S.DivideBox>
+          <S.ContentBox>
+            <h2>{INFO_MESSAGE.DETAILED_STYLE_INFO}</h2>
+            <S.InfoText>{detailedStyle.data}</S.InfoText>
+          </S.ContentBox>
+        </>
+      )}
+    </S.ContentSectioLayout>
   );
 };
 
