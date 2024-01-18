@@ -1,6 +1,5 @@
 const removeToken = () => {
-  localStorage.removeItem('token');
-  localStorage.removeItem('사용자 타입');
+  sessionStorage.clear();
 };
 
 export default removeToken;
