@@ -40,9 +40,13 @@ const ReceivedOffer = (props: UserContentsProps) => {
       ) : (
         <S.EmptyBox>
           <S.HelperTextSpan>
-            {'status' in data && data.status === APPLY_STATUS.NOTHING
-              ? '지금 바로 헤어모델에 지원해 보세요 :)'
-              : '첫 제안서를 기다리고 있어요 :)'}
+            {'status' in data && data.status === APPLY_STATUS.NOTHING ? (
+              '지금 바로 헤어모델에 지원해 보세요 :)'
+            ) : (
+              <S.LineHeightSpan>
+                조금만 기다리면 <br /> 디자이너의 모델 제안을 문자로 보내드릴게요 :&#41;
+              </S.LineHeightSpan>
+            )}
           </S.HelperTextSpan>
         </S.EmptyBox>
       )}
@@ -107,7 +111,12 @@ const EmptyBox = styled.div`
 
 const HelperTextSpan = styled.span`
   color: ${({ theme }) => theme.colors.moddy_gray50};
+  text-align: center;
   ${({ theme }) => theme.fonts.Headline04};
+`;
+
+const LineHeightSpan = styled(HelperTextSpan)`
+  line-height: 1.4;
 `;
 
 const ContentsBox = styled.div`
@@ -124,4 +133,5 @@ const S = {
   TitleSpan,
   HelperTextSpan,
   ContentsBox,
+  LineHeightSpan,
 };
