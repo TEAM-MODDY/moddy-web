@@ -13,6 +13,8 @@ import PrefeRegion from './PreferRegion';
 import Profile from './Profile';
 import ShopInfo from './ShopInfo';
 
+import removeToken from '@/views/@common/utils/removeToken';
+
 interface EnterProfileProps {
   setIsInitialStep: React.Dispatch<React.SetStateAction<boolean>>;
 }
@@ -21,6 +23,10 @@ const EnterProfile = ({ setIsInitialStep }: EnterProfileProps) => {
   const navigate = useNavigate();
   const [step, setStep] = useState(STEP.PERSONAL_INFO);
 
+  const handleChurn = () => {
+    removeToken();
+    navigate('/');
+  };
   const Contents = () => {
     switch (step) {
       case STEP.PERSONAL_INFO:
@@ -57,7 +63,7 @@ const EnterProfile = ({ setIsInitialStep }: EnterProfileProps) => {
             isCloseBtnExist={true}
             title="프로필 작성"
             backFn={() => setStep(STEP.PHONE_NUMBER_VERIFICATION)}
-            closeFn={() => navigate('/')}
+            closeFn={() => handleChurn()}
           />
         );
       default:
@@ -67,7 +73,7 @@ const EnterProfile = ({ setIsInitialStep }: EnterProfileProps) => {
             isCloseBtnExist={true}
             title="프로필 작성"
             backFn={() => setStep((prev) => prev - 1)}
-            closeFn={() => navigate('/')}
+            closeFn={() => handleChurn()}
           />
         );
     }
