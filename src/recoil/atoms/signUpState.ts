@@ -33,7 +33,7 @@ export interface inputImgType {
 
 const { persistAtom } = recoilPersist({
   key: '사용자 타입',
-  storage: localStorage,
+  storage: sessionStorage,
 });
 
 export const userTypeState = atom({
