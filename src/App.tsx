@@ -1,6 +1,7 @@
 import { createBrowserHistory } from 'history';
 import { useEffect } from 'react';
 import { initialize, set as setGA, pageview } from 'react-ga';
+import { QueryClient, QueryClientProvider } from 'react-query';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
 import { ThemeProvider } from 'styled-components';
@@ -62,6 +63,8 @@ const App = () => {
     document.documentElement.style.setProperty('--app-max-width', `${maxWidth}px`);
   };
 
+  const queryClient = new QueryClient();
+
   useEffect(() => {
     setScreenSize();
     setGoogleAnalytics();
@@ -73,12 +76,14 @@ const App = () => {
   }, []);
   return (
     <>
-      <RecoilRoot>
-        <ThemeProvider theme={theme}>
-          <RouterProvider router={router} />
-          <GlobalStyle />
-        </ThemeProvider>
-      </RecoilRoot>
+      <QueryClientProvider client={queryClient}>
+        <RecoilRoot>
+          <ThemeProvider theme={theme}>
+            <RouterProvider router={router} />
+            <GlobalStyle />
+          </ThemeProvider>
+        </RecoilRoot>
+      </QueryClientProvider>
     </>
   );
 };
