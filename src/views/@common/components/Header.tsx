@@ -49,7 +49,7 @@ const S = {
   HeaderLayout: styled.section`
     position: fixed;
     top: 0;
-    z-index: 2;
+    z-index: 4;
 
     width: 100%;
     max-width: 43rem;
