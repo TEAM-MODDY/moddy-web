@@ -16,7 +16,6 @@ import OfferInfoPage from './pages/OfferInfoPage';
 import SignUpPage from './pages/SignUpPage';
 import GlobalStyle from './styles/GlobalStyle';
 import theme from './styles/Theme';
-import removeToken from './views/@common/utils/removeToken';
 import LoginCallback from './views/LoginPage/components/LoginCallback';
 import ModelOfferPage from './views/ModelInfoPage/components/ModelOfferPage';
 import OfferSentCompletePage from './views/ModelInfoPage/components/OfferSentCompletePage';
