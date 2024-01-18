@@ -24,7 +24,7 @@ const MainPage = () => {
   };
 
   const [page, setPage] = useState(1);
-  const { data } = useGetMain({ user: userType, page: page });
+  const { data, isError, isLoading } = useGetMain({ user: userType, page: page });
 
   const MainContents = () => {
     switch (userType) {
