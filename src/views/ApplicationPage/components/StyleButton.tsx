@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { styled } from 'styled-components';
 
@@ -15,12 +15,6 @@ const StyleButton = ({ type, isSelected }: StyleButtonProps) => {
   const [selectedStyle, setSelectedStyle] = useRecoilState(hairStyleState);
   const { preference } = selectedStyle;
   const [activate, setActivate] = useState(isSelected);
-
-  useEffect(() => {
-    preference.forEach((element) => {
-      element === type ? setActivate(true) : setActivate(false);
-    });
-  }, []);
 
   const styleResult = () => {
     if (activate) {
