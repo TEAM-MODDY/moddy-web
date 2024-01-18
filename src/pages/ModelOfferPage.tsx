@@ -10,8 +10,6 @@ import TitleBox from '../views/ModelInfoPage/components/TitleBox';
 import { CONDITION_DATA } from '../views/ModelInfoPage/constants/CONDITION_DATA';
 import usePostApplication from '../views/ModelInfoPage/hooks/usePostApplication';
 
-import Modal from '@/views/@common/components/Modal';
-
 const ModelOfferPage = () => {
   const location = useLocation();
   const applicationId = location.state.applicationId;
