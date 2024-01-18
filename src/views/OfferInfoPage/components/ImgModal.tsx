@@ -13,6 +13,7 @@ interface ImgModalProps {
 }
 
 const ImgModal = ({ isModal, onClose, imgUrl }: ImgModalProps) => {
+  console.log(imgUrl);
   const data = usePostDownloadUrlOffer(imgUrl);
 
   const handleImgDownload = () => {
@@ -95,6 +96,8 @@ const S = {
   `,
 
   SaveBtn: styled.a`
+    display: block;
+
     width: 100%;
     margin: 4rem 0 3.2rem;
     padding: 1.25rem 0;
@@ -103,7 +106,8 @@ const S = {
     background-color: ${({ theme }) => theme.colors.moddy_blue};
 
     color: ${({ theme }) => theme.colors.moddy_wt};
-    ${({ theme }) => theme.fonts.Headline01};
+    text-align: center;
+    ${({ theme }) => theme.fonts.Headline02};
   `,
 
   BookMarkBox: styled.div`
