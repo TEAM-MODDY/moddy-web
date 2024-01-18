@@ -28,7 +28,7 @@ const DefaultInfo = () => {
   }, [length, preference]);
 
   const activateCheckbox = (type: string): boolean => {
-    return preference.some((element) => element === type);
+    return preference.includes(type);
   };
 
   return (
