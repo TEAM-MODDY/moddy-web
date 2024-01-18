@@ -31,12 +31,10 @@ const OfferCard = (props: OfferCardProps) => {
           <ImgNew />
         </S.NewTagBox>
       )}
-      <S.ProfileImageBox>
-        <img src={imgUrl} alt="프로필 이미지" />
-      </S.ProfileImageBox>
+      <S.ProfileImageBox $img={imgUrl} title="제안서 프로필 사진" />
       <S.ModelInfoBox>
         <S.PersonalInfoBox>
-          <S.NameSpan>{name.slice(0, 5)}</S.NameSpan>
+          <S.NameSpan>{name}</S.NameSpan>
           <S.AgeGenderSpan>{shopName}</S.AgeGenderSpan>
         </S.PersonalInfoBox>
         <S.PreferStyleWrapperBox>
@@ -54,12 +52,10 @@ const ApplicationCard = (props: ApplicationCardProps) => {
   const { applicationId, name, age, imgUrl, gender, preferHairStyles } = props;
   return (
     <S.ApplicationCardLayout onClick={() => navigate('/model-info', { state: applicationId })}>
-      <S.ProfileImageBox>
-        <img src={imgUrl} alt="프로필 이미지" />
-      </S.ProfileImageBox>
+      <S.ProfileImageBox $img={imgUrl} title="지원서 프로필 사진" />
       <S.ModelInfoBox>
         <S.PersonalInfoBox>
-          <S.NameSpan>{name.slice(0, 5)}</S.NameSpan>
+          <S.NameSpan>{name}</S.NameSpan>
           <S.AgeGenderSpan>
             {age}세 / {gender}
           </S.AgeGenderSpan>
@@ -87,13 +83,13 @@ const ApplicationCardLayout = styled.button`
   box-shadow: ${({ theme }) => theme.effects.shadow1};
 `;
 
-const ProfileImageBox = styled.div`
+const ProfileImageBox = styled.div<{ $img: string }>`
   overflow: hidden;
 
   min-width: 16.4rem;
   height: 16.4rem;
   border-radius: 12px 12px 0 0;
-
+  background: center/cover ${({ $img }) => `url(${$img})`} no-repeat;
   & > img {
     width: 100%;
   }

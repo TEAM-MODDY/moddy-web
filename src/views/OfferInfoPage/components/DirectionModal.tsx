@@ -13,14 +13,13 @@ interface DirectionModalProps {
 
 const DirectionModal = ({ isModal, onClose, offerId }: DirectionModalProps) => {
   const navigate = useNavigate();
+
   const { postOffer } = usePutOfferModel(offerId);
 
   const handleOnClickContinue = () => {
     postOffer();
     navigate('/offer-info/check-offer', {
-      state: {
-        offerId: offerId,
-      },
+      state: offerId,
     });
   };
 
@@ -84,7 +83,7 @@ const S = {
     align-items: center;
     position: fixed;
     top: 0;
-    z-index: 2;
+    z-index: 5;
 
     width: 100%;
     max-width: 43rem;

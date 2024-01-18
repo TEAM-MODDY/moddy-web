@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue, useSetRecoilState, useResetRecoilState } from 'recoil';
 import { styled } from 'styled-components';
 
 import applyImg from '../../@common/assets/images/img_applylogo.png';
@@ -31,6 +31,22 @@ const ApplicationResult = () => {
   const { length, preference } = useRecoilValue(hairStyleState);
   const detailedStyle = useRecoilValue(deatiledStyleState);
   const { hairServiceRecords } = useRecoilValue(historyState);
+  //state 초기화
+  const stepReset = useResetRecoilState(applyStepState);
+  const styleReset = useResetRecoilState(hairStyleState);
+  const detailedStyleReset = useResetRecoilState(deatiledStyleState);
+  const historyReset = useResetRecoilState(historyState);
+  const profileReset = useResetRecoilState(profileState);
+  const imgUrlReset = useResetRecoilState(applicationCaptureImgUrlState);
+
+  const resetAtom = () => {
+    stepReset();
+    styleReset();
+    detailedStyleReset();
+    historyReset();
+    profileReset();
+    imgUrlReset();
+  };
 
   useEffect(() => {
     captureApplication()
@@ -48,8 +64,8 @@ const ApplicationResult = () => {
     try {
       await postApplication();
       navigate(`/application/confirm`);
+      resetAtom();
     } catch (err) {
-      console.log(err);
       navigate('/error');
     }
   };
@@ -209,7 +225,9 @@ const S = {
     height: max-content;
     min-height: 100%;
 
-    ${({ theme }) => theme.commons.scrollbar};
+    &::-webkit-scrollbar {
+      width: 0;
+    }
   `,
 
   ContentSection: styled.section`
@@ -265,6 +283,7 @@ const S = {
       overflow: hidden;
 
       width: 9rem;
+      height: 9rem;
       margin-right: 0.2rem;
       border-radius: 6px;
       object-fit: cover;

@@ -1,1 +1,1 @@
-export const CONDITION_LIST = ['CAMERA', 'SNS', 'FREE', 'MASK', 'PHOTOSHOP', 'SMALLPAY'];
+export const CONDITION_LIST = ['CAMERA', 'SNS', 'FREE', 'MASK', 'PHOTOSHOP', 'SMALL_PAY'];
