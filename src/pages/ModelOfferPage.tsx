@@ -98,8 +98,8 @@ const ModelOfferPage = () => {
           description="지금 작성을 취소하면<br/>작성 중인 내용이 사라져요."
           leftBtnFn={handleClickModalConfirm}
           rightBtnFn={handleClickCancel}
-          leftBtnText={'취소하기'}
-          rightBtnText={'계속하기'}
+          leftBtnText={'계속하기'}
+          rightBtnText={'취소하기'}
         />
       )}
     </>
