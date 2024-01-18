@@ -19,7 +19,6 @@ const useGetAgree = (offerId: number) => {
     } catch (err) {
       if (err instanceof AxiosError) setError(err);
 
-      console.log(err);
       navigate('/error');
     }
     setLoading(false);
