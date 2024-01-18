@@ -4,8 +4,8 @@ import { styled } from 'styled-components';
 
 import { INFO_MESSAGE } from '../constants/message';
 import { SELECT_TYPE } from '../constants/select';
+import { useCaptureApplication } from '../hooks/useCaptureApplication';
 import useGetUser from '../hooks/useGetUser';
-import { useCaptureApplication } from '../utils/useCaptureApplication';
 
 import { deatiledStyleState, hairStyleState, historyState, profileState } from '@/recoil/atoms/applicationState';
 
