@@ -51,6 +51,7 @@ const ModelInfoPage = () => {
           <OfferDetailSection handleCopyClipBoard={handleCopyClipBoard} data={data} />
         </S.ModelInfoLayout>
         <Button
+          id="ga-offer-btn"
           text={isSend ? '제안완료' : '제안하기'}
           isFixed={false}
           onClickFn={handleOnClickOffer}

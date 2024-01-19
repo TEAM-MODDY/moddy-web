@@ -131,6 +131,7 @@ const PersonalInfo = ({ setStep }: EnterProfileProp) => {
         </S.FormBox>
       </S.PersonalInfoLayout>
       <Button
+        id="ga-personal-info-btn"
         text="다음"
         isFixed={true}
         onClickFn={() => setStep((prev) => prev + 1)}

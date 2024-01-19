@@ -1,6 +1,7 @@
 import { styled } from 'styled-components';
 
 interface ModalProps {
+  id?: string;
   title: string;
   description: string;
   leftBtnText: string;
@@ -8,7 +9,7 @@ interface ModalProps {
   leftBtnFn: () => void;
   rightBtnFn: () => void;
 }
-const Modal = ({ title, description, leftBtnText, rightBtnText, leftBtnFn, rightBtnFn }: ModalProps) => {
+const Modal = ({ id, title, description, leftBtnText, rightBtnText, leftBtnFn, rightBtnFn }: ModalProps) => {
   return (
     <S.ModalLayout>
       <S.ModalSection>
@@ -22,7 +23,7 @@ const Modal = ({ title, description, leftBtnText, rightBtnText, leftBtnFn, right
           <S.ModalButton type="button" onClick={leftBtnFn}>
             {leftBtnText}
           </S.ModalButton>
-          <S.ModalButton type="button" onClick={rightBtnFn}>
+          <S.ModalButton id={id} type="button" onClick={rightBtnFn}>
             {rightBtnText}
           </S.ModalButton>
         </S.ModalBtnsBox>

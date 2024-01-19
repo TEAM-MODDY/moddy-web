@@ -120,6 +120,7 @@ const PreferRegion = () => {
         </S.BottomSheetBox>
       </S.SelectPreferRegionLayout>
       <Button
+        id="ga-prefer-region-btn"
         text="완료"
         isFixed={true}
         onClickFn={() => {
@@ -129,6 +130,7 @@ const PreferRegion = () => {
       />
       {isOpenModal && (
         <Modal
+          id="ga-model-sign-up-btn"
           title="이대로 가입하시겠어요?"
           description="가입 후에는 수정이 어려워요"
           leftBtnText="돌아가기"
