@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { styled } from 'styled-components';
@@ -13,7 +13,7 @@ import { IcPencilcircle } from '../assets/icons';
 import { INFO_MESSAGE } from '../constants/message';
 import { readImg } from '../utils/readImg';
 
-import { applyStepState, historyState, profileState } from '@/recoil/atoms/applicationState';
+import { applyStepState, profileState } from '@/recoil/atoms/applicationState';
 
 const ProfileUpload = () => {
   const inputRef = useRef<HTMLInputElement>(null);
@@ -22,7 +22,6 @@ const ProfileUpload = () => {
   const { modelImgUrl, instagramId, verifyStatus } = inputData;
   const navigate = useNavigate();
 
-  const [serviceHistory, setServiceHistory] = useRecoilState(historyState);
   const handleInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     readImg(event)
       .then((dataUrl) => {
@@ -37,10 +36,6 @@ const ProfileUpload = () => {
         navigate('/error');
       });
   };
-
-  useEffect(() => {
-    console.log(serviceHistory);
-  }, []);
 
   return (
     <S.ProfileUploadLayout>
