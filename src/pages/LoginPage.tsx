@@ -11,7 +11,7 @@ const LoginPage = () => {
         title=""
         isBackBtnExist
         backFn={() => {
-          navigate(-1);
+          navigate('/');
         }}
       />
       <LoginText />

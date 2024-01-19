@@ -45,7 +45,7 @@ const UserType = ({ setStep }: SelectUserTypeProp) => {
             onChange={handleUserType}
             checked={userType === 'designer'}
           />
-          <S.UserTypeBoxLabel htmlFor="designer">
+          <S.UserTypeBoxLabel htmlFor="designer" id="ga-designer-btn">
             <S.ImageBox>
               <img src={designerImg} width="100%" alt="디자이너" />
             </S.ImageBox>
@@ -64,7 +64,7 @@ const UserType = ({ setStep }: SelectUserTypeProp) => {
             onChange={handleUserType}
             checked={userType === 'model'}
           />
-          <S.UserTypeBoxLabel htmlFor="model">
+          <S.UserTypeBoxLabel htmlFor="model" id="ga-model-btn">
             <S.ImageBox>
               <img src={modelImg} width="100%" alt="모델" />
             </S.ImageBox>

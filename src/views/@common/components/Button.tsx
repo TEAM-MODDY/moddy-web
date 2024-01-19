@@ -2,6 +2,7 @@ import { ReactNode } from 'react';
 import { styled } from 'styled-components';
 
 interface ButtonProps {
+  id?: string;
   text: string;
   isFixed?: boolean;
   onClickFn: () => void;
@@ -9,10 +10,10 @@ interface ButtonProps {
   icon?: ReactNode;
   shadow?: boolean;
 }
-const Button = ({ text, isFixed, onClickFn, disabled, icon, shadow }: ButtonProps) => {
+const Button = ({ id, text, isFixed, onClickFn, disabled, icon, shadow }: ButtonProps) => {
   return (
     <S.ButtonLayout $isFixed={isFixed} $disabled={disabled} $shadow={shadow}>
-      <button type="button" onClick={onClickFn} disabled={disabled}>
+      <button id={id} type="button" onClick={onClickFn} disabled={disabled}>
         {icon}
         {text}
       </button>

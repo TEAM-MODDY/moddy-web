@@ -55,6 +55,7 @@ const DesignerInfo = ({ setStep }: EnterProfileProp) => {
         />
       </DesignerInfoLayout>
       <Button
+        id="ga-designer-info-btn"
         text="다음"
         isFixed={true}
         onClickFn={() => {

@@ -75,7 +75,13 @@ const ModelOfferPage = () => {
           />
         </S.ModelOfferBox>
       </S.ModelOfferLayout>
-      <Button text="완료" isFixed={true} onClickFn={handleClickConfirm} disabled={!isActive} />
+      <Button
+        id="ga-offer-complete-btn"
+        text="완료하기"
+        isFixed={true}
+        onClickFn={handleClickConfirm}
+        disabled={!isActive}
+      />
     </>
   );
 };
