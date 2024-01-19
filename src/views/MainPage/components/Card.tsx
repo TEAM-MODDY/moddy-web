@@ -25,7 +25,7 @@ const OfferCard = (props: OfferCardProps) => {
   const navigate = useNavigate();
   const { offerId, name, shopName, imgUrl, isClicked, conditions } = props;
   return (
-    <S.ApplicationCardLayout onClick={() => navigate('/offer-info', { state: offerId })}>
+    <S.ApplicationCardLayout id="ga-offer-card" onClick={() => navigate('/offer-info', { state: offerId })}>
       {isClicked ? null : (
         <S.NewTagBox>
           <ImgNew />
@@ -51,7 +51,7 @@ const ApplicationCard = (props: ApplicationCardProps) => {
   const navigate = useNavigate();
   const { applicationId, name, age, imgUrl, gender, preferHairStyles } = props;
   return (
-    <S.ApplicationCardLayout onClick={() => navigate('/model-info', { state: applicationId })}>
+    <S.ApplicationCardLayout id="ga-application-card" onClick={() => navigate('/model-info', { state: applicationId })}>
       <S.ProfileImageBox $img={imgUrl} title="지원서 프로필 사진" />
       <S.ModelInfoBox>
         <S.PersonalInfoBox>
@@ -89,7 +89,9 @@ const ProfileImageBox = styled.div<{ $img: string }>`
   min-width: 16.4rem;
   height: 16.4rem;
   border-radius: 12px 12px 0 0;
+
   background: center/cover ${({ $img }) => `url(${$img})`} no-repeat;
+
   & > img {
     width: 100%;
   }

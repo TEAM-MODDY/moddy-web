@@ -41,7 +41,7 @@ const OfferInfoPage = () => {
           해당 제안서의 내용에 동의합니다.
         </S.AgreementBox>
       </S.OfferInfoLayout>
-      <Button text="다음" isFixed={false} onClickFn={handleModalOpen} disabled={!isChecked} />
+      <Button id="ga-accept-btn" text="수락하기" isFixed={false} onClickFn={handleModalOpen} disabled={!isChecked} />
     </>
   );
 };
