@@ -55,5 +55,5 @@ export interface OfferInfoProps {
 }
 
 export interface UserGetDownloadUrlOfferProps {
-  downloadUrl: string;
+  offerImageUrl: string;
 }
