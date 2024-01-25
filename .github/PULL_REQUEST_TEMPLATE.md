@@ -3,7 +3,7 @@
 
 ## ▶️ Related Issue
 
-- close #issue_number
+close #issue_number
 
 ## 🚨 Problem
 
