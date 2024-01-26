@@ -12,7 +12,7 @@ import OfferDetailSection from '@/views/OfferInfoPage/components/OfferDetailSect
 
 const OfferInfoPage = () => {
   const { state } = useLocation();
-  const offerId = state.offerid;
+  const offerId = state;
 
   // 체크 표시 클릭시 CTA 버튼 활성화
   const [isChecked, setIsChecked] = useState(false);
@@ -41,7 +41,7 @@ const OfferInfoPage = () => {
           해당 제안서의 내용에 동의합니다.
         </S.AgreementBox>
       </S.OfferInfoLayout>
-      <Button text="다음" isFixed={false} onClickFn={handleModalOpen} disabled={!isChecked} />
+      <Button id="ga-accept-btn" text="수락하기" isFixed={false} onClickFn={handleModalOpen} disabled={!isChecked} />
     </>
   );
 };
@@ -55,7 +55,7 @@ const S = {
   `,
 
   DivisionLine: styled.div`
-    width: 100vw;
+    width: 100%;
     height: 0.8rem;
     margin-bottom: 3.03rem;
 

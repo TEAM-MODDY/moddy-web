@@ -1,20 +1,17 @@
+import { useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
 
 import Button from '../views/@common/components/Button';
 
 import { INFO_MESSAGE } from '@/views/ApplicationPage/constants/message';
-import usePostApplication from '@/views/ApplicationPage/hooks/usePostApplication';
+import ImgLetter from '@images/img_letter.png';
 
 const ConfirmPage = () => {
-  const postApplication = usePostApplication();
-
-  const handleApplication = async () => {
-    await postApplication;
-  };
+  const navigate = useNavigate();
 
   return (
     <S.ConfirmPage>
-      <img src="/src/views/@common/assets/images/img_letter.png" alt="letterImg" />
+      <img src={ImgLetter} alt="letterImg" />
       <S.Info>
         <h1>{INFO_MESSAGE.CONFIRM_TITLE}</h1>
         <S.Description>
@@ -23,7 +20,13 @@ const ConfirmPage = () => {
           ))}
         </S.Description>
       </S.Info>
-      <Button text={INFO_MESSAGE.CLOSE} isFixed={true} onClickFn={handleApplication} />
+      <Button
+        text={INFO_MESSAGE.CLOSE}
+        isFixed={true}
+        onClickFn={() => {
+          navigate(`/`);
+        }}
+      />
     </S.ConfirmPage>
   );
 };

@@ -1,11 +1,11 @@
 import { AxiosError } from 'axios';
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 
 import { DesignerResponse, ModelResponse } from './type';
 
 import { USER_TYPE } from '@/views/@common/constants/userType';
 import api from '@/views/@common/hooks/api';
+import removeToken from '@/views/@common/utils/removeToken';
 
 interface UseGetModelProps {
   user: string;
@@ -13,7 +13,6 @@ interface UseGetModelProps {
 }
 
 const useGetMain = ({ user, page }: UseGetModelProps) => {
-  const navigate = useNavigate();
   const [data, setData] = useState<ModelResponse | DesignerResponse>();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<AxiosError>();
@@ -41,7 +40,8 @@ const useGetMain = ({ user, page }: UseGetModelProps) => {
       });
     } catch (err) {
       if (err instanceof AxiosError) setError(err);
-      navigate('/error');
+      removeToken();
+      location.reload();
     } finally {
       setLoading(false);
     }

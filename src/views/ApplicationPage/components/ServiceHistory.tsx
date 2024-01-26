@@ -29,6 +29,14 @@ const ServiceHistory = () => {
     }
   };
 
+  const exceptionNull = () => {
+    if (
+      serviceHistory.hairServiceRecords[0].hairService === '' ||
+      serviceHistory.hairServiceRecords[0].hairServiceTerm === ''
+    )
+      setServiceHistory({ ...serviceHistory, hairServiceRecords: [] });
+  };
+
   return (
     <S.ServiceHistoryLayout>
       <Header
@@ -62,6 +70,7 @@ const ServiceHistory = () => {
         isFixed={true}
         onClickFn={() => {
           setStep({ ...step, current: step.current + 1 });
+          exceptionNull();
         }}
       />
     </S.ServiceHistoryLayout>

@@ -61,7 +61,7 @@ const TopSheet = (props: TopSheetProps) => {
       <S.HeaderBox>
         <IcLogoHome />
         {!userType ? (
-          <S.LoginButton type="button" onClick={() => navigate('/login')}>
+          <S.LoginButton id="ga-top-login-btn" type="button" onClick={() => navigate('/login')}>
             <S.LoginSpan>로그인하기</S.LoginSpan>
             <IcRightWhite />
           </S.LoginButton>
@@ -75,10 +75,17 @@ const TopSheet = (props: TopSheetProps) => {
         <OnBoardingText />
       </S.OnBoardingBox>
       {userType !== USER_TYPE.DESIGNER ? (
-        <S.StartButton type="button" onClick={() => (!userType ? navigate('/login') : navigate('/application'))}>
-          <S.StartButtonSpan>{!userType ? '헤어 모델 지원하기 / 제안하기' : '헤어 모델 지원하기'}</S.StartButtonSpan>
-          <IcRightWhite />
-        </S.StartButton>
+        userType === USER_TYPE.GUEST ? (
+          <S.StartButton id="ga-login-btn" type="button" onClick={() => navigate('/login')}>
+            <S.StartButtonSpan>헤어 모델 지원하기 / 제안하기</S.StartButtonSpan>
+            <IcRightWhite />
+          </S.StartButton>
+        ) : (
+          <S.StartButton id="ga-application-btn" type="button" onClick={() => navigate('/application')}>
+            <S.StartButtonSpan>헤어 모델 지원하기</S.StartButtonSpan>
+            <IcRightWhite />
+          </S.StartButton>
+        )
       ) : null}
     </S.TopSheetLayout>
   );
@@ -113,6 +120,8 @@ const LoginSpan = styled.span`
 `;
 
 const OnBoardingParagraph = styled.p`
+  height: 5.6rem;
+
   color: ${({ theme }) => theme.colors.moddy_wt};
   ${({ theme }) => theme.fonts.Title02};
 `;

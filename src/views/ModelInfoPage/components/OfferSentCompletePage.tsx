@@ -14,11 +14,11 @@ const OfferSentCompletePage = () => {
     <>
       <S.OfferSentCompleteSection>
         <S.LetterImg src={ImgLetterLine} alt="지원 완료 이미지" />
-        <h1>헤어모델 지원 완료!</h1>
+        <h1>제안서 전송 완료!</h1>
         <h2>선택한 헤어 모델에게 제안서를 전달했어요.</h2>
         <p>
-          내게 딱 맞는 헤어디자이너의 제안서가
-          <br />곧 도착할 예정이에요.
+          모델이 제안을 수락하면, 프로필에 등록한 <br />
+          1:1 오픈 채팅방으로 입장할 예정이에요 :&#41;
         </p>
       </S.OfferSentCompleteSection>
       <Button text="닫기" isFixed={true} onClickFn={handleClickClose} />

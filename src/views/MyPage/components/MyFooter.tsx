@@ -1,9 +1,11 @@
-import styled from 'styled-components';
+import { styled } from 'styled-components';
+
+import { LINK } from '../constants/link';
 
 const MyFooter = () => {
   return (
     <S.MyFooterLayout>
-      <S.MyFooterAnchor href="https://www.google.co.kr">개발자 정보</S.MyFooterAnchor>
+      <S.MyFooterAnchor href={LINK.DEVELOPER}>개발자 정보</S.MyFooterAnchor>
     </S.MyFooterLayout>
   );
 };

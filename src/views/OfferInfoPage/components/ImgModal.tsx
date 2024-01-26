@@ -18,9 +18,9 @@ const ImgModal = ({ isModal, onClose, imgUrl }: ImgModalProps) => {
   const handleImgDownload = () => {
     if (!data) return;
     const a = document.createElement('a');
-    a.href = data.downloadUrl;
+    a.href = data.offerImageUrl;
     a.style.display = 'none';
-    a.download = 'apply_moddy.png';
+    a.download = 'my_moddy.png';
     document.body.appendChild(a);
     a.click();
     a.remove();
@@ -62,7 +62,7 @@ const S = {
     align-items: center;
     position: fixed;
     top: 0;
-    z-index: 4;
+    z-index: 5;
 
     width: 100%;
     max-width: 43rem;
@@ -95,6 +95,8 @@ const S = {
   `,
 
   SaveBtn: styled.a`
+    display: block;
+
     width: 100%;
     margin: 4rem 0 3.2rem;
     padding: 1.25rem 0;
@@ -103,7 +105,8 @@ const S = {
     background-color: ${({ theme }) => theme.colors.moddy_blue};
 
     color: ${({ theme }) => theme.colors.moddy_wt};
-    ${({ theme }) => theme.fonts.Headline01};
+    text-align: center;
+    ${({ theme }) => theme.fonts.Headline02};
   `,
 
   BookMarkBox: styled.div`

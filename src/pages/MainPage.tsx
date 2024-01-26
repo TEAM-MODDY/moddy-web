@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import { styled } from 'styled-components';
 
@@ -14,7 +15,13 @@ import useGetMain from '@/views/MainPage/hooks/useGetMain';
 
 const MainPage = () => {
   const userType = useRecoilValue(userTypeState);
-  // const userType = USER_TYPE.GUEST;
+
+  // 뒤로 가기 막기 관련
+  const navigate = useNavigate();
+  window.history.pushState(null, '', '');
+  window.onpopstate = () => {
+    navigate('/');
+  };
 
   const [page, setPage] = useState(1);
   const { data } = useGetMain({ user: userType, page: page });

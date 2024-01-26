@@ -2,22 +2,25 @@ import { styled } from 'styled-components';
 
 import useGetUser from '../hooks/useGetUser';
 
+import ImgMdModel from '@images/img_mdprofile.png';
+import ImgMyLogo from '@images/img_mylogo.png';
+
 const MyInfo = () => {
-  const { data, isLoading, isError } = useGetUser();
+  const { data, isError } = useGetUser();
 
   return (
-    !isLoading &&
-    !isError &&
-    data && (
+    !isError && (
       <S.MyInfoLayout>
         <S.MyInfoBox>
-          <img src={data.profileImgUrl} alt="마이페이지 프로필" />
-          <S.MyInfoTextBox>
-            <h1>{data.name}님, 안녕하세요!</h1>
-            <p>헤어 {data.role === 'MODEL' ? '모델' : '디자이너'}</p>
-          </S.MyInfoTextBox>
+          <img src={data ? data.profileImgUrl : ImgMdModel} alt="마이페이지 프로필" />
+          {data && (
+            <S.MyInfoTextBox>
+              <h1>{data.name}님, 안녕하세요!</h1>
+              <p>헤어 {data.role === 'MODEL' ? '모델' : '디자이너'}</p>
+            </S.MyInfoTextBox>
+          )}
         </S.MyInfoBox>
-        <img src="src/views/@common/assets/images/img_mylogo.png" alt="마이페이지 로고" className="mylogo" />
+        <img src={ImgMyLogo} alt="마이페이지 로고" className="mylogo" />
       </S.MyInfoLayout>
     )
   );
@@ -52,6 +55,11 @@ const S = {
     & > img {
       width: 8rem;
       height: 8rem;
+      border: 1.5px solid ${({ theme }) => theme.colors.moddy_blue};
+      border-radius: 8px;
+      object-fit: cover;
+
+      background-color: ${({ theme }) => theme.colors.moddy_wt};
     }
   `,
   MyInfoTextBox: styled.div`

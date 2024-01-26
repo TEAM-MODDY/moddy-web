@@ -1,3 +1,12 @@
+![웹 과제1](https://github.com/TEAM-MODDY/moddy-web/assets/111034927/9d916fbb-f2d0-4cc0-a7d8-f2663b8cf11f)
+![웹 과제2](https://github.com/TEAM-MODDY/moddy-web/assets/111034927/14238b9d-2d53-4c8e-b201-b633c43e13be)
+![웹 과제3](https://github.com/TEAM-MODDY/moddy-web/assets/111034927/27534ce0-87c1-49a3-96f9-546e01dc55d1)
+![웹 과제4](https://github.com/TEAM-MODDY/moddy-web/assets/111034927/99ac65cf-5474-4fc0-8197-2edf71a7e737)
+
+### 서비스 플로우 및 핵심 기능
+
+![서비스 플로우](https://github.com/TEAM-MODDY/moddy-web/assets/111034927/e803de51-7602-4dff-91af-8c7941f51a89)
+=======
 ![image](https://github.com/TEAM-MODDY/moddy-web/assets/81505421/3503369c-9dfe-4a86-8e3f-27b095692aa6)
 # moddy
 
@@ -24,23 +33,30 @@
 ### 💈서비스 플로우 및 핵심 기능
 ![모디_서비스플로우](https://github.com/TEAM-MODDY/moddy-web/assets/81505421/1ac447c1-b2e1-484d-86b5-833ab1420403)
 
----
 
 ## Dev Skills
-![기술 스택](https://github.com/TEAM-MODDY/moddy-web/assets/81505421/70f5df07-50da-4976-bb9d-4c75de214b77)
+![기술 스택](https://github.com/TEAM-MODDY/moddy-web/assets/111034927/8eb70a1e-2a5a-4b00-bf50-d1763b54275e)
 
 <br/>
 
 ## Branch Strategy
-![모디_브랜치전략](https://github.com/TEAM-MODDY/moddy-web/assets/81505421/400fabb6-6615-48df-b1bd-40a47e719a4c)
+![브랜치 전략](https://github.com/TEAM-MODDY/moddy-web/assets/111034927/58879d31-0026-4b5f-9f63-5e2abc6c7322)
 
 
 <br/>
 
 ## Directory Structure
-![모디_폴더구조](https://github.com/TEAM-MODDY/moddy-web/assets/81505421/c0381996-8e0e-4210-a64c-7bdcaa0ef87a)
+![폴더 구조](https://github.com/TEAM-MODDY/moddy-web/assets/111034927/5e471674-9ee0-4ab0-b8c0-cf1b621e7a90)
 
 <br/>
+
+
+<br/>
+
+## Team
+
+
+![웹 과제5](https://github.com/TEAM-MODDY/moddy-web/assets/111034927/b33fcd98-ac17-4169-9141-674b28081747)
 
 ## References
 🔗 [Team Convention](https://sparkle-uni.notion.site/Moddy-FE-Convention-ebeeadc8d4bf419484a8e9f4ad82f125?pvs=4)

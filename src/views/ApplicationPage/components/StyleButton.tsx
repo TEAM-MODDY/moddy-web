@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { styled } from 'styled-components';
 
@@ -16,12 +16,6 @@ const StyleButton = ({ type, isSelected }: StyleButtonProps) => {
   const { preference } = selectedStyle;
   const [activate, setActivate] = useState(isSelected);
 
-  useEffect(() => {
-    preference.forEach((element) => {
-      element === type ? setActivate(true) : setActivate(false);
-    });
-  }, []);
-
   const styleResult = () => {
     if (activate) {
       setActivate(false);
@@ -29,7 +23,9 @@ const StyleButton = ({ type, isSelected }: StyleButtonProps) => {
       const tempPreference = [...preference];
 
       tempPreference.forEach((element, index) => {
-        element === type ? tempPreference.splice(index, 1) : null;
+        if (element === type) {
+          tempPreference.splice(index, 1);
+        }
       });
       setSelectedStyle({ ...selectedStyle, preference: tempPreference });
     } else {

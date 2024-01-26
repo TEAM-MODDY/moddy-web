@@ -2,7 +2,7 @@ import { AxiosError } from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 
-import { SELECT_PERIOD, SELECT_SERVICE, SELECT_STYLE } from '../constants/filter';
+import { SELECT_PERIOD, SELECT_SERVICE, SELECT_STYLE } from '../constants/select';
 
 import {
   applicationCaptureImgUrlState,
@@ -48,33 +48,35 @@ const usePostApplication = () => {
   });
 
   const postApplication = async () => {
-    const formData = new FormData();
+    const objApplicationInfo = {
+      hairLength: length,
+      preferHairStyles: tempPreference,
+      hairDetail: hairDetail.data,
+      hairServiceRecords: tempHairServiceRecords,
+      instagramId,
+    };
 
-    // const modelImgBlob = new Blob([modelImgData], { type: 'image/*' });
-    // const captureImgBlob = new Blob([JSON.stringify(applicationCaptureImgUrl)], { type: 'image/*' });
+    const jsonApplicationInfo = JSON.stringify(objApplicationInfo);
+    const applicationInfo = new Blob([jsonApplicationInfo], { type: 'application/json' });
 
-    formData.append('hairLength', length);
-    formData.append('preferHairStyles', 'NORMAL_CUT');
-    formData.append('hairDetail', hairDetail.data);
-    formData.append('hairServiceRecords', JSON.stringify(tempHairServiceRecords));
-    formData.append('modelImgUrl', modelImgData);
-    formData.append('instagramId', instagramId);
-    formData.append('applicationCaptureImgUrl', applicationCaptureImgUrl);
+    const requestbody = {
+      modelImgUrl: modelImgData,
+      applicationCaptureImgUrl: applicationCaptureImgUrl,
+      applicationInfo,
+    };
 
     try {
-      await api.post('/model/application', formData, {
+      await api.post('/model/application', requestbody, {
         headers: {
-          Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJBQ0NFU1NfVE9LRU4iLCJpYXQiOjE3MDU0MDQzMjIsImV4cCI6MTcwNzk5NjMyMiwiVVNFUl9JRCI6IjQifQ.Dr0QFpx2TtD-zqNclP3H1sIZBUuVRreVZxZmmTfVt3Xpcl6nR_xkDPl4yXlp6QgL`,
           'Content-Type': 'multipart/form-data',
         },
       });
-      navigate('/application/confirm');
     } catch (err) {
       if (err instanceof AxiosError) navigate('/error');
     }
   };
 
-  postApplication();
+  return postApplication;
 };
 
 export default usePostApplication;

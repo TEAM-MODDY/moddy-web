@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
 
 import { IcCloseBlack, IcLeftBlack } from '../assets/icons';
@@ -11,17 +12,21 @@ interface HeaderProps {
   title: string;
   backFn?: () => void;
   closeFn?: () => void;
+  isNoModal?: boolean;
 }
 
-const Header = ({ isBackBtnExist, isCloseBtnExist, title, backFn, closeFn }: HeaderProps) => {
+const Header = ({ isBackBtnExist, isCloseBtnExist, title, backFn, closeFn, isNoModal }: HeaderProps) => {
+  const navigate = useNavigate();
   const [isOpenModal, setOpenModal] = useState(false);
   const onClose = () => {
-    setOpenModal(true);
+    isNoModal ? navigate('/') : setOpenModal(true);
   };
   return (
     <S.HeaderLayout>
       <S.HeaderBox>
-        <button onClick={backFn}>{isBackBtnExist ? <IcLeftBlack /> : <S.HeaderBlankBox />}</button>
+        <button onClick={backFn ? backFn : () => navigate(-1)}>
+          {isBackBtnExist ? <IcLeftBlack /> : <S.HeaderBlankBox />}
+        </button>
         <S.HeaderH1>{title}</S.HeaderH1>
         <button onClick={() => onClose()}>{isCloseBtnExist ? <IcCloseBlack /> : <S.HeaderBlankBox />}</button>
       </S.HeaderBox>
@@ -29,10 +34,10 @@ const Header = ({ isBackBtnExist, isCloseBtnExist, title, backFn, closeFn }: Hea
         <Modal
           title="작성을 취소하시겠습니까?"
           description="지금 작성을 취소하면<br/>작성 중인 내용이 사라져요."
-          leftBtnText="취소하기"
-          rightBtnText="계속하기"
+          leftBtnText="계속하기"
+          rightBtnText="취소하기"
           leftBtnFn={() => setOpenModal(false)}
-          rightBtnFn={() => closeFn && closeFn()}
+          rightBtnFn={() => (closeFn ? closeFn() : navigate('/'))}
         />
       )}
     </S.HeaderLayout>
@@ -45,7 +50,7 @@ const S = {
   HeaderLayout: styled.section`
     position: fixed;
     top: 0;
-    z-index: 1;
+    z-index: 4;
 
     width: 100%;
     max-width: 43rem;
