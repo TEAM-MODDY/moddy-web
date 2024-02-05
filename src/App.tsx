@@ -19,6 +19,7 @@ import OfferInfoPage from './pages/OfferInfoPage';
 import SignUpPage from './pages/SignUpPage';
 import GlobalStyle from './styles/GlobalStyle';
 import theme from './styles/Theme';
+import useInterceptor from './views/@common/hooks/useInterceptor';
 import LoginCallback from './views/LoginPage/components/LoginCallback';
 import OfferSentCompletePage from './views/ModelInfoPage/components/OfferSentCompletePage';
 import CheckOfferPage from './views/OfferInfoPage/components/CheckOfferPage';
@@ -44,6 +45,8 @@ const router = createBrowserRouter([
 ]);
 
 const App = () => {
+  useInterceptor();
+
   const setGoogleAnalytics = () => {
     // google analytics 관련
     const gaTrackingID = import.meta.env.VITE_GA_TRACKING_ID;
