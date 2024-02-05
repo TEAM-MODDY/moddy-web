@@ -1,7 +1,5 @@
 import axios, { AxiosInstance } from 'axios';
 
-import usePostRefresh from '@/views/LoginPage/hooks/usePostRefresh';
-
 const api: AxiosInstance = axios.create({
   baseURL: import.meta.env.VITE_BASE_URL,
 });
@@ -33,6 +31,7 @@ api.interceptors.request.use((config) => {
   return config;
 });
 
+// 토큰 만료 처리 로직
 const postRefresh = async () => {
   const accessToken = getToken();
   const refreshToken = getRefreshToken();
@@ -46,23 +45,20 @@ const postRefresh = async () => {
     setToken(newToken.accessToken);
     setRefreshToken(newToken.refreshToken);
   } catch (err) {
+    // refresh api에서 발생한 에러 처리
     console.log(err);
   }
 };
 
 api.interceptors.response.use(
   (res) => res,
-  (err) => {
+  async (err) => {
     if (err.response.status === 401) {
-      console.log('401에러');
-      const config = err.config;
-      postRefresh().then(() => {
-        const token = getToken();
-        config.headers['Authorization'] = `Bearer ${token}`;
-        return api(config);
-      });
+      await postRefresh();
+      const token = getToken();
+      err.config.headers['Authorization'] = `Bearer ${token}`;
+      return api(err.config);
     }
-    console.log('✅');
     return Promise.reject(err);
   },
 );
