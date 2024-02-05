@@ -1,8 +1,8 @@
 import { isAxiosError } from 'axios';
 
-import removeToken from '../utils/removeToken';
+import { getRefreshToken, getToken, removeToken, setRefreshToken, setToken } from '../utils/token';
 
-import api, { getRefreshToken, getToken, setRefreshToken, setToken } from './api';
+import api from './api';
 
 const usePostRefresh = () => {
   const postRefresh = async () => {

@@ -1,6 +1,8 @@
 import { useEffect } from 'react';
 
-import api, { getToken } from './api';
+import { getToken } from '../utils/token';
+
+import api from './api';
 import usePostRefresh from './usePostRefresh';
 
 const useInterceptor = () => {
