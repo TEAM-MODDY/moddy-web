@@ -3,7 +3,7 @@ import { useResetRecoilState } from 'recoil';
 
 import { userTypeState } from '@/recoil/atoms/signUpState';
 import api from '@/views/@common/hooks/api';
-import removeToken from '@/views/@common/utils/removeToken';
+import { removeToken } from '@/views/@common/utils/token';
 
 const usePostLogout = () => {
   const navigate = useNavigate();

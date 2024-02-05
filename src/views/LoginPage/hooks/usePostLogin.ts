@@ -5,7 +5,8 @@ import { useSetRecoilState } from 'recoil';
 import { loginErrorProps, loginResProps } from './type';
 
 import { userTypeState } from '@/recoil/atoms/signUpState';
-import api, { setRefreshToken, setToken } from '@/views/@common/hooks/api';
+import api from '@/views/@common/hooks/api';
+import { setRefreshToken, setToken } from '@/views/@common/utils/token';
 
 const usePostLogin = () => {
   const KAKAO_CODE = new URL(window.location.href).searchParams.get('code');
