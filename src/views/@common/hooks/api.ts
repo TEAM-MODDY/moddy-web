@@ -51,13 +51,18 @@ const postRefresh = async () => {
 };
 
 api.interceptors.response.use(
-  (res) => {
-    return res;
-  },
+  (res) => res,
   (err) => {
     if (err.response.status === 401) {
-      postRefresh();
+      console.log('401에러');
+      const config = err.config;
+      postRefresh().then(() => {
+        const token = getToken();
+        config.headers['Authorization'] = `Bearer ${token}`;
+        return api(config);
+      });
     }
+    console.log('✅');
     return Promise.reject(err);
   },
 );
