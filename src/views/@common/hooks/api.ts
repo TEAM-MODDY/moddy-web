@@ -1,5 +1,7 @@
 import axios, { AxiosInstance } from 'axios';
 
+import usePostRefresh from '@/views/LoginPage/hooks/usePostRefresh';
+
 const api: AxiosInstance = axios.create({
   baseURL: import.meta.env.VITE_BASE_URL,
 });
@@ -30,5 +32,34 @@ api.interceptors.request.use((config) => {
   }
   return config;
 });
+
+const postRefresh = async () => {
+  const accessToken = getToken();
+  const refreshToken = getRefreshToken();
+
+  try {
+    const response = await api.post('/auth/refresh', {
+      accessToken: accessToken,
+      refreshToken: refreshToken,
+    });
+    const newToken = response.data.data;
+    setToken(newToken.accessToken);
+    setRefreshToken(newToken.refreshToken);
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+api.interceptors.response.use(
+  (res) => {
+    return res;
+  },
+  (err) => {
+    if (err.response.status === 401) {
+      postRefresh();
+    }
+    return Promise.reject(err);
+  },
+);
 
 export default api;
