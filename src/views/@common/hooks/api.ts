@@ -1,4 +1,6 @@
-import axios, { AxiosInstance } from 'axios';
+import axios, { AxiosInstance, isAxiosError } from 'axios';
+
+import removeToken from '../utils/removeToken';
 
 const api: AxiosInstance = axios.create({
   baseURL: import.meta.env.VITE_BASE_URL,
@@ -46,7 +48,10 @@ const postRefresh = async () => {
     setRefreshToken(newToken.refreshToken);
   } catch (err) {
     // refresh api에서 발생한 에러 처리
-    console.log(err);
+    if (isAxiosError(err) && err.response?.status === 401) {
+      console.log(err);
+      removeToken();
+    }
   }
 };
 
