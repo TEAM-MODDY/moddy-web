@@ -21,8 +21,3 @@ export interface loginErrorProps {
     };
   };
 }
-
-export interface UsePostRefreshProps {
-  accessToken: string;
-  refreshToken: string;
-}
