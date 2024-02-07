@@ -1,14 +1,15 @@
 import { useEffect } from 'react';
+import { Outlet } from 'react-router-dom';
 
+import api from '../hooks/api';
+import usePostRefresh from '../hooks/usePostRefresh';
 import { getToken } from '../utils/token';
 
-import api from './api';
-import usePostRefresh from './usePostRefresh';
-
-const useInterceptor = () => {
+const Interceptors = () => {
   const postRefresh = usePostRefresh();
 
   useEffect(() => {
+    console.log('✅테스트');
     api.interceptors.request.use((config) => {
       const accessToken = getToken();
       if (accessToken) {
@@ -30,6 +31,8 @@ const useInterceptor = () => {
       },
     );
   }, []);
+
+  return <Outlet />;
 };
 
-export default useInterceptor;
+export default Interceptors;

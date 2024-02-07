@@ -19,33 +19,38 @@ import OfferInfoPage from './pages/OfferInfoPage';
 import SignUpPage from './pages/SignUpPage';
 import GlobalStyle from './styles/GlobalStyle';
 import theme from './styles/Theme';
-import useInterceptor from './views/@common/hooks/useInterceptor';
+import Interceptors from './views/@common/components/Interceptors';
 import LoginCallback from './views/LoginPage/components/LoginCallback';
 import OfferSentCompletePage from './views/ModelInfoPage/components/OfferSentCompletePage';
 import CheckOfferPage from './views/OfferInfoPage/components/CheckOfferPage';
 
 const router = createBrowserRouter([
-  { path: '/', element: <MainPage /> },
-  { path: '/login', element: <LoginPage /> },
-  { path: '/login/oauth2/code/kakao', element: <LoginCallback /> },
-  { path: '/sign-up', element: <SignUpPage /> },
-  { path: '/model-info', element: <ModelInfoPage /> },
-  { path: '/sign-up', element: <SignUpPage /> },
-  { path: '/application', element: <ApplicationPage /> },
-  { path: '/offer-info', element: <OfferInfoPage /> },
-  { path: '/my-page', element: <MyPage /> },
-  { path: '/offer-info/check-offer', element: <CheckOfferPage /> },
-  { path: '/my-quit', element: <MyQuitPage /> },
-  { path: '/model-info/model-offer', element: <ModelOfferPage /> },
-  { path: '/application/confirm', element: <ConfirmPage /> },
-  { path: '/agreement', element: <AgreementPage /> },
-  { path: '/model-info/model-offer/sent-complete', element: <OfferSentCompletePage /> },
-  { path: '/error', element: <ErrorPage /> },
-  { path: '/agreement', element: <AgreementPage /> },
+  {
+    element: <Interceptors />,
+    children: [
+      { path: '/', element: <MainPage /> },
+      { path: '/login', element: <LoginPage /> },
+      { path: '/login/oauth2/code/kakao', element: <LoginCallback /> },
+      { path: '/sign-up', element: <SignUpPage /> },
+      { path: '/model-info', element: <ModelInfoPage /> },
+      { path: '/sign-up', element: <SignUpPage /> },
+      { path: '/application', element: <ApplicationPage /> },
+      { path: '/offer-info', element: <OfferInfoPage /> },
+      { path: '/my-page', element: <MyPage /> },
+      { path: '/offer-info/check-offer', element: <CheckOfferPage /> },
+      { path: '/my-quit', element: <MyQuitPage /> },
+      { path: '/model-info/model-offer', element: <ModelOfferPage /> },
+      { path: '/application/confirm', element: <ConfirmPage /> },
+      { path: '/agreement', element: <AgreementPage /> },
+      { path: '/model-info/model-offer/sent-complete', element: <OfferSentCompletePage /> },
+      { path: '/error', element: <ErrorPage /> },
+      { path: '/agreement', element: <AgreementPage /> },
+    ],
+  },
 ]);
 
 const App = () => {
-  useInterceptor();
+  // useInterceptor();
 
   const setGoogleAnalytics = () => {
     // google analytics 관련
