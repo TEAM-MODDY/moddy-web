@@ -50,8 +50,6 @@ const router = createBrowserRouter([
 ]);
 
 const App = () => {
-  // useInterceptor();
-
   const setGoogleAnalytics = () => {
     // google analytics 관련
     const gaTrackingID = import.meta.env.VITE_GA_TRACKING_ID;

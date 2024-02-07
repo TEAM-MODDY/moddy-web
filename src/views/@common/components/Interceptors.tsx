@@ -9,7 +9,6 @@ const Interceptors = () => {
   const postRefresh = usePostRefresh();
 
   useEffect(() => {
-    console.log('✅테스트');
     api.interceptors.request.use((config) => {
       const accessToken = getToken();
       if (accessToken) {
