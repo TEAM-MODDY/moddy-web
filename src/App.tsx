@@ -19,14 +19,14 @@ import OfferInfoPage from './pages/OfferInfoPage';
 import SignUpPage from './pages/SignUpPage';
 import GlobalStyle from './styles/GlobalStyle';
 import theme from './styles/Theme';
-import Interceptors from './views/@common/components/Interceptors';
+import Settings from './views/@common/components/Settings';
 import LoginCallback from './views/LoginPage/components/LoginCallback';
 import OfferSentCompletePage from './views/ModelInfoPage/components/OfferSentCompletePage';
 import CheckOfferPage from './views/OfferInfoPage/components/CheckOfferPage';
 
 const router = createBrowserRouter([
   {
-    element: <Interceptors />,
+    element: <Settings />,
     children: [
       { path: '/', element: <MainPage /> },
       { path: '/login', element: <LoginPage /> },
