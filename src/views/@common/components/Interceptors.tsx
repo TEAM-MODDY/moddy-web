@@ -1,35 +1,9 @@
-import { useEffect } from 'react';
 import { Outlet } from 'react-router-dom';
 
-import api from '../hooks/api';
-import usePostRefresh from '../hooks/usePostRefresh';
-import { getToken } from '../utils/token';
+import useSetInterceptors from '../hooks/useSetInterceptors';
 
 const Interceptors = () => {
-  const postRefresh = usePostRefresh();
-
-  useEffect(() => {
-    api.interceptors.request.use((config) => {
-      const accessToken = getToken();
-      if (accessToken) {
-        config.headers['Authorization'] = `Bearer ${accessToken}`;
-      }
-      return config;
-    });
-
-    api.interceptors.response.use(
-      (res) => res,
-      async (err) => {
-        if (err.response.status === 401) {
-          await postRefresh();
-          const token = getToken();
-          err.config.headers['Authorization'] = `Bearer ${token}`;
-          return api(err.config);
-        }
-        return Promise.reject(err);
-      },
-    );
-  }, []);
+  useSetInterceptors();
 
   return <Outlet />;
 };
