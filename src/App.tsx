@@ -1,6 +1,3 @@
-import { createBrowserHistory } from 'history';
-import { useEffect } from 'react';
-import { initialize, set as setGA, pageview } from 'react-ga';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
 import { ThemeProvider } from 'styled-components';
@@ -50,33 +47,6 @@ const router = createBrowserRouter([
 ]);
 
 const App = () => {
-  const setGoogleAnalytics = () => {
-    // google analytics 관련
-    const gaTrackingID = import.meta.env.VITE_GA_TRACKING_ID;
-    initialize(gaTrackingID, { debug: true });
-    const history = createBrowserHistory();
-    history.listen((response) => {
-      setGA({ page: response.location.pathname });
-      pageview(response.location.pathname);
-    });
-  };
-
-  const setScreenSize = () => {
-    // window width 관련
-    const windowWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
-    const maxWidth = Math.min(375, windowWidth);
-    document.documentElement.style.setProperty('--app-max-width', `${maxWidth}px`);
-  };
-
-  useEffect(() => {
-    setScreenSize();
-    setGoogleAnalytics();
-    window.addEventListener('resize', setScreenSize);
-
-    return () => {
-      window.removeEventListener('resize', setScreenSize);
-    };
-  }, []);
   return (
     <>
       <RecoilRoot>
