@@ -13,31 +13,25 @@ interface UseGetModelProps {
 }
 
 const useGetMain = ({ user, page }: UseGetModelProps) => {
-  const [data, setData] = useState<ModelResponse | DesignerResponse>();
+  const [modelData, setModelData] = useState<ModelResponse>();
+  const [designerData, setDesignerData] = useState<DesignerResponse>();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<AxiosError>();
 
   const fetchData = async () => {
     try {
       const res = await api.get(`/${user}?page=${page}&size=4`);
-      setData((prev) => {
-        // 타입 가드: prev가 ModelResponse 타입인지 확인
-        if (prev && 'offers' in prev) {
-          return {
-            ...res.data.data,
-            offers: [...prev.offers, ...res.data.data.offers],
-          };
-        } else if (prev && 'hairModelApplications' in prev) {
-          // 타입 가드: prev가 DesignerResponse 타입인지 확인
-          return {
-            ...res.data.data,
-            hairModelApplications: [...prev.hairModelApplications, ...res.data.data.hairModelApplications],
-          };
-        } else {
-          // prev가 undefined이거나 해당 속성이 없는 경우
-          return res.data.data;
-        }
-      });
+      if (user === USER_TYPE.MODEL) {
+        setModelData((prev) => ({
+          ...res.data.data,
+          offers: [...(prev?.offers || []), ...res.data.data.offers],
+        }));
+      } else if (user === USER_TYPE.DESIGNER) {
+        setDesignerData((prev) => ({
+          ...res.data.data,
+          hairModelApplications: [...(prev?.hairModelApplications || []), ...res.data.data.hairModelApplications],
+        }));
+      }
     } catch (err) {
       if (err instanceof AxiosError) setError(err);
       removeToken();
@@ -52,7 +46,8 @@ const useGetMain = ({ user, page }: UseGetModelProps) => {
   }, [page]);
 
   return {
-    data,
+    modelData,
+    designerData,
     error,
     loading,
   };
