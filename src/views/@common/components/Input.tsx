@@ -7,7 +7,7 @@ import { REGEX } from '@/views/@common/utils/regex';
 
 interface InputProps {
   placeholderText: string;
-  regex: RegExp;
+  regex?: RegExp;
   initialValue?: string;
   maxLength?: number;
   onlyNumber?: boolean;
