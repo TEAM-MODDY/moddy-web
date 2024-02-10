@@ -5,7 +5,7 @@ import { useSetRecoilState } from 'recoil';
 import { loginErrorProps, loginResProps } from './type';
 
 import { userTypeState } from '@/recoil/atoms/signUpState';
-import api, { setToken } from '@/views/@common/hooks/api';
+import api, { setRefreshToken, setToken } from '@/views/@common/hooks/api';
 
 const usePostLogin = () => {
   const KAKAO_CODE = new URL(window.location.href).searchParams.get('code');
@@ -20,8 +20,9 @@ const usePostLogin = () => {
         },
       })
       .then((res: loginResProps) => {
-        const { role, accessToken } = res.data.data;
+        const { role, accessToken, refreshToken } = res.data.data;
         setToken(accessToken);
+        setRefreshToken(refreshToken);
         setUserType(role === 'MODEL' ? 'model' : 'designer');
         navigate('/');
       })
