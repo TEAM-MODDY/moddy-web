@@ -6,6 +6,25 @@ export const SELECT_TYPE = {
   PERM: '펌',
 };
 
+export const SELECT_STYLE = [
+  { TITLE: '커트', CONTENT: { '일반 커트': 'NORMAL_CUT' } },
+  {
+    TITLE: '컬러',
+    CONTENT: {
+      '전체 염색': 'ALL_COLOR',
+      '전체 탈색': 'ALL_DECOLOR',
+    },
+  },
+  {
+    TITLE: '펌',
+    CONTENT: {
+      셋팅펌: 'SETTING_PERM ',
+      일반펌: 'NORMAL_PERM',
+      매직: 'STRAIGHTENING ',
+    },
+  },
+];
+
 export const SELECT_SERVICE = {
   펌: 'PERM',
   탈색: 'DECOLOR',
@@ -19,13 +38,4 @@ export const SELECT_PERIOD = {
   '4 - 6개월': 'FOUR_SIX',
   '7 - 12개월': 'SEVEN_TWELVE',
   '12 개월 초과': 'ABOVE_TWELVE',
-};
-
-export const SELECT_STYLE = {
-  '일반 커트': 'NORMAL_CUT',
-  '전체 염색': 'ALL_COLOR',
-  '전체 탈색': 'ALL_DECOLOR',
-  셋팅펌: 'SETTING_PERM ',
-  일반펌: 'NORMAL_PERM',
-  매직: 'STRAIGHTENING ',
 };
