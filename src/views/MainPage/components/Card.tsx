@@ -62,7 +62,6 @@ export const Card = Object.assign(CardMain, {
 
 const CardLayout = styled.div`
   flex-grow: 1;
-  overflow: hidden;
   position: relative;
 
   max-width: calc(100% / 2 - 0.75rem);
@@ -70,8 +69,6 @@ const CardLayout = styled.div`
   border-radius: 12px;
 
   box-shadow: ${({ theme }) => theme.effects.shadow1};
-
-  cursor: pointer;
 `;
 
 const ProfileImageBox = styled.div<{ $img: string }>`
