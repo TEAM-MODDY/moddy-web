@@ -25,6 +25,7 @@ const HairTypeInput = ({ imgIdx, type }: HairTypeInputProps) => {
 
   useEffect(() => {
     let images;
+
     switch (imgIdx) {
       case 0:
         images = [shortDefault, shortSelected];

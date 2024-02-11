@@ -8,7 +8,7 @@ import Button from '../../@common/components/Button';
 import Header from '../../@common/components/Header';
 import ProgressBar from '../../@common/components/ProgressBar';
 import { INFO_MESSAGE } from '../constants/message';
-import { SELECT_TYPE } from '../constants/select';
+import { SELECT_LENGTH, SELECT_TYPE } from '../constants/select';
 
 import HairTypeInput from './HairTypeInput';
 import StyleButton from './StyleButton';
@@ -53,10 +53,9 @@ const DefaultInfo = () => {
               <span>{INFO_MESSAGE.LENGTH_SUBTITLE}</span>
             </S.Title>
             <S.HairTypeInputBox>
-              <HairTypeInput imgIdx={0} type="SHORT" />
-              <HairTypeInput imgIdx={1} type="ABOVE_SHOULDER" />
-              <HairTypeInput imgIdx={2} type="UNDER_SHOULDER" />
-              <HairTypeInput imgIdx={3} type="UNDER_WAIST" />
+              {SELECT_LENGTH.map((element, index) => (
+                <HairTypeInput key={element} imgIdx={index} type={element} />
+              ))}
             </S.HairTypeInputBox>
           </S.HairLengthSection>
           <hr />

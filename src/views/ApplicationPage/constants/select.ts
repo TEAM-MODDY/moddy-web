@@ -1,3 +1,5 @@
+export const SELECT_LENGTH = ['SHORT', 'ABOVE_SHOULDER', 'UNDER_SHOULDER', 'UNDER_WAIST'];
+
 export const SELECT_TYPE = {
   CUT: '커트',
   COLOR: '컬러',
