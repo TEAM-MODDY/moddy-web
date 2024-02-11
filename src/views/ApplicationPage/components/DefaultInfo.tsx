@@ -53,8 +53,8 @@ const DefaultInfo = () => {
               <span>{INFO_MESSAGE.LENGTH_SUBTITLE}</span>
             </S.Title>
             <S.HairTypeInputBox>
-              {SELECT_LENGTH.map((element, index) => (
-                <HairTypeInput key={element} imgIdx={index} type={element} />
+              {SELECT_LENGTH.map((element) => (
+                <HairTypeInput key={element} type={element} />
               ))}
             </S.HairTypeInputBox>
           </S.HairLengthSection>
