@@ -104,6 +104,7 @@ const Profile = ({ setStep }: EnterProfileProp) => {
         </section>
       </S.ProfileLayout>
       <Button
+        id="ga-profile-btn"
         text="다음"
         isFixed={true}
         disabled={!isActive}

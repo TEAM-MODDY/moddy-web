@@ -208,7 +208,7 @@ const S = {
   `,
 
   InfoText: styled.p`
-    min-height: 13.2rem;
+    min-height: 12.5rem;
     max-height: fit-content;
     padding: 1.2rem 1.55rem;
     border: none;

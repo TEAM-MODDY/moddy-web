@@ -42,7 +42,7 @@ const OfferInfoPage = () => {
           {OFFER_INFO_TEXT.AGREE_TO_ASSIGNMENT}
         </S.AgreementBox>
       </S.OfferInfoLayout>
-      <Button text="다음" isFixed={false} onClickFn={handleModalOpen} disabled={!isChecked} />
+      <Button id="ga-accept-btn" text="수락하기" isFixed={false} onClickFn={handleModalOpen} disabled={!isChecked} />
     </>
   );
 };
@@ -56,7 +56,7 @@ const S = {
   `,
 
   DivisionLine: styled.div`
-    width: 100vw;
+    width: 100%;
     height: 0.8rem;
     margin-bottom: 3.03rem;
 

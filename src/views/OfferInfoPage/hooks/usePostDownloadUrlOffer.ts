@@ -14,7 +14,6 @@ const usePostDownloadUrlOffer = (imgUrl: string) => {
       const response = await api.post('/designer/offer/download-url', {
         offerImageUrl: imgUrl,
       });
-      console.log(response.data.data);
       setData(response.data.data);
     } catch (err) {
       navigate('/error');

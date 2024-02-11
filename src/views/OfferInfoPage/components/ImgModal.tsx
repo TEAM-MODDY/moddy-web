@@ -13,15 +13,14 @@ interface ImgModalProps {
 }
 
 const ImgModal = ({ isModal, onClose, imgUrl }: ImgModalProps) => {
-  console.log(imgUrl);
   const data = usePostDownloadUrlOffer(imgUrl);
 
   const handleImgDownload = () => {
     if (!data) return;
     const a = document.createElement('a');
-    a.href = data.downloadUrl;
+    a.href = data.offerImageUrl;
     a.style.display = 'none';
-    a.download = 'apply_moddy.png';
+    a.download = 'my_moddy.png';
     document.body.appendChild(a);
     a.click();
     a.remove();

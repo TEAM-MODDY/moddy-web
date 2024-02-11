@@ -142,6 +142,7 @@ const PhoneNumber = ({ setStep }: EnterProfileProp) => {
         )}
       </S.VerifyPhoneNumberLayout>
       <Button
+        id="ga-phone-number-btn"
         text="다음"
         isFixed={true}
         onClickFn={() =>
