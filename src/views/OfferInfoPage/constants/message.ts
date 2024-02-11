@@ -5,6 +5,7 @@ export const OFFER_INFO_TEXT = {
 export const OFFER_INFO_BTN = {
   INSTAGRAM: '인스타그램',
   NAVER_PLACE: '네이버 플레이스',
+  MAP: '지도',
 };
 
 export const OFFER_INFO_CATEGORY = {
@@ -14,4 +15,6 @@ export const OFFER_INFO_CATEGORY = {
   DESIGNER_INFO: '디자이너 정보',
   GENDER: '성별',
   DAYOFF: '휴무일',
+  ADDRESS: '주소',
+  OFFER_CONDITION: '제안 조건',
 };
