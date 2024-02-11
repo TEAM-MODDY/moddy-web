@@ -2,24 +2,6 @@ import { useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
 
 import { ImgNew } from '../assets/images';
-
-interface OfferCardProps {
-  offerId: number;
-  name: string;
-  shopName: string;
-  imgUrl: string;
-  isClicked: boolean;
-  conditions: string[];
-}
-
-interface ApplicationCardProps {
-  applicationId: number;
-  name: string;
-  age: number;
-  imgUrl: string;
-  gender: string;
-  preferHairStyles: string[];
-}
 interface CardProps {
   analyticsId: string;
   id: number;
@@ -56,11 +38,11 @@ const Name = ({ children }: Props) => <S.NameSpan>{children}</S.NameSpan>;
 const Detail = ({ children }: Props) => <S.DetailSpan>{children}</S.DetailSpan>;
 
 const OptionTag = ({ options }: OptionTagProps) => (
-  <S.PreferStyleWrapperBox>
+  <S.OptionWrapperBox>
     {options.map((item, index) => (
-      <S.PreferStyleTagBox key={index}>{item}</S.PreferStyleTagBox>
+      <S.OptionTagBox key={index}>{item}</S.OptionTagBox>
     ))}
-  </S.PreferStyleWrapperBox>
+  </S.OptionWrapperBox>
 );
 
 const NewIcon = () => (
@@ -77,35 +59,6 @@ export const Card = Object.assign(CardMain, {
   Detail,
   OptionTag,
 });
-
-const OfferCard = ({ offerId, name, shopName, imgUrl, isClicked, conditions }: OfferCardProps) => (
-  <Card analyticsId="ga-offer-card" navigateTo="/offer-info" id={offerId}>
-    {!isClicked && <Card.NewIcon />}
-    <Card.ProfileImg imgUrl={imgUrl} alt="제안서 프로필 사진" />
-    <Card.ContentsBox>
-      <S.FlexBox>
-        <Card.Name>{name}</Card.Name>
-        <Card.Detail>{shopName}</Card.Detail>
-      </S.FlexBox>
-      <Card.OptionTag options={conditions} />
-    </Card.ContentsBox>
-  </Card>
-);
-
-const ApplicationCard = ({ applicationId, name, age, imgUrl, gender, preferHairStyles }: ApplicationCardProps) => (
-  <Card analyticsId="ga-application-card" navigateTo="/model-info" id={applicationId}>
-    <Card.ProfileImg imgUrl={imgUrl} alt="지원서 프로필 사진" />
-    <Card.ContentsBox>
-      <S.FlexBox>
-        <Card.Name>{name}</Card.Name>
-        <Card.Detail>{`${age}세 / ${gender}`}</Card.Detail>
-      </S.FlexBox>
-      <Card.OptionTag options={preferHairStyles} />
-    </Card.ContentsBox>
-  </Card>
-);
-
-export { OfferCard, ApplicationCard };
 
 const CardLayout = styled.div`
   flex-grow: 1;
@@ -172,12 +125,12 @@ const DetailSpan = styled.span`
   white-space: nowrap;
 `;
 
-const PreferStyleWrapperBox = styled.div`
+const OptionWrapperBox = styled.div`
   display: flex;
   gap: 0.8rem;
 `;
 
-const PreferStyleTagBox = styled.div`
+const OptionTagBox = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -206,7 +159,7 @@ const S = {
   FlexBox,
   NameSpan,
   DetailSpan,
-  PreferStyleWrapperBox,
-  PreferStyleTagBox,
+  OptionWrapperBox,
+  OptionTagBox,
   NewTagBox,
 };

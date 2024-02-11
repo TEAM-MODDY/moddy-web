@@ -5,7 +5,7 @@ import { styled } from 'styled-components';
 import { APPLY_STATUS } from '../constants/applyStatus';
 import { DesignerResponse, ModelResponse } from '../hooks/type';
 
-import { OfferCard, ApplicationCard } from './Card';
+import { Card } from './Card';
 
 interface DesignerContentsProps {
   data: DesignerResponse;
@@ -55,9 +55,22 @@ const usePagination = (setPage: React.Dispatch<React.SetStateAction<number>>) =>
 const ModelContents = ({ data, setPage }: ModelContentsProps) => {
   const ref = usePagination(setPage);
 
-  const renderOffers = () => data.offers.map((offer, index) => <OfferCard key={index} {...offer} />);
+  const renderOffers = () =>
+    data.offers.map((offer, index) => (
+      <Card analyticsId="ga-offer-card" navigateTo="/offer-info" id={offer.offerId} key={index}>
+        {!offer.isClicked && <Card.NewIcon />}
+        <Card.ProfileImg imgUrl={offer.imgUrl} alt="제안서 프로필 사진" />
+        <Card.ContentsBox>
+          <S.FlexBox>
+            <Card.Name>{offer.name}</Card.Name>
+            <Card.Detail>{offer.shopName}</Card.Detail>
+          </S.FlexBox>
+          <Card.OptionTag options={offer.conditions} />
+        </Card.ContentsBox>
+      </Card>
+    ));
 
-  const renderEmptyState = () => (
+  const renderEmptyBox = () => (
     <S.EmptyBox>
       <S.HelperTextSpan>
         {data.status === APPLY_STATUS.NOTHING ? (
@@ -73,7 +86,7 @@ const ModelContents = ({ data, setPage }: ModelContentsProps) => {
 
   return (
     <UserContents title="도착한 제안서" ref={ref} dataLength={data.offers.length} total={data.total}>
-      {data.status === APPLY_STATUS.RECEIVED ? renderOffers() : renderEmptyState()}
+      {data.status === APPLY_STATUS.RECEIVED ? renderOffers() : renderEmptyBox()}
     </UserContents>
   );
 };
@@ -82,7 +95,18 @@ const DesignerContents = ({ data, setPage }: DesignerContentsProps) => {
   const ref = usePagination(setPage);
 
   const renderApplications = () =>
-    data.hairModelApplications.map((application, index) => <ApplicationCard key={index} {...application} />);
+    data.hairModelApplications.map((application, index) => (
+      <Card analyticsId="ga-application-card" navigateTo="/model-info" id={application.applicationId} key={index}>
+        <Card.ProfileImg imgUrl={application.imgUrl} alt="지원서 프로필 사진" />
+        <Card.ContentsBox>
+          <S.FlexBox>
+            <Card.Name>{application.name}</Card.Name>
+            <Card.Detail>{`${application.age}세 / ${application.gender}`}</Card.Detail>
+          </S.FlexBox>
+          <Card.OptionTag options={application.preferHairStyles} />
+        </Card.ContentsBox>
+      </Card>
+    ));
 
   return (
     <UserContents title="도착한 지원서" ref={ref} dataLength={data.hairModelApplications.length} total={data.total}>
@@ -133,6 +157,13 @@ const ContentsBox = styled.div`
   width: 100%;
   margin-top: 1.2rem;
 `;
+
+const FlexBox = styled.div`
+  display: flex;
+  gap: 0.8rem;
+  align-items: center;
+`;
+
 const S = {
   UserContentsLayout,
   EmptyBox,
@@ -140,4 +171,5 @@ const S = {
   HelperTextSpan,
   ContentsBox,
   LineHeightSpan,
+  FlexBox,
 };
