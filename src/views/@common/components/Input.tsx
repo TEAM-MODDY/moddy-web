@@ -3,25 +3,56 @@ import { styled } from 'styled-components';
 
 import { IcCheckBlue } from '../assets/icons';
 
+import { REGEX } from '@/views/@common/utils/regex';
+
 interface InputProps {
   placeholderText: string;
+  regex?: RegExp;
   initialValue?: string;
+  maxLength?: number;
+  onlyNumber?: boolean;
   onChangeFn: (value: string) => void;
 }
 
-const Input = ({ placeholderText, initialValue, onChangeFn }: InputProps) => {
-  const [name, setName] = useState(initialValue ? initialValue : '');
+const Input = (props: InputProps) => {
+  const {
+    placeholderText,
+    initialValue = '',
+    maxLength,
+    regex = REGEX.NOT_EMPTY,
+    onlyNumber = false,
+    onChangeFn,
+  } = props;
+
+  const [text, setText] = useState(initialValue);
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    let value = e.target.value;
+
+    // 최대 길이 제한이 있는 경우, 입력값을 해당 길이로 제한
+    if (maxLength && value.length > maxLength) {
+      value = value.slice(0, maxLength);
+    }
+
+    // 숫자만 입력해야 할 경우, 숫자가 아닌 문자 입력 방지
+    if (onlyNumber) {
+      value = value.replace(REGEX.ONLY_NUMBER, '');
+    }
+
+    setText(value);
+    onChangeFn(value);
+  };
+
   return (
     <S.InputLayout>
       <S.Input
+        maxLength={maxLength}
         placeholder={placeholderText}
-        value={name}
-        onChange={(e) => {
-          setName(e.target.value);
-          onChangeFn(e.target.value);
-        }}
+        value={text}
+        onChange={handleInputChange}
+        type={onlyNumber ? 'tel' : 'text'}
       />
-      {name !== '' && <IcCheckBlue />}
+      {regex.test(text) && <IcCheckBlue />}
     </S.InputLayout>
   );
 };

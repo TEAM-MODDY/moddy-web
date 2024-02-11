@@ -22,18 +22,18 @@ const Profile = ({ setStep }: EnterProfileProp) => {
 
   const [verificationStatus, setVerificationStatus] = useState({
     isInstaIdVerified: instaIdInfo.verifyStatus,
-    isNaverPlaceInfoVerified: naverPlaceInfo.verifyStatus,
+    isNaverPlaceVerified: naverPlaceInfo.verifyStatus,
     isImageUploaded: !!profileImgInfo.file,
     isAllVerified: instaIdInfo.verifyStatus && naverPlaceInfo.verifyStatus && !!profileImgInfo.file,
   });
 
   const handleInstaGramText = (value: string) => {
-    setVerificationStatus((prevState) => ({ ...prevState, isInstaVerifed: value }));
+    setVerificationStatus((prevState) => ({ ...prevState, isInstaIdVerified: true }));
     setInstaIdInfo({ data: value, verifyStatus: true });
   };
 
   const handleNaverPlaceText = (value: string) => {
-    setVerificationStatus((prevState) => ({ ...prevState, isNaverPlaceVerifed: value }));
+    setVerificationStatus((prevState) => ({ ...prevState, isNaverPlaceVerified: true }));
     setNaverPlaceInfo({ data: value, verifyStatus: true });
   };
 
