@@ -10,11 +10,11 @@ import { TOTAL_STEP } from '../constants/step';
 import { EnterProfileProp } from '../utils/enterProfileProp';
 
 import Field from './Field';
-import LimitInput from './LimitInput';
 import PostCode from './PostCode';
 
 import { shopInfoState, addressState, detailShopInfoState, dateState } from '@/recoil/atoms/signUpState';
 import Button from '@/views/@common/components/Button';
+import Input from '@/views/@common/components/Input';
 import Modal from '@/views/@common/components/Modal';
 import ProgressBar from '@/views/@common/components/ProgressBar';
 
@@ -114,7 +114,7 @@ const ShopInfo = ({ setStep }: EnterProfileProp) => {
       <S.ShopInfoLayout>
         <Field name="소속" isEssential={true} />
 
-        <LimitInput
+        <Input
           placeholderText={HELPER_MESSAGE.INPUT_SHOP_NAME}
           initialValue={shopInfo.data}
           onChangeFn={handlePlaceText}
@@ -130,7 +130,7 @@ const ShopInfo = ({ setStep }: EnterProfileProp) => {
 
           <IcSearch />
         </S.AddressBox>
-        <LimitInput
+        <Input
           placeholderText={HELPER_MESSAGE.INPUT_DETAIL_ADRESS}
           initialValue={detailAddressInfo.data}
           onChangeFn={handleDetialAddressText}
