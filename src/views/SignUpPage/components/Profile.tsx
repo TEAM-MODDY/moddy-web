@@ -7,11 +7,11 @@ import { TOTAL_STEP } from '../constants/step';
 import { EnterProfileProp } from '../utils/enterProfileProp';
 
 import Field from './Field';
-import LimitInput from './LimitInput';
 import ProfileUpload from './ProfileUpload';
 
 import { instagramLinkState, naverPlaceState, profileImgState } from '@/recoil/atoms/signUpState';
 import Button from '@/views/@common/components/Button';
+import Input from '@/views/@common/components/Input';
 import ProgressBar from '@/views/@common/components/ProgressBar';
 
 const Profile = ({ setStep }: EnterProfileProp) => {
@@ -58,13 +58,13 @@ const Profile = ({ setStep }: EnterProfileProp) => {
         <Field name="포트폴리오" isEssential={true} />
         <S.HelperTextBox>{HELPER_MESSAGE.PREFER_INPUT_PORTFOLIO}</S.HelperTextBox>
         <section>
-          <LimitInput
+          <Input
             placeholderText={HELPER_MESSAGE.INPUT_INSTAGRAM_LINK}
             initialValue={instaIdInfo.data}
             onChangeFn={handleInstaGramText}
             maxLength={255}
           />
-          <LimitInput
+          <Input
             placeholderText={HELPER_MESSAGE.INPUT_NAVERPLACE_LINK}
             initialValue={naverPlaceInfo.data}
             onChangeFn={handleNaverPlaceText}
