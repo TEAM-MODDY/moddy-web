@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { styled } from 'styled-components';
@@ -67,8 +67,8 @@ const DefaultInfo = () => {
               <span>{INFO_MESSAGE.PREFERENCE_SUBTITLE}</span>
             </S.Title>
             {SELECT_STYLE.map((element, index) => (
-              <>
-                <S.StyleBox key={element.TITLE}>
+              <React.Fragment key={element.TITLE}>
+                <S.StyleBox>
                   <h3>{element.TITLE}</h3>
                   <S.SelectList>
                     {Object.keys(element.CONTENT).map((content) => (
@@ -77,7 +77,7 @@ const DefaultInfo = () => {
                   </S.SelectList>
                 </S.StyleBox>
                 {index === SELECT_STYLE.length - 1 ? null : <hr />}
-              </>
+              </React.Fragment>
             ))}
           </S.DeserveStyleSection>
         </S.StyleSection>
