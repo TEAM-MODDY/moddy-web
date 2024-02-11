@@ -24,11 +24,21 @@ const Header = ({ isBackBtnExist, isCloseBtnExist, title, backFn, closeFn, isNoM
   return (
     <S.HeaderLayout>
       <S.HeaderBox>
-        <button onClick={backFn ? backFn : () => navigate(-1)}>
-          {isBackBtnExist ? <IcLeftBlack /> : <S.HeaderBlankBox />}
-        </button>
+        {isBackBtnExist ? (
+          <button onClick={backFn ? backFn : () => navigate(-1)}>
+            <IcLeftBlack />
+          </button>
+        ) : (
+          <S.HeaderBlankBox />
+        )}
         <S.HeaderH1>{title}</S.HeaderH1>
-        <button onClick={() => onClose()}>{isCloseBtnExist ? <IcCloseBlack /> : <S.HeaderBlankBox />}</button>
+        {isCloseBtnExist ? (
+          <button onClick={() => onClose()}>
+            <IcCloseBlack />
+          </button>
+        ) : (
+          <S.HeaderBlankBox />
+        )}
       </S.HeaderBox>
       {isOpenModal && (
         <Modal
