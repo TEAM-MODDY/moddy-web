@@ -24,12 +24,13 @@ const ShopInfo = ({ setStep }: EnterProfileProp) => {
   const [addressInfo, setAddressInfo] = useRecoilState(addressState);
   const [detailAddressInfo, setDetailAddressInfo] = useRecoilState(detailShopInfoState);
   const [clickedDateInfo, setClickedDateInfo] = useRecoilState(dateState);
-  const [placeTextValue, setPlaceTextValue] = useState(shopInfo.data);
 
+  const [placeTextValue, setPlaceTextValue] = useState(shopInfo.data);
   const [isClicked, setIsClicked] = useState<string[]>(clickedDateInfo.data);
   const [isOpenModal, setOpenModal] = useState(false);
   const [Address, setAddress] = useState<string>('');
   const [isAddressModal, setIsAddressModal] = useState(false);
+  const [addressDetailValue, setAddressDetailValue] = useState(detailAddressInfo.data);
   const navigate = useNavigate();
   const handleDayOffClick = (event: React.MouseEvent<HTMLButtonElement>, index: number) => {
     const dayValue = event.currentTarget.value;
@@ -64,7 +65,6 @@ const ShopInfo = ({ setStep }: EnterProfileProp) => {
     setShopInfo({ data: value, verifyStatus: true });
   };
 
-  const [addressDetailValue, setAddressDetailValue] = useState(detailAddressInfo.data);
   const handleDetialAddressText = (value: string) => {
     setAddressDetailValue(value);
     setDetailAddressInfo({ data: value, verifyStatus: true });
