@@ -12,13 +12,14 @@ interface HeaderProps {
   title: string;
   backFn?: () => void;
   closeFn?: () => void;
+  isNoModal?: boolean;
 }
 
-const Header = ({ isBackBtnExist, isCloseBtnExist, title, backFn, closeFn }: HeaderProps) => {
+const Header = ({ isBackBtnExist, isCloseBtnExist, title, backFn, closeFn, isNoModal }: HeaderProps) => {
   const navigate = useNavigate();
   const [isOpenModal, setOpenModal] = useState(false);
   const onClose = () => {
-    setOpenModal(true);
+    isNoModal ? navigate('/') : setOpenModal(true);
   };
   return (
     <S.HeaderLayout>

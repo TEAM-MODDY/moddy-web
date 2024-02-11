@@ -28,7 +28,7 @@ export interface searchAddressType {
 
 export interface inputImgType {
   data: string;
-  file: File | null;
+  file: File;
 }
 
 const { persistAtom } = recoilPersist({
@@ -137,7 +137,7 @@ export const profileImgState = atom<inputImgType>({
   key: 'profilePictureInfo',
   default: {
     data: '',
-    file: null,
+    file: new File([], 'empty.txt'),
   },
 });
 

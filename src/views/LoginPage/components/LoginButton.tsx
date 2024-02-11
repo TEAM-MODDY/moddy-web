@@ -10,6 +10,7 @@ const LoginButton = () => {
   return (
     <S.LoginButtonLayout>
       <S.LoginButtonBtn
+        id="ga-kakao-btn"
         type="button"
         onClick={() => {
           handleLogin();

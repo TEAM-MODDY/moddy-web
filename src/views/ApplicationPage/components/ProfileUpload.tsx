@@ -23,7 +23,9 @@ const ProfileUpload = () => {
   const navigate = useNavigate();
 
   const handleInput = (event: React.ChangeEvent<HTMLInputElement>) => {
-    readImg(event)
+    const imgObj = event.target.files;
+
+    readImg(imgObj[0])
       .then((dataUrl) => {
         setInputData({
           ...inputData,

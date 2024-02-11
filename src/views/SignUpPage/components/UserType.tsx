@@ -45,7 +45,7 @@ const UserType = ({ setStep }: SelectUserTypeProp) => {
             onChange={handleUserType}
             checked={userType === 'designer'}
           />
-          <S.UserTypeBoxLabel htmlFor="designer">
+          <S.UserTypeBoxLabel htmlFor="designer" id="ga-designer-btn">
             <S.ImageBox>
               <img src={designerImg} width="100%" alt="디자이너" />
             </S.ImageBox>
@@ -64,7 +64,7 @@ const UserType = ({ setStep }: SelectUserTypeProp) => {
             onChange={handleUserType}
             checked={userType === 'model'}
           />
-          <S.UserTypeBoxLabel htmlFor="model">
+          <S.UserTypeBoxLabel htmlFor="model" id="ga-model-btn">
             <S.ImageBox>
               <img src={modelImg} width="100%" alt="모델" />
             </S.ImageBox>
@@ -120,6 +120,7 @@ const UserTypeBoxLabel = styled.label`
   flex-grow: 1;
 
   width: 16.4rem;
+  height: 18.7rem;
   padding: 1.4rem 0;
   border: 1.5px solid ${({ theme }) => theme.colors.moddy_gray20};
   border-radius: 12px;
@@ -129,6 +130,7 @@ const UserTypeBoxLabel = styled.label`
 
 const ImageBox = styled.div`
   width: 10rem;
+  height: 9.7rem;
 
   background-color: transparent;
   filter: drop-shadow(0 0 3rem rgb(82 0 255 / 25%));

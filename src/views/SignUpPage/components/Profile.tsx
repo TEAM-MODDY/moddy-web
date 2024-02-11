@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { styled } from 'styled-components';
 
@@ -37,22 +37,13 @@ const Profile = ({ setStep }: EnterProfileProp) => {
     setNaverPlaceInfo({ data: value, verifyStatus: true });
   };
 
-  const handleImageUpload = (imgUrl: string) => {
-    setProfileImgInfo({ ...profileImgInfo, data: imgUrl });
+  const handleImageUpload = (imgUrl: string, imgObj: File) => {
+    setProfileImgInfo((prevProfileImgInfo) => ({
+      ...prevProfileImgInfo,
+      data: imgUrl,
+      file: imgObj,
+    }));
   };
-
-  useEffect(() => {
-    const applyChanges = async () => {
-      if (profileImgInfo) {
-        setVerificationStatus((prevState) => ({
-          ...prevState,
-          isAllVerified: prevState.isInstaIdVerified && prevState.isNaverPlaceInfoVerified && prevState.isImageUploaded,
-        }));
-      }
-    };
-
-    applyChanges();
-  }, [verificationStatus.isInstaIdVerified, verificationStatus.isNaverPlaceInfoVerified, profileImgInfo.file]);
 
   return (
     <>
@@ -82,9 +73,10 @@ const Profile = ({ setStep }: EnterProfileProp) => {
         </section>
       </S.ProfileLayout>
       <Button
+        id="ga-profile-btn"
         text="다음"
         isFixed={true}
-        disabled={verificationStatus.isAllVerified}
+        disabled={!verificationStatus.isAllVerified}
         onClickFn={() => {
           setStep((prev) => prev + 1);
         }}

@@ -14,7 +14,6 @@ const useGetUser = () => {
       const response = await api.get('/model/application/user');
       setData(response.data.data);
     } catch (err) {
-      console.log(err);
       navigate('/error');
     }
   };
