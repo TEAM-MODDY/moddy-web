@@ -18,17 +18,16 @@ import { applyStepState, hairStyleState } from '@/recoil/atoms/applicationState'
 const DefaultInfo = () => {
   const [step, setStep] = useRecoilState(applyStepState);
   const [selectedStyle, setSelectedStyle] = useRecoilState(hairStyleState);
-  const { length, preference, verifyStatus } = selectedStyle;
   const navigate = useNavigate();
 
   useEffect(() => {
-    length && preference.length > 0
+    selectedStyle.length && selectedStyle.preference.length > 0
       ? setSelectedStyle({ ...selectedStyle, verifyStatus: true })
       : setSelectedStyle({ ...selectedStyle, verifyStatus: false });
-  }, [length, preference]);
+  }, [selectedStyle.length, selectedStyle.preference]);
 
   const activateCheckbox = (type: string): boolean => {
-    return preference.includes(type);
+    return selectedStyle.preference.includes(type);
   };
 
   return (
@@ -88,7 +87,7 @@ const DefaultInfo = () => {
           setStep({ ...step, current: step.current + 1 });
         }}
         isFixed={true}
-        disabled={!verifyStatus}
+        disabled={!selectedStyle.verifyStatus}
       />
     </S.DefaultInfoLayout>
   );
