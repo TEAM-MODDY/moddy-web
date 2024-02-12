@@ -5,7 +5,7 @@ import { DesignerResponse, ModelResponse } from './type';
 
 import { USER_TYPE } from '@/views/@common/constants/userType';
 import api from '@/views/@common/hooks/api';
-import removeToken from '@/views/@common/utils/removeToken';
+import { removeToken } from '@/views/@common/utils/token';
 
 interface UseGetModelProps {
   user: string;

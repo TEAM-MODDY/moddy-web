@@ -7,7 +7,7 @@ import Header from '../views/@common/components/Header';
 import AgreementList from '../views/AgreementPage/components/AgreementList';
 
 import { agreementState } from '@/recoil/atoms/agreementState';
-import removeToken from '@/views/@common/utils/removeToken';
+import { removeToken } from '@/views/@common/utils/token';
 
 const AgreementPage = () => {
   const [isChecked, setChecked] = useRecoilState<boolean[]>(agreementState);
