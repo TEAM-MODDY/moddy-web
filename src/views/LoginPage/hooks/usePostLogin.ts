@@ -29,7 +29,9 @@ const usePostLogin = () => {
       })
       .catch((err: loginErrorProps) => {
         if (err.response.data.code === 404) {
-          setToken(err.response.data.data.accessToken);
+          const { accessToken, refreshToken } = err.response.data.data;
+          setToken(accessToken);
+          setRefreshToken(refreshToken);
           navigate('/agreement');
         } else {
           navigate('/error');
