@@ -54,7 +54,7 @@ const DefaultInfo = () => {
             </S.Title>
             <S.HairTypeInputBox>
               {SELECT_LENGTH.map((element) => (
-                <HairTypeInput key={element} type={element} />
+                <HairTypeInput key={element.LENGTH} type={element.LENGTH} />
               ))}
             </S.HairTypeInputBox>
           </S.HairLengthSection>

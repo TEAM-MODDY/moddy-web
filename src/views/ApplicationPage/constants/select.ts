@@ -1,4 +1,18 @@
-export const SELECT_LENGTH = ['SHORT', 'ABOVE_SHOULDER', 'UNDER_SHOULDER', 'UNDER_WAIST'];
+import shortDefault from '../../@common/assets/images/btn_hair1_default.png';
+import shortSelected from '../../@common/assets/images/btn_hair1_selected.png';
+import mediumDefault from '../../@common/assets/images/btn_hair2_default.png';
+import mediumSelected from '../../@common/assets/images/btn_hair2_selected.png';
+import longDefault from '../../@common/assets/images/btn_hair3_default.png';
+import longSelected from '../../@common/assets/images/btn_hair3_selected.png';
+import rapunzelDefault from '../../@common/assets/images/btn_hair4_default.png';
+import rapunzelSelected from '../../@common/assets/images/btn_hair4_selected.png';
+
+export const SELECT_LENGTH = [
+  { LENGTH: 'SHORT', IMAGES: { DEFAULT: shortDefault, SELECTED: shortSelected } },
+  { LENGTH: 'ABOVE_SHOULDER', IMAGES: { DEFAULT: mediumDefault, SELECTED: mediumSelected } },
+  { LENGTH: 'UNDER_SHOULDER', IMAGES: { DEFAULT: longDefault, SELECTED: longSelected } },
+  { LENGTH: 'UNDER_WAIST', IMAGES: { DEFAULT: rapunzelDefault, SELECTED: rapunzelSelected } },
+];
 
 export const SELECT_TYPE = {
   CUT: '커트',
