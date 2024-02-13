@@ -1,5 +1,4 @@
-import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import { styled } from 'styled-components';
 
@@ -11,23 +10,16 @@ import { DesignerContents, ModelContents } from '../views/MainPage/components/Us
 
 import { userTypeState } from '@/recoil/atoms/signUpState';
 import { USER_TYPE } from '@/views/@common/constants/userType';
+import UsePreventGoBack from '@/views/@common/utils/UsePreventGoBack';
 import { INITIAL_PAGE } from '@/views/MainPage/constants/constant';
 import useGetMain from '@/views/MainPage/hooks/useGetMain';
 
 const MainPage = () => {
+  UsePreventGoBack();
+
   const userType = useRecoilValue(userTypeState);
   const [page, setPage] = useState(INITIAL_PAGE);
   const { modelData, designerData } = useGetMain({ user: userType, page: page });
-
-  // 뒤로 가기 막기 관련
-  const navigate = useNavigate();
-  useEffect(() => {
-    const handlePopState = () => navigate('/');
-    window.history.pushState(null, '', window.location.href);
-    window.addEventListener('popstate', handlePopState);
-
-    return () => window.removeEventListener('popstate', handlePopState);
-  }, [navigate]);
 
   const Contents = {
     [USER_TYPE.GUEST]: {
