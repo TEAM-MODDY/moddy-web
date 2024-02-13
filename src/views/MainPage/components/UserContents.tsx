@@ -8,11 +8,11 @@ import { DesignerResponse, ModelResponse } from '../hooks/type';
 import { Card } from './Card';
 
 interface DesignerContentsProps {
-  data: DesignerResponse;
+  data: DesignerResponse | undefined;
   setPage: React.Dispatch<React.SetStateAction<number>>;
 }
 interface ModelContentsProps {
-  data: ModelResponse;
+  data: ModelResponse | undefined;
   setPage: React.Dispatch<React.SetStateAction<number>>;
 }
 
@@ -55,6 +55,8 @@ const usePagination = (setPage: React.Dispatch<React.SetStateAction<number>>) =>
 const ModelContents = ({ data, setPage }: ModelContentsProps) => {
   const ref = usePagination(setPage);
 
+  if (!data) return;
+
   const renderOffers = () =>
     data.offers.map((offer, index) => (
       <Card analyticsId="ga-offer-card" navigateTo="/offer-info" id={offer.offerId} key={index}>
@@ -93,6 +95,8 @@ const ModelContents = ({ data, setPage }: ModelContentsProps) => {
 
 const DesignerContents = ({ data, setPage }: DesignerContentsProps) => {
   const ref = usePagination(setPage);
+
+  if (!data) return;
 
   const renderApplications = () =>
     data.hairModelApplications.map((application, index) => (

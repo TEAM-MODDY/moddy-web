@@ -31,14 +31,14 @@ const MainPage = () => {
 
   const Contents = {
     [USER_TYPE.GUEST]: {
-      mainContent: GuestContents,
+      mainContent: <GuestContents />,
     },
     [USER_TYPE.DESIGNER]: {
-      mainContent: () => designerData && <DesignerContents data={designerData} setPage={setPage} />,
+      mainContent: <DesignerContents data={designerData} setPage={setPage} />,
       name: designerData?.name,
     },
     [USER_TYPE.MODEL]: {
-      mainContent: () => modelData && <ModelContents data={modelData} setPage={setPage} />,
+      mainContent: <ModelContents data={modelData} setPage={setPage} />,
       applyType: modelData?.status,
       name: modelData?.name,
     },
@@ -51,9 +51,9 @@ const MainPage = () => {
   };
 
   const MainContentsByUserType = () => {
-    const ContentComponent = Contents[userType].mainContent;
-    return <ContentComponent />;
+    return Contents[userType].mainContent;
   };
+
   return (
     <MainPageLayout>
       <StatusBarForiOS />
