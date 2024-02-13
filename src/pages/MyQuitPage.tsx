@@ -33,7 +33,6 @@ const MyQuitPage = () => {
           leftBtnFn={() => setModalOpen && setModalOpen(false)}
           rightBtnFn={() => {
             deleteUser();
-            navigate('/');
           }}
         />
       )}
