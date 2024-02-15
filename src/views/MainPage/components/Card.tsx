@@ -2,77 +2,65 @@ import { useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
 
 import { ImgNew } from '../assets/images';
-
-interface OfferCardProps {
-  offerId: number;
-  name: string;
-  shopName: string;
-  imgUrl: string;
-  isClicked: boolean;
-  conditions: string[];
+interface CardProps {
+  analyticsId: string;
+  id: number;
+  navigateTo: string;
+  children: React.ReactNode;
 }
 
-interface ApplicationCardProps {
-  applicationId: number;
-  name: string;
-  age: number;
+const CardMain = ({ analyticsId, navigateTo, id, children }: CardProps) => {
+  const navigate = useNavigate();
+
+  return (
+    <S.CardLayout id={analyticsId} onClick={() => navigate(navigateTo, { state: id })}>
+      {children}
+    </S.CardLayout>
+  );
+};
+interface ProfileImgProps {
   imgUrl: string;
-  gender: string;
-  preferHairStyles: string[];
+  alt: string;
+}
+interface Props {
+  children: React.ReactNode;
+}
+interface OptionTagProps {
+  options: string[];
 }
 
-const OfferCard = (props: OfferCardProps) => {
-  const navigate = useNavigate();
-  const { offerId, name, shopName, imgUrl, isClicked, conditions } = props;
-  return (
-    <S.ApplicationCardLayout id="ga-offer-card" onClick={() => navigate('/offer-info', { state: offerId })}>
-      {isClicked ? null : (
-        <S.NewTagBox>
-          <ImgNew />
-        </S.NewTagBox>
-      )}
-      <S.ProfileImageBox $img={imgUrl} title="제안서 프로필 사진" />
-      <S.ModelInfoBox>
-        <S.PersonalInfoBox>
-          <S.NameSpan>{name}</S.NameSpan>
-          <S.AgeGenderSpan>{shopName}</S.AgeGenderSpan>
-        </S.PersonalInfoBox>
-        <S.PreferStyleWrapperBox>
-          {conditions.map((item, index) => (
-            <S.PreferStyleTagBox key={index}>{item}</S.PreferStyleTagBox>
-          ))}
-        </S.PreferStyleWrapperBox>
-      </S.ModelInfoBox>
-    </S.ApplicationCardLayout>
-  );
-};
+const ProfileImg = ({ imgUrl, alt }: ProfileImgProps) => <S.ProfileImageBox $img={imgUrl} title={alt} />;
 
-const ApplicationCard = (props: ApplicationCardProps) => {
-  const navigate = useNavigate();
-  const { applicationId, name, age, imgUrl, gender, preferHairStyles } = props;
-  return (
-    <S.ApplicationCardLayout id="ga-application-card" onClick={() => navigate('/model-info', { state: applicationId })}>
-      <S.ProfileImageBox $img={imgUrl} title="지원서 프로필 사진" />
-      <S.ModelInfoBox>
-        <S.PersonalInfoBox>
-          <S.NameSpan>{name}</S.NameSpan>
-          <S.AgeGenderSpan>
-            {age}세 / {gender}
-          </S.AgeGenderSpan>
-        </S.PersonalInfoBox>
-        <S.PreferStyleWrapperBox>
-          {preferHairStyles.map((item, index) => (
-            <S.PreferStyleTagBox key={index}>{item}</S.PreferStyleTagBox>
-          ))}
-        </S.PreferStyleWrapperBox>
-      </S.ModelInfoBox>
-    </S.ApplicationCardLayout>
-  );
-};
+const ContentsBox = ({ children }: Props) => <S.InfoBox>{children}</S.InfoBox>;
 
-export { OfferCard, ApplicationCard };
+const Name = ({ children }: Props) => <S.NameSpan>{children}</S.NameSpan>;
 
-const ApplicationCardLayout = styled.button`
+const Detail = ({ children }: Props) => <S.DetailSpan>{children}</S.DetailSpan>;
+
+const OptionTag = ({ options }: OptionTagProps) => (
+  <S.OptionWrapperBox>
+    {options.map((item, index) => (
+      <S.OptionTagBox key={index}>{item}</S.OptionTagBox>
+    ))}
+  </S.OptionWrapperBox>
+);
+
+const NewIcon = () => (
+  <S.NewTagBox>
+    <ImgNew />
+  </S.NewTagBox>
+);
+
+export const Card = Object.assign(CardMain, {
+  NewIcon,
+  ProfileImg,
+  ContentsBox,
+  Name,
+  Detail,
+  OptionTag,
+});
+
+const CardLayout = styled.div`
   flex-grow: 1;
   position: relative;
 
@@ -97,7 +85,7 @@ const ProfileImageBox = styled.div<{ $img: string }>`
   }
 `;
 
-const ModelInfoBox = styled.div`
+const InfoBox = styled.div`
   display: flex;
   flex-direction: column;
   gap: 0.4rem;
@@ -105,7 +93,7 @@ const ModelInfoBox = styled.div`
   padding: 0.8rem 1.5rem;
 `;
 
-const PersonalInfoBox = styled.div`
+const FlexBox = styled.div`
   display: flex;
   gap: 0.8rem;
   align-items: center;
@@ -120,7 +108,7 @@ const NameSpan = styled.span`
   white-space: nowrap;
 `;
 
-const AgeGenderSpan = styled.span`
+const DetailSpan = styled.span`
   overflow: hidden;
 
   width: 6.5rem;
@@ -134,12 +122,12 @@ const AgeGenderSpan = styled.span`
   white-space: nowrap;
 `;
 
-const PreferStyleWrapperBox = styled.div`
+const OptionWrapperBox = styled.div`
   display: flex;
   gap: 0.8rem;
 `;
 
-const PreferStyleTagBox = styled.div`
+const OptionTagBox = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -162,13 +150,13 @@ const NewTagBox = styled.div`
   right: 1.2rem;
 `;
 const S = {
-  ApplicationCardLayout,
+  CardLayout,
   ProfileImageBox,
-  ModelInfoBox,
-  PersonalInfoBox,
+  InfoBox,
+  FlexBox,
   NameSpan,
-  AgeGenderSpan,
-  PreferStyleWrapperBox,
-  PreferStyleTagBox,
+  DetailSpan,
+  OptionWrapperBox,
+  OptionTagBox,
   NewTagBox,
 };
