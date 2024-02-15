@@ -5,6 +5,15 @@ import { styled } from 'styled-components';
 import Button from '../../@common/components/Button';
 import ProgressBar from '../../@common/components/ProgressBar';
 import { USER_TYPE } from '../../@common/constants/userType';
+import {
+  EMPTY_STRING,
+  HYPHEN,
+  LIMIT_TIME,
+  PHONE_NUMBER_FORMAT_TEMPLATE,
+  PHONE_NUMBER_MAX_LENGTH,
+  SECONDS_PER_MINUTE,
+  VERIFY_CODE_MAX_LENGTH,
+} from '../constants/constants';
 import { HELPER_MESSAGE, PLACE_HOLDER_MESSAGE, TOAST_MESSAGE } from '../constants/message';
 import { STATUS } from '../constants/requestStatus';
 import { STEP, TOTAL_STEP } from '../constants/step';
@@ -17,9 +26,9 @@ import Field from './Field';
 
 import { phoneNumberState, tempUserTypeState, verifyCodeState } from '@/recoil/atoms/signUpState';
 import ToastMessage from '@/views/@common/components/ToastMessage';
+import { REGEX } from '@/views/@common/utils/regex';
 
 const PhoneNumber = ({ setStep }: EnterProfileProp) => {
-  const LIMIT_TIME = 180;
   const userType = useRecoilValue(tempUserTypeState);
 
   const [isToastOpen, setToastOpen] = useState<boolean>(false);
@@ -36,33 +45,33 @@ const PhoneNumber = ({ setStep }: EnterProfileProp) => {
   }, 1000);
 
   const formatTime = () => {
-    const minutes = Math.floor(seconds / 60);
-    const secondsLeft = seconds % 60;
-    return `${minutes}:${secondsLeft < 10 ? '0' : ''}${secondsLeft}`;
+    const minutes = Math.floor(seconds / SECONDS_PER_MINUTE);
+    const secondsLeft = seconds % SECONDS_PER_MINUTE;
+    return `${minutes}:${secondsLeft < 10 ? '0' : ''}${secondsLeft}`; // 남은 시간을 M:SS 형태로 나타냄
   };
 
   const handlePhoneNumber = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const regex = /^[0-9\b -]{0,13}$/;
-    if (regex.test(e.target.value)) {
+    const phoneNumber = e.target.value;
+    if (REGEX.PHONE_NUMBER.test(phoneNumber)) {
       setPhoneNumber({
-        data: e.target.value,
-        status: e.target.value.length === 11 ? STATUS.AVAILABLE : STATUS.NOT_AVAILABLE,
+        data: phoneNumber,
+        status: phoneNumber.length === PHONE_NUMBER_MAX_LENGTH ? STATUS.AVAILABLE : STATUS.NOT_AVAILABLE,
       });
     }
   };
 
   const handleVerifyCode = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const regex = /^[0-9\b]{0,6}$/;
-    if (regex.test(e.target.value)) {
+    const verifyCode = e.target.value;
+    if (REGEX.VERIFY_CODE.test(verifyCode)) {
       setVerifyCode({
-        data: e.target.value,
-        status: e.target.value.length === 6 ? STATUS.AVAILABLE : STATUS.NOT_AVAILABLE,
+        data: verifyCode,
+        status: verifyCode.length === VERIFY_CODE_MAX_LENGTH ? STATUS.AVAILABLE : STATUS.NOT_AVAILABLE,
       });
     }
   };
 
   const handleRequestVerify = () => {
-    phoneNumber.data.replace('-', '');
+    phoneNumber.data.replace(HYPHEN, EMPTY_STRING);
     if (phoneNumber.status === STATUS.AVAILABLE) {
       setPhoneNumber({
         data: phoneNumber.data,
@@ -113,7 +122,9 @@ const PhoneNumber = ({ setStep }: EnterProfileProp) => {
         <S.InputBox>
           <S.Input
             placeholder={PLACE_HOLDER_MESSAGE.INPUT_PHONE_NUMBER}
-            value={phoneNumber.data.replace(/-/g, '').replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3')}
+            value={phoneNumber.data
+              .replace(REGEX.ALL_HYPHEN, EMPTY_STRING)
+              .replace(REGEX.PHONE_NUMBER_PATTERN, PHONE_NUMBER_FORMAT_TEMPLATE)}
             onChange={handlePhoneNumber}
             disabled={verifyCode.status === STATUS.VERIFIED}
           />
