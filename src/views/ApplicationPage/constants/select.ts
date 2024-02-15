@@ -20,7 +20,12 @@ export const SELECT_TYPE = {
   PERM: '펌',
 };
 
-export const SELECT_STYLE = [
+interface SelectStyleItem {
+  TITLE: string;
+  CONTENT: Record<string, string>;
+}
+
+export const SELECT_STYLE: SelectStyleItem[] = [
   { TITLE: '커트', CONTENT: { '일반 커트': 'NORMAL_CUT' } },
   {
     TITLE: '컬러',
