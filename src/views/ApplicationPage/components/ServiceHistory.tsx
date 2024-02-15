@@ -16,13 +16,12 @@ const ServiceHistory = () => {
 
   const [step, setStep] = useRecoilState(applyStepState);
   const [serviceHistory, setServiceHistory] = useRecoilState(historyState);
-  const { hairServiceRecords } = serviceHistory;
   const navigate = useNavigate();
 
   const addHistory = () => {
-    if (hairServiceRecords.length < MAX_LENGTH) {
+    if (serviceHistory.hairServiceRecords.length < MAX_LENGTH) {
       const tempServiceHistoryList: historyDetailProps[] = [
-        ...hairServiceRecords,
+        ...serviceHistory.hairServiceRecords,
         { hairService: '', hairServiceTerm: '' },
       ];
       setServiceHistory({ ...serviceHistory, hairServiceRecords: tempServiceHistoryList });
@@ -56,11 +55,9 @@ const ServiceHistory = () => {
         <h3>{INFO_MESSAGE.SERVICE_SUBTITLE}</h3>
       </S.Title>
       <S.ServiceHistoryList>
-        {hairServiceRecords.map((item, idx: number) =>
-          idx < hairServiceRecords.length ? (
-            <ServiceHistoryListItem key={'history' + item.hairService + item.hairServiceTerm + idx} idx={idx} />
-          ) : null,
-        )}
+        {serviceHistory.hairServiceRecords.map((item, idx) => (
+          <ServiceHistoryListItem key={'history' + item.hairService + item.hairServiceTerm + idx} idx={idx} />
+        ))}
       </S.ServiceHistoryList>
       <S.AddHistoryBtn type="button" onClick={addHistory}>
         {INFO_MESSAGE.ADD_HISTORY}
