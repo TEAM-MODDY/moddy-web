@@ -9,8 +9,7 @@ const usePostVerifyPhoneNumber = (phoneNumber: string, verifyCode: string) => {
       verifyCode: verifyCode,
     };
     try {
-      const data = await api.post('/auth/phoneNumber/verify', requestBody);
-      console.log(data);
+      await api.post('/auth/phoneNumber/verify', requestBody);
       return true;
     } catch (err) {
       return false;
