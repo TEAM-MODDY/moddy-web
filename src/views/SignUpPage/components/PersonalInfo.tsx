@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { styled } from 'styled-components';
 
-import { IcCheckBlue, IcInformation } from '../../@common/assets/icons';
+import { IcInformation } from '../../@common/assets/icons';
 import Button from '../../@common/components/Button';
 import ProgressBar from '../../@common/components/ProgressBar';
 import ToastMessage from '../../@common/components/ToastMessage';
@@ -12,9 +12,10 @@ import { STEP, TOTAL_STEP } from '../constants/step';
 import { EnterProfileProp } from '../utils/enterProfileProp';
 
 import Field from './Field';
-import LimitInput from './LimitInput';
 
 import { birthYearState, genderState, nameState, tempUserTypeState } from '@/recoil/atoms/signUpState';
+import Input from '@/views/@common/components/Input';
+import { REGEX } from '@/views/@common/utils/regex';
 
 const PersonalInfo = ({ setStep }: EnterProfileProp) => {
   const userType = useRecoilValue(tempUserTypeState);
@@ -31,30 +32,32 @@ const PersonalInfo = ({ setStep }: EnterProfileProp) => {
   });
   const [isToastOpen, setToastOpen] = useState<boolean>(false);
 
-  const handleBirthYear = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleBirthYear = (value: string) => {
     const regex = /^[0-9\b]{0,4}$/;
-
-    if (regex.test(e.target.value)) {
-      setBirthYear({ data: e.target.value, verifyStatus: verificationStatus.isBirthYearVerified });
-      if (e.target.value.length === 4) {
-        const regex = /^(19[0-9]{2}|200[0-9]|201[0-9]|202[0-4])$/;
-        regex.test(e.target.value)
+    if (regex.test(value)) {
+      setBirthYear({ data: value, verifyStatus: verificationStatus.isBirthYearVerified });
+      if (value.length === 4) {
+        const regex = REGEX.BIRTH_YEAR;
+        regex.test(value)
           ? (setVerificationStatus((prevState) => ({ ...prevState, isBirthYearVerified: true })),
-            setBirthYear({ data: e.target.value, verifyStatus: true }))
+            setBirthYear({ data: value, verifyStatus: true }))
           : (setVerificationStatus((prevState) => ({ ...prevState, isBirthYearVerified: false })),
             setToastOpen(true),
-            setBirthYear({ data: e.target.value, verifyStatus: false }));
+            setBirthYear({ data: value, verifyStatus: false }));
       } else {
         setVerificationStatus((prevState) => ({ ...prevState, isBirthYearVerified: false }));
-        setBirthYear({ data: e.target.value, verifyStatus: false });
+        setBirthYear({ data: value, verifyStatus: false });
       }
     }
   };
 
   const handleName = (value: string) => {
-    if (value.length > 0 && value.length <= 10) {
+    if (value.length > 0 && value.length <= 5) {
       setVerificationStatus((prevState) => ({ ...prevState, isNameVerified: true }));
       setName({ data: value, verifyStatus: true });
+    } else {
+      setVerificationStatus((prevState) => ({ ...prevState, isNameVerified: false }));
+      setName({ data: value, verifyStatus: false });
     }
   };
 
@@ -84,7 +87,7 @@ const PersonalInfo = ({ setStep }: EnterProfileProp) => {
       <S.PersonalInfoLayout>
         <S.FormBox>
           <Field name={userType === USER_TYPE.DESIGNER ? '디자이너명' : '이름'} isEssential={true} />
-          <LimitInput
+          <Input
             placeholderText={PLACE_HOLDER_MESSAGE.INPUT_NAME}
             onChangeFn={handleName}
             initialValue={name.data}
@@ -99,14 +102,13 @@ const PersonalInfo = ({ setStep }: EnterProfileProp) => {
           {userType === USER_TYPE.DESIGNER ? null : (
             <>
               <Field name="출생 연도" isEssential={true} />
-              <S.InputBox>
-                <S.VerifyInput
-                  placeholder={PLACE_HOLDER_MESSAGE.INPUT_BIRTH_YEAR}
-                  value={birthYear.data}
-                  onChange={handleBirthYear}
-                />
-                {verificationStatus.isBirthYearVerified ? <IcCheckBlue /> : null}
-              </S.InputBox>
+              <Input
+                placeholderText={PLACE_HOLDER_MESSAGE.INPUT_BIRTH_YEAR}
+                initialValue={birthYear.data}
+                onChangeFn={handleBirthYear}
+                regex={REGEX.BIRTH_YEAR}
+                maxLength={4}
+              />
             </>
           )}
           <Field name="성별" isEssential={true} />
