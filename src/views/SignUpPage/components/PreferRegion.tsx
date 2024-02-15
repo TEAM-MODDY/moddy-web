@@ -6,6 +6,7 @@ import { IcDownGrey, IcInformation, IcUpBlue } from '../../@common/assets/icons'
 import Button from '../../@common/components/Button';
 import ProgressBar from '../../@common/components/ProgressBar';
 import { IcCloseSmblue } from '../assets/icons';
+import { PREFER_REGION_MIN_COUNT } from '../constants/constants';
 import { HELPER_MESSAGE, PLACE_HOLDER_MESSAGE } from '../constants/message';
 import useGetRegion from '../hooks/useGetRegion';
 import usePostModelSignUp from '../hooks/usePostModelSignUp';
@@ -61,19 +62,16 @@ const PreferRegion = () => {
 
   const handleSelectedList = (index: number) => {
     setIsCheckedList((prevState) => {
-      const updatedData = prevState.data.map((item, idx) => (idx === index ? !item : item));
-      return {
-        data: updatedData,
-        verifyStatus: prevState.verifyStatus,
-      };
+      const updatedData = prevState.map((item, idx) => (idx === index ? !item : item));
+      return updatedData;
     });
   };
 
   useEffect(() => {
-    isCheckedList.data.filter((value) => value === true).length > 0
-      ? (setIsShowBottomSheet(true), setIsCheckedList({ data: isCheckedList.data, verifyStatus: true }))
-      : (setIsShowBottomSheet(false), setIsCheckedList({ data: isCheckedList.data, verifyStatus: false }));
-  }, [isCheckedList.data]);
+    isCheckedList.filter((value) => value === true).length > 0
+      ? setIsShowBottomSheet(true)
+      : setIsShowBottomSheet(false);
+  }, [isCheckedList]);
 
   return (
     <>
@@ -103,7 +101,7 @@ const PreferRegion = () => {
         )}
         <S.BottomSheetBox ref={bottomSheetRef} $isopen={isShowBottomSheet.toString()}>
           <S.SelectedListBox>
-            {isCheckedList.data
+            {isCheckedList
               .map((isChecked, index) => (isChecked ? index : -1)) // 체크 된 경우에만 해당 인덱스 반환
               .filter((index) => index !== -1) // 유효한 인덱스만 필터링
               .map((index) => {
@@ -126,7 +124,7 @@ const PreferRegion = () => {
         onClickFn={() => {
           setOpenModal(true);
         }}
-        disabled={!isCheckedList.verifyStatus}
+        disabled={isCheckedList.length < PREFER_REGION_MIN_COUNT}
       />
       {isOpenModal && (
         <Modal
