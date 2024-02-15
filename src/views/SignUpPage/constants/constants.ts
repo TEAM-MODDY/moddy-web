@@ -8,3 +8,5 @@ export const EMPTY_STRING = '';
 export const PREFER_REGION_MAX_COUNT = 3;
 export const PREFER_REGION_MIN_COUNT = 1;
 export const SELECT_ALL = 0;
+export const VERIFY_CODE_MAX_LENGTH = 6;
+export const PHONE_NUMBER_MAX_LENGTH = 11;
