@@ -8,8 +8,8 @@ import { USER_TYPE } from '@/views/@common/constants/userType';
 
 interface TopSheetProps {
   userType: string;
-  applyType: string;
-  name: string;
+  applyType?: string;
+  name?: string;
 }
 
 const TopSheet = (props: TopSheetProps) => {
@@ -17,7 +17,7 @@ const TopSheet = (props: TopSheetProps) => {
   const navigate = useNavigate();
 
   const OnBoardingText = () => {
-    if (!userType) {
+    if (userType === USER_TYPE.GUEST) {
       return (
         <S.OnBoardingParagraph>
           헤어 디자이너와 모델,
@@ -56,37 +56,39 @@ const TopSheet = (props: TopSheetProps) => {
       }
     }
   };
+
+  const LoginButton = () => (
+    <S.LoginButton id="ga-top-login-btn" type="button" onClick={() => navigate('/login')}>
+      <S.LoginSpan>로그인하기</S.LoginSpan>
+      <IcRightWhite />
+    </S.LoginButton>
+  );
+
+  const MyPageButton = () => (
+    <button type="button" onClick={() => navigate('/my-page')}>
+      <IcModdyuser />
+    </button>
+  );
+  const StartButton = () => (
+    <S.StartButton
+      id={userType === USER_TYPE.GUEST ? 'ga-login-btn' : 'ga-application-btn'}
+      type="button"
+      onClick={() => navigate(userType === USER_TYPE.GUEST ? '/login' : '/application')}>
+      <S.StartButtonSpan>헤어 모델 지원하기{userType === USER_TYPE.GUEST && ' / 제안하기'}</S.StartButtonSpan>
+      <IcRightWhite />
+    </S.StartButton>
+  );
+
   return (
     <S.TopSheetLayout>
       <S.HeaderBox>
         <IcLogoHome />
-        {!userType ? (
-          <S.LoginButton id="ga-top-login-btn" type="button" onClick={() => navigate('/login')}>
-            <S.LoginSpan>로그인하기</S.LoginSpan>
-            <IcRightWhite />
-          </S.LoginButton>
-        ) : (
-          <button type="button" onClick={() => navigate('/my-page')}>
-            <IcModdyuser />
-          </button>
-        )}
+        {userType === USER_TYPE.GUEST ? <LoginButton /> : <MyPageButton />}
       </S.HeaderBox>
       <S.OnBoardingBox>
         <OnBoardingText />
       </S.OnBoardingBox>
-      {userType !== USER_TYPE.DESIGNER ? (
-        userType === USER_TYPE.GUEST ? (
-          <S.StartButton id="ga-login-btn" type="button" onClick={() => navigate('/login')}>
-            <S.StartButtonSpan>헤어 모델 지원하기 / 제안하기</S.StartButtonSpan>
-            <IcRightWhite />
-          </S.StartButton>
-        ) : (
-          <S.StartButton id="ga-application-btn" type="button" onClick={() => navigate('/application')}>
-            <S.StartButtonSpan>헤어 모델 지원하기</S.StartButtonSpan>
-            <IcRightWhite />
-          </S.StartButton>
-        )
-      ) : null}
+      {userType !== USER_TYPE.DESIGNER && <StartButton />}
     </S.TopSheetLayout>
   );
 };
