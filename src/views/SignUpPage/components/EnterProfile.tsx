@@ -13,7 +13,7 @@ import PrefeRegion from './PreferRegion';
 import Profile from './Profile';
 import ShopInfo from './ShopInfo';
 
-import removeToken from '@/views/@common/utils/removeToken';
+import { removeToken } from '@/views/@common/utils/token';
 
 interface EnterProfileProps {
   setIsInitialStep: React.Dispatch<React.SetStateAction<boolean>>;

@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import { styled } from 'styled-components';
 
@@ -7,51 +6,53 @@ import Banner from '../views/MainPage/components/Banner';
 import GuestContents from '../views/MainPage/components/GuestContents';
 import StatusBarForiOS from '../views/MainPage/components/StatusBarForiOS';
 import TopSheet from '../views/MainPage/components/TopSheet';
-import { ReceivedOffer, ReceivedApplication } from '../views/MainPage/components/UserContents';
+import { DesignerContents, ModelContents } from '../views/MainPage/components/UserContents';
 
 import { userTypeState } from '@/recoil/atoms/signUpState';
 import { USER_TYPE } from '@/views/@common/constants/userType';
+import UsePreventGoBack from '@/views/@common/utils/UsePreventGoBack';
+import { INITIAL_PAGE } from '@/views/MainPage/constants/constant';
 import useGetMain from '@/views/MainPage/hooks/useGetMain';
 
 const MainPage = () => {
-  const userType = useRecoilValue(userTypeState);
+  UsePreventGoBack();
 
-  // 뒤로 가기 막기 관련
-  const navigate = useNavigate();
-  window.history.pushState(null, '', '');
-  window.onpopstate = () => {
-    navigate('/');
+  const userType = useRecoilValue(userTypeState);
+  const [page, setPage] = useState(INITIAL_PAGE);
+  const { modelData, designerData } = useGetMain({ user: userType, page: page });
+
+  const Contents = {
+    [USER_TYPE.GUEST]: {
+      mainContent: <GuestContents />,
+    },
+    [USER_TYPE.DESIGNER]: {
+      mainContent: <DesignerContents data={designerData} setPage={setPage} />,
+      name: designerData?.name,
+    },
+    [USER_TYPE.MODEL]: {
+      mainContent: <ModelContents data={modelData} setPage={setPage} />,
+      applyType: modelData?.status,
+      name: modelData?.name,
+    },
   };
 
-  const [page, setPage] = useState(1);
-  const { data } = useGetMain({ user: userType, page: page });
+  const TopSheetProps = {
+    userType,
+    applyType: Contents[userType].applyType,
+    name: Contents[userType].name,
+  };
 
-  const MainContents = () => {
-    switch (userType) {
-      case USER_TYPE.GUEST:
-        return <GuestContents />;
-      case USER_TYPE.DESIGNER:
-        return data && <ReceivedApplication data={data} setPage={setPage} />;
-      case USER_TYPE.MODEL:
-        return data && <ReceivedOffer data={data} setPage={setPage} />;
-      default:
-        return null;
-    }
+  const MainContentsByUserType = () => {
+    return Contents[userType].mainContent;
   };
 
   return (
-    <>
-      <MainPageLayout>
-        <StatusBarForiOS />
-        <TopSheet
-          userType={userType}
-          applyType={userType === USER_TYPE.MODEL && data && 'status' in data ? data.status : ''}
-          name={data ? data.name : ''}
-        />
-        <Banner />
-        <MainContents />
-      </MainPageLayout>
-    </>
+    <MainPageLayout>
+      <StatusBarForiOS />
+      <TopSheet {...TopSheetProps} />
+      <Banner />
+      <MainContentsByUserType />
+    </MainPageLayout>
   );
 };
 
