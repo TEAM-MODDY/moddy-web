@@ -1,3 +1,4 @@
+import { useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { styled } from 'styled-components';
@@ -16,6 +17,7 @@ const ServiceHistory = () => {
 
   const [step, setStep] = useRecoilState(applyStepState);
   const [serviceHistory, setServiceHistory] = useRecoilState(historyState);
+  const activateRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
 
   const addHistory = () => {
@@ -56,7 +58,11 @@ const ServiceHistory = () => {
       </S.Title>
       <S.ServiceHistoryList>
         {serviceHistory.hairServiceRecords.map((item, idx) => (
-          <ServiceHistoryListItem key={'history' + item.hairService + item.hairServiceTerm + idx} idx={idx} />
+          <ServiceHistoryListItem
+            key={'history' + item.hairService + item.hairServiceTerm + idx}
+            ref={activateRef}
+            idx={idx}
+          />
         ))}
       </S.ServiceHistoryList>
       <S.AddHistoryBtn type="button" onClick={addHistory}>

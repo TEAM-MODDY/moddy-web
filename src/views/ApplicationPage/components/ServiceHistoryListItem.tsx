@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { forwardRef, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { css, styled } from 'styled-components';
 
@@ -11,7 +11,7 @@ interface ServiceHistoryListItem {
   idx: number;
 }
 
-const ServiceHistoryListItem = ({ idx }: ServiceHistoryListItem) => {
+const ServiceHistoryListItem = forwardRef<HTMLDivElement, ServiceHistoryListItem>(({ idx }, ref) => {
   const [serviceHistory, setServiceHistory] = useRecoilState(historyState);
   const { hairServiceRecords } = serviceHistory;
   const [isServiceClicked, setIsServiceClicked] = useState(false);
@@ -60,9 +60,11 @@ const ServiceHistoryListItem = ({ idx }: ServiceHistoryListItem) => {
     <S.ServiceHistoryListItemLayout>
       <S.SelectBox $height={idx}>
         <S.SelectServiceBox
+          ref={ref}
           $isServiceClicked={isServiceClicked}
           onClick={() => {
             setIsServiceClicked((prev) => !prev);
+            console.log(ref);
           }}>
           <input
             type="button"
@@ -86,6 +88,7 @@ const ServiceHistoryListItem = ({ idx }: ServiceHistoryListItem) => {
       </S.SelectBox>
       <S.SelectBox $height={idx}>
         <S.SelectPeriodBox
+          ref={ref}
           $isPeriodClicked={isPeriodClicked}
           onClick={() => {
             setIsPeriodClicked((prev) => !prev);
@@ -117,7 +120,8 @@ const ServiceHistoryListItem = ({ idx }: ServiceHistoryListItem) => {
       </button>
     </S.ServiceHistoryListItemLayout>
   );
-};
+});
+ServiceHistoryListItem.displayName = 'ServiceHistoryListItem';
 
 const ServiceHistoryListItemLayout = styled.li`
   display: flex;
