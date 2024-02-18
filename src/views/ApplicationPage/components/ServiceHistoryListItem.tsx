@@ -1,4 +1,4 @@
-import { forwardRef, useState } from 'react';
+import React, { forwardRef, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { css, styled } from 'styled-components';
 
@@ -7,113 +7,78 @@ import { IcDelete } from '../assets/icons';
 import { SELECT_PERIOD, SELECT_SERVICE } from '../constants/select';
 
 import { historyState } from '@/recoil/atoms/applicationState';
+
 interface ServiceHistoryListItem {
   idx: number;
 }
 
 const ServiceHistoryListItem = forwardRef<HTMLDivElement, ServiceHistoryListItem>(({ idx }, ref) => {
   const [serviceHistory, setServiceHistory] = useRecoilState(historyState);
-  const { hairServiceRecords } = serviceHistory;
-  const [isServiceClicked, setIsServiceClicked] = useState(false);
-  const [isPeriodClicked, setIsPeriodClicked] = useState(false);
+  const [clickedDropdown, setClickedDropdown] = useState<string | null>(null);
 
-  const activateServiceBox = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    setIsServiceClicked((prev) => !prev);
-    const tempService = event.currentTarget.innerText;
-    const tempServiceHistoryList = hairServiceRecords.map((item, i) => {
+  const handleDropdownClick = (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    field: 'hairService' | 'hairServiceTerm',
+  ) => {
+    const newValue = event.currentTarget.innerText;
+    const newServiceHistoryRecords = serviceHistory.hairServiceRecords.map((item, i) => {
       if (i === idx) {
         return {
           ...item,
-          hairService: tempService,
+          [field]: newValue,
         };
       }
       return item;
     });
 
-    setServiceHistory({ ...serviceHistory, hairServiceRecords: tempServiceHistoryList });
-  };
-
-  const activatePeriodBox = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    setIsPeriodClicked((prev) => !prev);
-    const tempPeriod = event.currentTarget.innerText;
-    const tempServiceHistoryList = hairServiceRecords.map((item, i) => {
-      if (i === idx) {
-        return {
-          ...item,
-          hairServiceTerm: tempPeriod,
-        };
-      }
-      return item;
-    });
-
-    setServiceHistory({ ...serviceHistory, hairServiceRecords: tempServiceHistoryList });
+    setServiceHistory({ ...serviceHistory, hairServiceRecords: newServiceHistoryRecords });
+    setClickedDropdown(null);
   };
 
   const deleteHistory = () => {
-    const tempServiceHistoryList = hairServiceRecords.filter((_, i) => i !== idx);
-    if (tempServiceHistoryList.length >= 0) {
-      setServiceHistory({ ...serviceHistory, hairServiceRecords: tempServiceHistoryList });
-    }
+    const newServiceHistoryRecords = serviceHistory.hairServiceRecords.filter((_, i) => i !== idx);
+    setServiceHistory({ ...serviceHistory, hairServiceRecords: newServiceHistoryRecords });
   };
 
   return (
     <S.ServiceHistoryListItemLayout>
       <S.SelectBox $height={idx}>
-        <S.SelectServiceBox
-          ref={ref}
-          $isServiceClicked={isServiceClicked}
-          onClick={() => {
-            setIsServiceClicked((prev) => !prev);
-            console.log(ref);
-          }}>
-          <input
-            type="button"
-            value={hairServiceRecords[idx].hairService !== '' ? hairServiceRecords[idx].hairService : '시술 선택'}
-          />
-          {isServiceClicked ? <IcUpBlue /> : <IcDownGrey />}
-        </S.SelectServiceBox>
-        <div>
-          {isServiceClicked && (
+        <S.DropDownBox
+          $isClicked={clickedDropdown === 'service'}
+          onClick={() => (clickedDropdown ? setClickedDropdown(null) : setClickedDropdown('service'))}>
+          <input type="button" value={serviceHistory.hairServiceRecords[idx].hairService || '시술  선택'} />
+          {clickedDropdown === 'service' ? <IcUpBlue /> : <IcDownGrey />}
+          {clickedDropdown === 'service' && (
             <S.SelectDetailList>
               {Object.keys(SELECT_SERVICE).map((value, key) => (
                 <li key={key}>
-                  <button type="button" onClick={activateServiceBox}>
+                  <button type="button" onClick={(e) => handleDropdownClick(e, 'hairService')}>
                     {value}
                   </button>
                 </li>
               ))}
             </S.SelectDetailList>
           )}
-        </div>
+        </S.DropDownBox>
       </S.SelectBox>
       <S.SelectBox $height={idx}>
-        <S.SelectPeriodBox
-          ref={ref}
-          $isPeriodClicked={isPeriodClicked}
-          onClick={() => {
-            setIsPeriodClicked((prev) => !prev);
-          }}>
-          <input
-            type="button"
-            value={
-              hairServiceRecords[idx].hairServiceTerm !== '' ? hairServiceRecords[idx].hairServiceTerm : '기간 선택'
-            }
-          />
-          {isPeriodClicked ? <IcUpBlue /> : <IcDownGrey />}
-        </S.SelectPeriodBox>
-        <div>
-          {isPeriodClicked && (
+        <S.DropDownBox
+          $isClicked={clickedDropdown === 'period'}
+          onClick={() => (clickedDropdown ? setClickedDropdown(null) : setClickedDropdown('period'))}>
+          <input type="button" value={serviceHistory.hairServiceRecords[idx].hairServiceTerm || '기간  선택'} />
+          {clickedDropdown === 'period' ? <IcUpBlue /> : <IcDownGrey />}
+          {clickedDropdown === 'period' && (
             <S.SelectDetailList>
               {Object.keys(SELECT_PERIOD).map((value, key) => (
                 <li key={key}>
-                  <button type="button" onClick={activatePeriodBox}>
+                  <button type="button" onClick={(e) => handleDropdownClick(e, 'hairServiceTerm')}>
                     {value}
                   </button>
                 </li>
               ))}
             </S.SelectDetailList>
           )}
-        </div>
+        </S.DropDownBox>
       </S.SelectBox>
       <button type="button" onClick={deleteHistory}>
         <IcDelete />
@@ -191,25 +156,17 @@ const selectBtn = css`
   }
 `;
 
-const SelectServiceBox = styled.div<{ $isServiceClicked: boolean }>`
-  border: 1px solid
-    ${({ $isServiceClicked, theme }) => ($isServiceClicked ? theme.colors.moddy_blue : theme.colors.moddy_gray50)};
+const DropDownBox = styled.div<{ $isClicked: boolean }>`
+  border: 1px solid ${({ $isClicked, theme }) => ($isClicked ? theme.colors.moddy_blue : theme.colors.moddy_gray50)};
 
   ${selectBtn};
 `;
 
-const SelectPeriodBox = styled.div<{ $isPeriodClicked: boolean }>`
-  border: 1px solid
-    ${({ $isPeriodClicked, theme }) => ($isPeriodClicked ? theme.colors.moddy_blue : theme.colors.moddy_gray50)};
-
-  ${selectBtn};
-`;
 const S = {
   ServiceHistoryListItemLayout,
   SelectBox,
   SelectDetailList,
-  SelectServiceBox,
-  SelectPeriodBox,
+  DropDownBox,
 };
 
 export default ServiceHistoryListItem;
