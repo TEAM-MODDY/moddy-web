@@ -9,7 +9,7 @@ import MyQuitCheck from '../views/MyQuit/components/MyQuitCheck';
 import MyQuitText from '../views/MyQuit/components/MyQuitText';
 
 import { QUIT_MODAL } from '@/views/@common/constants/modalText';
-import useDeleteUser from '@/views/MyPage/hooks/useDeleteUser';
+import useDeleteUser from '@/views/MyQuit/hooks/useDeleteUser';
 
 const MyQuitPage = () => {
   const [isChecked, setChecked] = useState(false);
@@ -33,7 +33,6 @@ const MyQuitPage = () => {
           leftBtnFn={() => setModalOpen && setModalOpen(false)}
           rightBtnFn={() => {
             deleteUser();
-            navigate('/');
           }}
         />
       )}
