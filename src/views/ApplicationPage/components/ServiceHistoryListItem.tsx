@@ -45,7 +45,7 @@ const ServiceHistoryListItem = forwardRef<HTMLDivElement, ServiceHistoryListItem
       <S.SelectBox $height={idx}>
         <S.DropDownBox
           $isClicked={clickedDropdown === 'service'}
-          onClick={() => (clickedDropdown ? setClickedDropdown(null) : setClickedDropdown('service'))}>
+          onClick={() => (clickedDropdown === 'service' ? setClickedDropdown(null) : setClickedDropdown('service'))}>
           <input type="button" value={serviceHistory.hairServiceRecords[idx].hairService || '시술  선택'} />
           {clickedDropdown === 'service' ? <IcUpBlue /> : <IcDownGrey />}
           {clickedDropdown === 'service' && (
@@ -64,7 +64,7 @@ const ServiceHistoryListItem = forwardRef<HTMLDivElement, ServiceHistoryListItem
       <S.SelectBox $height={idx}>
         <S.DropDownBox
           $isClicked={clickedDropdown === 'period'}
-          onClick={() => (clickedDropdown ? setClickedDropdown(null) : setClickedDropdown('period'))}>
+          onClick={() => (clickedDropdown === 'period' ? setClickedDropdown(null) : setClickedDropdown('period'))}>
           <input type="button" value={serviceHistory.hairServiceRecords[idx].hairServiceTerm || '기간  선택'} />
           {clickedDropdown === 'period' ? <IcUpBlue /> : <IcDownGrey />}
           {clickedDropdown === 'period' && (
