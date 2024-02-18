@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { styled } from 'styled-components';
 
@@ -20,20 +19,11 @@ const Profile = ({ setStep }: EnterProfileProp) => {
   const [naverPlaceInfo, setNaverPlaceInfo] = useRecoilState(naverPlaceState);
   const [profileImgInfo, setProfileImgInfo] = useRecoilState(profileImgState);
 
-  const [verificationStatus, setVerificationStatus] = useState({
-    isInstaIdVerified: instaIdInfo.verifyStatus,
-    isNaverPlaceVerified: naverPlaceInfo.verifyStatus,
-    isImageUploaded: !!profileImgInfo.file,
-    isAllVerified: instaIdInfo.verifyStatus && naverPlaceInfo.verifyStatus && !!profileImgInfo.file,
-  });
-
   const handleInstaGramText = (value: string) => {
-    setVerificationStatus((prevState) => ({ ...prevState, isInstaIdVerified: true }));
     setInstaIdInfo({ data: value, verifyStatus: true });
   };
 
   const handleNaverPlaceText = (value: string) => {
-    setVerificationStatus((prevState) => ({ ...prevState, isNaverPlaceVerified: true }));
     setNaverPlaceInfo({ data: value, verifyStatus: true });
   };
 
@@ -44,6 +34,8 @@ const Profile = ({ setStep }: EnterProfileProp) => {
       file: imgObj,
     }));
   };
+
+  const isActive = instaIdInfo.data && naverPlaceInfo.data && profileImgInfo.data;
 
   return (
     <>
@@ -76,7 +68,7 @@ const Profile = ({ setStep }: EnterProfileProp) => {
         id="ga-profile-btn"
         text="다음"
         isFixed={true}
-        disabled={!verificationStatus.isAllVerified}
+        disabled={!isActive}
         onClickFn={() => {
           setStep((prev) => prev + 1);
         }}
