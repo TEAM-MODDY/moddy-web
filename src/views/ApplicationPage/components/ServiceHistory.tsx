@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { styled } from 'styled-components';
@@ -8,7 +9,7 @@ import { INFO_MESSAGE } from '../constants/message';
 
 import ServiceHistoryListItem from './ServiceHistoryListItem';
 
-import { applyStepState, historyDetailProps, historyState } from '@/recoil/atoms/applicationState';
+import { applyStepState, historyState } from '@/recoil/atoms/applicationState';
 import ProgressBar from '@/views/@common/components/ProgressBar';
 
 const ServiceHistory = () => {
@@ -16,17 +17,29 @@ const ServiceHistory = () => {
 
   const [step, setStep] = useRecoilState(applyStepState);
   const [serviceHistory, setServiceHistory] = useRecoilState(historyState);
-  const { hairServiceRecords } = serviceHistory;
+  const [currentDropDown, setCurrentDropDown] = useState<number | null>(null);
+  const historyRef = useRef<HTMLUListElement>(null);
   const navigate = useNavigate();
 
+  useEffect(() => {
+    const handleFocus = (e: MouseEvent) => {
+      if (historyRef.current && !historyRef.current.contains(e.target as Node)) setCurrentDropDown(null);
+    };
+    document.addEventListener('mouseup', handleFocus);
+
+    return () => {
+      document.removeEventListener('mouseup', handleFocus);
+    };
+  }, [historyRef.current]);
+
   const addHistory = () => {
-    if (hairServiceRecords.length < MAX_LENGTH) {
-      const tempServiceHistoryList: historyDetailProps[] = [
-        ...hairServiceRecords,
-        { hairService: '', hairServiceTerm: '' },
-      ];
-      setServiceHistory({ ...serviceHistory, hairServiceRecords: tempServiceHistoryList });
-    }
+    setServiceHistory((prev) => ({
+      ...prev,
+      hairServiceRecords:
+        prev.hairServiceRecords.length < MAX_LENGTH
+          ? [...prev.hairServiceRecords, { hairService: '', hairServiceTerm: '' }]
+          : prev.hairServiceRecords,
+    }));
   };
 
   const exceptionNull = () => {
@@ -55,12 +68,15 @@ const ServiceHistory = () => {
         <h2>{INFO_MESSAGE.SERVICE_TITLE}</h2>
         <h3>{INFO_MESSAGE.SERVICE_SUBTITLE}</h3>
       </S.Title>
-      <S.ServiceHistoryList>
-        {hairServiceRecords.map((item, idx: number) =>
-          idx < hairServiceRecords.length ? (
-            <ServiceHistoryListItem key={'history' + item.hairService + item.hairServiceTerm + idx} idx={idx} />
-          ) : null,
-        )}
+      <S.ServiceHistoryList ref={historyRef}>
+        {serviceHistory.hairServiceRecords.map((item, idx) => (
+          <ServiceHistoryListItem
+            key={'history' + item.hairService + item.hairServiceTerm + idx}
+            currentDropDown={currentDropDown}
+            setCurrentDropDown={setCurrentDropDown}
+            idx={idx}
+          />
+        ))}
       </S.ServiceHistoryList>
       <S.AddHistoryBtn type="button" onClick={addHistory}>
         {INFO_MESSAGE.ADD_HISTORY}
