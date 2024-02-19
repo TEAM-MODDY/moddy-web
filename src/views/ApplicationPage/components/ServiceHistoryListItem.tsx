@@ -1,4 +1,4 @@
-import React, { forwardRef, useState } from 'react';
+import React, { useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { css, styled } from 'styled-components';
 
@@ -14,93 +14,90 @@ interface ServiceHistoryListItem {
   setCurrentDropDown: React.Dispatch<React.SetStateAction<number | null>>;
 }
 
-const ServiceHistoryListItem = forwardRef<HTMLDivElement, ServiceHistoryListItem>(
-  ({ idx, currentDropDown, setCurrentDropDown }) => {
-    const [serviceHistory, setServiceHistory] = useRecoilState(historyState);
-    const [clickedDropdown, setClickedDropdown] = useState<string | null>(null);
+const ServiceHistoryListItem = ({ idx, currentDropDown, setCurrentDropDown }: ServiceHistoryListItem) => {
+  const [serviceHistory, setServiceHistory] = useRecoilState(historyState);
+  const [clickedDropdown, setClickedDropdown] = useState<string | null>(null);
 
-    const handleDropdownClick = (
-      event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
-      field: 'hairService' | 'hairServiceTerm',
-    ) => {
-      const newValue = event.currentTarget.innerText;
-      const newServiceHistoryRecords = serviceHistory.hairServiceRecords.map((item, i) => {
-        if (i === idx) {
-          return {
-            ...item,
-            [field]: newValue,
-          };
-        }
-        return item;
-      });
+  const handleDropdownClick = (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    field: 'hairService' | 'hairServiceTerm',
+  ) => {
+    const newValue = event.currentTarget.innerText;
+    const newServiceHistoryRecords = serviceHistory.hairServiceRecords.map((item, i) => {
+      if (i === idx) {
+        return {
+          ...item,
+          [field]: newValue,
+        };
+      }
+      return item;
+    });
 
-      setServiceHistory({ ...serviceHistory, hairServiceRecords: newServiceHistoryRecords });
-      setClickedDropdown(null);
-    };
+    setServiceHistory({ ...serviceHistory, hairServiceRecords: newServiceHistoryRecords });
+    setClickedDropdown(null);
+  };
 
-    const deleteHistory = () => {
-      const newServiceHistoryRecords = serviceHistory.hairServiceRecords.filter((_, i) => i !== idx);
-      setServiceHistory({ ...serviceHistory, hairServiceRecords: newServiceHistoryRecords });
-    };
+  const deleteHistory = () => {
+    const newServiceHistoryRecords = serviceHistory.hairServiceRecords.filter((_, i) => i !== idx);
+    setServiceHistory({ ...serviceHistory, hairServiceRecords: newServiceHistoryRecords });
+  };
 
-    return (
-      <S.ServiceHistoryListItemLayout>
-        <S.SelectBox $height={idx}>
-          <S.DropDownBox
-            $isClicked={currentDropDown === idx && clickedDropdown === 'service'}
-            onClick={() => {
-              setCurrentDropDown(idx);
-              currentDropDown === idx && clickedDropdown === 'service'
-                ? setClickedDropdown(null)
-                : setClickedDropdown('service');
-            }}>
-            <input type="button" value={serviceHistory.hairServiceRecords[idx].hairService || '시술  선택'} />
-            {currentDropDown === idx && clickedDropdown === 'service' ? <IcUpBlue /> : <IcDownGrey />}
-            {currentDropDown === idx && clickedDropdown === 'service' && (
-              <S.SelectDetailList>
-                {Object.keys(SELECT_SERVICE).map((value, key) => (
-                  <li key={key}>
-                    <button type="button" onClick={(e) => handleDropdownClick(e, 'hairService')}>
-                      {value}
-                    </button>
-                  </li>
-                ))}
-              </S.SelectDetailList>
-            )}
-          </S.DropDownBox>
-        </S.SelectBox>
-        <S.SelectBox $height={idx}>
-          <S.DropDownBox
-            $isClicked={currentDropDown === idx && clickedDropdown === 'period'}
-            onClick={() => {
-              setCurrentDropDown(idx);
-              currentDropDown === idx && clickedDropdown === 'period'
-                ? setClickedDropdown(null)
-                : setClickedDropdown('period');
-            }}>
-            <input type="button" value={serviceHistory.hairServiceRecords[idx].hairServiceTerm || '기간  선택'} />
-            {currentDropDown === idx && clickedDropdown === 'period' ? <IcUpBlue /> : <IcDownGrey />}
-            {currentDropDown === idx && clickedDropdown === 'period' && (
-              <S.SelectDetailList>
-                {Object.keys(SELECT_PERIOD).map((value, key) => (
-                  <li key={key}>
-                    <button type="button" onClick={(e) => handleDropdownClick(e, 'hairServiceTerm')}>
-                      {value}
-                    </button>
-                  </li>
-                ))}
-              </S.SelectDetailList>
-            )}
-          </S.DropDownBox>
-        </S.SelectBox>
-        <button type="button" onClick={deleteHistory}>
-          <IcDelete />
-        </button>
-      </S.ServiceHistoryListItemLayout>
-    );
-  },
-);
-ServiceHistoryListItem.displayName = 'ServiceHistoryListItem';
+  return (
+    <S.ServiceHistoryListItemLayout>
+      <S.SelectBox $height={idx}>
+        <S.DropDownBox
+          $isClicked={currentDropDown === idx && clickedDropdown === 'service'}
+          onClick={() => {
+            setCurrentDropDown(idx);
+            currentDropDown === idx && clickedDropdown === 'service'
+              ? setClickedDropdown(null)
+              : setClickedDropdown('service');
+          }}>
+          <input type="button" value={serviceHistory.hairServiceRecords[idx].hairService || '시술  선택'} />
+          {currentDropDown === idx && clickedDropdown === 'service' ? <IcUpBlue /> : <IcDownGrey />}
+          {currentDropDown === idx && clickedDropdown === 'service' && (
+            <S.SelectDetailList>
+              {Object.keys(SELECT_SERVICE).map((value, key) => (
+                <li key={key}>
+                  <button type="button" onClick={(e) => handleDropdownClick(e, 'hairService')}>
+                    {value}
+                  </button>
+                </li>
+              ))}
+            </S.SelectDetailList>
+          )}
+        </S.DropDownBox>
+      </S.SelectBox>
+      <S.SelectBox $height={idx}>
+        <S.DropDownBox
+          $isClicked={currentDropDown === idx && clickedDropdown === 'period'}
+          onClick={() => {
+            setCurrentDropDown(idx);
+            currentDropDown === idx && clickedDropdown === 'period'
+              ? setClickedDropdown(null)
+              : setClickedDropdown('period');
+          }}>
+          <input type="button" value={serviceHistory.hairServiceRecords[idx].hairServiceTerm || '기간  선택'} />
+          {currentDropDown === idx && clickedDropdown === 'period' ? <IcUpBlue /> : <IcDownGrey />}
+          {currentDropDown === idx && clickedDropdown === 'period' && (
+            <S.SelectDetailList>
+              {Object.keys(SELECT_PERIOD).map((value, key) => (
+                <li key={key}>
+                  <button type="button" onClick={(e) => handleDropdownClick(e, 'hairServiceTerm')}>
+                    {value}
+                  </button>
+                </li>
+              ))}
+            </S.SelectDetailList>
+          )}
+        </S.DropDownBox>
+      </S.SelectBox>
+      <button type="button" onClick={deleteHistory}>
+        <IcDelete />
+      </button>
+    </S.ServiceHistoryListItemLayout>
+  );
+};
 
 const ServiceHistoryListItemLayout = styled.li`
   display: flex;
