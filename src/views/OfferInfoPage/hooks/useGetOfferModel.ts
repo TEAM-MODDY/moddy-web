@@ -14,7 +14,7 @@ const useGetModel = (offerId: number) => {
 
   const fetchData = async () => {
     try {
-      const response = await api.get(`/model/offer/${offerId}`);
+      const response = await api.get(`/offer/${offerId}`);
       setData(response.data.data);
     } catch (err) {
       if (err instanceof AxiosError) {

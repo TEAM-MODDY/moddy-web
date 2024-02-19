@@ -11,7 +11,7 @@ const useGetUser = () => {
 
   const getUser = async () => {
     try {
-      const response = await api.get('/model/application/user');
+      const response = await api.get('/model/detail');
       setData(response.data.data);
     } catch (err) {
       navigate('/error');

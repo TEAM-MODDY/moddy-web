@@ -15,7 +15,7 @@ const usePutOfferModel = (offerId: number) => {
 
   const postOffer = async () => {
     try {
-      const response = await api.put(`/model/offer/${offerId}`, null);
+      const response = await api.put(`/offer/${offerId}/agree`, null);
       setData(response.data);
     } catch (err) {
       if (err instanceof AxiosError) {
