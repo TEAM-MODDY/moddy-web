@@ -43,8 +43,8 @@ const usePostDesignerSignUp = () => {
 
   const postDesignerSignUp = async () => {
     const signUpData: DesignerInfo = {
-      name: name.data,
-      gender: gender.data,
+      name: name,
+      gender: gender,
       phoneNumber: phoneNumber.data,
       isMarketingAgree: isMarketingAgree,
       hairShop: {
@@ -68,12 +68,11 @@ const usePostDesignerSignUp = () => {
     requestBody.append('profileImg', profileImg.file);
 
     try {
-      const data = await api.post('/auth/signup/designer', requestBody, {
+      await api.post('/auth/signup/designer', requestBody, {
         headers: {
           'Content-Type': `multipart/form-data`,
         },
       });
-      console.log(data);
       setSessionUserType(tempUserType);
       navigate('/');
     } catch (err) {
