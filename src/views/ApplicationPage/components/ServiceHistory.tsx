@@ -9,7 +9,7 @@ import { INFO_MESSAGE } from '../constants/message';
 
 import ServiceHistoryListItem from './ServiceHistoryListItem';
 
-import { applyStepState, historyDetailProps, historyState } from '@/recoil/atoms/applicationState';
+import { applyStepState, historyState } from '@/recoil/atoms/applicationState';
 import ProgressBar from '@/views/@common/components/ProgressBar';
 
 const ServiceHistory = () => {
@@ -33,13 +33,13 @@ const ServiceHistory = () => {
   }, [historyRef.current]);
 
   const addHistory = () => {
-    if (serviceHistory.hairServiceRecords.length < MAX_LENGTH) {
-      const tempServiceHistoryList: historyDetailProps[] = [
-        ...serviceHistory.hairServiceRecords,
-        { hairService: '', hairServiceTerm: '' },
-      ];
-      setServiceHistory({ ...serviceHistory, hairServiceRecords: tempServiceHistoryList });
-    }
+    setServiceHistory((prev) => ({
+      ...prev,
+      hairServiceRecords:
+        prev.hairServiceRecords.length < MAX_LENGTH
+          ? [...prev.hairServiceRecords, { hairService: '', hairServiceTerm: '' }]
+          : prev.hairServiceRecords,
+    }));
   };
 
   const exceptionNull = () => {
