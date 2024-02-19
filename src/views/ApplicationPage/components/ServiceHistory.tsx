@@ -21,16 +21,16 @@ const ServiceHistory = () => {
   const historyRef = useRef<HTMLUListElement>(null);
   const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   const handleFocus = (e: MouseEvent) => {
-  //     if (historyRef.current && !historyRef.current.contains(e.target as Node)) setCurrentDropDown(null);
-  //   };
-  //   document.addEventListener('mouseup', handleFocus);
+  useEffect(() => {
+    const handleFocus = (e: MouseEvent) => {
+      if (historyRef.current && !historyRef.current.contains(e.target as Node)) setCurrentDropDown(null);
+    };
+    document.addEventListener('mouseup', handleFocus);
 
-  //   return () => {
-  //     document.removeEventListener('mouseup', handleFocus);
-  //   };
-  // }, [historyRef.current]);
+    return () => {
+      document.removeEventListener('mouseup', handleFocus);
+    };
+  }, [historyRef.current]);
 
   const addHistory = () => {
     if (serviceHistory.hairServiceRecords.length < MAX_LENGTH) {
