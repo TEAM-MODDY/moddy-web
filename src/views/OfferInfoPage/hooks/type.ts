@@ -1,4 +1,5 @@
-interface DesignerInfoProps {
+export interface DesignerInfoProps {
+  designerInfo: number;
   imgUrl: string;
   shopName: string;
   name: string;
@@ -11,17 +12,23 @@ interface DesignerInfoProps {
   shopDetailAddress: string;
 }
 
-interface StyleDetailProps {
-  isAgree: boolean;
+export interface ApplicationInfoProps {
+  applicationId: number;
   preferStyle: string[];
-  designerOfferDetail: string;
   modelApplicationDetail: string;
+}
+
+export interface OfferInfoProps {
+  offerId: number;
+  isAgree: boolean;
+  designerOfferDetail: string;
   preferOfferConditions: boolean[];
 }
 
 export interface UseGetOfferModelProps {
   designerInfo: DesignerInfoProps;
-  styleDetail: StyleDetailProps;
+  applicationInfo: ApplicationInfoProps;
+  offerInfo: OfferInfoProps;
 }
 
 export interface UseGetOfferModelRes {

@@ -6,7 +6,7 @@ import { UseGetOfferModelProps } from './type';
 
 import api from '@/views/@common/hooks/api';
 
-const useGetModel = (offerId: number) => {
+const useGetOfferModel = (offerId: number) => {
   const navigate = useNavigate();
   const [data, setData] = useState<UseGetOfferModelProps>();
   const [loading, setLoading] = useState(true);
@@ -37,4 +37,4 @@ const useGetModel = (offerId: number) => {
   };
 };
 
-export default useGetModel;
+export default useGetOfferModel;

@@ -9,10 +9,12 @@ import DirectionModal from '../views/OfferInfoPage/components/DirectionModal';
 
 import DesignerInfoSection from '@/views/OfferInfoPage/components/DesignerInfoSection';
 import OfferDetailSection from '@/views/OfferInfoPage/components/OfferDetailSection';
+import useGetOfferModel from '@/views/OfferInfoPage/hooks/useGetOfferModel';
 
 const OfferInfoPage = () => {
   const { state } = useLocation();
   const offerId = state;
+  const { data } = useGetOfferModel(offerId);
 
   // 체크 표시 클릭시 CTA 버튼 활성화
   const [isChecked, setIsChecked] = useState(false);
@@ -27,22 +29,24 @@ const OfferInfoPage = () => {
   };
 
   return (
-    <>
-      <DirectionModal isModal={isModal} onClose={() => setIsModal(false)} offerId={offerId} />
-      <Header title="도착한 제안서" isBackBtnExist={true} />
-      <S.OfferInfoLayout>
-        <DesignerInfoSection offerId={offerId} />
-        <S.DivisionLine />
-        <OfferDetailSection offerId={offerId} />
-        <S.AgreementBox>
-          <S.CheckboxBtn onClick={handleCheckBoxClick}>
-            {isChecked ? <IcCheckboxBlue /> : <IcCheckboxGrey />}
-          </S.CheckboxBtn>
-          해당 제안서의 내용에 동의합니다.
-        </S.AgreementBox>
-      </S.OfferInfoLayout>
-      <Button id="ga-accept-btn" text="수락하기" isFixed={false} onClickFn={handleModalOpen} disabled={!isChecked} />
-    </>
+    data && (
+      <>
+        <DirectionModal isModal={isModal} onClose={() => setIsModal(false)} offerId={offerId} />
+        <Header title="도착한 제안서" isBackBtnExist={true} />
+        <S.OfferInfoLayout>
+          <DesignerInfoSection designerInfo={data.designerInfo} />
+          <S.DivisionLine />
+          <OfferDetailSection data={data} />
+          <S.AgreementBox>
+            <S.CheckboxBtn onClick={handleCheckBoxClick}>
+              {isChecked ? <IcCheckboxBlue /> : <IcCheckboxGrey />}
+            </S.CheckboxBtn>
+            해당 제안서의 내용에 동의합니다.
+          </S.AgreementBox>
+        </S.OfferInfoLayout>
+        <Button id="ga-accept-btn" text="수락하기" isFixed={false} onClickFn={handleModalOpen} disabled={!isChecked} />
+      </>
+    )
   );
 };
 

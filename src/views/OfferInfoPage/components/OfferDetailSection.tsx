@@ -1,18 +1,17 @@
 import { styled } from 'styled-components';
 
 import ImgPropLogo from '../assets/images/img_proplogo.png';
-import useGetOfferModel from '../hooks/useGetOfferModel';
+import { UseGetOfferModelProps } from '../hooks/type';
 
 import { IcBookmark, IcPin } from '@/views/OfferInfoPage/assets/icons';
 import ConditionContentBox from '@/views/OfferInfoPage/components/ConditionContentBox';
 import { CONDITION_DATA } from '@/views/OfferInfoPage/constants/CONDITION_DATA';
 
-const OfferDetailSection = ({ offerId }: { offerId: number }) => {
-  const { data } = useGetOfferModel(offerId);
-
-  const { naverPlaceUrl, gender, dayoffs, shopAddress, shopDetailAddress } = data?.designerInfo || {};
-
-  const { preferStyle, designerOfferDetail, modelApplicationDetail, preferOfferConditions } = data?.styleDetail || {};
+const OfferDetailSection = ({ data }: { data: UseGetOfferModelProps }) => {
+  const { designerInfo, applicationInfo, offerInfo } = data;
+  const { naverPlaceUrl, gender, dayoffs, shopAddress, shopDetailAddress } = designerInfo;
+  const { preferStyle, modelApplicationDetail } = applicationInfo;
+  const { designerOfferDetail, preferOfferConditions } = offerInfo;
 
   return (
     <>
