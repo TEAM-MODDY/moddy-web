@@ -2,7 +2,7 @@ import { styled } from 'styled-components';
 
 import { IcBookmark } from '../assets/icons';
 import ImgApplicationLogo from '../assets/images/img_applicationlogo.png';
-import usePostDownloadUrlOffer from '../hooks/usePostDownloadUrlOffer';
+import useGetDownloadUrlOffer from '../hooks/useGetDownloadUrlOffer';
 
 import { IcCloseBlack } from '@/views/@common/assets/icons';
 
@@ -10,15 +10,16 @@ interface ImgModalProps {
   isModal?: boolean;
   onClose: () => void;
   imgUrl: string;
+  applicationId: number;
 }
 
-const ImgModal = ({ isModal, onClose, imgUrl }: ImgModalProps) => {
-  const data = usePostDownloadUrlOffer(imgUrl);
+const ImgModal = ({ isModal, onClose, imgUrl, applicationId }: ImgModalProps) => {
+  const data = useGetDownloadUrlOffer(applicationId);
 
   const handleImgDownload = () => {
     if (!data) return;
     const a = document.createElement('a');
-    a.href = data.offerImageUrl;
+    a.href = data.applicationDownloadUrl;
     a.style.display = 'none';
     a.download = 'my_moddy.png';
     document.body.appendChild(a);

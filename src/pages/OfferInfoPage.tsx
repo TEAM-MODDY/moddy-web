@@ -31,7 +31,12 @@ const OfferInfoPage = () => {
   return (
     data && (
       <>
-        <DirectionModal isModal={isModal} onClose={() => setIsModal(false)} offerId={offerId} />
+        <DirectionModal
+          isModal={isModal}
+          onClose={() => setIsModal(false)}
+          offerId={offerId}
+          applicationId={data.applicationInfo.applicationId}
+        />
         <Header title="도착한 제안서" isBackBtnExist={true} />
         <S.OfferInfoLayout>
           <DesignerInfoSection designerInfo={data.designerInfo} />

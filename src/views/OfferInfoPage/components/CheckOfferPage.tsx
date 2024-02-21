@@ -29,7 +29,7 @@ const CheckOfferPage = () => {
   };
 
   const { state } = useLocation();
-  const offerId = state;
+  const { offerId, applicationId } = state;
 
   const { data, isLoading, isError } = useGetAgree(offerId);
 
@@ -39,7 +39,12 @@ const CheckOfferPage = () => {
     data && (
       <>
         <ScrollToTop />
-        <ImgModal isModal={isModal} onClose={() => setIsModal(false)} imgUrl={data.applicationImgUrl} />
+        <ImgModal
+          isModal={isModal}
+          onClose={() => setIsModal(false)}
+          imgUrl={data.applicationImgUrl}
+          applicationId={applicationId}
+        />
         <Header
           title=""
           isBackBtnExist={true}

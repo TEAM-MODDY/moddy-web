@@ -57,5 +57,5 @@ export interface UseGetAgreeRes {
 }
 
 export interface UserGetDownloadUrlOfferProps {
-  offerImageUrl: string;
+  applicationDownloadUrl: string;
 }

@@ -5,15 +5,13 @@ import { UserGetDownloadUrlOfferProps } from './type';
 
 import api from '@/views/@common/hooks/api';
 
-const usePostDownloadUrlOffer = (imgUrl: string) => {
+const useGetDownloadUrlOffer = (applicationId: number) => {
   const navigate = useNavigate();
   const [data, setData] = useState<UserGetDownloadUrlOfferProps>();
 
-  const postUrl = async () => {
+  const getUrl = async () => {
     try {
-      const response = await api.post('/designer/offer/download-url', {
-        offerImageUrl: imgUrl,
-      });
+      const response = await api.get(`/application/${applicationId}/download-url`);
       setData(response.data.data);
     } catch (err) {
       navigate('/error');
@@ -21,10 +19,10 @@ const usePostDownloadUrlOffer = (imgUrl: string) => {
   };
 
   useEffect(() => {
-    postUrl();
+    getUrl();
   }, []);
 
   return data;
 };
 
-export default usePostDownloadUrlOffer;
+export default useGetDownloadUrlOffer;
