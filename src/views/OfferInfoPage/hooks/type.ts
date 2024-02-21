@@ -49,11 +49,6 @@ export interface UseGetAgreeRes {
   data: UseGetAgreeProps;
 }
 
-export interface OfferInfoProps {
-  code: number;
-  messsage: string;
-}
-
 export interface UserGetDownloadUrlOfferProps {
   offerImageUrl: string;
 }
