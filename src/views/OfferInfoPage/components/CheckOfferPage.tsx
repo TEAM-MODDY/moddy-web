@@ -29,9 +29,9 @@ const CheckOfferPage = () => {
   };
 
   const { state } = useLocation();
-  const { offerId, applicationId } = state;
+  const { applicationId, designerId } = state;
 
-  const { data, isLoading, isError } = useGetAgree(offerId);
+  const { data, isLoading, isError } = useGetAgree(designerId);
 
   return (
     !isLoading &&
@@ -63,7 +63,7 @@ const CheckOfferPage = () => {
           <ButtonBox onClick={handleModalOpen} kakaoUrl={data.kakaoUrl} />
 
           <S.SubTitle>연결 예정 디자이너</S.SubTitle>
-          <ProfileWrapperBox designerInfo={data.designerInfo} />
+          <ProfileWrapperBox data={data} />
         </S.CheckOfferLayout>
       </>
     )

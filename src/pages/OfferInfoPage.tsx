@@ -36,6 +36,7 @@ const OfferInfoPage = () => {
           onClose={() => setIsModal(false)}
           offerId={offerId}
           applicationId={data.applicationInfo.applicationId}
+          designerId={data.designerInfo.designerId}
         />
         <Header title="도착한 제안서" isBackBtnExist={true} />
         <S.OfferInfoLayout>

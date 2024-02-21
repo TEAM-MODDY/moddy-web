@@ -1,5 +1,5 @@
 export interface DesignerInfoProps {
-  designerInfo: number;
+  designerId: number;
   imgUrl: string;
   shopName: string;
   name: string;
@@ -37,17 +37,13 @@ export interface UseGetOfferModelRes {
   data: UseGetOfferModelProps;
 }
 
-export interface AgreeDesignerInfoProps {
+export interface UseGetAgreeProps {
+  applicationImgUrl: string;
+  kakaoUrl: string;
   imgUrl: string;
   shopName: string;
   name: string;
   introduction: string;
-}
-
-export interface UseGetAgreeProps {
-  applicationImgUrl: string;
-  kakaoUrl: string;
-  designerInfo: AgreeDesignerInfoProps;
 }
 
 export interface UseGetAgreeRes {

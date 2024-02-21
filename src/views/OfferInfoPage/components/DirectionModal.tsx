@@ -10,9 +10,10 @@ interface DirectionModalProps {
   onClose: () => void;
   offerId: number;
   applicationId: number;
+  designerId: number;
 }
 
-const DirectionModal = ({ isModal, onClose, offerId, applicationId }: DirectionModalProps) => {
+const DirectionModal = ({ isModal, onClose, offerId, applicationId, designerId }: DirectionModalProps) => {
   const navigate = useNavigate();
 
   const { postOffer } = usePutOfferModel(offerId);
@@ -20,7 +21,7 @@ const DirectionModal = ({ isModal, onClose, offerId, applicationId }: DirectionM
   const handleOnClickContinue = () => {
     postOffer();
     navigate('/offer-info/check-offer', {
-      state: { offerId, applicationId },
+      state: { applicationId, designerId },
     });
   };
 

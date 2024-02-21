@@ -6,7 +6,7 @@ import { UseGetAgreeProps } from './type';
 
 import api from '@/views/@common/hooks/api';
 
-const useGetAgree = (offerId: number) => {
+const useGetAgree = (designerId: number) => {
   const navigate = useNavigate();
   const [data, setData] = useState<UseGetAgreeProps>();
   const [isLoading, setLoading] = useState(true);
@@ -14,7 +14,7 @@ const useGetAgree = (offerId: number) => {
 
   const fetchData = async () => {
     try {
-      const response = await api.get(`/model/${offerId}/agree`);
+      const response = await api.get(`/designer/${designerId}`);
       setData(response.data.data);
     } catch (err) {
       if (err instanceof AxiosError) setError(err);
