@@ -88,6 +88,7 @@ const ProfileUpload = () => {
           <Input
             placeholderText={INFO_MESSAGE.INSTA_INPUT}
             initialValue={instagramId}
+            regex={/^[a-z0-9_.]+$/}
             onChangeFn={(e) => {
               setInputData({ ...inputData, instagramId: e });
             }}
