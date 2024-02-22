@@ -16,7 +16,6 @@ export const applyStepState = atom<applyStepType>({
 export interface hairStyleType {
   length: string;
   preference: Array<string>;
-  verifyStatus: boolean;
 }
 
 export const hairStyleState = atom<hairStyleType>({
@@ -24,7 +23,6 @@ export const hairStyleState = atom<hairStyleType>({
   default: {
     length: '',
     preference: [],
-    verifyStatus: false,
   },
 });
 
@@ -63,7 +61,6 @@ export interface profileType {
   modelImgUrl: string;
   modelImgData: File;
   instagramId: string;
-  verifyStatus: boolean;
 }
 
 export const profileState = atom<profileType>({
@@ -72,7 +69,6 @@ export const profileState = atom<profileType>({
     modelImgUrl: '',
     modelImgData: new File([], 'empty.text'),
     instagramId: '',
-    verifyStatus: false,
   },
 });
 
