@@ -12,8 +12,7 @@ const usePostPhoneNumber = (phoneNumber: string) => {
       phoneNumber: phoneNumber,
     };
     try {
-      const data = await api.post('/auth/phoneNumber', requestBody);
-      console.log(data);
+      await api.post('/auth/phoneNumber', requestBody);
     } catch (err) {
       navigate('/error');
     }

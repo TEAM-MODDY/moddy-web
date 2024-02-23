@@ -52,36 +52,24 @@ export const marketingState = atom<boolean>({
   default: false,
 });
 
-export const nameState = atom<inputDataType>({
+export const nameState = atom<string>({
   key: 'name',
-  default: {
-    data: '',
-    verifyStatus: false,
-  },
+  default: '',
 });
 
-export const birthYearState = atom<inputDataType>({
+export const birthYearState = atom<string>({
   key: 'birthYear',
-  default: {
-    data: '',
-    verifyStatus: false,
-  },
+  default: '',
 });
 
-export const genderState = atom<inputDataType>({
+export const genderState = atom<string>({
   key: 'gender',
-  default: {
-    data: '',
-    verifyStatus: false,
-  },
+  default: '',
 });
 
-export const preferRegionState = atom<preferRegionDataType>({
+export const preferRegionState = atom<boolean[]>({
   key: 'preferRegion',
-  default: {
-    data: [],
-    verifyStatus: false,
-  },
+  default: [],
 });
 
 export const regionState = atom<{ id: number; name: string }[]>({
