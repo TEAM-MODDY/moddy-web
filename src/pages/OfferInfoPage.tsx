@@ -9,6 +9,7 @@ import DirectionModal from '../views/OfferInfoPage/components/DirectionModal';
 
 import DesignerInfoSection from '@/views/OfferInfoPage/components/DesignerInfoSection';
 import OfferDetailSection from '@/views/OfferInfoPage/components/OfferDetailSection';
+import { OFFER_INFO_TEXT } from '@/views/OfferInfoPage/constants/message';
 
 const OfferInfoPage = () => {
   const { state } = useLocation();
@@ -38,7 +39,7 @@ const OfferInfoPage = () => {
           <S.CheckboxBtn onClick={handleCheckBoxClick}>
             {isChecked ? <IcCheckboxBlue /> : <IcCheckboxGrey />}
           </S.CheckboxBtn>
-          해당 제안서의 내용에 동의합니다.
+          {OFFER_INFO_TEXT.AGREE_TO_ASSIGNMENT}
         </S.AgreementBox>
       </S.OfferInfoLayout>
       <Button id="ga-accept-btn" text="수락하기" isFixed={false} onClickFn={handleModalOpen} disabled={!isChecked} />
