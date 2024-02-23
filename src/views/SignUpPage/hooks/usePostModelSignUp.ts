@@ -32,13 +32,13 @@ const usePostModelSignUp = () => {
   const preferRegions = useRecoilValue(preferRegionState);
   const isMarketingAgree = useRecoilValue(marketingState);
 
-  const preferRegion = preferRegions.data.map((value, index) => (value ? index : -1)).filter((index) => index !== -1);
+  const preferRegion = preferRegions.map((value, index) => (value ? index : -1)).filter((index) => index !== -1);
 
   const postModelSignUp = async () => {
     const requestBody: ModelSignUpRequest = {
-      name: name.data,
-      year: birthYear.data,
-      gender: gender.data,
+      name: name,
+      year: birthYear,
+      gender: gender,
       phoneNumber: phoneNumber.data,
       isMarketingAgree: isMarketingAgree,
       preferRegions: preferRegion,
