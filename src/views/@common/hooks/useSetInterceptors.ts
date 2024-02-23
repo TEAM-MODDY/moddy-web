@@ -28,6 +28,11 @@ const useSetInterceptors = () => {
         return Promise.reject(err);
       },
     );
+
+    return () => {
+      api.interceptors.request.clear();
+      api.interceptors.response.clear();
+    };
   }, []);
 };
 export default useSetInterceptors;
