@@ -1,6 +1,7 @@
 import { styled } from 'styled-components';
 
 import { IcLeft } from '../assets/icons';
+import { OFFER_INFO_BTN } from '../constants/message';
 import { DesignerInfoProps } from '../hooks/type';
 
 const DesignerInfoSection = ({ designerInfo }: { designerInfo: DesignerInfoProps }) => {
@@ -19,13 +20,13 @@ const DesignerInfoSection = ({ designerInfo }: { designerInfo: DesignerInfoProps
         <S.ButtonBox>
           <a href={instagramUrl} target="_blank" rel="noreferrer">
             <S.LinkButton type="button">
-              <p>인스타그램</p>
+              <p>{OFFER_INFO_BTN.INSTAGRAM}</p>
               <IcLeft />
             </S.LinkButton>
           </a>
           <a href={naverPlaceUrl} target="_blank" rel="noreferrer">
             <S.LinkButton type="button">
-              <p>네이버 플레이스</p>
+              <p>{OFFER_INFO_BTN.NAVER_PLACE}</p>
               <IcLeft />
             </S.LinkButton>
           </a>

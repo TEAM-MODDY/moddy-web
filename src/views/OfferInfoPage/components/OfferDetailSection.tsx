@@ -1,6 +1,7 @@
 import { styled } from 'styled-components';
 
 import ImgPropLogo from '../assets/images/img_proplogo.png';
+import { OFFER_INFO_BTN, OFFER_INFO_CATEGORY } from '../constants/message';
 import { UseGetOfferModelProps } from '../hooks/type';
 
 import { IcBookmark, IcPin } from '@/views/OfferInfoPage/assets/icons';
@@ -19,43 +20,43 @@ const OfferDetailSection = ({ data }: { data: UseGetOfferModelProps }) => {
         <S.DetailTextBox>
           <IcBookmark />
           <S.DetailMainTitleBox>
-            <h2>요청 스타일</h2>
+            <h2>{OFFER_INFO_CATEGORY.PREFER_STYLE}</h2>
             <h1>{preferStyle?.join(', ')}</h1>
           </S.DetailMainTitleBox>
           <S.DesignContentBox>
-            <h1>디자이너 상세 제안</h1>
+            <h1>{OFFER_INFO_CATEGORY.DESIGNER_OFFER}</h1>
             <p>{designerOfferDetail}</p>
-            <h1>상세 희망 스타일</h1>
+            <h1>{OFFER_INFO_CATEGORY.APPLICATION_DETAIL}</h1>
             <p>{modelApplicationDetail}</p>
           </S.DesignContentBox>
 
           <S.DetailMainTitleBox>
-            <h1>디자이너 정보</h1>
+            <h1>{OFFER_INFO_CATEGORY.DESIGNER_INFO}</h1>
           </S.DetailMainTitleBox>
           <S.DetailContentBox>
-            <h2>성별</h2>
+            <h2>{OFFER_INFO_CATEGORY.GENDER}</h2>
             <h3>{gender}</h3>
           </S.DetailContentBox>
           <S.DetailContentBox>
-            <h2>휴무일</h2>
+            <h2>{OFFER_INFO_CATEGORY.DAYOFF}</h2>
             <h3>{dayoffs && dayoffs.length > 0 ? dayoffs.join(', ') : '없음'}</h3>
           </S.DetailContentBox>
           <S.DetailContentBox>
-            <h2>주소</h2>
+            <h2>{OFFER_INFO_CATEGORY.ADDRESS}</h2>
             <div>
               <h3>{shopAddress}</h3>
               <h3>{shopDetailAddress}</h3>
               <a href={naverPlaceUrl} target="_blank" rel="noreferrer">
                 <button type="button">
                   <IcPin />
-                  지도
+                  {OFFER_INFO_BTN.MAP}
                 </button>
               </a>
             </div>
           </S.DetailContentBox>
 
           <S.DetailMainTitleBox>
-            <h1>제안 조건</h1>
+            <h1>{OFFER_INFO_CATEGORY.OFFER_CONDITION}</h1>
           </S.DetailMainTitleBox>
           <S.ConditionListBox>
             {CONDITION_DATA.map((data, index) => (
