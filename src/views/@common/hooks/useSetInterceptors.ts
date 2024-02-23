@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useLayoutEffect } from 'react';
 
 import api from '../hooks/api';
 import usePostRefresh from '../hooks/usePostRefresh';
@@ -7,7 +7,7 @@ import { getToken } from '../utils/token';
 const useSetInterceptors = () => {
   const postRefresh = usePostRefresh();
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     api.interceptors.request.use((config) => {
       const accessToken = getToken();
       if (accessToken) {
