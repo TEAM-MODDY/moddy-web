@@ -44,8 +44,7 @@ const usePostModelSignUp = () => {
       preferRegions: preferRegion,
     };
     try {
-      const data = await api.post('/model', requestBody);
-      console.log(data);
+      await api.post('/model', requestBody);
       setSessionUserType(tempUserType);
       navigate('/');
     } catch (err) {
