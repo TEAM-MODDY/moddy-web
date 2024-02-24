@@ -5,9 +5,8 @@ import { styled } from 'styled-components';
 import Button from '../views/@common/components/Button';
 import Header from '../views/@common/components/Header';
 
-import OfferDetailSection from './OfferDetailSection';
-
 import ToastMessage from '@/views/@common/components/ToastMessage';
+import OfferDetailSection from '@/views/ModelInfoPage/components/OfferDetailSection';
 import useGetApplication from '@/views/ModelInfoPage/hooks/useGetApplication';
 
 const ModelInfoPage = () => {

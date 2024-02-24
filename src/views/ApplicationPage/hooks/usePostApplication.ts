@@ -37,20 +37,15 @@ const usePostApplication = () => {
     return tempElement;
   });
 
-  const tempPreference = preference.map((element) => {
-    let tempElement = element;
-    Object.keys(SELECT_STYLE).forEach((key) => {
-      if (key === element) {
-        tempElement = SELECT_STYLE[key as keyof typeof SELECT_STYLE];
-      }
-    });
-    return tempElement;
+  const convertedPreference = preference.map((preferenceElement) => {
+    const convertedItem = SELECT_STYLE.find((key) => key.CONTENT[preferenceElement]);
+    return convertedItem && convertedItem.CONTENT[preferenceElement];
   });
 
   const postApplication = async () => {
     const objApplicationInfo = {
       hairLength: length,
-      preferHairStyles: tempPreference,
+      preferHairStyles: convertedPreference,
       hairDetail: hairDetail.data,
       hairServiceRecords: tempHairServiceRecords,
       instagramId,
@@ -66,7 +61,7 @@ const usePostApplication = () => {
     };
 
     try {
-      await api.post('/model/application', requestbody, {
+      await api.post('/application', requestbody, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },

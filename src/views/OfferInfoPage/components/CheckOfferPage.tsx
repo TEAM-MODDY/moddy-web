@@ -29,9 +29,9 @@ const CheckOfferPage = () => {
   };
 
   const { state } = useLocation();
-  const offerId = state;
+  const { applicationId, designerId } = state;
 
-  const { data, isLoading, isError } = useGetAgree(offerId);
+  const { data, isLoading, isError } = useGetAgree(designerId);
 
   return (
     !isLoading &&
@@ -39,7 +39,7 @@ const CheckOfferPage = () => {
     data && (
       <>
         <ScrollToTop />
-        <ImgModal isModal={isModal} onClose={() => setIsModal(false)} imgUrl={data.applicationImgUrl} />
+        <ImgModal isModal={isModal} onClose={() => setIsModal(false)} applicationId={applicationId} />
         <Header
           title=""
           isBackBtnExist={true}
@@ -58,7 +58,7 @@ const CheckOfferPage = () => {
           <ButtonBox onClick={handleModalOpen} kakaoUrl={data.kakaoUrl} />
 
           <S.SubTitle>연결 예정 디자이너</S.SubTitle>
-          <ProfileWrapperBox designerInfo={data.designerInfo} />
+          <ProfileWrapperBox data={data} />
         </S.CheckOfferLayout>
       </>
     )

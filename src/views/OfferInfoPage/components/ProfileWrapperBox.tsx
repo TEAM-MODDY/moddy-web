@@ -1,9 +1,9 @@
 import { styled } from 'styled-components';
 
-import { AgreeDesignerInfoProps } from '../hooks/type';
+import { UseGetAgreeProps } from '../hooks/type';
 
-const ProfileWrapperBox = ({ designerInfo }: { designerInfo: AgreeDesignerInfoProps }) => {
-  const { imgUrl, shopName, name, introduction }: AgreeDesignerInfoProps = designerInfo;
+const ProfileWrapperBox = ({ data }: { data: UseGetAgreeProps }) => {
+  const { imgUrl, shopName, name, introduction } = data;
 
   return (
     <S.ProfileWrapperLayout>

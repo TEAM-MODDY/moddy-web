@@ -2,23 +2,23 @@ import { styled } from 'styled-components';
 
 import { IcBookmark } from '../assets/icons';
 import ImgApplicationLogo from '../assets/images/img_applicationlogo.png';
-import usePostDownloadUrlOffer from '../hooks/usePostDownloadUrlOffer';
+import useGetDownloadUrlOffer from '../hooks/useGetDownloadUrlOffer';
 
 import { IcCloseBlack } from '@/views/@common/assets/icons';
 
 interface ImgModalProps {
   isModal?: boolean;
   onClose: () => void;
-  imgUrl: string;
+  applicationId: number;
 }
 
-const ImgModal = ({ isModal, onClose, imgUrl }: ImgModalProps) => {
-  const data = usePostDownloadUrlOffer(imgUrl);
+const ImgModal = ({ isModal, onClose, applicationId }: ImgModalProps) => {
+  const data = useGetDownloadUrlOffer(applicationId);
 
   const handleImgDownload = () => {
     if (!data) return;
     const a = document.createElement('a');
-    a.href = data.offerImageUrl;
+    a.href = data.applicationDownloadUrl;
     a.style.display = 'none';
     a.download = 'my_moddy.png';
     document.body.appendChild(a);
@@ -31,7 +31,7 @@ const ImgModal = ({ isModal, onClose, imgUrl }: ImgModalProps) => {
   };
   return (
     <>
-      {isModal && (
+      {data && isModal && (
         <S.ModalDimBox>
           <S.ModalBox>
             <S.BookMarkBox>
@@ -40,7 +40,7 @@ const ImgModal = ({ isModal, onClose, imgUrl }: ImgModalProps) => {
             <S.CloseBtnBox onClick={handleModalClose}>
               <IcCloseBlack />
             </S.CloseBtnBox>
-            <S.MyRecordImg src={imgUrl} />
+            <S.MyRecordImg src={data.applicationDownloadUrl} />
             <S.LogoBox src={ImgApplicationLogo} />
             <S.SaveBtn
               onClick={() => {
