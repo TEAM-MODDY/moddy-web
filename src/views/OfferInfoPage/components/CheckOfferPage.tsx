@@ -39,12 +39,7 @@ const CheckOfferPage = () => {
     data && (
       <>
         <ScrollToTop />
-        <ImgModal
-          isModal={isModal}
-          onClose={() => setIsModal(false)}
-          imgUrl={data.applicationImgUrl}
-          applicationId={applicationId}
-        />
+        <ImgModal isModal={isModal} onClose={() => setIsModal(false)} applicationId={applicationId} />
         <Header
           title=""
           isBackBtnExist={true}

@@ -38,7 +38,6 @@ export interface UseGetOfferModelRes {
 }
 
 export interface UseGetAgreeProps {
-  applicationImgUrl: string;
   kakaoUrl: string;
   imgUrl: string;
   shopName: string;

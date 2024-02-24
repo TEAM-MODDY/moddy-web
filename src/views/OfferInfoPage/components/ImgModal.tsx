@@ -9,11 +9,10 @@ import { IcCloseBlack } from '@/views/@common/assets/icons';
 interface ImgModalProps {
   isModal?: boolean;
   onClose: () => void;
-  imgUrl: string;
   applicationId: number;
 }
 
-const ImgModal = ({ isModal, onClose, imgUrl, applicationId }: ImgModalProps) => {
+const ImgModal = ({ isModal, onClose, applicationId }: ImgModalProps) => {
   const data = useGetDownloadUrlOffer(applicationId);
 
   const handleImgDownload = () => {
@@ -32,7 +31,7 @@ const ImgModal = ({ isModal, onClose, imgUrl, applicationId }: ImgModalProps) =>
   };
   return (
     <>
-      {isModal && (
+      {data && isModal && (
         <S.ModalDimBox>
           <S.ModalBox>
             <S.BookMarkBox>
@@ -41,7 +40,7 @@ const ImgModal = ({ isModal, onClose, imgUrl, applicationId }: ImgModalProps) =>
             <S.CloseBtnBox onClick={handleModalClose}>
               <IcCloseBlack />
             </S.CloseBtnBox>
-            <S.MyRecordImg src={imgUrl} />
+            <S.MyRecordImg src={data.applicationDownloadUrl} />
             <S.LogoBox src={ImgApplicationLogo} />
             <S.SaveBtn
               onClick={() => {
