@@ -14,7 +14,7 @@ const useGetApplication = (applicationId: number) => {
 
   const fetchData = async () => {
     try {
-      const response = await api.get(`/designer/${applicationId}`);
+      const response = await api.get(`/application/${applicationId}`);
       setData(response.data.data);
     } catch (err) {
       if (err instanceof AxiosError) setError(err);

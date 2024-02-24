@@ -17,7 +17,7 @@ const useGetRegion = () => {
 
   const fetchData = async () => {
     try {
-      const response: RegionResponse = await api.get('/auth/regions');
+      const response: RegionResponse = await api.get('/model/regions');
       setRegion(response.data.data);
     } catch (err) {
       if (err instanceof AxiosError) setError(err);

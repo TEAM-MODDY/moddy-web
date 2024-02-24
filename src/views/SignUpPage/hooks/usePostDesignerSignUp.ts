@@ -68,7 +68,7 @@ const usePostDesignerSignUp = () => {
     requestBody.append('profileImg', profileImg.file);
 
     try {
-      await api.post('/auth/signup/designer', requestBody, {
+      await api.post('/designer', requestBody, {
         headers: {
           'Content-Type': `multipart/form-data`,
         },

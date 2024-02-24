@@ -30,10 +30,10 @@ const OfferDetailSection = ({ handleCopyClipBoard, data }: OfferDetailProps) => 
         <OfferDetail content={modelInfo.age}>나이</OfferDetail>
         <OfferDetail content={modelInfo.gender}>성별</OfferDetail>
         <OfferDetail content={modelInfo.preferRegions.join(', ')}>희망 지역</OfferDetail>
-        {modelInfo.instagramId ? (
+        {applicationInfo.instagramId ? (
           <>
-            <OfferDetail content={modelInfo.instagramId}>인스타그램</OfferDetail>
-            <CopyButton onClickFn={() => handleCopyClipBoard(modelInfo.instagramId)} />
+            <OfferDetail content={applicationInfo.instagramId}>인스타그램</OfferDetail>
+            <CopyButton onClickFn={() => handleCopyClipBoard(applicationInfo.instagramId)} />
           </>
         ) : (
           <OfferDetail content="없음">인스타그램</OfferDetail>
