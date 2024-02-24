@@ -21,7 +21,7 @@ const DefaultInfo = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    selectedStyle.length && selectedStyle.preference.length > 0
+    selectedStyle.length && selectedStyle.preference.length
       ? setSelectedStyle({ ...selectedStyle, verifyStatus: true })
       : setSelectedStyle({ ...selectedStyle, verifyStatus: false });
   }, [selectedStyle.length, selectedStyle.preference]);
