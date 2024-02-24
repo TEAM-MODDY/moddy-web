@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { styled } from 'styled-components';
@@ -8,7 +8,7 @@ import Button from '../../@common/components/Button';
 import Header from '../../@common/components/Header';
 import ProgressBar from '../../@common/components/ProgressBar';
 import { INFO_MESSAGE } from '../constants/message';
-import { SELECT_TYPE } from '../constants/select';
+import { SELECT_LENGTH, SELECT_STYLE } from '../constants/select';
 
 import HairTypeInput from './HairTypeInput';
 import StyleButton from './StyleButton';
@@ -18,17 +18,16 @@ import { applyStepState, hairStyleState } from '@/recoil/atoms/applicationState'
 const DefaultInfo = () => {
   const [step, setStep] = useRecoilState(applyStepState);
   const [selectedStyle, setSelectedStyle] = useRecoilState(hairStyleState);
-  const { length, preference, verifyStatus } = selectedStyle;
   const navigate = useNavigate();
 
   useEffect(() => {
-    length && preference.length > 0
+    selectedStyle.length && selectedStyle.preference.length
       ? setSelectedStyle({ ...selectedStyle, verifyStatus: true })
       : setSelectedStyle({ ...selectedStyle, verifyStatus: false });
-  }, [length, preference]);
+  }, [selectedStyle.length, selectedStyle.preference]);
 
   const activateCheckbox = (type: string): boolean => {
-    return preference.includes(type);
+    return selectedStyle.preference.includes(type);
   };
 
   return (
@@ -53,10 +52,9 @@ const DefaultInfo = () => {
               <span>{INFO_MESSAGE.LENGTH_SUBTITLE}</span>
             </S.Title>
             <S.HairTypeInputBox>
-              <HairTypeInput imgIdx={0} type="SHORT" />
-              <HairTypeInput imgIdx={1} type="ABOVE_SHOULDER" />
-              <HairTypeInput imgIdx={2} type="UNDER_SHOULDER" />
-              <HairTypeInput imgIdx={3} type="UNDER_WAIST" />
+              {SELECT_LENGTH.map((element) => (
+                <HairTypeInput key={element.LENGTH} type={element.LENGTH} />
+              ))}
             </S.HairTypeInputBox>
           </S.HairLengthSection>
           <hr />
@@ -67,27 +65,19 @@ const DefaultInfo = () => {
               </h2>
               <span>{INFO_MESSAGE.PREFERENCE_SUBTITLE}</span>
             </S.Title>
-            <S.StyleBox>
-              <h3>{SELECT_TYPE.CUT}</h3>
-              <StyleButton isSelected={activateCheckbox('일반 커트')} type="일반 커트" />
-            </S.StyleBox>
-            <hr />
-            <S.StyleBox>
-              <h3>{SELECT_TYPE.COLOR}</h3>
-              <S.SelectList>
-                <StyleButton isSelected={activateCheckbox('전체 염색')} type="전체 염색" />
-                <StyleButton isSelected={activateCheckbox('전체 탈색')} type="전체 탈색" />
-              </S.SelectList>
-            </S.StyleBox>
-            <hr />
-            <S.StyleBox>
-              <h3>{SELECT_TYPE.PERM}</h3>
-              <S.SelectList>
-                <StyleButton isSelected={activateCheckbox('셋팅펌')} type="셋팅펌" />
-                <StyleButton isSelected={activateCheckbox('일반펌')} type="일반펌" />
-                <StyleButton isSelected={activateCheckbox('매직')} type="매직" />
-              </S.SelectList>
-            </S.StyleBox>
+            {SELECT_STYLE.map((element, index) => (
+              <React.Fragment key={element.TITLE}>
+                <S.StyleBox>
+                  <h3>{element.TITLE}</h3>
+                  <S.SelectList>
+                    {Object.keys(element.CONTENT).map((content) => (
+                      <StyleButton key={content} isSelected={activateCheckbox(content)} type={content} />
+                    ))}
+                  </S.SelectList>
+                </S.StyleBox>
+                {index === SELECT_STYLE.length - 1 ? null : <hr />}
+              </React.Fragment>
+            ))}
           </S.DeserveStyleSection>
         </S.StyleSection>
       </S.MainStyle>
@@ -97,7 +87,7 @@ const DefaultInfo = () => {
           setStep({ ...step, current: step.current + 1 });
         }}
         isFixed={true}
-        disabled={!verifyStatus}
+        disabled={!selectedStyle.verifyStatus}
       />
     </S.DefaultInfoLayout>
   );
