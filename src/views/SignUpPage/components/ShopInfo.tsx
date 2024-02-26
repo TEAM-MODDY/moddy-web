@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { styled } from 'styled-components';
 
@@ -10,12 +9,11 @@ import { TOTAL_STEP } from '../constants/step';
 import { EnterProfileProp } from '../utils/enterProfileProp';
 
 import Field from './Field';
-import LimitInput from './LimitInput';
 import PostCode from './PostCode';
 
 import { shopInfoState, addressState, detailShopInfoState, dateState } from '@/recoil/atoms/signUpState';
 import Button from '@/views/@common/components/Button';
-import Modal from '@/views/@common/components/Modal';
+import Input from '@/views/@common/components/Input';
 import ProgressBar from '@/views/@common/components/ProgressBar';
 
 const ShopInfo = ({ setStep }: EnterProfileProp) => {
@@ -24,13 +22,11 @@ const ShopInfo = ({ setStep }: EnterProfileProp) => {
   const [addressInfo, setAddressInfo] = useRecoilState(addressState);
   const [detailAddressInfo, setDetailAddressInfo] = useRecoilState(detailShopInfoState);
   const [clickedDateInfo, setClickedDateInfo] = useRecoilState(dateState);
-  const [placeTextValue, setPlaceTextValue] = useState(shopInfo.data);
 
   const [isClicked, setIsClicked] = useState<string[]>(clickedDateInfo.data);
-  const [isOpenModal, setOpenModal] = useState(false);
   const [Address, setAddress] = useState<string>('');
   const [isAddressModal, setIsAddressModal] = useState(false);
-  const navigate = useNavigate();
+
   const handleDayOffClick = (event: React.MouseEvent<HTMLButtonElement>, index: number) => {
     const dayValue = event.currentTarget.value;
 
@@ -60,33 +56,11 @@ const ShopInfo = ({ setStep }: EnterProfileProp) => {
   };
 
   const handlePlaceText = (value: string) => {
-    setPlaceTextValue(value);
     setShopInfo({ data: value, verifyStatus: true });
   };
 
-  const [addressDetailValue, setAddressDetailValue] = useState(detailAddressInfo.data);
   const handleDetialAddressText = (value: string) => {
-    setAddressDetailValue(value);
     setDetailAddressInfo({ data: value, verifyStatus: true });
-  };
-
-  const saveDataToRecoil = () => {
-    setShopInfo((prevShopInfo) => ({
-      ...prevShopInfo,
-      data: placeTextValue,
-      verifyStatus: true,
-    }));
-
-    setAddressInfo((prevAddressInfo) => ({
-      ...prevAddressInfo,
-      data: Address,
-    }));
-
-    setDetailAddressInfo((prevDetailAddressInfo) => ({
-      ...prevDetailAddressInfo,
-      data: addressDetailValue,
-      verifyStatus: true,
-    }));
   };
 
   useEffect(() => {
@@ -102,7 +76,7 @@ const ShopInfo = ({ setStep }: EnterProfileProp) => {
     applyChanges();
   }, []);
 
-  const isActive = Address && shopInfo.data !== '' && detailAddressInfo.data;
+  const isActive = Address && shopInfo.data && detailAddressInfo.data;
 
   return (
     <>
@@ -114,7 +88,7 @@ const ShopInfo = ({ setStep }: EnterProfileProp) => {
       <S.ShopInfoLayout>
         <Field name="소속" isEssential={true} />
 
-        <LimitInput
+        <Input
           placeholderText={HELPER_MESSAGE.INPUT_SHOP_NAME}
           initialValue={shopInfo.data}
           onChangeFn={handlePlaceText}
@@ -130,7 +104,7 @@ const ShopInfo = ({ setStep }: EnterProfileProp) => {
 
           <IcSearch />
         </S.AddressBox>
-        <LimitInput
+        <Input
           placeholderText={HELPER_MESSAGE.INPUT_DETAIL_ADRESS}
           initialValue={detailAddressInfo.data}
           onChangeFn={handleDetialAddressText}
@@ -158,22 +132,8 @@ const ShopInfo = ({ setStep }: EnterProfileProp) => {
         disabled={!isActive}
         onClickFn={() => {
           setStep((prev) => prev + 1);
-          setOpenModal(true);
-
-          saveDataToRecoil();
         }}
       />
-
-      {isOpenModal && (
-        <Modal
-          title="이대로 가입하시겠어요?"
-          description="가입 후에는 수정이 어려워요"
-          leftBtnText="돌아가기"
-          rightBtnText="확인"
-          leftBtnFn={() => setOpenModal(false)}
-          rightBtnFn={() => navigate('/')}
-        />
-      )}
     </>
   );
 };
