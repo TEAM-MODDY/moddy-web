@@ -4,8 +4,8 @@ import { styled } from 'styled-components';
 
 import { INFO_MESSAGE } from '../constants/message';
 import { SELECT_TYPE } from '../constants/select';
-import { captureImage } from '../hooks/useCaptureApplication';
 import useGetUser from '../hooks/useGetUser';
+import { captureImage } from '../utils/captureImage';
 
 import {
   applicationCaptureImgUrlState,
