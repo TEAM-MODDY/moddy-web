@@ -76,13 +76,7 @@ export const profileState = atom<profileType>({
   },
 });
 
-export interface imgDataType {
-  applicationCaptureImgUrl: File;
-}
-
-export const applicationCaptureImgUrlState = atom<imgDataType>({
+export const applicationCaptureImgUrlState = atom<File>({
   key: 'applicationCaptureImgUrl',
-  default: {
-    applicationCaptureImgUrl: new File([], 'empty.text'),
-  },
+  default: new File([], 'empty.text'),
 });
