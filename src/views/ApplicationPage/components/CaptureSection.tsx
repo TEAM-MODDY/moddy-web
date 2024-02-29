@@ -30,7 +30,7 @@ const CaptureSection = () => {
     captureImage(ref.current).then((file) => {
       file && setImgData(file);
     });
-  }, [ref.current, setImgData]);
+  }, [ref.current]);
 
   const setLenghth = () => {
     switch (length) {
