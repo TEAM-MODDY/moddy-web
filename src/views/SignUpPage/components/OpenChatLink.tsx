@@ -17,24 +17,18 @@ import ProgressBar from '@/views/@common/components/ProgressBar';
 
 const OpenChatLink = () => {
   const [LinkInfo, setLinkInfo] = useRecoilState(openLinkState);
-  const [textAreaValue, setTextAreaValue] = useState(LinkInfo.data);
   const [isOpenModal, setOpenModal] = useState(false);
   const postModelSignUp = usePostDesignerSignUp();
 
-  const saveDataToRecoil = () => {
+  const handleTextAreaChange = (value: string) => {
     setLinkInfo((prevOpenLink) => ({
       ...prevOpenLink,
-      data: textAreaValue,
+      data: value,
       verifyStatus: true,
     }));
   };
 
-  const handleTextAreaChange = (value: string) => {
-    setTextAreaValue(value);
-  };
-
-  const isActive = textAreaValue !== '';
-
+  const isActive = LinkInfo.data !== '';
   const handleSignUp = async () => {
     await postModelSignUp();
   };
@@ -62,7 +56,6 @@ const OpenChatLink = () => {
         disabled={!isActive}
         onClickFn={() => {
           setOpenModal(true);
-          saveDataToRecoil();
         }}
       />
       {isOpenModal && (
