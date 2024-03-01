@@ -11,6 +11,7 @@ export interface ApplicationInfo {
   hairServiceRecords: HairServiceRecord[];
   hairDetail: string;
   isSend: boolean;
+  instagramId: string;
 }
 
 interface ModelInfo {
@@ -19,7 +20,6 @@ interface ModelInfo {
   age: string;
   gender: string;
   preferRegions: string[];
-  instagramId: string;
 }
 
 export interface ModelInfoPageProps {

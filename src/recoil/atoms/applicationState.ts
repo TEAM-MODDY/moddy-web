@@ -16,7 +16,6 @@ export const applyStepState = atom<applyStepType>({
 export interface hairStyleType {
   length: string;
   preference: Array<string>;
-  lengthStatus: Array<boolean>;
   verifyStatus: boolean;
 }
 
@@ -25,7 +24,6 @@ export const hairStyleState = atom<hairStyleType>({
   default: {
     length: '',
     preference: [],
-    lengthStatus: [false, false, false, false],
     verifyStatus: false,
   },
 });

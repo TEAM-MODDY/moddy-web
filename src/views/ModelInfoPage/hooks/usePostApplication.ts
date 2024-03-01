@@ -13,7 +13,7 @@ const usePostApplication = (applicationId: number, offerDetail: string, preferOf
 
   const postApplication = async () => {
     try {
-      await api.post(`/designer/${applicationId}/offer`, {
+      await api.post(`/offer/${applicationId}`, {
         offerDetail: offerDetail,
         preferOfferConditions: conditionList,
       });
