@@ -21,14 +21,10 @@ const OpenChatLink = () => {
   const postModelSignUp = usePostDesignerSignUp();
 
   const handleTextAreaChange = (value: string) => {
-    setLinkInfo((prevOpenLink) => ({
-      ...prevOpenLink,
-      data: value,
-      verifyStatus: true,
-    }));
+    setLinkInfo(value);
   };
 
-  const isActive = LinkInfo.data !== '';
+  const isActive = LinkInfo !== '';
   const handleSignUp = async () => {
     await postModelSignUp();
   };
@@ -42,7 +38,7 @@ const OpenChatLink = () => {
         <Input
           placeholderText={HELPER_MESSAGE.INPUT_OPENCHAT_LINK}
           onChangeFn={handleTextAreaChange}
-          initialValue={LinkInfo.data}
+          initialValue={LinkInfo}
         />
         <S.HelperBox>
           <IcInformation />

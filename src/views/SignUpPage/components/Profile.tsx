@@ -20,11 +20,11 @@ const Profile = ({ setStep }: EnterProfileProp) => {
   const [profileImgInfo, setProfileImgInfo] = useRecoilState(profileImgState);
 
   const handleInstaGramText = (value: string) => {
-    setInstaIdInfo({ data: value, verifyStatus: true });
+    setInstaIdInfo(value);
   };
 
   const handleNaverPlaceText = (value: string) => {
-    setNaverPlaceInfo({ data: value, verifyStatus: true });
+    setNaverPlaceInfo(value);
   };
 
   const handleImageUpload = (imgUrl: string, imgObj: File) => {
@@ -35,7 +35,7 @@ const Profile = ({ setStep }: EnterProfileProp) => {
     }));
   };
 
-  const isActive = instaIdInfo.data && naverPlaceInfo.data && profileImgInfo.data;
+  const isActive = instaIdInfo && naverPlaceInfo && profileImgInfo.data;
 
   return (
     <>
@@ -52,13 +52,13 @@ const Profile = ({ setStep }: EnterProfileProp) => {
         <section>
           <Input
             placeholderText={HELPER_MESSAGE.INPUT_INSTAGRAM_LINK}
-            initialValue={instaIdInfo.data}
+            initialValue={instaIdInfo}
             onChangeFn={handleInstaGramText}
             maxLength={255}
           />
           <Input
             placeholderText={HELPER_MESSAGE.INPUT_NAVERPLACE_LINK}
-            initialValue={naverPlaceInfo.data}
+            initialValue={naverPlaceInfo}
             onChangeFn={handleNaverPlaceText}
             maxLength={255}
           />
