@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { styled } from 'styled-components';
 
@@ -6,6 +7,7 @@ import { TOTAL_STEP } from '../constants/step';
 import { EnterProfileProp } from '../utils/enterProfileProp';
 
 import Field from './Field';
+import ImgToast from './ImgToast';
 import ProfileUpload from './ProfileUpload';
 
 import { instagramLinkState, naverPlaceState, profileImgState } from '@/recoil/atoms/signUpState';
@@ -14,6 +16,7 @@ import Input from '@/views/@common/components/Input';
 import ProgressBar from '@/views/@common/components/ProgressBar';
 
 const Profile = ({ setStep }: EnterProfileProp) => {
+  const [isToastOpen, setToastOpen] = useState<boolean>(false);
   //Recoil
   const [instaIdInfo, setInstaIdInfo] = useRecoilState(instagramLinkState);
   const [naverPlaceInfo, setNaverPlaceInfo] = useRecoilState(naverPlaceState);
@@ -33,6 +36,7 @@ const Profile = ({ setStep }: EnterProfileProp) => {
       data: imgUrl,
       file: imgObj,
     }));
+    setToastOpen(true);
   };
 
   const isActive = instaIdInfo.data && naverPlaceInfo.data && profileImgInfo.data;
@@ -44,7 +48,7 @@ const Profile = ({ setStep }: EnterProfileProp) => {
         <Field name="프로필 사진" isEssential={true} />
         <S.HelperTextBox>{HELPER_MESSAGE.VIEW_IMAGE_TO_USER}</S.HelperTextBox>
         <S.ApplicationPagSection>
-          <ProfileUpload onImageUpload={handleImageUpload} />
+          <ProfileUpload onImageUpload={handleImageUpload} setToastOpen={setToastOpen} />
         </S.ApplicationPagSection>
 
         <Field name="포트폴리오" isEssential={true} />
@@ -73,6 +77,9 @@ const Profile = ({ setStep }: EnterProfileProp) => {
           setStep((prev) => prev + 1);
         }}
       />
+      {isToastOpen && (
+        <ImgToast mainText="사진 용량이 너무 커요!" subText="5MB 이하의 사진을 올려주세요" setter={setToastOpen} />
+      )}
     </>
   );
 };
