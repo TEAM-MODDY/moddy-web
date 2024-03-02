@@ -78,7 +78,7 @@ const Profile = ({ setStep }: EnterProfileProp) => {
         }}
       />
       {isToastOpen && (
-        <ImgToast mainText="사진 용량이 너무 커요!" subText="5MB 이하의 사진을 올려주세요" setter={setToastOpen} />
+        <ImgToast mainText="사진 용량이 너무 커요!" subText="10MB 이하의 사진을 올려주세요" setter={setToastOpen} />
       )}
     </>
   );
