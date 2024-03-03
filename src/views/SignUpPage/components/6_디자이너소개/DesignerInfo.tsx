@@ -2,11 +2,10 @@ import { useState, useEffect } from 'react';
 import { useRecoilState } from 'recoil';
 import { styled } from 'styled-components';
 
-import { TOTAL_STEP } from '../constants/step';
-import { EnterProfileProp } from '../utils/enterProfileProp';
-
-import DesignerTextArea from './DesignerTextArea';
-import Field from './Field';
+import { TOTAL_STEP } from '../../constants/step';
+import { EnterProfileProp } from '../../utils/enterProfileProp';
+import DesignerTextArea from '../@common/DesignerTextArea';
+import Field from '../@common/Field';
 
 import { designerInfoState } from '@/recoil/atoms/signUpState';
 import Button from '@/views/@common/components/Button';

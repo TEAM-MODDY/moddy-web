@@ -3,16 +3,16 @@ import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { styled } from 'styled-components';
 
-import { HELPER_MESSAGE } from '../constants/message';
-import { TOTAL_STEP } from '../constants/step';
-import { EnterProfileProp } from '../utils/enterProfileProp';
+import { HELPER_MESSAGE } from '../../constants/message';
+import { TOTAL_STEP } from '../../constants/step';
+import { EnterProfileProp } from '../../utils/enterProfileProp';
+import Field from '../@common/Field';
 
-import Field from './Field';
-import LimitInput from './LimitInput';
 import ProfileUpload from './ProfileUpload';
 
 import { instagramLinkState, naverPlaceState, profileImgState } from '@/recoil/atoms/signUpState';
 import Button from '@/views/@common/components/Button';
+import Input from '@/views/@common/components/Input';
 import Modal from '@/views/@common/components/Modal';
 import ProgressBar from '@/views/@common/components/ProgressBar';
 
@@ -89,13 +89,13 @@ const Profile = ({ setStep }: EnterProfileProp) => {
         <Field name="포트폴리오" isEssential={true} />
         <S.HelperTextBox>{HELPER_MESSAGE.PREFER_INPUT_PORTFOLIO}</S.HelperTextBox>
         <section>
-          <LimitInput
+          <Input
             placeholderText={HELPER_MESSAGE.INPUT_INSTAGRAM_LINK}
             initialValue={instaIdInfo.data}
             onChangeFn={handleInstaGramText}
             maxLength={255}
           />
-          <LimitInput
+          <Input
             placeholderText={HELPER_MESSAGE.INPUT_NAVERPLACE_LINK}
             initialValue={naverPlaceInfo.data}
             onChangeFn={handleNaverPlaceText}

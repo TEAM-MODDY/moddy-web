@@ -2,11 +2,10 @@ import { useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { styled } from 'styled-components';
 
-import { HELPER_MESSAGE } from '../constants/message';
-import { TOTAL_STEP } from '../constants/step';
-import usePostDesignerSignUp from '../hooks/usePostDesignerSignUp';
-
-import Field from './Field';
+import { HELPER_MESSAGE } from '../../constants/message';
+import { TOTAL_STEP } from '../../constants/step';
+import usePostDesignerSignUp from '../../hooks/usePostDesignerSignUp';
+import Field from '../@common/Field';
 
 import { openLinkState } from '@/recoil/atoms/signUpState';
 import { IcInformation } from '@/views/@common/assets/icons';
