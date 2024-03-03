@@ -22,7 +22,11 @@ const DefaultInfo = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    selectedStyle.length && selectedStyle.preference.length > 0 ? setIsAllVerified(true) : setIsAllVerified(false);
+    const checkVerify = () => {
+      selectedStyle.length && selectedStyle.preference.length > 0 ? setIsAllVerified(true) : setIsAllVerified(false);
+    };
+
+    checkVerify();
   }, [selectedStyle.length, selectedStyle.preference]);
 
   const activateCheckbox = (type: string): boolean => {
