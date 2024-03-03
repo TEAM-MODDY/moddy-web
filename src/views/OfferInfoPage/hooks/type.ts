@@ -1,4 +1,5 @@
-interface DesignerInfoProps {
+export interface DesignerInfoProps {
+  designerId: number;
   imgUrl: string;
   shopName: string;
   name: string;
@@ -11,17 +12,23 @@ interface DesignerInfoProps {
   shopDetailAddress: string;
 }
 
-interface StyleDetailProps {
-  isAgree: boolean;
+export interface ApplicationInfoProps {
+  applicationId: number;
   preferStyle: string[];
-  designerOfferDetail: string;
   modelApplicationDetail: string;
+}
+
+export interface OfferInfoProps {
+  offerId: number;
+  isAgree: boolean;
+  designerOfferDetail: string;
   preferOfferConditions: boolean[];
 }
 
 export interface UseGetOfferModelProps {
   designerInfo: DesignerInfoProps;
-  styleDetail: StyleDetailProps;
+  applicationInfo: ApplicationInfoProps;
+  offerInfo: OfferInfoProps;
 }
 
 export interface UseGetOfferModelRes {
@@ -30,17 +37,12 @@ export interface UseGetOfferModelRes {
   data: UseGetOfferModelProps;
 }
 
-export interface AgreeDesignerInfoProps {
+export interface UseGetAgreeProps {
+  kakaoUrl: string;
   imgUrl: string;
   shopName: string;
   name: string;
   introduction: string;
-}
-
-export interface UseGetAgreeProps {
-  applicationImgUrl: string;
-  kakaoUrl: string;
-  designerInfo: AgreeDesignerInfoProps;
 }
 
 export interface UseGetAgreeRes {
@@ -49,11 +51,6 @@ export interface UseGetAgreeRes {
   data: UseGetAgreeProps;
 }
 
-export interface OfferInfoProps {
-  code: number;
-  messsage: string;
-}
-
 export interface UserGetDownloadUrlOfferProps {
-  offerImageUrl: string;
+  applicationDownloadUrl: string;
 }

@@ -7,6 +7,7 @@ import Button from '../../@common/components/Button';
 import ProgressBar from '../../@common/components/ProgressBar';
 import ToastMessage from '../../@common/components/ToastMessage';
 import { USER_TYPE } from '../../@common/constants/userType';
+import { BIRTH_YEAR_LENGTH, NAME_MAX_LENGTH } from '../constants/constants';
 import { HELPER_MESSAGE, PLACE_HOLDER_MESSAGE, TOAST_MESSAGE } from '../constants/message';
 import { STEP, TOTAL_STEP } from '../constants/step';
 import { EnterProfileProp } from '../utils/enterProfileProp';
@@ -23,60 +24,36 @@ const PersonalInfo = ({ setStep }: EnterProfileProp) => {
   const [name, setName] = useRecoilState(nameState);
   const [birthYear, setBirthYear] = useRecoilState(birthYearState);
   const [gender, setGender] = useRecoilState(genderState);
+  const [isAllVerified, setIsAllVerified] = useState(false);
 
-  const [verificationStatus, setVerificationStatus] = useState({
-    isNameVerified: name.verifyStatus,
-    isBirthYearVerified: birthYear.verifyStatus,
-    isGenderVerified: gender.verifyStatus,
-    isAllVerified: name.verifyStatus && birthYear.verifyStatus && gender.verifyStatus,
-  });
   const [isToastOpen, setToastOpen] = useState<boolean>(false);
 
   const handleBirthYear = (value: string) => {
-    const regex = /^[0-9\b]{0,4}$/;
-    if (regex.test(value)) {
-      setBirthYear({ data: value, verifyStatus: verificationStatus.isBirthYearVerified });
-      if (value.length === 4) {
-        const regex = REGEX.BIRTH_YEAR;
-        regex.test(value)
-          ? (setVerificationStatus((prevState) => ({ ...prevState, isBirthYearVerified: true })),
-            setBirthYear({ data: value, verifyStatus: true }))
-          : (setVerificationStatus((prevState) => ({ ...prevState, isBirthYearVerified: false })),
-            setToastOpen(true),
-            setBirthYear({ data: value, verifyStatus: false }));
-      } else {
-        setVerificationStatus((prevState) => ({ ...prevState, isBirthYearVerified: false }));
-        setBirthYear({ data: value, verifyStatus: false });
+    if (REGEX.YEAR.test(value)) {
+      setBirthYear(value);
+      if (value.length === BIRTH_YEAR_LENGTH) {
+        !REGEX.BIRTH_YEAR.test(value) && setToastOpen(true);
       }
     }
   };
 
   const handleName = (value: string) => {
-    if (value.length > 0 && value.length <= 5) {
-      setVerificationStatus((prevState) => ({ ...prevState, isNameVerified: true }));
-      setName({ data: value, verifyStatus: true });
-    } else {
-      setVerificationStatus((prevState) => ({ ...prevState, isNameVerified: false }));
-      setName({ data: value, verifyStatus: false });
-    }
+    setName(value);
   };
 
   const handleGender = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setVerificationStatus((prevState) => ({ ...prevState, isGenderVerified: true }));
-    setGender({ data: e.target.id, verifyStatus: true });
+    setGender(e.target.id);
+  };
+
+  const validateAllVerified = () => {
+    return userType === USER_TYPE.DESIGNER
+      ? setIsAllVerified(REGEX.NAME.test(name) && REGEX.NOT_EMPTY.test(gender))
+      : setIsAllVerified(REGEX.NAME.test(name) && REGEX.BIRTH_YEAR.test(birthYear) && REGEX.NOT_EMPTY.test(gender));
   };
 
   useEffect(() => {
-    userType === USER_TYPE.DESIGNER
-      ? setVerificationStatus((prevState) => ({
-          ...prevState,
-          isAllVerified: prevState.isNameVerified && prevState.isGenderVerified,
-        }))
-      : setVerificationStatus((prevState) => ({
-          ...prevState,
-          isAllVerified: prevState.isNameVerified && prevState.isBirthYearVerified && prevState.isGenderVerified,
-        }));
-  }, [verificationStatus.isBirthYearVerified, verificationStatus.isGenderVerified, verificationStatus.isNameVerified]);
+    validateAllVerified();
+  }, [name, birthYear, gender]);
 
   return (
     <>
@@ -90,8 +67,8 @@ const PersonalInfo = ({ setStep }: EnterProfileProp) => {
           <Input
             placeholderText={PLACE_HOLDER_MESSAGE.INPUT_NAME}
             onChangeFn={handleName}
-            initialValue={name.data}
-            maxLength={5}
+            initialValue={name}
+            maxLength={NAME_MAX_LENGTH}
           />
           <S.HelperBox>
             <IcInformation />
@@ -104,10 +81,10 @@ const PersonalInfo = ({ setStep }: EnterProfileProp) => {
               <Field name="출생 연도" isEssential={true} />
               <Input
                 placeholderText={PLACE_HOLDER_MESSAGE.INPUT_BIRTH_YEAR}
-                initialValue={birthYear.data}
+                initialValue={birthYear}
                 onChangeFn={handleBirthYear}
                 regex={REGEX.BIRTH_YEAR}
-                maxLength={4}
+                maxLength={BIRTH_YEAR_LENGTH}
               />
             </>
           )}
@@ -117,7 +94,7 @@ const PersonalInfo = ({ setStep }: EnterProfileProp) => {
               type="radio"
               id="FEMALE"
               name="gender-type"
-              checked={gender.data === 'FEMALE'}
+              checked={gender === 'FEMALE'}
               onChange={handleGender}
             />
             <S.GenderTypeLabel htmlFor="FEMALE">여성</S.GenderTypeLabel>
@@ -125,7 +102,7 @@ const PersonalInfo = ({ setStep }: EnterProfileProp) => {
               type="radio"
               id="MALE"
               name="gender-type"
-              checked={gender.data === 'MALE'}
+              checked={gender === 'MALE'}
               onChange={handleGender}
             />
             <S.GenderTypeLabel htmlFor="MALE">남성</S.GenderTypeLabel>
@@ -137,7 +114,7 @@ const PersonalInfo = ({ setStep }: EnterProfileProp) => {
         text="다음"
         isFixed={true}
         onClickFn={() => setStep((prev) => prev + 1)}
-        disabled={!verificationStatus.isAllVerified}
+        disabled={!isAllVerified}
       />
       {isToastOpen && <ToastMessage text={TOAST_MESSAGE.INPUT_EXACT_BIRTH_YEAR} setter={setToastOpen} />}
     </>

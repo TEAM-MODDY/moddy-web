@@ -1,12 +1,11 @@
 import { styled } from 'styled-components';
 
 import { IcLeft } from '../assets/icons';
-import useGetOfferModel from '../hooks/useGetOfferModel';
+import { OFFER_INFO_BTN } from '../constants/message';
+import { DesignerInfoProps } from '../hooks/type';
 
-const DesignerInfoSection = ({ offerId }: { offerId: number }) => {
-  const { data } = useGetOfferModel(offerId);
-
-  const { imgUrl, shopName, name, instagramUrl, naverPlaceUrl, introduction } = data?.designerInfo ?? {};
+const DesignerInfoSection = ({ designerInfo }: { designerInfo: DesignerInfoProps }) => {
+  const { imgUrl, shopName, name, instagramUrl, naverPlaceUrl, introduction } = designerInfo;
 
   return (
     <div>
@@ -21,13 +20,13 @@ const DesignerInfoSection = ({ offerId }: { offerId: number }) => {
         <S.ButtonBox>
           <a href={instagramUrl} target="_blank" rel="noreferrer">
             <S.LinkButton type="button">
-              <p>인스타그램</p>
+              <p>{OFFER_INFO_BTN.INSTAGRAM}</p>
               <IcLeft />
             </S.LinkButton>
           </a>
           <a href={naverPlaceUrl} target="_blank" rel="noreferrer">
             <S.LinkButton type="button">
-              <p>네이버 플레이스</p>
+              <p>{OFFER_INFO_BTN.NAVER_PLACE}</p>
               <IcLeft />
             </S.LinkButton>
           </a>

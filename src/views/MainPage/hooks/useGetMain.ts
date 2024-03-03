@@ -20,7 +20,9 @@ const useGetMain = ({ user, page }: UseGetModelProps) => {
 
   const fetchData = async () => {
     try {
-      const res = await api.get(`/${user}?page=${page}&size=4`);
+      // 추후 수정
+      const mode = user === USER_TYPE.MODEL ? 'offer' : 'application';
+      const res = await api.get(`/${mode}?page=${page}&size=4`);
       if (user === USER_TYPE.MODEL) {
         setModelData((prev) => ({
           ...res.data.data,

@@ -6,7 +6,7 @@ import { UseGetOfferModelProps } from './type';
 
 import api from '@/views/@common/hooks/api';
 
-const useGetModel = (offerId: number) => {
+const useGetOfferModel = (offerId: number) => {
   const navigate = useNavigate();
   const [data, setData] = useState<UseGetOfferModelProps>();
   const [loading, setLoading] = useState(true);
@@ -14,7 +14,7 @@ const useGetModel = (offerId: number) => {
 
   const fetchData = async () => {
     try {
-      const response = await api.get(`/model/offer/${offerId}`);
+      const response = await api.get(`/offer/${offerId}`);
       setData(response.data.data);
     } catch (err) {
       if (err instanceof AxiosError) {
@@ -37,4 +37,4 @@ const useGetModel = (offerId: number) => {
   };
 };
 
-export default useGetModel;
+export default useGetOfferModel;

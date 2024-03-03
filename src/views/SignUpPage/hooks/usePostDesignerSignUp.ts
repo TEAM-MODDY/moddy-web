@@ -43,21 +43,21 @@ const usePostDesignerSignUp = () => {
 
   const postDesignerSignUp = async () => {
     const signUpData: DesignerInfo = {
-      name: name.data,
-      gender: gender.data,
+      name: name,
+      gender: gender,
       phoneNumber: phoneNumber.data,
       isMarketingAgree: isMarketingAgree,
       hairShop: {
-        name: hairShopName.data,
-        address: hairShopAddress.data,
-        detailAddress: hairShopDetailAddress.data,
+        name: hairShopName,
+        address: hairShopAddress,
+        detailAddress: hairShopDetailAddress,
       },
       portfolio: {
-        instagramUrl: instagramUrl.data,
-        naverPlaceUrl: naverPlaceUrl.data,
+        instagramUrl: instagramUrl,
+        naverPlaceUrl: naverPlaceUrl,
       },
-      introduction: introduction.data,
-      kakaoOpenChatUrl: kakaoOpenChatUrl.data,
+      introduction: introduction,
+      kakaoOpenChatUrl: kakaoOpenChatUrl,
       dayOffs: dayOffs.data.filter((item) => item),
     };
 
@@ -68,12 +68,11 @@ const usePostDesignerSignUp = () => {
     requestBody.append('profileImg', profileImg.file);
 
     try {
-      const data = await api.post('/auth/signup/designer', requestBody, {
+      await api.post('/designer', requestBody, {
         headers: {
           'Content-Type': `multipart/form-data`,
         },
       });
-      console.log(data);
       setSessionUserType(tempUserType);
       navigate('/');
     } catch (err) {

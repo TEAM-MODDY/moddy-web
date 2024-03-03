@@ -61,7 +61,7 @@ const usePostApplication = () => {
     };
 
     try {
-      await api.post('/model/application', requestbody, {
+      await api.post('/application', requestbody, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
