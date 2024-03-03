@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
 
-import { IcAccount, IcContactus, IcContactus1, IcDocument, IcModdypin, IcModdyusers2 } from '../assets/icons';
+import { IcAccount, IcContactus, IcContactus1, IcDocument } from '../assets/icons';
 import { LINK } from '../constants/link';
 
 import MyMenuItem from './MyMenuItem';
