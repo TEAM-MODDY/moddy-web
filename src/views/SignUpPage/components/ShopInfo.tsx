@@ -45,10 +45,7 @@ const ShopInfo = ({ setStep }: EnterProfileProp) => {
 
   const handleInputAddress = (value: string) => {
     setAddress(value);
-    setAddressInfo((prevAddressInfo) => ({
-      ...prevAddressInfo,
-      data: value,
-    }));
+    setAddressInfo(value);
   };
 
   const handleOpenAddressModal = () => {
@@ -56,19 +53,18 @@ const ShopInfo = ({ setStep }: EnterProfileProp) => {
   };
 
   const handlePlaceText = (value: string) => {
-    setShopInfo({ data: value, verifyStatus: true });
+    setShopInfo(value);
   };
 
   const handleDetialAddressText = (value: string) => {
-    setDetailAddressInfo({ data: value, verifyStatus: true });
+    setDetailAddressInfo(value);
   };
 
   useEffect(() => {
     const applyChanges = () => {
       if (addressInfo) {
         {
-          const inputAddress = addressInfo.data;
-          handleInputAddress(inputAddress);
+          handleInputAddress(addressInfo);
         }
       }
     };
@@ -76,7 +72,7 @@ const ShopInfo = ({ setStep }: EnterProfileProp) => {
     applyChanges();
   }, []);
 
-  const isActive = Address && shopInfo.data && detailAddressInfo.data;
+  const isActive = Address && shopInfo && detailAddressInfo;
 
   return (
     <>
@@ -90,14 +86,14 @@ const ShopInfo = ({ setStep }: EnterProfileProp) => {
 
         <Input
           placeholderText={HELPER_MESSAGE.INPUT_SHOP_NAME}
-          initialValue={shopInfo.data}
+          initialValue={shopInfo}
           onChangeFn={handlePlaceText}
           maxLength={25}
         />
         <Field name="주소" isEssential={true} />
         <S.AddressBox onClick={handleOpenAddressModal}>
           {Address ? (
-            <S.InputAddressBox>{addressInfo.data}</S.InputAddressBox>
+            <S.InputAddressBox>{addressInfo}</S.InputAddressBox>
           ) : (
             <S.DefaultText>{HELPER_MESSAGE.INPUT_ADDRESS}</S.DefaultText>
           )}
@@ -106,7 +102,7 @@ const ShopInfo = ({ setStep }: EnterProfileProp) => {
         </S.AddressBox>
         <Input
           placeholderText={HELPER_MESSAGE.INPUT_DETAIL_ADRESS}
-          initialValue={detailAddressInfo.data}
+          initialValue={detailAddressInfo}
           onChangeFn={handleDetialAddressText}
           maxLength={25}
         />
