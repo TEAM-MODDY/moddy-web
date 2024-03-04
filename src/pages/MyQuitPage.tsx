@@ -23,7 +23,7 @@ const MyQuitPage = () => {
       <Header title="회원탈퇴" isBackBtnExist backFn={() => navigate(-1)} />
       <MyQuitText />
       <MyQuitCheck isChecked={isChecked} setChecked={setChecked} />
-      <Button text="확인" onClickFn={() => setModalOpen(true)} isFixed disabled={!isChecked} />
+      <Button text="탈퇴하기" onClickFn={() => setModalOpen(true)} isFixed disabled={!isChecked} />
       {isModalOpen && (
         <Modal
           title={QUIT_MODAL.title}
