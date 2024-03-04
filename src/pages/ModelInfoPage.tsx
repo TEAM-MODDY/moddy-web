@@ -8,9 +8,9 @@ import useGetApplication from '@/views/ModelInfoPage/hooks/useGetApplication';
 
 const ModelInfoPage = () => {
   const { state } = useLocation();
-  const offerId = state;
+  const applicationId = state;
 
-  const { data, isLoading, isError } = useGetApplication(offerId);
+  const { data, isLoading, isError } = useGetApplication(applicationId);
   const isSend = data?.applicationInfo.isSend;
 
   //페이지 이동
@@ -18,7 +18,7 @@ const ModelInfoPage = () => {
   const handleOnClickOffer = () => {
     navigate('/model-info/model-offer', {
       state: {
-        applicationId: offerId,
+        applicationId: applicationId,
       },
     });
   };
