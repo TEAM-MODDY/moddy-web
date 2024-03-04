@@ -1,5 +1,4 @@
 import { useLocation, useNavigate } from 'react-router-dom';
-import { styled } from 'styled-components';
 
 import Button from '../views/@common/components/Button';
 import Header from '../views/@common/components/Header';
@@ -41,28 +40,6 @@ const ModelInfoPage = () => {
       </>
     )
   );
-};
-
-const S = {
-  ModelInfoLayout: styled.section`
-    display: grid;
-
-    width: 100%;
-    margin: 5rem 0 4.9rem;
-    padding: 0 1.6rem;
-
-    place-items: center;
-  `,
-  ImageBox: styled.img`
-    width: 100%;
-    height: 34.4rem;
-    margin: 1.6rem 0;
-    border-radius: 10px;
-
-    background-color: ${({ theme }) => theme.colors.moddy_gray05};
-
-    object-fit: cover;
-  `,
 };
 
 export default ModelInfoPage;

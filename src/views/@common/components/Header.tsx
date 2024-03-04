@@ -42,10 +42,10 @@ const Header = ({ isBackBtnExist, isCloseBtnExist, title, backFn, closeFn, isNoM
       </S.HeaderBox>
       {isOpenModal && (
         <Modal
-          title="ì‘ì„±ì„ ì·¨ì†Œí•˜ì‹œê² ìŠµë‹ˆê¹Œ?"
-          description="ì§€ê¸ˆ ì‘ì„±ì„ ì·¨ì†Œí•˜ë©´<br/>ì‘ì„± ì¤‘ì¸ ë‚´ìš©ì´ ì‚¬ë¼ì ¸ìš”."
-          leftBtnText="ê³„ì†í•˜ê¸°"
-          rightBtnText="ì·¨ì†Œí•˜ê¸°"
+          title="ÀÛ¼ºÀ» Ãë¼ÒÇÏ½Ã°Ú½À´Ï±î?"
+          description="Áö±İ ÀÛ¼ºÀ» Ãë¼ÒÇÏ¸é<br/>ÀÛ¼º ÁßÀÎ ³»¿ëÀÌ »ç¶óÁ®¿ä."
+          leftBtnText="°è¼ÓÇÏ±â"
+          rightBtnText="Ãë¼ÒÇÏ±â"
           leftBtnFn={() => setOpenModal(false)}
           rightBtnFn={() => (closeFn ? closeFn() : navigate('/'))}
         />
