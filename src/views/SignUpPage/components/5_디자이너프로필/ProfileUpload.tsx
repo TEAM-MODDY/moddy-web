@@ -2,8 +2,8 @@ import { useRef, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { styled } from 'styled-components';
 
-import beforeUpload from '../../@common/assets/images/img_photoadd_profile.png';
-import { readImg } from '../utils/readImg';
+import beforeUpload from '../../../@common/assets/images/img_photoadd_profile.png';
+import { readImg } from '../../utils/readImg';
 
 import { profileImgState } from '@/recoil/atoms/signUpState';
 import { IcPencilcircle } from '@/views/ApplicationPage/assets/icons';
