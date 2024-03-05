@@ -11,9 +11,15 @@ interface CardProps {
 
 const CardMain = ({ analyticsId, navigateTo, id, children }: CardProps) => {
   const navigate = useNavigate();
+  const navigateState = {
+    state: {
+      applicationId: id, // 임시 state
+      from: location.pathname,
+    },
+  };
 
   return (
-    <S.CardLayout id={analyticsId} onClick={() => navigate(navigateTo, { state: id })}>
+    <S.CardLayout id={analyticsId} onClick={() => navigate(navigateTo, navigateState)}>
       {children}
     </S.CardLayout>
   );

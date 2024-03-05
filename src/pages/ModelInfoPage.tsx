@@ -7,12 +7,22 @@ import Header from '../views/@common/components/Header';
 import Modal from '@/views/@common/components/Modal';
 import ModelInfo from '@/views/@common/components/ModelInfo';
 import { IcDeleteApplication } from '@/views/ModelInfoPage/assets/icons';
+import ExpirationFooter from '@/views/ModelInfoPage/components/ExpirationFooter';
 import useGetApplication from '@/views/ModelInfoPage/hooks/useGetApplication';
 
 const ModelInfoPage = () => {
   const [isModalOpen, setModalOpen] = useState(false);
-  const { state } = useLocation();
-  const applicationId = state;
+  const {
+    state: { applicationId, from },
+  } = useLocation();
+  const isFromMyPage = from === '/my-page';
+  const headerProps = {
+    isBackBtnExist: true,
+    title: '모델 지원 정보',
+    backFn: () => navigate(-1),
+    rightBtn: isFromMyPage ? <IcDeleteApplication /> : undefined,
+    rightFn: isFromMyPage ? () => setModalOpen(true) : undefined,
+  };
 
   const { data, isLoading, isError } = useGetApplication(applicationId);
   const isSend = data?.applicationInfo.isSend;
@@ -36,21 +46,19 @@ const ModelInfoPage = () => {
     !isLoading &&
     data && (
       <>
-        <Header
-          isBackBtnExist={true}
-          title="모델 지원 정보"
-          backFn={() => navigate(-1)}
-          rightBtn={<IcDeleteApplication />}
-          rightFn={() => setModalOpen(true)}
-        />
+        <Header {...headerProps} />
         <ModelInfo data={data} />
-        <Button
-          id="ga-offer-btn"
-          text={isSend ? '제안완료' : '제안하기'}
-          isFixed={false}
-          onClickFn={handleOnClickOffer}
-          disabled={isSend ? true : false}
-        />
+        {isFromMyPage ? (
+          <ExpirationFooter />
+        ) : (
+          <Button
+            id="ga-offer-btn"
+            text={isSend ? '제안완료' : '제안하기'}
+            isFixed={false}
+            onClickFn={handleOnClickOffer}
+            disabled={isSend ? true : false}
+          />
+        )}
         {isModalOpen && (
           <Modal
             title="지원서를 삭제할까요?"

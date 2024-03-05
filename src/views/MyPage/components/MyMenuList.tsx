@@ -23,7 +23,10 @@ const MyMenuList = ({ setModalOpen, isModel }: MyMenuListProps) => {
               text="나의 지원서"
               onClickFn={() =>
                 navigate('/model-info', {
-                  state: 18, // 임시 state
+                  state: {
+                    applicationId: 18, // 임시 state
+                    from: location.pathname,
+                  },
                 })
               }
             />
