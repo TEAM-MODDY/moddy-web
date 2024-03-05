@@ -43,24 +43,13 @@ const ModelOfferPage = () => {
   };
 
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  const handleOpenModal = () => {
-    setIsModalOpen(true);
-  };
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
+  const handleModal = () => {
+    setIsModalOpen((prev) => !prev);
   };
 
   return (
     <>
-      <Header
-        isBackBtnExist={true}
-        isCloseBtnExist={true}
-        title="모델 제안"
-        backFn={() => {
-          navigate(-1);
-        }}
-        closeFn={() => navigate('/')}
-      />
+      <Header isBackBtnExist={true} isCloseBtnExist={true} title="모델 제안" closeFn={() => navigate('/')} />
       <S.ModelOfferLayout>
         <S.ModelOfferBox>
           <TitleBox title="희망 제안 조건" subtitle="원하는 조건을 모두 선택해주세요" isNeccessary={true} />
@@ -86,13 +75,13 @@ const ModelOfferPage = () => {
           />
         </S.ModelOfferBox>
       </S.ModelOfferLayout>
-      <Button id="ga-offer-complete-btn" text="완료" isFixed={true} onClickFn={handleOpenModal} disabled={!isActive} />
+      <Button id="ga-offer-complete-btn" text="완료" isFixed={true} onClickFn={handleModal} disabled={!isActive} />
 
       {isModalOpen && (
         <Modal
           title="제안서를 전송할까요?"
           description="제안한 모델에게는<br/>문자를 통해 알림이 가요"
-          leftBtnFn={handleCloseModal}
+          leftBtnFn={handleModal}
           leftBtnText="취소"
           rightBtnFn={handleClickConfirm}
           rightBtnText="확인"
