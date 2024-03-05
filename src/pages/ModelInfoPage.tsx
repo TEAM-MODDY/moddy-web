@@ -1,20 +1,23 @@
+import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import Button from '../views/@common/components/Button';
 import Header from '../views/@common/components/Header';
 
+import Modal from '@/views/@common/components/Modal';
 import ModelInfo from '@/views/@common/components/ModelInfo';
 import { IcDeleteApplication } from '@/views/ModelInfoPage/assets/icons';
 import useGetApplication from '@/views/ModelInfoPage/hooks/useGetApplication';
 
 const ModelInfoPage = () => {
+  const [isModalOpen, setModalOpen] = useState(false);
   const { state } = useLocation();
   const applicationId = state;
 
   const { data, isLoading, isError } = useGetApplication(applicationId);
   const isSend = data?.applicationInfo.isSend;
 
-  //ÆäÀÌÁö ÀÌµ¿
+  //íŽ˜ì´ì§€ ì´ë™
   const navigate = useNavigate();
   const handleOnClickOffer = () => {
     navigate('/model-info/model-offer', {
@@ -25,7 +28,8 @@ const ModelInfoPage = () => {
   };
 
   const handleDeleteApplication = () => {
-    console.log('»èÁ¦ ¸í·É');
+    console.log('ì‚­ì œ ëª…ë ¹');
+    // ì§€ì›ì„œ ì‚­ì œí•˜ê¸° api í†µì‹  ì¶”ê°€
   };
   return (
     !isError &&
@@ -34,19 +38,29 @@ const ModelInfoPage = () => {
       <>
         <Header
           isBackBtnExist={true}
-          title="¸ðµ¨ Áö¿ø Á¤º¸"
+          title="ëª¨ë¸ ì§€ì› ì •ë³´"
           backFn={() => navigate(-1)}
           rightBtn={<IcDeleteApplication />}
-          rightFn={handleDeleteApplication}
+          rightFn={() => setModalOpen(true)}
         />
         <ModelInfo data={data} />
         <Button
           id="ga-offer-btn"
-          text={isSend ? 'Á¦¾È¿Ï·á' : 'Á¦¾ÈÇÏ±â'}
+          text={isSend ? 'ì œì•ˆì™„ë£Œ' : 'ì œì•ˆí•˜ê¸°'}
           isFixed={false}
           onClickFn={handleOnClickOffer}
           disabled={isSend ? true : false}
         />
+        {isModalOpen && (
+          <Modal
+            title="ì§€ì›ì„œë¥¼ ì‚­ì œí• ê¹Œìš”?"
+            description="ì§€ì›ì„œê°€ ì—†ìœ¼ë©´<br/>ëª¨ë¸ ì œì•ˆì„ ë°›ì„ ìˆ˜ ì—†ì–´ìš”"
+            leftBtnText="ì·¨ì†Œ"
+            leftBtnFn={() => setModalOpen(false)}
+            rightBtnText="í™•ì¸"
+            rightBtnFn={handleDeleteApplication}
+          />
+        )}
       </>
     )
   );
