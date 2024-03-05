@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { styled } from 'styled-components';
+import styled from 'styled-components';
 
 import { IcAccountFooter, IcDelete, IcLogout } from '../assets/icons';
 import usePostLogout from '../hooks/usePostLogout';
