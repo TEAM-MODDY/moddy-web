@@ -6,7 +6,7 @@ import Button from '../views/@common/components/Button';
 import { INFO_MESSAGE } from '@/views/ApplicationPage/constants/message';
 import ImgLetter from '@images/img_letter.png';
 
-const ConfirmPage = () => {
+const ApplicationConfirmPage = () => {
   const navigate = useNavigate();
 
   return (
@@ -31,7 +31,7 @@ const ConfirmPage = () => {
   );
 };
 
-export default ConfirmPage;
+export default ApplicationConfirmPage;
 
 const S = {
   ConfirmPage: styled.main`
