@@ -8,14 +8,12 @@ import MyInfo from '../views/MyPage/components/MyInfo';
 import MyMenuList from '../views/MyPage/components/MyMenuList';
 
 import Modal from '@/views/@common/components/Modal';
-import { LOGOUT_MODAL } from '@/views/@common/constants/modalText';
+import { APPLY_MODAL } from '@/views/@common/constants/modalText';
 import useGetUser from '@/views/MyPage/hooks/useGetUser';
-import usePostLogout from '@/views/MyPage/hooks/usePostLogout';
 
 const MyPage = () => {
   const [isModalOpen, setModalOpen] = useState(false);
   const navigate = useNavigate();
-  const postLogout = usePostLogout();
   const { data } = useGetUser();
   const isModel = data?.role === 'MODEL';
 
@@ -34,13 +32,13 @@ const MyPage = () => {
         <MyFooter />
         {isModalOpen && (
           <Modal
-            title={LOGOUT_MODAL.title}
-            description={LOGOUT_MODAL.description}
-            leftBtnText={LOGOUT_MODAL.leftBtn}
-            rightBtnText={LOGOUT_MODAL.rightBtn}
+            title={APPLY_MODAL.title}
+            description={APPLY_MODAL.description}
+            leftBtnText={APPLY_MODAL.leftBtn}
+            rightBtnText={APPLY_MODAL.rightBtn}
             leftBtnFn={() => setModalOpen && setModalOpen(false)}
             rightBtnFn={() => {
-              postLogout();
+              navigate('/application');
             }}
           />
         )}

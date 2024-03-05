@@ -6,30 +6,34 @@ import { LINK } from '../constants/link';
 
 import MyMenuItem from './MyMenuItem';
 
+import useGetCheckApplication from '@/views/@common/hooks/useGetCheckApplication';
+
 interface MyMenuListProps {
   setModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
   isModel: boolean;
 }
 const MyMenuList = ({ setModalOpen, isModel }: MyMenuListProps) => {
   const navigate = useNavigate();
+  const getCheckApplication = useGetCheckApplication();
+
+  const handleCheckApplication = async () => {
+    const response = await getCheckApplication();
+    response.code === 404
+      ? setModalOpen(true)
+      : navigate('/model-info', {
+          state: {
+            applicationId: response.data.applicationId,
+            from: location.pathname,
+          },
+        });
+  };
   return (
     <S.MyMenuListLayout>
       {isModel && (
         <>
           <S.MyMenuListBox>
             <S.MyMenuListParagraph>이용내역</S.MyMenuListParagraph>
-            <MyMenuItem
-              icon={<IcMyApplication />}
-              text="나의 지원서"
-              onClickFn={() =>
-                navigate('/model-info', {
-                  state: {
-                    applicationId: 18, // 임시 state
-                    from: location.pathname,
-                  },
-                })
-              }
-            />
+            <MyMenuItem icon={<IcMyApplication />} text="나의 지원서" onClickFn={handleCheckApplication} />
           </S.MyMenuListBox>
           <S.MyMenuListLine />
         </>
