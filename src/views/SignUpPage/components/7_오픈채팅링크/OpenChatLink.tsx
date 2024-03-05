@@ -15,8 +15,8 @@ import Modal from '@/views/@common/components/Modal';
 import ProgressBar from '@/views/@common/components/ProgressBar';
 
 const OpenChatLink = () => {
-  const [LinkInfo, setLinkInfo] = useRecoilState(openLinkState);
   const [isOpenModal, setOpenModal] = useState(false);
+  const [LinkInfo, setLinkInfo] = useRecoilState(openLinkState);
   const postModelSignUp = usePostDesignerSignUp();
 
   const handleTextAreaChange = (value: string) => {
