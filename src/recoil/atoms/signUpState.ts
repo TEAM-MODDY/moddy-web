@@ -93,25 +93,19 @@ export const verifyCodeState = atom<verificationDataType>({
   },
 });
 
-export const shopInfoState = atom<inputDataType>({
+export const shopInfoState = atom<string>({
   key: 'shopInfo',
-  default: {
-    data: '',
-    verifyStatus: false,
-  },
+  default: '',
 });
 
-export const addressState = atom<searchAddressType>({
+export const addressState = atom<string>({
   key: 'addressInfo',
-  default: { data: '' },
+  default: '',
 });
 
-export const detailShopInfoState = atom<inputDataType>({
+export const detailShopInfoState = atom<string>({
   key: 'detailShopInfo',
-  default: {
-    data: '',
-    verifyStatus: false,
-  },
+  default: '',
 });
 
 export const dateState = atom<selectDateType>({
@@ -129,34 +123,22 @@ export const profileImgState = atom<inputImgType>({
   },
 });
 
-export const instagramLinkState = atom<inputDataType>({
+export const instagramLinkState = atom<string>({
   key: 'instagramLinkInfo',
-  default: {
-    data: '',
-    verifyStatus: false,
-  },
+  default: '',
 });
 
-export const naverPlaceState = atom<inputDataType>({
+export const naverPlaceState = atom<string>({
   key: 'naverPlaceInfo',
-  default: {
-    data: '',
-    verifyStatus: false,
-  },
+  default: '',
 });
 
-export const designerInfoState = atom<inputDataType>({
+export const designerInfoState = atom<string>({
   key: 'deisgnerInfo',
-  default: {
-    data: '',
-    verifyStatus: false,
-  },
+  default: '',
 });
 
-export const openLinkState = atom<inputDataType>({
+export const openLinkState = atom<string>({
   key: 'openLinkInfo',
-  default: {
-    data: '',
-    verifyStatus: false,
-  },
+  default: '',
 });

@@ -55,10 +55,10 @@ const Header = ({
       </S.HeaderBox>
       {isOpenModal && (
         <Modal
-          title="작성을 취소하시겠습니까?"
-          description="지금 작성을 취소하면<br/>작성 중인 내용이 사라져요."
-          leftBtnText="계속하기"
-          rightBtnText="취소하기"
+          title="??? ??????"
+          description="?? ??? ????<br/>?? ?? ??? ????."
+          leftBtnText="??"
+          rightBtnText="??"
           leftBtnFn={() => setOpenModal(false)}
           rightBtnFn={() => (closeFn ? closeFn() : navigate('/'))}
         />

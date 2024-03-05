@@ -1,24 +1,20 @@
 import { isAxiosError } from 'axios';
-import { useEffect, useState } from 'react';
 
 import api from './api';
 
 const useGetCheckApplication = () => {
-  const [status, setStatus] = useState(0);
   const getCheckApplication = async () => {
     try {
       const response = await api.get('/application/check');
-      setStatus(response.status);
+      return response.data;
     } catch (err) {
-      isAxiosError(err) && setStatus(err.response?.status || 0);
+      if (isAxiosError(err)) {
+        return err.response?.data;
+      }
     }
   };
 
-  useEffect(() => {
-    getCheckApplication();
-  }, []);
-
-  return status;
+  return getCheckApplication;
 };
 
 export default useGetCheckApplication;

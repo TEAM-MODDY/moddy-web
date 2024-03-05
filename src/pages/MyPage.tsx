@@ -1,9 +1,7 @@
-import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
+import { styled } from 'styled-components';
 
 import Header from '../views/@common/components/Header';
-import Modal from '../views/@common/components/Modal';
 import MyFooter from '../views/MyPage/components/MyFooter';
 import MyInfo from '../views/MyPage/components/MyInfo';
 import MyMenuList from '../views/MyPage/components/MyMenuList';
@@ -13,8 +11,6 @@ import useGetUser from '@/views/MyPage/hooks/useGetUser';
 import usePostLogout from '@/views/MyPage/hooks/usePostLogout';
 
 const MyPage = () => {
-  const [isModalOpen, setModalOpen] = useState(false);
-
   const navigate = useNavigate();
   const postLogout = usePostLogout();
   const { data } = useGetUser();
