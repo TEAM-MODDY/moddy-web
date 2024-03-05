@@ -1,18 +1,17 @@
 import styled from 'styled-components';
 
-const ExpirationBox = () => {
+const ExpirationFooter = () => {
   return (
-    <S.Wrapper>
+    <footer>
       <S.Line />
       <S.ExpirationText>지원서 유효기간 어쩌구 저쩌구</S.ExpirationText>
-    </S.Wrapper>
+    </footer>
   );
 };
 
-export default ExpirationBox;
+export default ExpirationFooter;
 
 const S = {
-  Wrapper: styled.div``,
   Line: styled.div`
     width: 100%;
     height: 0.4rem;
