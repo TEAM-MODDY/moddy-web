@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
 
-import { IcContactus, IcContactus1, IcDocument, IcModdypin, IcModdyusers2 } from '../assets/icons';
+import { IcContactus, IcContactus1, IcDocument, IcModdypin, IcModdyusers2, IcMyApplication } from '../assets/icons';
 import { LINK } from '../constants/link';
 
 import MyMenuItem from './MyMenuItem';
@@ -13,6 +13,19 @@ const MyMenuList = ({ setModalOpen }: MyMenuListProps) => {
   const navigate = useNavigate();
   return (
     <S.MyMenuListLayout>
+      <S.MyMenuListBox>
+        <S.MyMenuListParagraph>이용내역</S.MyMenuListParagraph>
+        <MyMenuItem
+          icon={<IcMyApplication />}
+          text="나의 지원서"
+          onClickFn={() =>
+            navigate('/model-info', {
+              state: 18, // 임시 state
+            })
+          }
+        />
+      </S.MyMenuListBox>
+      <S.MyMenuListLine />
       <S.MyMenuListBox>
         <S.MyMenuListParagraph>고객센터</S.MyMenuListParagraph>
         <a href={LINK.CONTACT}>
