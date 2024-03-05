@@ -6,12 +6,15 @@ import Header from '../views/@common/components/Header';
 
 import Modal from '@/views/@common/components/Modal';
 import ModelInfo from '@/views/@common/components/ModelInfo';
+import ToastMessage from '@/views/@common/components/ToastMessage';
 import { IcDeleteApplication } from '@/views/ModelInfoPage/assets/icons';
 import ExpirationFooter from '@/views/ModelInfoPage/components/ExpirationFooter';
+import useDeleteApplication from '@/views/ModelInfoPage/hooks/useDeleteApplication';
 import useGetApplication from '@/views/ModelInfoPage/hooks/useGetApplication';
 
 const ModelInfoPage = () => {
   const [isModalOpen, setModalOpen] = useState(false);
+  const [isToastOpen, setToastOpen] = useState(false);
   const {
     state: { applicationId, from },
   } = useLocation();
@@ -27,6 +30,7 @@ const ModelInfoPage = () => {
   const { data, isLoading, isError } = useGetApplication(applicationId);
   const isSend = data?.applicationInfo.isSend;
   const dateInfo = { createdDate: data?.applicationInfo.createdDate, expiredDate: data?.applicationInfo.expiredDate };
+  const deleteApplication = useDeleteApplication();
 
   //페이지 이동
   const navigate = useNavigate();
@@ -38,9 +42,13 @@ const ModelInfoPage = () => {
     });
   };
 
-  const handleDeleteApplication = () => {
-    console.log('삭제 명령');
-    // 지원서 삭제하기 api 통신 추가
+  const handleDeleteApplication = async () => {
+    const isSuccess = await deleteApplication();
+    setModalOpen(false);
+    setToastOpen(isSuccess);
+    setTimeout(() => {
+      navigate(-1);
+    }, 2000);
   };
   return (
     !isError &&
@@ -70,6 +78,7 @@ const ModelInfoPage = () => {
             rightBtnFn={handleDeleteApplication}
           />
         )}
+        {isToastOpen && <ToastMessage text="지원서가 삭제되었습니다." setter={setToastOpen} />}
       </>
     )
   );
