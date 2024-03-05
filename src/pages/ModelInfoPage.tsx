@@ -26,6 +26,7 @@ const ModelInfoPage = () => {
 
   const { data, isLoading, isError } = useGetApplication(applicationId);
   const isSend = data?.applicationInfo.isSend;
+  const dateInfo = { createdDate: data?.applicationInfo.createdDate, expiredDate: data?.applicationInfo.expiredDate };
 
   //페이지 이동
   const navigate = useNavigate();
@@ -49,7 +50,7 @@ const ModelInfoPage = () => {
         <Header {...headerProps} />
         <ModelInfo data={data} />
         {isFromMyPage ? (
-          <ExpirationFooter />
+          <ExpirationFooter dateInfo={dateInfo} />
         ) : (
           <Button
             id="ga-offer-btn"

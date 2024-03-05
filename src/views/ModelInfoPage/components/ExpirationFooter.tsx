@@ -1,10 +1,16 @@
 import styled from 'styled-components';
 
-const ExpirationFooter = () => {
+interface ExpirationFooterProps {
+  createdDate?: string;
+  expiredDate?: string;
+}
+const ExpirationFooter = ({ dateInfo }: { dateInfo: ExpirationFooterProps }) => {
   return (
     <footer>
       <S.Line />
-      <S.ExpirationText>지원서 유효기간 어쩌구 저쩌구</S.ExpirationText>
+      <S.ExpirationText>
+        지원서 유효기간 {dateInfo.createdDate} - {dateInfo.expiredDate}
+      </S.ExpirationText>
     </footer>
   );
 };
