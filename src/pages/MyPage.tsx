@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
+import { styled } from 'styled-components';
 
 import Header from '../views/@common/components/Header';
 import MyFooter from '../views/MyPage/components/MyFooter';

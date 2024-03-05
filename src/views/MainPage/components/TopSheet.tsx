@@ -1,10 +1,13 @@
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
 
 import { IcLogoHome, IcRightWhite, IcModdyuser } from '../assets/icons';
 import { APPLY_STATUS } from '../constants/applyStatus';
 
+import Modal from '@/views/@common/components/Modal';
 import { USER_TYPE } from '@/views/@common/constants/userType';
+import useGetCheckApplication from '@/views/@common/hooks/useGetCheckApplication';
 
 interface TopSheetProps {
   userType: string;
@@ -14,6 +17,8 @@ interface TopSheetProps {
 
 const TopSheet = (props: TopSheetProps) => {
   const { userType, applyType, name } = props;
+  const [isOpenModal, setIsOpenModal] = useState(false);
+  const status = useGetCheckApplication();
   const navigate = useNavigate();
 
   const OnBoardingText = () => {
@@ -69,27 +74,54 @@ const TopSheet = (props: TopSheetProps) => {
       <IcModdyuser />
     </button>
   );
+
+  const checkApplicationStatus = () => {
+    if (status === 200) {
+      return true;
+    }
+  };
+
+  const handleNavigate = () => {
+    if (userType === USER_TYPE.MODEL) {
+      checkApplicationStatus() ? setIsOpenModal(true) : navigate('/application');
+    } else if (userType === USER_TYPE.GUEST) {
+      navigate('/login');
+    }
+  };
+
   const StartButton = () => (
     <S.StartButton
       id={userType === USER_TYPE.GUEST ? 'ga-login-btn' : 'ga-application-btn'}
       type="button"
-      onClick={() => navigate(userType === USER_TYPE.GUEST ? '/login' : '/application')}>
+      onClick={() => handleNavigate()}>
       <S.StartButtonSpan>헤어 모델 지원하기{userType === USER_TYPE.GUEST && ' / 제안하기'}</S.StartButtonSpan>
       <IcRightWhite />
     </S.StartButton>
   );
 
   return (
-    <S.TopSheetLayout>
-      <S.HeaderBox>
-        <IcLogoHome />
-        {userType === USER_TYPE.GUEST ? <LoginButton /> : <MyPageButton />}
-      </S.HeaderBox>
-      <S.OnBoardingBox>
-        <OnBoardingText />
-      </S.OnBoardingBox>
-      {userType !== USER_TYPE.DESIGNER && <StartButton />}
-    </S.TopSheetLayout>
+    <>
+      <S.TopSheetLayout>
+        <S.HeaderBox>
+          <IcLogoHome />
+          {userType === USER_TYPE.GUEST ? <LoginButton /> : <MyPageButton />}
+        </S.HeaderBox>
+        <S.OnBoardingBox>
+          <OnBoardingText />
+        </S.OnBoardingBox>
+        {userType !== USER_TYPE.DESIGNER && <StartButton />}
+      </S.TopSheetLayout>
+      {isOpenModal ? (
+        <Modal
+          title="새로운 지원서를 등록할까요?"
+          description="현재 지원서에<br/>등록된 내용은 사라져요"
+          leftBtnText="취소"
+          rightBtnText="확인"
+          leftBtnFn={() => setIsOpenModal(false)}
+          rightBtnFn={() => navigate('/application')}
+        />
+      ) : null}
+    </>
   );
 };
 

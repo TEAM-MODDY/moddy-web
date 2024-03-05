@@ -1,26 +1,30 @@
-export interface readImgProps {
-  input: FileList | null;
-  setUrl: React.Dispatch<React.SetStateAction<File | undefined>>;
-  setVerified: React.Dispatch<React.SetStateAction<boolean>>;
-}
+export const readImg = (event: React.ChangeEvent<HTMLInputElement>): Promise<{ previewSrc: string; imgUrl: File }> => {
+  const input = event.target.files;
 
-export const readImg = ({ input, setUrl, setVerified }: readImgProps) => {
-  // 인풋 태그에 파일이 있는 경우
-  if (input && input[0]) {
-    // FileReader 인스턴스 생성
-    const reader = new FileReader();
-    // reader가 이미지 읽도록 하기
-    reader.readAsDataURL(input[0]);
-    setUrl(input[0]);
-    setVerified(false);
+  return new Promise((resolve, reject) => {
+    if (input && input[0]) {
+      //미리보기
+      const reader = new FileReader();
 
-    // 이미지가 로드가 된 경우
-    reader.onload = (e) => {
-      const previewImg = document.getElementById('profileImg') as HTMLImageElement;
+      //폼데이터 생성
+      const formData = new FormData();
+      formData.append('DesignerImgUrl', input[0]);
 
-      if (typeof e.target!.result === 'string') {
-        previewImg.src = e.target!.result;
-      }
-    };
-  }
+      reader.onload = (e) => {
+        const previewImage = document.getElementById('profileImg') as HTMLImageElement;
+
+        if (typeof e.target!.result === 'string') {
+          previewImage.src = e.target!.result;
+
+          resolve({ previewSrc: e.target!.result, imgUrl: input[0] });
+        }
+      };
+
+      reader.onerror = (error) => {
+        reject(error);
+      };
+
+      reader.readAsDataURL(input[0]);
+    }
+  });
 };
