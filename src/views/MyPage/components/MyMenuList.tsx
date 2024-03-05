@@ -8,24 +8,29 @@ import MyMenuItem from './MyMenuItem';
 
 interface MyMenuListProps {
   setModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  isModel: boolean;
 }
-const MyMenuList = ({ setModalOpen }: MyMenuListProps) => {
+const MyMenuList = ({ setModalOpen, isModel }: MyMenuListProps) => {
   const navigate = useNavigate();
   return (
     <S.MyMenuListLayout>
-      <S.MyMenuListBox>
-        <S.MyMenuListParagraph>이용내역</S.MyMenuListParagraph>
-        <MyMenuItem
-          icon={<IcMyApplication />}
-          text="나의 지원서"
-          onClickFn={() =>
-            navigate('/model-info', {
-              state: 18, // 임시 state
-            })
-          }
-        />
-      </S.MyMenuListBox>
-      <S.MyMenuListLine />
+      {isModel && (
+        <>
+          <S.MyMenuListBox>
+            <S.MyMenuListParagraph>이용내역</S.MyMenuListParagraph>
+            <MyMenuItem
+              icon={<IcMyApplication />}
+              text="나의 지원서"
+              onClickFn={() =>
+                navigate('/model-info', {
+                  state: 18, // 임시 state
+                })
+              }
+            />
+          </S.MyMenuListBox>
+          <S.MyMenuListLine />
+        </>
+      )}
       <S.MyMenuListBox>
         <S.MyMenuListParagraph>고객센터</S.MyMenuListParagraph>
         <a href={LINK.CONTACT}>
