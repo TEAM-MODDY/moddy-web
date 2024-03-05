@@ -18,7 +18,7 @@ interface TopSheetProps {
 const TopSheet = (props: TopSheetProps) => {
   const { userType, applyType, name } = props;
   const [isOpenModal, setIsOpenModal] = useState(false);
-  const status = useGetCheckApplication();
+  const getCheckApplication = useGetCheckApplication();
   const navigate = useNavigate();
 
   const OnBoardingText = () => {
@@ -75,15 +75,19 @@ const TopSheet = (props: TopSheetProps) => {
     </button>
   );
 
-  const checkApplicationStatus = () => {
-    if (status === 200) {
-      return true;
+  const checkApplicationStatus = async () => {
+    try {
+      const response = await getCheckApplication();
+      return response?.code === 200;
+    } catch (error) {
+      return false;
     }
   };
 
-  const handleNavigate = () => {
+  const handleNavigate = async () => {
     if (userType === USER_TYPE.MODEL) {
-      checkApplicationStatus() ? setIsOpenModal(true) : navigate('/application');
+      const isValidApplication = await checkApplicationStatus();
+      isValidApplication ? setIsOpenModal(true) : navigate('/application');
     } else if (userType === USER_TYPE.GUEST) {
       navigate('/login');
     }
