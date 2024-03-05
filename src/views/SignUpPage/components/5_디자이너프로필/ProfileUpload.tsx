@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { useRecoilState } from 'recoil';
 import { styled } from 'styled-components';
 
@@ -9,26 +9,28 @@ import { profileImgState } from '@/recoil/atoms/signUpState';
 import { IcPencilcircle } from '@/views/ApplicationPage/assets/icons';
 
 interface ProfileUpLoadProps {
-  onImageUpload: (imgUrl: string) => void;
+  onImageUpload: (imgUrl: string, imgObj: File) => void;
 }
 
 const ProfileUpload = ({ onImageUpload }: ProfileUpLoadProps) => {
-  const [imageUrl, setImageUrl] = useRecoilState(profileImgState);
-  const [, setmodelImgUrl] = useState<File>();
-  const [, isVerified] = useState(true);
+  const [previewimgUrl, setPreviewImgUrl] = useState<string>();
   const inputRef = useRef<HTMLInputElement>(null);
+  const [profileImgInfo] = useRecoilState(profileImgState);
 
-  const uploadImg = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInput = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const imgObj = event.target.files;
-
-    readImg({ input: imgObj, setUrl: setmodelImgUrl, setVerified: isVerified });
-
     if (imgObj && imgObj[0]) {
-      const imgUrl = URL.createObjectURL(imgObj[0]);
-      setImageUrl({ data: imgUrl, file: imgObj[0] });
-      onImageUpload(imgUrl);
+      const imgUrl = await readImg(event);
+      setPreviewImgUrl(imgUrl.previewSrc);
+      onImageUpload(imgUrl.previewSrc, imgUrl.imgUrl);
     }
   };
+
+  useEffect(() => {
+    if (profileImgInfo.file) {
+      setPreviewImgUrl(profileImgInfo.data);
+    }
+  }, [profileImgInfo]);
 
   return (
     <div>
@@ -38,16 +40,14 @@ const ProfileUpload = ({ onImageUpload }: ProfileUpLoadProps) => {
           onClick={() => {
             inputRef.current?.click();
           }}>
-          <S.Profile src={imageUrl?.data || beforeUpload} alt="profileImg" id="profileImg" />
+          <S.Profile src={previewimgUrl || beforeUpload} alt="profileImg" id="profileImg" />
           <input
             id="uploadButton"
             name="uploadButton"
             ref={inputRef}
             type="file"
             accept="image/*"
-            onChange={(e) => {
-              uploadImg(e);
-            }}
+            onChange={handleInput}
           />
           <IcPencilcircle />
         </S.ProfileUploadBtn>

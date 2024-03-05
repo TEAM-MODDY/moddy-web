@@ -1,13 +1,19 @@
-import React, { useRef } from 'react';
-import { useRecoilValue } from 'recoil';
+import React, { useEffect, useRef } from 'react';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { styled } from 'styled-components';
 
 import { INFO_MESSAGE } from '../constants/message';
 import { SELECT_TYPE } from '../constants/select';
-import { useCaptureApplication } from '../hooks/useCaptureApplication';
 import useGetUser from '../hooks/useGetUser';
+import { captureImage } from '../utils/captureImage';
 
-import { deatiledStyleState, hairStyleState, historyState, profileState } from '@/recoil/atoms/applicationState';
+import {
+  applicationCaptureImgUrlState,
+  deatiledStyleState,
+  hairStyleState,
+  historyState,
+  profileState,
+} from '@/recoil/atoms/applicationState';
 
 const CaptureSection = () => {
   //지원서에 update할 state들
@@ -15,10 +21,16 @@ const CaptureSection = () => {
   const { length, preference } = useRecoilValue(hairStyleState);
   const detailedStyle = useRecoilValue(deatiledStyleState);
   const { hairServiceRecords } = useRecoilValue(historyState);
+  const setImgData = useSetRecoilState(applicationCaptureImgUrlState);
   const modelInfo = useGetUser();
 
   const ref = useRef<HTMLElement>(null);
-  useCaptureApplication(ref.current);
+
+  useEffect(() => {
+    captureImage(ref.current).then((file) => {
+      file && setImgData(file);
+    });
+  }, [ref.current]);
 
   const setLenghth = () => {
     switch (length) {

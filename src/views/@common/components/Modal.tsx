@@ -81,6 +81,9 @@ const S = {
   ModalParagraph: styled.p`
     color: ${({ theme }) => theme.colors.moddy_gray50};
     ${({ theme }) => theme.fonts.Body02};
+
+    text-align: center;
+    white-space: pre-line;
   `,
   ModalBtnsBox: styled.div`
     display: flex;
