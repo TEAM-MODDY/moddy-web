@@ -1,23 +1,23 @@
-import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import api from '@/views/@common/hooks/api';
 
-const useDeleteApplication = () => {
-  const [isSuccess, setSuccess] = useState(false);
+const useDeleteApplication = (setToastOpen: React.Dispatch<React.SetStateAction<boolean>>) => {
   const navigate = useNavigate();
 
   const deleteApplication = async () => {
     try {
       await api.delete('/application');
-      setSuccess(true);
+      setToastOpen(true);
+      setTimeout(() => {
+        navigate(-1);
+      }, 2000);
     } catch (err) {
       navigate('/error');
-      setSuccess(false);
     }
   };
 
-  return { isSuccess, deleteApplication };
+  return deleteApplication;
 };
 
 export default useDeleteApplication;

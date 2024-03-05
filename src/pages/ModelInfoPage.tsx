@@ -30,9 +30,8 @@ const ModelInfoPage = () => {
   const { data, isLoading, isError } = useGetApplication(applicationId);
   const isSend = data?.applicationInfo.isSend;
   const dateInfo = { createdDate: data?.applicationInfo.createdDate, expiredDate: data?.applicationInfo.expiredDate };
-  const { isSuccess, deleteApplication } = useDeleteApplication();
+  const deleteApplication = useDeleteApplication(setToastOpen);
 
-  //페이지 이동
   const navigate = useNavigate();
   const handleOnClickOffer = () => {
     navigate('/model-info/model-offer', {
@@ -45,11 +44,8 @@ const ModelInfoPage = () => {
   const handleDeleteApplication = async () => {
     deleteApplication();
     setModalOpen(false);
-    setToastOpen(isSuccess);
-    setTimeout(() => {
-      navigate(-1);
-    }, 2000);
   };
+
   return (
     !isError &&
     !isLoading &&
