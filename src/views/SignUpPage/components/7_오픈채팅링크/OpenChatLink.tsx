@@ -2,11 +2,10 @@ import { useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { styled } from 'styled-components';
 
-import { HELPER_MESSAGE } from '../constants/message';
-import { TOTAL_STEP } from '../constants/step';
-import usePostDesignerSignUp from '../hooks/usePostDesignerSignUp';
-
-import Field from './Field';
+import { HELPER_MESSAGE } from '../../constants/message';
+import { TOTAL_STEP } from '../../constants/step';
+import usePostDesignerSignUp from '../../hooks/usePostDesignerSignUp';
+import Field from '../@common/Field';
 
 import { openLinkState } from '@/recoil/atoms/signUpState';
 import { IcInformation } from '@/views/@common/assets/icons';
@@ -16,25 +15,15 @@ import Modal from '@/views/@common/components/Modal';
 import ProgressBar from '@/views/@common/components/ProgressBar';
 
 const OpenChatLink = () => {
-  const [LinkInfo, setLinkInfo] = useRecoilState(openLinkState);
-  const [textAreaValue, setTextAreaValue] = useState(LinkInfo.data);
   const [isOpenModal, setOpenModal] = useState(false);
+  const [LinkInfo, setLinkInfo] = useRecoilState(openLinkState);
   const postModelSignUp = usePostDesignerSignUp();
 
-  const saveDataToRecoil = () => {
-    setLinkInfo((prevOpenLink) => ({
-      ...prevOpenLink,
-      data: textAreaValue,
-      verifyStatus: true,
-    }));
-  };
-
   const handleTextAreaChange = (value: string) => {
-    setTextAreaValue(value);
+    setLinkInfo(value);
   };
 
-  const isActive = textAreaValue !== '';
-
+  const isActive = LinkInfo !== '';
   const handleSignUp = async () => {
     await postModelSignUp();
   };
@@ -48,7 +37,7 @@ const OpenChatLink = () => {
         <Input
           placeholderText={HELPER_MESSAGE.INPUT_OPENCHAT_LINK}
           onChangeFn={handleTextAreaChange}
-          initialValue={LinkInfo.data}
+          initialValue={LinkInfo}
         />
         <S.HelperBox>
           <IcInformation />
@@ -62,7 +51,6 @@ const OpenChatLink = () => {
         disabled={!isActive}
         onClickFn={() => {
           setOpenModal(true);
-          saveDataToRecoil();
         }}
       />
       {isOpenModal && (

@@ -1,21 +1,13 @@
-import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
+import { styled } from 'styled-components';
 
 import Header from '../views/@common/components/Header';
-import Modal from '../views/@common/components/Modal';
 import MyFooter from '../views/MyPage/components/MyFooter';
 import MyInfo from '../views/MyPage/components/MyInfo';
 import MyMenuList from '../views/MyPage/components/MyMenuList';
 
-import { LOGOUT_MODAL } from '@/views/@common/constants/modalText';
-import usePostLogout from '@/views/MyPage/hooks/usePostLogout';
-
 const MyPage = () => {
-  const [isModalOpen, setModalOpen] = useState(false);
-
   const navigate = useNavigate();
-  const postLogout = usePostLogout();
 
   return (
     <S.MyPageLayout>
@@ -27,20 +19,8 @@ const MyPage = () => {
         }}
       />
       <MyInfo />
-      <MyMenuList setModalOpen={setModalOpen} />
+      <MyMenuList />
       <MyFooter />
-      {isModalOpen && (
-        <Modal
-          title={LOGOUT_MODAL.title}
-          description={LOGOUT_MODAL.description}
-          leftBtnText={LOGOUT_MODAL.leftBtn}
-          rightBtnText={LOGOUT_MODAL.rightBtn}
-          leftBtnFn={() => setModalOpen && setModalOpen(false)}
-          rightBtnFn={() => {
-            postLogout();
-          }}
-        />
-      )}
     </S.MyPageLayout>
   );
 };

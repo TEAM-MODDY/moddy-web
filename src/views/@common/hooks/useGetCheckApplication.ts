@@ -1,4 +1,5 @@
 import { isAxiosError } from 'axios';
+import { useEffect, useState } from 'react';
 
 import api from './api';
 
@@ -15,6 +16,5 @@ const useGetCheckApplication = () => {
   };
 
   return getCheckApplication;
-};
 
 export default useGetCheckApplication;
