@@ -1,101 +1,111 @@
-import { useRef, useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { styled } from 'styled-components';
 
-import beforeUpload from '../../../@common/assets/images/img_photoadd_profile.png';
-import { readImg } from '../../utils/readImg';
+import { HELPER_MESSAGE } from '../../constants/message';
+import { TOTAL_STEP } from '../../constants/step';
+import { EnterProfileProp } from '../../utils/enterProfileProp';
+import Field from '../@common/Field';
+import ImgToast from '../ImgToast';
 
-import { profileImgState } from '@/recoil/atoms/signUpState';
-import { IcPencilcircle } from '@/views/ApplicationPage/assets/icons';
+import ProfileUpload from './ProfileUpload';
 
-interface ProfileUpLoadProps {
-  onImageUpload: (imgUrl: string, imgObj: File) => void;
-  setToastOpen: (isOpen: boolean) => void;
-}
+import { instagramLinkState, naverPlaceState, profileImgState } from '@/recoil/atoms/signUpState';
+import Button from '@/views/@common/components/Button';
+import Input from '@/views/@common/components/Input';
+import ProgressBar from '@/views/@common/components/ProgressBar';
 
-const ProfileUpload = ({ onImageUpload, setToastOpen }: ProfileUpLoadProps) => {
-  const [previewimgUrl, setPreviewImgUrl] = useState<string>();
-  const inputRef = useRef<HTMLInputElement>(null);
-  const [profileImgInfo] = useRecoilState(profileImgState);
+const Profile = ({ setStep }: EnterProfileProp) => {
+  //Recoil
+  const [isToastOpen, setToastOpen] = useState(false);
+  const [instaIdInfo, setInstaIdInfo] = useRecoilState(instagramLinkState);
+  const [naverPlaceInfo, setNaverPlaceInfo] = useRecoilState(naverPlaceState);
+  const [profileImgInfo, setProfileImgInfo] = useRecoilState(profileImgState);
 
-  const handleInput = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    const imgObj = event.target.files;
-    if (imgObj && imgObj[0]) {
-      try {
-        const imgUrl = await readImg(event, setToastOpen);
-        setPreviewImgUrl(imgUrl.previewSrc);
-        onImageUpload(imgUrl.previewSrc, imgUrl.imgUrl);
-      } catch (error) {
-        setToastOpen(true);
-        throw error;
-      }
-    }
+  const handleInstaGramText = (value: string) => {
+    setInstaIdInfo(value);
   };
 
-  useEffect(() => {
-    if (profileImgInfo.file) {
-      setPreviewImgUrl(profileImgInfo.data);
-    }
-  }, [profileImgInfo]);
+  const handleNaverPlaceText = (value: string) => {
+    setNaverPlaceInfo(value);
+  };
+
+  const handleImageUpload = (imgUrl: string, imgObj: File) => {
+    setProfileImgInfo((prevProfileImgInfo) => ({
+      ...prevProfileImgInfo,
+      data: imgUrl,
+      file: imgObj,
+    }));
+  };
+
+  const isActive = instaIdInfo && naverPlaceInfo && profileImgInfo.data;
 
   return (
-    <div>
-      <S.ProfileUploadBtnBox>
-        <S.ProfileUploadBtn
-          type="button"
-          onClick={() => {
-            inputRef.current?.click();
-          }}>
-          <S.Profile src={previewimgUrl || beforeUpload} alt="profileImg" id="profileImg" />
-          <input
-            id="uploadButton"
-            name="uploadButton"
-            ref={inputRef}
-            type="file"
-            accept="image/*"
-            onChange={handleInput}
+    <>
+      <ProgressBar whole={TOTAL_STEP.DESIGNER_VIEW} current={4} />
+      <S.ProfileLayout>
+        <Field name="프로필 사진" isEssential={true} />
+        <S.HelperTextBox>{HELPER_MESSAGE.VIEW_IMAGE_TO_USER}</S.HelperTextBox>
+        <S.ApplicationPagSection>
+          <ProfileUpload onImageUpload={handleImageUpload} setToastOpen={setToastOpen} />
+        </S.ApplicationPagSection>
+
+        <Field name="포트폴리오" isEssential={true} />
+        <S.HelperTextBox>{HELPER_MESSAGE.PREFER_INPUT_PORTFOLIO}</S.HelperTextBox>
+        <section>
+          <Input
+            placeholderText={HELPER_MESSAGE.INPUT_INSTAGRAM_LINK}
+            initialValue={instaIdInfo}
+            onChangeFn={handleInstaGramText}
+            maxLength={255}
           />
-          <IcPencilcircle />
-        </S.ProfileUploadBtn>
-      </S.ProfileUploadBtnBox>
-    </div>
+          <Input
+            placeholderText={HELPER_MESSAGE.INPUT_NAVERPLACE_LINK}
+            initialValue={naverPlaceInfo}
+            onChangeFn={handleNaverPlaceText}
+            maxLength={255}
+          />
+        </section>
+      </S.ProfileLayout>
+      <Button
+        id="ga-profile-btn"
+        text="다음"
+        isFixed={true}
+        disabled={!isActive}
+        onClickFn={() => {
+          setStep((prev) => prev + 1);
+        }}
+      />
+      {isToastOpen && (
+        <ImgToast mainText="사진 용량이 너무 커요!" subText="5MB 이하의 사진을 올려주세요" setter={setToastOpen} />
+      )}
+    </>
   );
 };
+export default Profile;
 
 const S = {
-  ProfileUploadBtnBox: styled.div`
-    position: relative;
+  ProfileLayout: styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 
-    width: 13.2rem;
-    height: 13.2rem;
-    margin: 0 auto;
+    margin-top: 8.6rem;
+    padding: 0 1.6rem;
 
-    cursor: pointer;
-  `,
-
-  ProfileUploadBtn: styled.button`
-    width: 100%;
-    height: 100%;
-    border: 1.5px dashed ${({ theme }) => theme.colors.moddy_blue2};
-    border-radius: 10px;
-
-    & > svg {
-      position: absolute;
-      right: 0.8rem;
-      bottom: 0.8rem;
-      z-index: 1;
-    }
-
-    & > input {
-      display: none;
+    & > section > div {
+      margin-top: 0.4rem;
     }
   `,
 
-  Profile: styled.img`
-    width: 100%;
-    height: 100%;
-    border-radius: 10px;
-    object-fit: cover;
+  HelperTextBox: styled.p`
+    margin-bottom: 0.8rem;
+
+    color: ${({ theme }) => theme.colors.moddy_gray50};
+    ${({ theme }) => theme.fonts.Body02};
+  `,
+
+  ApplicationPagSection: styled.section`
+    margin-top: 3.2rem;
   `,
 };
-export default ProfileUpload;
