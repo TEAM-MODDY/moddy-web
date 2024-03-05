@@ -1,15 +1,12 @@
 import { useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
 
-import { IcContactus, IcContactus1, IcDocument, IcModdypin, IcModdyusers2 } from '../assets/icons';
+import { IcAccount, IcContactus, IcContactus1, IcDocument } from '../assets/icons';
 import { LINK } from '../constants/link';
 
 import MyMenuItem from './MyMenuItem';
 
-interface MyMenuListProps {
-  setModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
-}
-const MyMenuList = ({ setModalOpen }: MyMenuListProps) => {
+const MyMenuList = () => {
   const navigate = useNavigate();
   return (
     <S.MyMenuListLayout>
@@ -31,9 +28,8 @@ const MyMenuList = ({ setModalOpen }: MyMenuListProps) => {
       </S.MyMenuListBox>
       <S.MyMenuListLine />
       <S.MyMenuListBox>
-        <S.MyMenuListParagraph>계정 관리</S.MyMenuListParagraph>
-        <MyMenuItem icon={<IcModdypin />} text="로그아웃" onClickFn={() => setModalOpen(true)} />
-        <MyMenuItem icon={<IcModdyusers2 />} text="회원탈퇴" onClickFn={() => navigate('/my-quit')} />
+        <S.MyMenuListParagraph>사용자 정보</S.MyMenuListParagraph>
+        <MyMenuItem icon={<IcAccount />} text="계정관리" onClickFn={() => navigate('/my-account')} />
       </S.MyMenuListBox>
     </S.MyMenuListLayout>
   );

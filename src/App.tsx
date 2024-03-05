@@ -19,6 +19,7 @@ import theme from './styles/Theme';
 import Settings from './views/@common/components/Settings';
 import LoginCallback from './views/LoginPage/components/LoginCallback';
 import OfferSentCompletePage from './views/ModelInfoPage/components/OfferSentCompletePage';
+import MyAccountPage from './views/MyPage/components/MyAccountPage';
 import CheckOfferPage from './views/OfferInfoPage/components/CheckOfferPage';
 
 const router = createBrowserRouter([
@@ -42,6 +43,7 @@ const router = createBrowserRouter([
       { path: '/model-info/model-offer/sent-complete', element: <OfferSentCompletePage /> },
       { path: '/error', element: <ErrorPage /> },
       { path: '/agreement', element: <AgreementPage /> },
+      { path: '/my-account', element: <MyAccountPage /> },
     ],
   },
 ]);

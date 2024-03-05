@@ -2,17 +2,16 @@ import { useEffect, useState } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { styled } from 'styled-components';
 
-import { IcInformation } from '../../@common/assets/icons';
-import Button from '../../@common/components/Button';
-import ProgressBar from '../../@common/components/ProgressBar';
-import ToastMessage from '../../@common/components/ToastMessage';
-import { USER_TYPE } from '../../@common/constants/userType';
-import { BIRTH_YEAR_LENGTH, NAME_MAX_LENGTH } from '../constants/constants';
-import { HELPER_MESSAGE, PLACE_HOLDER_MESSAGE, TOAST_MESSAGE } from '../constants/message';
-import { STEP, TOTAL_STEP } from '../constants/step';
-import { EnterProfileProp } from '../utils/enterProfileProp';
-
-import Field from './Field';
+import { IcInformation } from '../../../@common/assets/icons';
+import Button from '../../../@common/components/Button';
+import ProgressBar from '../../../@common/components/ProgressBar';
+import ToastMessage from '../../../@common/components/ToastMessage';
+import { USER_TYPE } from '../../../@common/constants/userType';
+import { BIRTH_YEAR_LENGTH, NAME_MAX_LENGTH } from '../../constants/constants';
+import { HELPER_MESSAGE, PLACE_HOLDER_MESSAGE, TOAST_MESSAGE } from '../../constants/message';
+import { STEP, TOTAL_STEP } from '../../constants/step';
+import { EnterProfileProp } from '../../utils/enterProfileProp';
+import Field from '../@common/Field';
 
 import { birthYearState, genderState, nameState, tempUserTypeState } from '@/recoil/atoms/signUpState';
 import Input from '@/views/@common/components/Input';

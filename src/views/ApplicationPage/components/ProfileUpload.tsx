@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { styled } from 'styled-components';
@@ -14,27 +14,35 @@ import { INFO_MESSAGE } from '../constants/message';
 import { readImg } from '../utils/readImg';
 
 import { applyStepState, profileState } from '@/recoil/atoms/applicationState';
+import { REGEX } from '@/views/@common/utils/regex';
 
 const ProfileUpload = () => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [step, setStep] = useRecoilState(applyStepState);
-  const [inputData, setInputData] = useRecoilState(profileState);
-  const { modelImgUrl, instagramId, verifyStatus } = inputData;
+  const [profileData, setProfileData] = useRecoilState(profileState);
+  const [isAllVerified, setIsAllVerified] = useState(false);
   const navigate = useNavigate();
 
-  const handleInput = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleProfileImg = (event: React.ChangeEvent<HTMLInputElement>) => {
     readImg(event)
       .then((dataUrl) => {
-        setInputData({
-          ...inputData,
+        setProfileData({
+          ...profileData,
           modelImgUrl: dataUrl.previewSrc,
           modelImgData: dataUrl.imgUrl,
-          verifyStatus: true,
         });
+        setIsAllVerified(true);
       })
       .catch(() => {
         navigate('/error');
       });
+  };
+
+  const handleInstagramId = (e: string) => {
+    if (REGEX.INSTAGRAM_ID.test(e) || !e) {
+      setProfileData({ ...profileData, instagramId: e });
+      setIsAllVerified(true);
+    } else setIsAllVerified(false);
   };
 
   return (
@@ -67,14 +75,18 @@ const ProfileUpload = () => {
               onClick={() => {
                 inputRef.current?.click();
               }}>
-              <S.Profile src={modelImgUrl ? modelImgUrl : beforeUpload} alt="profileImg" id="profileImg" />
+              <S.Profile
+                src={profileData.modelImgUrl ? profileData.modelImgUrl : beforeUpload}
+                alt="profileImg"
+                id="profileImg"
+              />
               <input
                 id="uploadButton"
                 name="uploadButton"
                 ref={inputRef}
                 type="file"
                 accept="image/*"
-                onChange={handleInput}
+                onChange={handleProfileImg}
               />
               <IcPencilcircle />
             </S.ProfileUploadBtn>
@@ -87,10 +99,9 @@ const ProfileUpload = () => {
           </S.Title>
           <Input
             placeholderText={INFO_MESSAGE.INSTA_INPUT}
-            initialValue={instagramId}
-            onChangeFn={(e) => {
-              setInputData({ ...inputData, instagramId: e });
-            }}
+            initialValue={profileData.instagramId}
+            regex={REGEX.INSTAGRAM_ID}
+            onChangeFn={handleInstagramId}
           />
         </S.ProfileInstaSection>
       </S.ProfileInfoSection>
@@ -99,7 +110,7 @@ const ProfileUpload = () => {
         onClickFn={() => {
           setStep({ ...step, current: step.current + 1 });
         }}
-        disabled={!verifyStatus}
+        disabled={!isAllVerified}
       />
     </S.ProfileUploadLayout>
   );

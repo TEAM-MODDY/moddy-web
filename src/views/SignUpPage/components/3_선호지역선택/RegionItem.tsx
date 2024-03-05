@@ -1,8 +1,8 @@
 import { useRecoilState } from 'recoil';
 import { styled } from 'styled-components';
 
-import { IcCheckboxBlue, IcCheckboxGrey } from '../../@common/assets/icons';
-import { PREFER_REGION_MAX_COUNT, SELECT_ALL } from '../constants/constants';
+import { IcCheckboxBlue, IcCheckboxGrey } from '../../../@common/assets/icons';
+import { PREFER_REGION_MAX_COUNT, SELECT_ALL } from '../../constants/constants';
 
 import { preferRegionState } from '@/recoil/atoms/signUpState';
 interface RegionItemProps {
