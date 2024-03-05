@@ -35,7 +35,7 @@ const S = {
     align-items: center;
     position: fixed;
     top: 0;
-    z-index: 10;
+    z-index: 15;
 
     width: 100%;
     max-width: 43rem;

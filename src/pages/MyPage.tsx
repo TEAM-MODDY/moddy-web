@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
 
@@ -6,11 +7,13 @@ import MyFooter from '../views/MyPage/components/MyFooter';
 import MyInfo from '../views/MyPage/components/MyInfo';
 import MyMenuList from '../views/MyPage/components/MyMenuList';
 
+import Modal from '@/views/@common/components/Modal';
 import { LOGOUT_MODAL } from '@/views/@common/constants/modalText';
 import useGetUser from '@/views/MyPage/hooks/useGetUser';
 import usePostLogout from '@/views/MyPage/hooks/usePostLogout';
 
 const MyPage = () => {
+  const [isModalOpen, setModalOpen] = useState(false);
   const navigate = useNavigate();
   const postLogout = usePostLogout();
   const { data } = useGetUser();
