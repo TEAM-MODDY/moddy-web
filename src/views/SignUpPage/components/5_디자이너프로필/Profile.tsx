@@ -6,7 +6,6 @@ import { HELPER_MESSAGE } from '../../constants/message';
 import { TOTAL_STEP } from '../../constants/step';
 import { EnterProfileProp } from '../../utils/enterProfileProp';
 import Field from '../@common/Field';
-import ImgToast from '../ImgToast';
 
 import ProfileUpload from './ProfileUpload';
 
@@ -14,6 +13,7 @@ import { instagramLinkState, naverPlaceState, profileImgState } from '@/recoil/a
 import Button from '@/views/@common/components/Button';
 import Input from '@/views/@common/components/Input';
 import ProgressBar from '@/views/@common/components/ProgressBar';
+import ToastMessage from '@/views/@common/components/ToastMessage';
 
 const Profile = ({ setStep }: EnterProfileProp) => {
   //Recoil
@@ -77,7 +77,7 @@ const Profile = ({ setStep }: EnterProfileProp) => {
         }}
       />
       {isToastOpen && (
-        <ImgToast mainText="사진 용량이 너무 커요!" subText="5MB 이하의 사진을 올려주세요" setter={setToastOpen} />
+        <ToastMessage text="사진 용량이 너무 커요!" subtext="5MB 이하의 사진을 올려주세요" setter={setToastOpen} />
       )}
     </>
   );
