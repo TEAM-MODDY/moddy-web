@@ -30,7 +30,7 @@ const ModelInfoPage = () => {
   const { data, isLoading, isError } = useGetApplication(applicationId);
   const isSend = data?.applicationInfo.isSend;
   const dateInfo = { createdDate: data?.applicationInfo.createdDate, expiredDate: data?.applicationInfo.expiredDate };
-  const deleteApplication = useDeleteApplication();
+  const { isSuccess, deleteApplication } = useDeleteApplication();
 
   //페이지 이동
   const navigate = useNavigate();
@@ -43,7 +43,7 @@ const ModelInfoPage = () => {
   };
 
   const handleDeleteApplication = async () => {
-    const isSuccess = await deleteApplication();
+    deleteApplication();
     setModalOpen(false);
     setToastOpen(isSuccess);
     setTimeout(() => {

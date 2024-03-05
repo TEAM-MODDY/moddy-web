@@ -15,10 +15,9 @@ const useDeleteApplication = () => {
       navigate('/error');
       setSuccess(false);
     }
-    return isSuccess;
   };
 
-  return deleteApplication;
+  return { isSuccess, deleteApplication };
 };
 
 export default useDeleteApplication;
