@@ -1,6 +1,7 @@
 import IcCamera from './ic_camera.svg';
 import IcCameraact from './ic_cameraact.svg';
 import IcCopy from './ic_copy.svg';
+import IcDeleteApplication from './ic_delete.svg';
 import IcGift from './ic_gift.svg';
 import IcGiftact from './ic_giftact.svg';
 import IcHearthand from './ic_hearthand.svg';
@@ -28,4 +29,5 @@ export {
   IcModdyhearts1act,
   IcPhotoshop,
   IcPhotoshopact,
+  IcDeleteApplication,
 };

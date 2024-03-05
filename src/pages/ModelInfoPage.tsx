@@ -4,6 +4,7 @@ import Button from '../views/@common/components/Button';
 import Header from '../views/@common/components/Header';
 
 import ModelInfo from '@/views/@common/components/ModelInfo';
+import { IcDeleteApplication } from '@/views/ModelInfoPage/assets/icons';
 import useGetApplication from '@/views/ModelInfoPage/hooks/useGetApplication';
 
 const ModelInfoPage = () => {
@@ -23,12 +24,21 @@ const ModelInfoPage = () => {
     });
   };
 
+  const handleDeleteApplication = () => {
+    console.log('삭제 명령');
+  };
   return (
     !isError &&
     !isLoading &&
     data && (
       <>
-        <Header isBackBtnExist={true} title="모델 지원 정보" backFn={() => navigate(-1)} />
+        <Header
+          isBackBtnExist={true}
+          title="모델 지원 정보"
+          backFn={() => navigate(-1)}
+          rightBtn={<IcDeleteApplication />}
+          rightFn={handleDeleteApplication}
+        />
         <ModelInfo data={data} />
         <Button
           id="ga-offer-btn"
