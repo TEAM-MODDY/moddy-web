@@ -4,6 +4,7 @@ import { styled } from 'styled-components';
 
 import { HELPER_MESSAGE } from '../../constants/message';
 import { TOTAL_STEP } from '../../constants/step';
+import { EnterProfileProp } from '../../utils/enterProfileProp';
 import Field from '../@common/Field';
 
 import { instagramLinkState, naverPlaceState, profileImgState } from '@/recoil/atoms/signUpState';
@@ -12,7 +13,6 @@ import Input from '@/views/@common/components/Input';
 import ProfileUpload from '@/views/@common/components/ProfileUpload';
 import ProgressBar from '@/views/@common/components/ProgressBar';
 import ToastMessage from '@/views/@common/components/ToastMessage';
-import { EnterProfileProp } from '@/views/@common/utils/enterProfileProp';
 
 const Profile = ({ setStep }: EnterProfileProp) => {
   //Recoil
