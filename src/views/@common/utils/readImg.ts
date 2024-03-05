@@ -1,4 +1,7 @@
-export const readImg = (event: React.ChangeEvent<HTMLInputElement>): Promise<{ previewSrc: string; imgUrl: File }> => {
+export const readImg = (
+  event: React.ChangeEvent<HTMLInputElement>,
+  setToastOpen: (isOpen: boolean) => void,
+): Promise<{ previewSrc: string; imgUrl: File }> => {
   const input = event.target.files;
 
   return new Promise((resolve, reject) => {
@@ -12,6 +15,15 @@ export const readImg = (event: React.ChangeEvent<HTMLInputElement>): Promise<{ p
 
       reader.onload = (e) => {
         const previewImage = document.getElementById('profileImg') as HTMLImageElement;
+
+        const maxSize = 10 * 1024 * 1024;
+        const fileSize = input[0].size;
+
+        if (fileSize > maxSize) {
+          setToastOpen(true);
+          event.target.value = '';
+          return;
+        }
 
         if (typeof e.target!.result === 'string') {
           previewImage.src = e.target!.result;

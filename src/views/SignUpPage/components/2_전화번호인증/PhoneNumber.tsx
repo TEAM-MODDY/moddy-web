@@ -2,9 +2,9 @@ import { useState } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { styled } from 'styled-components';
 
-import Button from '../../@common/components/Button';
-import ProgressBar from '../../@common/components/ProgressBar';
-import { USER_TYPE } from '../../@common/constants/userType';
+import Button from '../../../@common/components/Button';
+import ProgressBar from '../../../@common/components/ProgressBar';
+import { USER_TYPE } from '../../../@common/constants/userType';
 import {
   EMPTY_STRING,
   HYPHEN,
@@ -13,16 +13,15 @@ import {
   PHONE_NUMBER_MAX_LENGTH,
   SECONDS_PER_MINUTE,
   VERIFY_CODE_MAX_LENGTH,
-} from '../constants/constants';
-import { HELPER_MESSAGE, PLACE_HOLDER_MESSAGE, TOAST_MESSAGE } from '../constants/message';
-import { STATUS } from '../constants/requestStatus';
-import { STEP, TOTAL_STEP } from '../constants/step';
-import useInterval from '../hooks/useInterval';
-import usePostPhoneNumber from '../hooks/usePostPhoneNumber';
-import usePostVerifyPhoneNumber from '../hooks/usePostVerifyPhoneNumber';
-import { EnterProfileProp } from '../utils/enterProfileProp';
-
-import Field from './Field';
+} from '../../constants/constants';
+import { HELPER_MESSAGE, PLACE_HOLDER_MESSAGE, TOAST_MESSAGE } from '../../constants/message';
+import { STATUS } from '../../constants/requestStatus';
+import { STEP, TOTAL_STEP } from '../../constants/step';
+import useInterval from '../../hooks/useInterval';
+import usePostPhoneNumber from '../../hooks/usePostPhoneNumber';
+import usePostVerifyPhoneNumber from '../../hooks/usePostVerifyPhoneNumber';
+import { EnterProfileProp } from '../../utils/enterProfileProp';
+import Field from '../@common/Field';
 
 import { phoneNumberState, tempUserTypeState, verifyCodeState } from '@/recoil/atoms/signUpState';
 import ToastMessage from '@/views/@common/components/ToastMessage';

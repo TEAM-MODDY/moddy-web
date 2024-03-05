@@ -2,16 +2,16 @@ import { useEffect, useRef, useState } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { styled } from 'styled-components';
 
-import { IcDownGrey, IcInformation, IcUpBlue } from '../../@common/assets/icons';
-import Button from '../../@common/components/Button';
-import ProgressBar from '../../@common/components/ProgressBar';
-import { IcCloseSmblue } from '../assets/icons';
-import { PREFER_REGION_MIN_COUNT } from '../constants/constants';
-import { HELPER_MESSAGE, PLACE_HOLDER_MESSAGE } from '../constants/message';
-import useGetRegion from '../hooks/useGetRegion';
-import usePostModelSignUp from '../hooks/usePostModelSignUp';
+import { IcDownGrey, IcInformation, IcUpBlue } from '../../../@common/assets/icons';
+import Button from '../../../@common/components/Button';
+import ProgressBar from '../../../@common/components/ProgressBar';
+import { IcCloseSmblue } from '../../assets/icons';
+import { PREFER_REGION_MIN_COUNT } from '../../constants/constants';
+import { HELPER_MESSAGE, PLACE_HOLDER_MESSAGE } from '../../constants/message';
+import useGetRegion from '../../hooks/useGetRegion';
+import usePostModelSignUp from '../../hooks/usePostModelSignUp';
+import Field from '../@common/Field';
 
-import Field from './Field';
 import RegionItem from './RegionItem';
 
 import { preferRegionState, regionState } from '@/recoil/atoms/signUpState';

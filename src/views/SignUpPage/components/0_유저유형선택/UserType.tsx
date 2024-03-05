@@ -2,20 +2,17 @@ import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { styled } from 'styled-components';
 
-import Button from '../../@common/components/Button';
-import Header from '../../@common/components/Header';
-import { HELPER_MESSAGE } from '../constants/message';
-import { ON_BOARDING_TEXT } from '../constants/text';
+import Button from '../../../@common/components/Button';
+import Header from '../../../@common/components/Header';
+import { HELPER_MESSAGE } from '../../constants/message';
+import { ON_BOARDING_TEXT } from '../../constants/text';
+import { EnterProfileProp } from '../../utils/enterProfileProp';
 
 import { tempUserTypeState } from '@/recoil/atoms/signUpState';
 import designerImg from '@images/img_designer.png';
 import modelImg from '@images/img_model.png';
 
-interface SelectUserTypeProp {
-  setStep: React.Dispatch<React.SetStateAction<boolean>>;
-}
-
-const UserType = ({ setStep }: SelectUserTypeProp) => {
+const UserType = ({ setStep }: EnterProfileProp) => {
   const navigate = useNavigate();
   const [userType, setUserType] = useRecoilState(tempUserTypeState);
 
@@ -77,7 +74,7 @@ const UserType = ({ setStep }: SelectUserTypeProp) => {
           </S.UserTypeBoxLabel>
         </S.RadioBox>
       </S.SelectUserTypeLayout>
-      <Button text="다음" isFixed={true} onClickFn={() => setStep(false)} disabled={!userType} />
+      <Button text="다음" isFixed={true} onClickFn={() => setStep((prev) => prev + 1)} disabled={!userType} />
     </>
   );
 };
