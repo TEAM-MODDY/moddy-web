@@ -1,8 +1,8 @@
 export const INFO_MESSAGE = {
-  TITLE: '모델 지원하기',
+  TITLE: '모델 지원',
   NEXT: '다음',
   LAST: '완료',
-  CLOSE: '닫기',
+  CONFIRM: '확인',
 
   LENGTH_TITLE: '머리 기장',
   LENGTH_SUBTITLE: '현재 머리 기장을 선택해주세요',
@@ -38,4 +38,5 @@ export const INFO_MESSAGE = {
 
   CONFIRM_TITLE: '헤어모델 지원 완료!',
   CONFIRM_SUBTITLE: '내게 딱 맞는 헤어디자이너의 제안서가<br />곧 도착할 예정이에요.',
+  CONFIRM_EXPIRED: '지금 작성한 지원서는 아래 7일간 유효해요',
 };
