@@ -43,7 +43,7 @@ const Header = ({ isBackBtnExist, isCloseBtnExist, title, backFn, closeFn, isNoM
       {isOpenModal && (
         <Modal
           title="작성을 중단할까요?"
-          description="지금 작성을 중단하면<br/>작성 중인 내용이 사라져요."
+          description="작성 중인 내용이 사라져요."
           leftBtnText="취소"
           rightBtnText="확인"
           leftBtnFn={() => setOpenModal(false)}
