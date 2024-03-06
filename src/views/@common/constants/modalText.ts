@@ -11,3 +11,10 @@ export const QUIT_MODAL = {
   leftBtn: '취소',
   rightBtn: '확인',
 };
+
+export const APPLY_MODAL = {
+  title: '모델을 지원하시겠어요?',
+  description: '현재 유효한 지원서가 없어\n지원서 작성 페이지로 이동해요',
+  leftBtn: '취소',
+  rightBtn: '확인',
+};

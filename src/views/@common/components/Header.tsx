@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { ReactElement, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
 
@@ -13,9 +13,20 @@ interface HeaderProps {
   backFn?: () => void;
   closeFn?: () => void;
   isNoModal?: boolean;
+  rightBtn?: ReactElement;
+  rightFn?: () => void;
 }
 
-const Header = ({ isBackBtnExist, isCloseBtnExist, title, backFn, closeFn, isNoModal }: HeaderProps) => {
+const Header = ({
+  isBackBtnExist,
+  isCloseBtnExist,
+  title,
+  backFn,
+  closeFn,
+  isNoModal,
+  rightBtn,
+  rightFn,
+}: HeaderProps) => {
   const navigate = useNavigate();
   const [isOpenModal, setOpenModal] = useState(false);
   const onClose = () => {
@@ -36,6 +47,8 @@ const Header = ({ isBackBtnExist, isCloseBtnExist, title, backFn, closeFn, isNoM
           <button onClick={() => onClose()}>
             <IcCloseBlack />
           </button>
+        ) : rightBtn ? (
+          <button onClick={rightFn}>{rightBtn}</button>
         ) : (
           <S.HeaderBlankBox />
         )}

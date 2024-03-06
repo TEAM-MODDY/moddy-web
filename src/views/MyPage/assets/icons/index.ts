@@ -6,5 +6,20 @@ import IcDelete from './ic_delete.svg';
 import IcDocument from './ic_document.svg';
 import IcLogout from './ic_logout.svg';
 import IcMarketing from './ic_marketing.svg';
+import IcModdypin from './ic_moddypin.svg';
+import IcModdyusers2 from './ic_moddyusers2.svg';
+import IcMyApplication from './ic_myapplication.svg';
 
-export { IcContactus1, IcContactus, IcDocument, IcMarketing, IcAccount, IcDelete, IcLogout, IcAccountFooter };
+export {
+  IcAccountFooter,
+  IcDelete,
+  IcLogout,
+  IcAccount,
+  IcContactus1,
+  IcContactus,
+  IcDocument,
+  IcMarketing,
+  IcModdypin,
+  IcModdyusers2,
+  IcMyApplication,
+};

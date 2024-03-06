@@ -12,8 +12,15 @@ interface CardProps {
 
 const CardMain = ({ analyticsId, navigateTo, id, children, isExpired = false }: CardProps) => {
   const navigate = useNavigate();
+  const navigateState = {
+    state: {
+      applicationId: id, 
+      from: location.pathname,
+    },
+  };
+
   return (
-    <S.CardLayout id={analyticsId} onClick={() => navigate(navigateTo, { state: id })} $isExpired={isExpired}>
+    <S.CardLayout id={analyticsId} onClick={() => navigate(navigateTo, navigateState)}>
       {children}
     </S.CardLayout>
   );
