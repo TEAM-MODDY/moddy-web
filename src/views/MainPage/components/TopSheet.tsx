@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
 
 import { IcLogoHome, IcRightWhite, IcModdyuser } from '../assets/icons';
-import { APPLY_STATUS } from '../constants/applyStatus';
+import { APPLY_STATUS } from '../constants/status';
 
 import Modal from '@/views/@common/components/Modal';
 import { USER_TYPE } from '@/views/@common/constants/userType';

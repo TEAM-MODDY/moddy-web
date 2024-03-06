@@ -55,10 +55,10 @@ const Header = ({
       </S.HeaderBox>
       {isOpenModal && (
         <Modal
-          title="??? ??????"
-          description="?? ??? ????<br/>?? ?? ??? ????."
-          leftBtnText="??"
-          rightBtnText="??"
+          title="작성을 중단할까요?"
+          description="작성 중인 내용이 사라져요."
+          leftBtnText="취소"
+          rightBtnText="확인"
           leftBtnFn={() => setOpenModal(false)}
           rightBtnFn={() => (closeFn ? closeFn() : navigate('/'))}
         />

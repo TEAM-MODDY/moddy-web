@@ -10,7 +10,7 @@ export interface ModelResponse {
     name: string;
     shopName: string;
     conditions: string[];
-    isClicked: boolean;
+    status: string;
   }[];
 }
 

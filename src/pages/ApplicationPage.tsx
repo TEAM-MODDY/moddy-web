@@ -5,7 +5,7 @@ import { applyStepState } from '@/recoil/atoms/applicationState';
 import ApplicationResult from '@/views/ApplicationPage/components/ApplicationResult';
 import DefaultInfo from '@/views/ApplicationPage/components/DefaultInfo';
 import DetailedStyle from '@/views/ApplicationPage/components/DetailedStyle';
-import ProfileUpload from '@/views/ApplicationPage/components/ProfileUpload';
+import Profile from '@/views/ApplicationPage/components/Profile';
 import ServiceHistory from '@/views/ApplicationPage/components/ServiceHistory';
 import { STEP } from '@/views/ApplicationPage/constants/step';
 
@@ -21,7 +21,7 @@ const ApplicationPage = () => {
       case STEP.SERVICE_HISTORY:
         return <ServiceHistory />;
       case STEP.PROFILE:
-        return <ProfileUpload />;
+        return <Profile />;
       case STEP.RESULT:
         return <ApplicationResult />;
     }
