@@ -38,4 +38,5 @@ export const INFO_MESSAGE = {
 
   CONFIRM_TITLE: '헤어모델 지원 완료!',
   CONFIRM_SUBTITLE: '내게 딱 맞는 헤어디자이너의 제안서가<br />곧 도착할 예정이에요.',
+  CONFIRM_EXPIRED: '지금 작성한 지원서는 아래 7일간 유효해요',
 };

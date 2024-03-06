@@ -12,14 +12,15 @@ const ApplicationConfirmPage = () => {
   return (
     <S.ConfirmPage>
       <img src={ImgLetter} alt="letterImg" />
-      <S.Info>
+      <S.ConfirmInfoSection>
         <h1>{INFO_MESSAGE.CONFIRM_TITLE}</h1>
         <S.Description>
           {INFO_MESSAGE.CONFIRM_SUBTITLE.split('<br />').map((line: string) => (
             <p key={line}>{line}</p>
           ))}
         </S.Description>
-      </S.Info>
+      </S.ConfirmInfoSection>
+      <S.ExpiredInfoBox>{INFO_MESSAGE.CONFIRM_EXPIRED}</S.ExpiredInfoBox>
       <Button
         text={INFO_MESSAGE.CLOSE}
         isFixed={true}
@@ -57,7 +58,7 @@ const S = {
     }
   `,
 
-  Info: styled.section`
+  ConfirmInfoSection: styled.section`
     display: flex;
     flex-direction: column;
     gap: 0.8rem;
@@ -69,6 +70,17 @@ const S = {
       ${({ theme }) => theme.fonts.Title01};
     }
   `,
+
+  ExpiredInfoBox: styled.div`
+    border-radius: 10px;
+
+    background-color: ${({ theme }) => theme.colors.moddy_gray05};
+
+    color: ${({ theme }) => theme.colors.moddy_gray50};
+
+    ${({ theme }) => theme.fonts.Body04};
+  `,
+
   Description: styled.div`
     & > p {
       color: ${({ theme }) => theme.colors.moddy_gray50};
