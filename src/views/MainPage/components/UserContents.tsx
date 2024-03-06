@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { styled } from 'styled-components';
 
-import { APPLY_STATUS } from '../constants/applyStatus';
+import { APPLICATION_STATUS, APPLY_STATUS } from '../constants/status';
 import { DesignerResponse, ModelResponse } from '../hooks/type';
 
 import { Card } from './Card';
@@ -59,8 +59,13 @@ const ModelContents = ({ data, setPage }: ModelContentsProps) => {
 
   const renderOffers = () =>
     data.offers.map((offer, index) => (
-      <Card analyticsId="ga-offer-card" navigateTo="/offer-info" id={offer.offerId} key={index}>
-        {!offer.isClicked && <Card.NewIcon />}
+      <Card
+        analyticsId="ga-offer-card"
+        navigateTo="/offer-info"
+        id={offer.offerId}
+        key={index}
+        isExpired={offer.status === APPLICATION_STATUS.EXPIRED}>
+        {offer.status === APPLICATION_STATUS.UNCLICKED && <Card.NewIcon />}
         <Card.ProfileImg imgUrl={offer.imgUrl} alt="제안서 프로필 사진" />
         <Card.ContentsBox>
           <S.FlexBox>
