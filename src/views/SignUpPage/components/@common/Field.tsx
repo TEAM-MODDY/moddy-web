@@ -1,6 +1,6 @@
 import { styled } from 'styled-components';
 
-import { IcEssential } from '../../@common/assets/icons';
+import { IcEssential } from '../../../@common/assets/icons';
 interface FieldProp {
   name: string;
   isEssential: boolean;

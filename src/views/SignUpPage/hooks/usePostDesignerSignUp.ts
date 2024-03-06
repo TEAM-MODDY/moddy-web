@@ -48,16 +48,16 @@ const usePostDesignerSignUp = () => {
       phoneNumber: phoneNumber.data,
       isMarketingAgree: isMarketingAgree,
       hairShop: {
-        name: hairShopName.data,
-        address: hairShopAddress.data,
-        detailAddress: hairShopDetailAddress.data,
+        name: hairShopName,
+        address: hairShopAddress,
+        detailAddress: hairShopDetailAddress,
       },
       portfolio: {
-        instagramUrl: instagramUrl.data,
-        naverPlaceUrl: naverPlaceUrl.data,
+        instagramUrl: instagramUrl,
+        naverPlaceUrl: naverPlaceUrl,
       },
-      introduction: introduction.data,
-      kakaoOpenChatUrl: kakaoOpenChatUrl.data,
+      introduction: introduction,
+      kakaoOpenChatUrl: kakaoOpenChatUrl,
       dayOffs: dayOffs.data.filter((item) => item),
     };
 

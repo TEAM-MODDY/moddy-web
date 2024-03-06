@@ -12,6 +12,8 @@ export interface ApplicationInfo {
   hairDetail: string;
   isSend: boolean;
   instagramId: string;
+  createdDate: string;
+  expiredDate: string;
 }
 
 interface ModelInfo {

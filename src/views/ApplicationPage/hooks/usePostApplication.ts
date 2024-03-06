@@ -20,7 +20,7 @@ const usePostApplication = () => {
   const hairDetail = useRecoilValue(deatiledStyleState);
   const { hairServiceRecords } = useRecoilValue(historyState);
   const { modelImgData, instagramId } = useRecoilValue(profileState);
-  const { applicationCaptureImgUrl } = useRecoilValue(applicationCaptureImgUrlState);
+  const applicationCaptureImgUrl = useRecoilValue(applicationCaptureImgUrlState);
 
   const tempHairServiceRecords = hairServiceRecords.map((element) => {
     const tempElement = { ...element };
@@ -56,14 +56,19 @@ const usePostApplication = () => {
 
     const requestbody = {
       modelImgUrl: modelImgData,
-      applicationCaptureImgUrl: applicationCaptureImgUrl,
+      applicationCaptureImgUrl,
       applicationInfo,
     };
 
     try {
-      await api.post('/application', requestbody, {
+      const { data } = await api.post('/application', requestbody, {
         headers: {
           'Content-Type': 'multipart/form-data',
+        },
+      });
+      navigate(`/application/confirm`, {
+        state: {
+          expirationDate: data.data.expirationDate,
         },
       });
     } catch (err) {

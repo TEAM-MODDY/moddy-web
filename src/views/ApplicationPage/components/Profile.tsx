@@ -1,44 +1,45 @@
-import { useRef } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { styled } from 'styled-components';
 
 import { IcEssential } from '../../@common/assets/icons';
-import beforeUpload from '../../@common/assets/images/img_photoadd_profile.png';
 import Button from '../../@common/components/Button';
 import Header from '../../@common/components/Header';
 import Input from '../../@common/components/Input';
 import ProgressBar from '../../@common/components/ProgressBar';
-import { IcPencilcircle } from '../assets/icons';
 import { INFO_MESSAGE } from '../constants/message';
-import { readImg } from '../utils/readImg';
 
 import { applyStepState, profileState } from '@/recoil/atoms/applicationState';
+import ProfileUpload from '@/views/@common/components/ProfileUpload';
+import ToastMessage from '@/views/@common/components/ToastMessage';
+import { REGEX } from '@/views/@common/utils/regex';
 
-const ProfileUpload = () => {
-  const inputRef = useRef<HTMLInputElement>(null);
+const Profile = () => {
+  const [isToastOpen, setToastOpen] = useState(false);
   const [step, setStep] = useRecoilState(applyStepState);
-  const [inputData, setInputData] = useRecoilState(profileState);
-  const { modelImgUrl, instagramId, verifyStatus } = inputData;
+  const [profileData, setProfileData] = useRecoilState(profileState);
+  const [isAllVerified, setIsAllVerified] = useState(false);
   const navigate = useNavigate();
 
-  const handleInput = (event: React.ChangeEvent<HTMLInputElement>) => {
-    readImg(event)
-      .then((dataUrl) => {
-        setInputData({
-          ...inputData,
-          modelImgUrl: dataUrl.previewSrc,
-          modelImgData: dataUrl.imgUrl,
-          verifyStatus: true,
-        });
-      })
-      .catch(() => {
-        navigate('/error');
-      });
+  const handleProfileImg = (imgUrl: string, imgObj: File) => {
+    setProfileData({
+      ...profileData,
+      modelImgUrl: imgUrl,
+      modelImgData: imgObj,
+    });
+    setIsAllVerified(true);
+  };
+
+  const handleInstagramId = (e: string) => {
+    if (REGEX.INSTAGRAM_ID.test(e) || !e) {
+      setProfileData({ ...profileData, instagramId: e });
+      setIsAllVerified(true);
+    } else setIsAllVerified(false);
   };
 
   return (
-    <S.ProfileUploadLayout>
+    <S.ProfileLayout>
       <Header
         title="모델 지원하기"
         isBackBtnExist={true}
@@ -61,24 +62,9 @@ const ProfileUpload = () => {
               <span key={line}>{line}</span>
             ))}
           </S.Title>
-          <S.ProfileUploadBtnBox>
-            <S.ProfileUploadBtn
-              type="button"
-              onClick={() => {
-                inputRef.current?.click();
-              }}>
-              <S.Profile src={modelImgUrl ? modelImgUrl : beforeUpload} alt="profileImg" id="profileImg" />
-              <input
-                id="uploadButton"
-                name="uploadButton"
-                ref={inputRef}
-                type="file"
-                accept="image/*"
-                onChange={handleInput}
-              />
-              <IcPencilcircle />
-            </S.ProfileUploadBtn>
-          </S.ProfileUploadBtnBox>
+          <S.ProfileBtnBox>
+            <ProfileUpload onImageUpload={handleProfileImg} setToastOpen={setToastOpen} />
+          </S.ProfileBtnBox>
         </S.ProfilePhotoSection>
         <S.ProfileInstaSection>
           <S.Title>
@@ -87,10 +73,9 @@ const ProfileUpload = () => {
           </S.Title>
           <Input
             placeholderText={INFO_MESSAGE.INSTA_INPUT}
-            initialValue={instagramId}
-            onChangeFn={(e) => {
-              setInputData({ ...inputData, instagramId: e });
-            }}
+            initialValue={profileData.instagramId}
+            regex={REGEX.INSTAGRAM_ID}
+            onChangeFn={handleInstagramId}
           />
         </S.ProfileInstaSection>
       </S.ProfileInfoSection>
@@ -99,14 +84,21 @@ const ProfileUpload = () => {
         onClickFn={() => {
           setStep({ ...step, current: step.current + 1 });
         }}
-        disabled={!verifyStatus}
+        disabled={!isAllVerified}
       />
-    </S.ProfileUploadLayout>
+      {isToastOpen && (
+        <ToastMessage
+          text={INFO_MESSAGE.CAPACITY_WARNING}
+          subtext={INFO_MESSAGE.CAPACITY_SUBWARNING}
+          setter={setToastOpen}
+        />
+      )}
+    </S.ProfileLayout>
   );
 };
 
 const S = {
-  ProfileUploadLayout: styled.section`
+  ProfileLayout: styled.section`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -132,7 +124,7 @@ const S = {
     gap: 3.7rem;
   `,
 
-  ProfileUploadBtnBox: styled.div`
+  ProfileBtnBox: styled.div`
     position: relative;
 
     width: 13.2rem;
@@ -142,7 +134,7 @@ const S = {
     cursor: pointer;
   `,
 
-  ProfileUploadBtn: styled.button`
+  ProfileBtn: styled.button`
     width: 100%;
     height: 100%;
     border: 1.5px dashed ${({ theme }) => theme.colors.moddy_blue2};
@@ -196,4 +188,4 @@ const S = {
   `,
 };
 
-export default ProfileUpload;
+export default Profile;

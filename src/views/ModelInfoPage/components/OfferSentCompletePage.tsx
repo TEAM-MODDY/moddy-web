@@ -21,7 +21,7 @@ const OfferSentCompletePage = () => {
           1:1 오픈 채팅방으로 입장할 예정이에요 :&#41;
         </p>
       </S.OfferSentCompleteSection>
-      <Button text="닫기" isFixed={true} onClickFn={handleClickClose} />
+      <Button text="확인" isFixed={true} onClickFn={handleClickClose} />
     </>
   );
 };

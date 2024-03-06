@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { styled } from 'styled-components';
 
 import { IcEssential } from '../../@common/assets/icons';
@@ -17,13 +17,16 @@ import { applyStepState, hairStyleState } from '@/recoil/atoms/applicationState'
 
 const DefaultInfo = () => {
   const [step, setStep] = useRecoilState(applyStepState);
-  const [selectedStyle, setSelectedStyle] = useRecoilState(hairStyleState);
+  const selectedStyle = useRecoilValue(hairStyleState);
+  const [isAllVerified, setIsAllVerified] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
-    selectedStyle.length && selectedStyle.preference.length
-      ? setSelectedStyle({ ...selectedStyle, verifyStatus: true })
-      : setSelectedStyle({ ...selectedStyle, verifyStatus: false });
+    const checkVerify = () => {
+      selectedStyle.length && selectedStyle.preference.length > 0 ? setIsAllVerified(true) : setIsAllVerified(false);
+    };
+
+    checkVerify();
   }, [selectedStyle.length, selectedStyle.preference]);
 
   const activateCheckbox = (type: string): boolean => {
@@ -87,7 +90,7 @@ const DefaultInfo = () => {
           setStep({ ...step, current: step.current + 1 });
         }}
         isFixed={true}
-        disabled={!selectedStyle.verifyStatus}
+        disabled={!isAllVerified}
       />
     </S.DefaultInfoLayout>
   );
