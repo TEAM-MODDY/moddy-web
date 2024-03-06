@@ -25,6 +25,9 @@ export const INFO_MESSAGE = {
   INSTA_SUBTITLE: '평소 스타일 파악을 위해 입력을 권장드려요',
   INSTA_INPUT: "아이디를 입력해주세요 ('@' 제외)",
 
+  CAPACITY_WARNING: '사진 용량이 너무 커요!',
+  CAPACITY_SUBWARNING: '5MB 이하의 사진을 올려주세요',
+
   FINAL_TITLE: '최종 확인',
   MODEL_INFO: '모델 정보',
   INFO_NAME: '이름',
