@@ -24,9 +24,8 @@ const ApplicationConfirmPage = () => {
         </S.Description>
       </S.ConfirmInfoSection>
       <S.ExpiredInfoBox>
-        {INFO_MESSAGE.CONFIRM_EXPIRED}
-        {expireDate}
-        {expireDate}
+        {INFO_MESSAGE.CONFIRM_EXPIRED} <br />
+        {expireDate} ~ {expireDate}
       </S.ExpiredInfoBox>
       <Button
         text={INFO_MESSAGE.CLOSE}
@@ -51,12 +50,12 @@ const S = {
 
     width: 100%;
     height: 100dvh;
-    padding: 9rem;
+    padding: 0 1.55rem;
 
     & > img {
       overflow: hidden;
 
-      width: 100%;
+      width: 19.5rem;
       border-radius: 8px;
 
       box-shadow: ${({ theme }) => theme.effects.graphic};
@@ -79,11 +78,14 @@ const S = {
   `,
 
   ExpiredInfoBox: styled.div`
+    width: 100%;
+    padding: 1.3rem 0;
     border-radius: 10px;
 
     background-color: ${({ theme }) => theme.colors.moddy_gray05};
 
     color: ${({ theme }) => theme.colors.moddy_gray50};
+    text-align: center;
 
     ${({ theme }) => theme.fonts.Body04};
   `,
