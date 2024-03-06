@@ -68,7 +68,7 @@ const usePostApplication = () => {
       });
       navigate(`/application/confirm`, {
         state: {
-          expireDate: data.expireDate,
+          expireDate: data.data.expireDate,
         },
       });
     } catch (err) {

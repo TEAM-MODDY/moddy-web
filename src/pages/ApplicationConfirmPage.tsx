@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
 
 import Button from '../views/@common/components/Button';
@@ -8,6 +8,9 @@ import ImgLetter from '@images/img_letter.png';
 
 const ApplicationConfirmPage = () => {
   const navigate = useNavigate();
+  const {
+    state: { expireDate },
+  } = useLocation();
 
   return (
     <S.ConfirmPage>
@@ -20,7 +23,11 @@ const ApplicationConfirmPage = () => {
           ))}
         </S.Description>
       </S.ConfirmInfoSection>
-      <S.ExpiredInfoBox>{INFO_MESSAGE.CONFIRM_EXPIRED}</S.ExpiredInfoBox>
+      <S.ExpiredInfoBox>
+        {INFO_MESSAGE.CONFIRM_EXPIRED}
+        {expireDate}
+        {expireDate}
+      </S.ExpiredInfoBox>
       <Button
         text={INFO_MESSAGE.CLOSE}
         isFixed={true}
