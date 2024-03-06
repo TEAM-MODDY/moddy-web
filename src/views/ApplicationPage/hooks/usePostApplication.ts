@@ -61,9 +61,14 @@ const usePostApplication = () => {
     };
 
     try {
-      await api.post('/application', requestbody, {
+      const { data } = await api.post('/application', requestbody, {
         headers: {
           'Content-Type': 'multipart/form-data',
+        },
+      });
+      navigate(`/application/confirm`, {
+        state: {
+          expireDate: data.expireDate,
         },
       });
     } catch (err) {
