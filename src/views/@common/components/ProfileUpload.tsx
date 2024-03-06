@@ -2,17 +2,18 @@ import { useRef, useState, useEffect } from 'react';
 import { useRecoilState } from 'recoil';
 import { styled } from 'styled-components';
 
-import beforeUpload from '../../../@common/assets/images/img_photoadd_profile.png';
-import { readImg } from '../../utils/readImg';
+import beforeUpload from '../../@common/assets/images/img_photoadd_profile.png';
+import { readImg } from '../utils/readImg';
 
 import { profileImgState } from '@/recoil/atoms/signUpState';
 import { IcPencilcircle } from '@/views/ApplicationPage/assets/icons';
 
 interface ProfileUpLoadProps {
   onImageUpload: (imgUrl: string, imgObj: File) => void;
+  setToastOpen: (isOpen: boolean) => void;
 }
 
-const ProfileUpload = ({ onImageUpload }: ProfileUpLoadProps) => {
+const ProfileUpload = ({ onImageUpload, setToastOpen }: ProfileUpLoadProps) => {
   const [previewimgUrl, setPreviewImgUrl] = useState<string>();
   const inputRef = useRef<HTMLInputElement>(null);
   const [profileImgInfo] = useRecoilState(profileImgState);
@@ -20,9 +21,14 @@ const ProfileUpload = ({ onImageUpload }: ProfileUpLoadProps) => {
   const handleInput = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const imgObj = event.target.files;
     if (imgObj && imgObj[0]) {
-      const imgUrl = await readImg(event);
-      setPreviewImgUrl(imgUrl.previewSrc);
-      onImageUpload(imgUrl.previewSrc, imgUrl.imgUrl);
+      try {
+        const imgUrl = await readImg(event, setToastOpen);
+        setPreviewImgUrl(imgUrl.previewSrc);
+        onImageUpload(imgUrl.previewSrc, imgUrl.imgUrl);
+      } catch (error) {
+        setToastOpen(true);
+        throw error;
+      }
     }
   };
 
