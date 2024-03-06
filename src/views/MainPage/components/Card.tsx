@@ -6,14 +6,21 @@ interface CardProps {
   analyticsId: string;
   id: number;
   navigateTo: string;
+  isExpired?: boolean;
   children: React.ReactNode;
 }
 
-const CardMain = ({ analyticsId, navigateTo, id, children }: CardProps) => {
+const CardMain = ({ analyticsId, navigateTo, id, children, isExpired = false }: CardProps) => {
   const navigate = useNavigate();
+  const navigateState = {
+    state: {
+      applicationId: id,
+      from: location.pathname,
+    },
+  };
 
   return (
-    <S.CardLayout id={analyticsId} onClick={() => navigate(navigateTo, { state: id })}>
+    <S.CardLayout id={analyticsId} onClick={() => navigate(navigateTo, navigateState)} $isExpired={isExpired}>
       {children}
     </S.CardLayout>
   );
@@ -60,7 +67,7 @@ export const Card = Object.assign(CardMain, {
   OptionTag,
 });
 
-const CardLayout = styled.div`
+const CardLayout = styled.div<{ $isExpired: boolean }>`
   flex-grow: 1;
   position: relative;
 
@@ -69,6 +76,8 @@ const CardLayout = styled.div`
   border-radius: 12px;
 
   box-shadow: ${({ theme }) => theme.effects.shadow1};
+
+  opacity: ${({ $isExpired }) => ($isExpired ? '0.3' : '1')};
 `;
 
 const ProfileImageBox = styled.div<{ $img: string }>`
@@ -149,6 +158,7 @@ const NewTagBox = styled.div`
   top: -0.6rem;
   right: 1.2rem;
 `;
+
 const S = {
   CardLayout,
   ProfileImageBox,

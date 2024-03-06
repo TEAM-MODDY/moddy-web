@@ -1,8 +1,8 @@
 export const INFO_MESSAGE = {
-  TITLE: '모델 지원하기',
+  TITLE: '모델 지원',
   NEXT: '다음',
   LAST: '완료',
-  CLOSE: '닫기',
+  CONFIRM: '확인',
 
   LENGTH_TITLE: '머리 기장',
   LENGTH_SUBTITLE: '현재 머리 기장을 선택해주세요',
@@ -25,6 +25,9 @@ export const INFO_MESSAGE = {
   INSTA_SUBTITLE: '평소 스타일 파악을 위해 입력을 권장드려요',
   INSTA_INPUT: "아이디를 입력해주세요 ('@' 제외)",
 
+  CAPACITY_WARNING: '사진 용량이 너무 커요!',
+  CAPACITY_SUBWARNING: '5MB 이하의 사진을 올려주세요',
+
   FINAL_TITLE: '최종 확인',
   MODEL_INFO: '모델 정보',
   INFO_NAME: '이름',
@@ -38,4 +41,5 @@ export const INFO_MESSAGE = {
 
   CONFIRM_TITLE: '헤어모델 지원 완료!',
   CONFIRM_SUBTITLE: '내게 딱 맞는 헤어디자이너의 제안서가<br />곧 도착할 예정이에요.',
+  CONFIRM_EXPIRED: '지금 작성한 지원서는 아래 7일간 유효해요',
 };

@@ -1,4 +1,5 @@
 export const STEP = {
+  USER_TYPE: 0,
   PERSONAL_INFO: 1,
   PHONE_NUMBER_VERIFICATION: 2,
   DESIGNER: {

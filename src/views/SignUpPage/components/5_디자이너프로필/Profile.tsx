@@ -1,20 +1,22 @@
+import { useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { styled } from 'styled-components';
 
-import { HELPER_MESSAGE } from '../constants/message';
-import { TOTAL_STEP } from '../constants/step';
-import { EnterProfileProp } from '../utils/enterProfileProp';
-
-import Field from './Field';
-import ProfileUpload from './ProfileUpload';
+import { HELPER_MESSAGE } from '../../constants/message';
+import { TOTAL_STEP } from '../../constants/step';
+import { EnterProfileProp } from '../../utils/enterProfileProp';
+import Field from '../@common/Field';
 
 import { instagramLinkState, naverPlaceState, profileImgState } from '@/recoil/atoms/signUpState';
 import Button from '@/views/@common/components/Button';
 import Input from '@/views/@common/components/Input';
+import ProfileUpload from '@/views/@common/components/ProfileUpload';
 import ProgressBar from '@/views/@common/components/ProgressBar';
+import ToastMessage from '@/views/@common/components/ToastMessage';
 
 const Profile = ({ setStep }: EnterProfileProp) => {
   //Recoil
+  const [isToastOpen, setToastOpen] = useState(false);
   const [instaIdInfo, setInstaIdInfo] = useRecoilState(instagramLinkState);
   const [naverPlaceInfo, setNaverPlaceInfo] = useRecoilState(naverPlaceState);
   const [profileImgInfo, setProfileImgInfo] = useRecoilState(profileImgState);
@@ -44,7 +46,7 @@ const Profile = ({ setStep }: EnterProfileProp) => {
         <Field name="프로필 사진" isEssential={true} />
         <S.HelperTextBox>{HELPER_MESSAGE.VIEW_IMAGE_TO_USER}</S.HelperTextBox>
         <S.ApplicationPagSection>
-          <ProfileUpload onImageUpload={handleImageUpload} />
+          <ProfileUpload onImageUpload={handleImageUpload} setToastOpen={setToastOpen} />
         </S.ApplicationPagSection>
 
         <Field name="포트폴리오" isEssential={true} />
@@ -73,6 +75,9 @@ const Profile = ({ setStep }: EnterProfileProp) => {
           setStep((prev) => prev + 1);
         }}
       />
+      {isToastOpen && (
+        <ToastMessage text="사진 용량이 너무 커요!" subtext="5MB 이하의 사진을 올려주세요" setter={setToastOpen} />
+      )}
     </>
   );
 };

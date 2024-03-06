@@ -2,13 +2,13 @@ import { useState, useEffect } from 'react';
 import { useRecoilState } from 'recoil';
 import { styled } from 'styled-components';
 
-import { IcSearch } from '../assets/icons';
-import { DAYS } from '../constants/days';
-import { HELPER_MESSAGE } from '../constants/message';
-import { TOTAL_STEP } from '../constants/step';
-import { EnterProfileProp } from '../utils/enterProfileProp';
+import { IcSearch } from '../../assets/icons';
+import { DAYS } from '../../constants/days';
+import { HELPER_MESSAGE } from '../../constants/message';
+import { TOTAL_STEP } from '../../constants/step';
+import { EnterProfileProp } from '../../utils/enterProfileProp';
+import Field from '../@common/Field';
 
-import Field from './Field';
 import PostCode from './PostCode';
 
 import { shopInfoState, addressState, detailShopInfoState, dateState } from '@/recoil/atoms/signUpState';

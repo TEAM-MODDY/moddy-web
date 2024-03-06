@@ -43,7 +43,6 @@ const ApplicationResult = () => {
   const handleApplication = async () => {
     try {
       await postApplication();
-      navigate(`/application/confirm`);
       resetAtom();
     } catch (err) {
       navigate('/error');

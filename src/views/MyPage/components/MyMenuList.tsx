@@ -1,15 +1,43 @@
 import { useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
 
-import { IcAccount, IcContactus, IcContactus1, IcDocument } from '../assets/icons';
+import { IcAccount, IcContactus, IcContactus1, IcDocument, IcMyApplication } from '../assets/icons';
 import { LINK } from '../constants/link';
 
 import MyMenuItem from './MyMenuItem';
 
-const MyMenuList = () => {
+import useGetCheckApplication from '@/views/@common/hooks/useGetCheckApplication';
+
+interface MyMenuListProps {
+  setModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  isModel: boolean;
+}
+const MyMenuList = ({ setModalOpen, isModel }: MyMenuListProps) => {
   const navigate = useNavigate();
+  const getCheckApplication = useGetCheckApplication();
+
+  const handleCheckApplication = async () => {
+    const response = await getCheckApplication();
+    response.code === 404
+      ? setModalOpen(true)
+      : navigate('/model-info', {
+          state: {
+            applicationId: response.data.applicationId,
+            from: location.pathname,
+          },
+        });
+  };
   return (
     <S.MyMenuListLayout>
+      {isModel && (
+        <>
+          <S.MyMenuListBox>
+            <S.MyMenuListParagraph>이용내역</S.MyMenuListParagraph>
+            <MyMenuItem icon={<IcMyApplication />} text="나의 지원서" onClickFn={handleCheckApplication} />
+          </S.MyMenuListBox>
+          <S.MyMenuListLine />
+        </>
+      )}
       <S.MyMenuListBox>
         <S.MyMenuListParagraph>고객센터</S.MyMenuListParagraph>
         <a href={LINK.CONTACT}>

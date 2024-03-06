@@ -3,8 +3,8 @@ import { RecoilRoot } from 'recoil';
 import { ThemeProvider } from 'styled-components';
 
 import AgreementPage from './pages/AgreementPage';
+import ApplicationConfirmPage from './pages/ApplicationConfirmPage';
 import ApplicationPage from './pages/ApplicationPage';
-import ConfirmPage from './pages/ConfirmPage';
 import ErrorPage from './pages/ErrorPage';
 import LoginPage from './pages/LoginPage';
 import MainPage from './pages/MainPage';
@@ -38,7 +38,7 @@ const router = createBrowserRouter([
       { path: '/offer-info/check-offer', element: <CheckOfferPage /> },
       { path: '/my-quit', element: <MyQuitPage /> },
       { path: '/model-info/model-offer', element: <ModelOfferPage /> },
-      { path: '/application/confirm', element: <ConfirmPage /> },
+      { path: '/application/confirm', element: <ApplicationConfirmPage /> },
       { path: '/agreement', element: <AgreementPage /> },
       { path: '/model-info/model-offer/sent-complete', element: <OfferSentCompletePage /> },
       { path: '/error', element: <ErrorPage /> },
