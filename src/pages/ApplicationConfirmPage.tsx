@@ -9,7 +9,7 @@ import ImgLetter from '@images/img_letter.png';
 const ApplicationConfirmPage = () => {
   const navigate = useNavigate();
   const {
-    state: { expireDate },
+    state: { expirationDate },
   } = useLocation();
 
   return (
@@ -25,11 +25,11 @@ const ApplicationConfirmPage = () => {
       </S.ConfirmInfoSection>
       <S.ExpiredInfoBox>
         {INFO_MESSAGE.CONFIRM_EXPIRED} <br />
-        {expireDate} ~ {expireDate}
+        {expirationDate}
       </S.ExpiredInfoBox>
       <Button
-        text={INFO_MESSAGE.CLOSE}
-        isFixed={true}
+        text={INFO_MESSAGE.CONFIRM}
+        isFixed={false}
         onClickFn={() => {
           navigate(`/`);
         }}
@@ -44,18 +44,17 @@ const S = {
   ConfirmPage: styled.main`
     display: flex;
     flex-direction: column;
-    gap: 5.443rem;
-    justify-content: center;
+    justify-content: flex-end;
     align-items: center;
 
     width: 100%;
     height: 100dvh;
-    padding: 0 1.55rem;
 
     & > img {
       overflow: hidden;
 
       width: 19.5rem;
+      margin-bottom: 5.443rem;
       border-radius: 8px;
 
       box-shadow: ${({ theme }) => theme.effects.graphic};
@@ -70,6 +69,8 @@ const S = {
     gap: 0.8rem;
     align-items: center;
 
+    margin-bottom: 6.35rem;
+
     & > h1 {
       color: ${({ theme }) => theme.colors.moddy_bk};
 
@@ -78,7 +79,8 @@ const S = {
   `,
 
   ExpiredInfoBox: styled.div`
-    width: 100%;
+    width: calc(100% - 3.1rem);
+    margin-bottom: 1.6rem;
     padding: 1.3rem 0;
     border-radius: 10px;
 

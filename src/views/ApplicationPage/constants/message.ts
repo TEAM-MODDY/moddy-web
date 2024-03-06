@@ -1,8 +1,8 @@
 export const INFO_MESSAGE = {
-  TITLE: '모델 지원하기',
+  TITLE: '모델 지원',
   NEXT: '다음',
   LAST: '완료',
-  CLOSE: '닫기',
+  CONFIRM: '확인',
 
   LENGTH_TITLE: '머리 기장',
   LENGTH_SUBTITLE: '현재 머리 기장을 선택해주세요',
