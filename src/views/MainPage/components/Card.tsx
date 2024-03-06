@@ -14,13 +14,13 @@ const CardMain = ({ analyticsId, navigateTo, id, children, isExpired = false }: 
   const navigate = useNavigate();
   const navigateState = {
     state: {
-      applicationId: id, 
+      applicationId: id,
       from: location.pathname,
     },
   };
 
   return (
-    <S.CardLayout id={analyticsId} onClick={() => navigate(navigateTo, navigateState)}>
+    <S.CardLayout id={analyticsId} onClick={() => navigate(navigateTo, navigateState)} $isExpired={isExpired}>
       {children}
     </S.CardLayout>
   );
