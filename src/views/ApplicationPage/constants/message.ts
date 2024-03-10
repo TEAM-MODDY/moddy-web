@@ -18,6 +18,7 @@ export const INFO_MESSAGE = {
   ADD_HISTORY: '+ 눌러서 추가하기',
   SERVICE_SELECT_BOX: '시술 선택',
   PERIOD_SELECT_BOX: '기간 선택',
+  FILLED_FORM_TITLE: '시술과 기간을 모두 입력해주세요',
 
   PROFILE_TITLE: '지원 사진',
   PROFILE_SUBTITLE: '딱 맞는 스타일 제안을 위해,<br />반드시 본인 사진을 등록해주세요',
