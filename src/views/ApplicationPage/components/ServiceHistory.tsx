@@ -11,10 +11,12 @@ import ServiceHistoryListItem from './ServiceHistoryListItem';
 
 import { applyStepState, historyState } from '@/recoil/atoms/applicationState';
 import ProgressBar from '@/views/@common/components/ProgressBar';
+import ToastMessage from '@/views/@common/components/ToastMessage';
 
 const ServiceHistory = () => {
   const MAX_LENGTH = 3;
 
+  const [isToastOpen, setToastOpen] = useState(false);
   const [step, setStep] = useRecoilState(applyStepState);
   const [serviceHistory, setServiceHistory] = useRecoilState(historyState);
   const [currentDropDown, setCurrentDropDown] = useState<number | null>(null);
@@ -42,12 +44,11 @@ const ServiceHistory = () => {
     }));
   };
 
-  const exceptionNull = () => {
-    if (
-      serviceHistory.hairServiceRecords[0].hairService === '' ||
-      serviceHistory.hairServiceRecords[0].hairServiceTerm === ''
-    )
-      setServiceHistory({ ...serviceHistory, hairServiceRecords: [] });
+  const isHistoryFilled = () => {
+    const notEmpty = serviceHistory.hairServiceRecords.every((element) => {
+      return element.hairService !== '' && element.hairServiceTerm !== '';
+    });
+    notEmpty ? setStep({ ...step, current: step.current + 1 }) : setToastOpen(true);
   };
 
   return (
@@ -85,10 +86,10 @@ const ServiceHistory = () => {
         text={INFO_MESSAGE.NEXT}
         isFixed={true}
         onClickFn={() => {
-          setStep({ ...step, current: step.current + 1 });
-          exceptionNull();
+          isHistoryFilled();
         }}
       />
+      {isToastOpen && <ToastMessage text={INFO_MESSAGE.FILLED_FORM_TITLE} setter={setToastOpen} />}
     </S.ServiceHistoryLayout>
   );
 };

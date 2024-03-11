@@ -48,13 +48,13 @@ const ServiceHistoryListItem = ({ idx, currentDropDown, setCurrentDropDown }: Se
 
   return (
     <S.ServiceHistoryListItemLayout>
-      <S.SelectBox $height={idx}>
-        <S.DropDownBox
-          $isClicked={clickedDropdown === 'service'}
-          onClick={() => {
-            setCurrentDropDown(idx);
-            clickedDropdown === 'service' ? setClickedDropdown(null) : setClickedDropdown('service');
-          }}>
+      <S.SelectBox
+        $height={idx}
+        onClick={() => {
+          setCurrentDropDown(idx);
+          clickedDropdown === 'service' ? setClickedDropdown(null) : setClickedDropdown('service');
+        }}>
+        <S.DropDownBox $isClicked={clickedDropdown === 'service'}>
           <input type="button" value={serviceHistory.hairServiceRecords[idx].hairService || '시술  선택'} />
           {clickedDropdown === 'service' ? <IcUpBlue /> : <IcDownGrey />}
           {clickedDropdown === 'service' && (
@@ -70,13 +70,13 @@ const ServiceHistoryListItem = ({ idx, currentDropDown, setCurrentDropDown }: Se
           )}
         </S.DropDownBox>
       </S.SelectBox>
-      <S.SelectBox $height={idx}>
-        <S.DropDownBox
-          $isClicked={clickedDropdown === 'period'}
-          onClick={() => {
-            setCurrentDropDown(idx);
-            clickedDropdown === 'period' ? setClickedDropdown(null) : setClickedDropdown('period');
-          }}>
+      <S.SelectBox
+        $height={idx}
+        onClick={() => {
+          setCurrentDropDown(idx);
+          clickedDropdown === 'period' ? setClickedDropdown(null) : setClickedDropdown('period');
+        }}>
+        <S.DropDownBox $isClicked={clickedDropdown === 'period'}>
           <input type="button" value={serviceHistory.hairServiceRecords[idx].hairServiceTerm || '기간  선택'} />
           {clickedDropdown === 'period' ? <IcUpBlue /> : <IcDownGrey />}
           {clickedDropdown === 'period' && (
