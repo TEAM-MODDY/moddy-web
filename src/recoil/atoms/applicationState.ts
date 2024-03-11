@@ -43,7 +43,7 @@ export interface historyDetailProps {
 }
 
 export interface historyType {
-  hairServiceRecords: Array<historyDetailProps>;
+  hairServiceRecords: historyDetailProps[];
   hairService: string;
   hairServiceTerm: string;
 }
