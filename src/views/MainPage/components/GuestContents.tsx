@@ -15,9 +15,8 @@ const GuestContents = () => {
   const [isOpenDetail, setOpenDetail] = useState(0);
 
   useEffect(() => {
-    isOpenDetail > 0
-      ? (document.body.style.backgroundColor = '#FFFFFF')
-      : (document.body.style.backgroundColor = '#3287FF');
+    const metaElement = document.getElementById('status-bar') as HTMLMetaElement;
+    isOpenDetail > 0 ? (metaElement.content = '#FFFFFF') : (metaElement.content = '#3287FF');
   }, [isOpenDetail]);
 
   const DetailPage = ({ imgSrc }: DetailPageProps) => {
