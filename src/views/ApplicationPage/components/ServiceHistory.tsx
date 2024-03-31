@@ -19,7 +19,6 @@ const ServiceHistory = () => {
   const [isToastOpen, setToastOpen] = useState(false);
   const [step, setStep] = useRecoilState(applyStepState);
   const [serviceHistory, setServiceHistory] = useRecoilState(historyState);
-  // const [currentDropDown, setCurrentDropDown] = useState<number | null>(null);
   const navigate = useNavigate();
 
   const addHistory = () => {
@@ -59,12 +58,7 @@ const ServiceHistory = () => {
       </S.Title>
       <S.ServiceHistoryList>
         {serviceHistory.hairServiceRecords.map((item, idx) => (
-          <ServiceHistoryListItem
-            key={'history' + item.hairService + item.hairServiceTerm + idx}
-            // currentDropDown={currentDropDown}
-            // setCurrentDropDown={setCurrentDropDown}
-            idx={idx}
-          />
+          <ServiceHistoryListItem key={'history' + item.hairService + item.hairServiceTerm + idx} idx={idx} />
         ))}
       </S.ServiceHistoryList>
       <S.AddHistoryBtn type="button" onClick={addHistory}>

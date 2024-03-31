@@ -17,11 +17,6 @@ interface ServiceHistoryListItem {
 
 const ServiceHistoryListItem = ({ idx }: ServiceHistoryListItem) => {
   const [serviceHistory, setServiceHistory] = useRecoilState(historyState);
-  // const [clickedDropdown, setClickedDropdown] = useState<string | null>(null);
-
-  // useEffect(() => {
-  //   if (currentDropDown !== idx) setClickedDropdown(null);
-  // }, [currentDropDown]);
 
   const deleteHistory = () => {
     const newServiceHistoryRecords = serviceHistory.hairServiceRecords.filter((_, i) => i !== idx);
@@ -32,7 +27,7 @@ const ServiceHistoryListItem = ({ idx }: ServiceHistoryListItem) => {
     <S.ServiceHistoryListItemLayout>
       <DropDown
         idx={idx}
-        boxType="service"
+        boxType="hairService"
         // onClick={() => {
         //   setCurrentDropDown(idx);
         //   clickedDropdown === 'service' ? setClickedDropdown(null) : setClickedDropdown('service');
@@ -40,7 +35,7 @@ const ServiceHistoryListItem = ({ idx }: ServiceHistoryListItem) => {
       />
       <DropDown
         idx={idx}
-        boxType="period"
+        boxType="hairServiceTerm"
         // onClick={() => {
         //   setCurrentDropDown(idx);
         //   clickedDropdown === 'period' ? setClickedDropdown(null) : setClickedDropdown('period');
