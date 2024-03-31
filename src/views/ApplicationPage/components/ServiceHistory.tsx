@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { styled } from 'styled-components';
@@ -19,20 +19,8 @@ const ServiceHistory = () => {
   const [isToastOpen, setToastOpen] = useState(false);
   const [step, setStep] = useRecoilState(applyStepState);
   const [serviceHistory, setServiceHistory] = useRecoilState(historyState);
-  const [currentDropDown, setCurrentDropDown] = useState<number | null>(null);
-  const historyRef = useRef<HTMLUListElement>(null);
+  // const [currentDropDown, setCurrentDropDown] = useState<number | null>(null);
   const navigate = useNavigate();
-
-  useEffect(() => {
-    const handleFocus = (e: MouseEvent) => {
-      if (historyRef.current && !historyRef.current.contains(e.target as Node)) setCurrentDropDown(null);
-    };
-    document.addEventListener('mouseup', handleFocus);
-
-    return () => {
-      document.removeEventListener('mouseup', handleFocus);
-    };
-  }, [historyRef.current]);
 
   const addHistory = () => {
     setServiceHistory((prev) => ({
@@ -69,12 +57,12 @@ const ServiceHistory = () => {
         <h2>{INFO_MESSAGE.SERVICE_TITLE}</h2>
         <h3>{INFO_MESSAGE.SERVICE_SUBTITLE}</h3>
       </S.Title>
-      <S.ServiceHistoryList ref={historyRef}>
+      <S.ServiceHistoryList>
         {serviceHistory.hairServiceRecords.map((item, idx) => (
           <ServiceHistoryListItem
             key={'history' + item.hairService + item.hairServiceTerm + idx}
-            currentDropDown={currentDropDown}
-            setCurrentDropDown={setCurrentDropDown}
+            // currentDropDown={currentDropDown}
+            // setCurrentDropDown={setCurrentDropDown}
             idx={idx}
           />
         ))}
