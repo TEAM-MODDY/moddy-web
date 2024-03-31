@@ -5,17 +5,20 @@ import { styled, css } from 'styled-components';
 import { IcDownGrey, IcUpBlue } from '../../@common/assets/icons';
 import { SELECT_PERIOD, SELECT_SERVICE } from '../constants/select';
 
-import { historyState } from '@/recoil/atoms/applicationState';
+import { historyDetailProps, historyState } from '@/recoil/atoms/applicationState';
 
 interface DropDownProps {
   idx: number;
-  boxType: string;
+  boxType: keyof historyDetailProps;
 }
 
 const DropDown = ({ idx, boxType }: DropDownProps) => {
   const [serviceHistory, setServiceHistory] = useRecoilState(historyState);
   const [currentDropDown, setCurrentDropDown] = useState(false);
   const dropDownRef = useRef<HTMLDivElement>(null);
+
+  const listType = boxType === 'hairService' ? SELECT_SERVICE : SELECT_PERIOD;
+  const placeHolder = boxType === 'hairService' ? '시술 선택' : '기간 선택';
 
   useEffect(() => {
     const handleFocus = (e: MouseEvent) => {
@@ -26,7 +29,7 @@ const DropDown = ({ idx, boxType }: DropDownProps) => {
     return () => {
       document.removeEventListener('mouseup', handleFocus);
     };
-  }, [dropDownRef.current]);
+  }, []);
 
   const handleDropdownClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>, field: string) => {
     const newValue = event.currentTarget.innerText;
@@ -48,35 +51,20 @@ const DropDown = ({ idx, boxType }: DropDownProps) => {
       ref={dropDownRef}
       $height={idx}
       onClick={() => {
-        currentDropDown ? setCurrentDropDown(false) : setCurrentDropDown(true);
+        setCurrentDropDown((prev) => !prev);
       }}>
       <S.DropDownBox $isClicked={currentDropDown}>
-        <input
-          type="button"
-          value={
-            boxType === 'hairService'
-              ? serviceHistory.hairServiceRecords[idx].hairService || '시술  선택'
-              : serviceHistory.hairServiceRecords[idx].hairServiceTerm || '기간  선택'
-          }
-        />
+        <input type="button" value={serviceHistory.hairServiceRecords[idx][boxType] || placeHolder} />
         {currentDropDown ? <IcUpBlue /> : <IcDownGrey />}
         {currentDropDown && (
           <S.SelectDetailList>
-            {boxType === 'hairService'
-              ? Object.keys(SELECT_SERVICE).map((value, key) => (
-                  <li key={key}>
-                    <button type="button" onClick={(e) => handleDropdownClick(e, boxType)}>
-                      {value}
-                    </button>
-                  </li>
-                ))
-              : Object.keys(SELECT_PERIOD).map((value, key) => (
-                  <li key={key}>
-                    <button type="button" onClick={(e) => handleDropdownClick(e, boxType)}>
-                      {value}
-                    </button>
-                  </li>
-                ))}
+            {Object.keys(listType).map((value, key) => (
+              <li key={key}>
+                <button type="button" onClick={(e) => handleDropdownClick(e, boxType)}>
+                  {value}
+                </button>
+              </li>
+            ))}
           </S.SelectDetailList>
         )}
       </S.DropDownBox>
