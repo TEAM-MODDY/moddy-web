@@ -56,6 +56,8 @@ const S = {
   HairTypeImg: styled.img<{ $isActive: boolean }>`
     width: 100%;
     max-height: 100%;
+    border: ${({ $isActive, theme }) =>
+      $isActive ? `1.25px solid ${theme.colors.moddy_blue}` : `1px solid ${theme.colors.moddy_gray20}`};
     border-radius: 8px;
 
     box-shadow: ${({ $isActive, theme }) => ($isActive ? theme.effects.shadow3 : 'none')};
