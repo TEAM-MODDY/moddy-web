@@ -108,8 +108,7 @@ const S = {
     overflow-y: scroll;
 
     width: 100%;
-    margin: 8.5rem 1rem 10rem;
-    padding: 0 0.8rem 0 1rem;
+    margin: 8.5rem 0 10rem;
 
     &::-webkit-scrollbar {
       width: 0;
@@ -138,6 +137,7 @@ const S = {
     flex-direction: column;
 
     width: 100%;
+    padding: 0 1.6rem;
   `,
 
   Title: styled.div`
@@ -168,7 +168,7 @@ const S = {
 
     width: 100%;
     height: 9.2rem;
-    margin: 2rem 0 2.8rem;
+    margin: 2rem 0 2.4rem;
   `,
 
   DeserveStyleSection: styled.section`
@@ -177,6 +177,7 @@ const S = {
 
     width: 100%;
     margin-top: 2.4rem;
+    padding: 0 1.6rem;
 
     & > p {
       display: flex;

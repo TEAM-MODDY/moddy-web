@@ -24,45 +24,45 @@ const HairTypeInput = ({ type }: HairTypeInputProps) => {
   }, [selectedStyle.length]);
 
   return (
-    <>
+    <S.HairTypeLayout htmlFor={type}>
       <S.HairTypeInput
         type="radio"
         id={type}
-        name="hairtype"
+        name="hairType"
         onChange={() => {
           setSelectedStyle({ ...selectedStyle, length: type });
         }}
       />
-      <S.HairType htmlFor={type}>
-        <img src={!isActive ? hairImg[0] : hairImg[1]} alt="hairImg" />
-      </S.HairType>
-    </>
+      <S.HairTypeImg src={!isActive ? hairImg[0] : hairImg[1]} alt="hairImg" $isActive={isActive} />
+    </S.HairTypeLayout>
   );
 };
 
 const S = {
-  HairTypeInput: styled.input`
-    display: none;
+  HairTypeLayout: styled.label`
+    display: flex;
+    align-items: center;
 
-    width: 100%;
-
-    &:checked + label {
-      box-shadow: ${({ theme }) => theme.effects.shadow3};
-    }
-  `,
-
-  HairType: styled.label`
+    width: fit-content;
     height: 100%;
-    border-radius: 8px;
 
     cursor: pointer;
+  `,
 
-    & > img {
-      width: 100%;
-      height: 100%;
+  HairTypeInput: styled.input`
+    display: none;
+  `,
 
-      object-fit: contain;
-    }
+  HairTypeImg: styled.img<{ $isActive: boolean }>`
+    width: 100%;
+    max-height: 100%;
+    border: ${({ $isActive, theme }) =>
+      $isActive ? `1.25px solid ${theme.colors.moddy_blue}` : `1px solid ${theme.colors.moddy_gray20}`};
+    border-radius: 8px;
+
+    box-shadow: ${({ $isActive, theme }) => ($isActive ? theme.effects.shadow3 : 'none')};
+
+    object-fit: contain;
   `,
 };
 
