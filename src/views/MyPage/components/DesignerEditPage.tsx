@@ -17,10 +17,10 @@ interface ProfileImgInfoProps {
 }
 
 const DesignerEditPage = () => {
-  const [isClicked, setIsClicked] = useState<string[]>([]);
-  const [isChanged, setIsChanged] = useState(false);
-  const [isToastOpen, setToastOpen] = useState(false);
-  const [profileImgInfo, setProfileImgInfo] = useState<ProfileImgInfoProps | null>(null);
+  const [isClicked] = useState<string[]>([]);
+  const [, setIsChanged] = useState(false);
+  const [, setToastOpen] = useState(false);
+  const [, setProfileImgInfo] = useState<ProfileImgInfoProps | null>(null);
 
   const handleImageUpload = (imgUrl: string, imgObj: File) => {
     setProfileImgInfo({
@@ -35,7 +35,8 @@ const DesignerEditPage = () => {
 
   return (
     <>
-      <Header title="프로필 수정" isBackBtnExist={true} />
+      ㄴ
+      <Header title="프로필 수정" isBackBtnExist={true} rightBtnText="저장" />
       <S.InfoSection>
         <ProfileUpload onImageUpload={handleImageUpload} setToastOpen={setToastOpen} />
         <TitleField text="디자이너 소개" isEssential={true} />
