@@ -34,15 +34,24 @@ const MyMenuList = ({ setModalOpen, isModel }: MyMenuListProps) => {
           <S.MyMenuListBox>
             <S.MyMenuListParagraph>이용내역</S.MyMenuListParagraph>
             <MyMenuItem icon={<IcMyApplication />} text="나의 지원서" onClickFn={handleCheckApplication} />
+            <MyMenuItem
+              icon={<IcContactus1 />}
+              text="프로필 수정"
+              onClickFn={() => navigate('/edit-profile', { state: isModel })}
+            />
           </S.MyMenuListBox>
           <S.MyMenuListLine />
         </>
       )}
-      <S.MyMenuListBox>
-        <S.MyMenuListParagraph>내 정보</S.MyMenuListParagraph>
-        <MyMenuItem icon={<IcContactus1 />} text="프로필 수정" onClickFn={() => navigate('/edit-profile')} />
-      </S.MyMenuListBox>
-      <S.MyMenuListLine />
+      {!isModel && (
+        <>
+          <S.MyMenuListBox>
+            <S.MyMenuListParagraph>내 정보</S.MyMenuListParagraph>
+            <MyMenuItem icon={<IcContactus1 />} text="프로필 수정" onClickFn={() => navigate('/edit-profile')} />
+          </S.MyMenuListBox>
+          <S.MyMenuListLine />
+        </>
+      )}
       <S.MyMenuListBox>
         <S.MyMenuListParagraph>서비스 정보</S.MyMenuListParagraph>
         <a href={LINK.TERM}>
