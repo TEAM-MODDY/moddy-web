@@ -15,9 +15,13 @@ interface ProfileImgInfoProps {
   imgObj: File;
 }
 
-const DesignerInfoSection = () => {
-  const [isClicked] = useState<string[]>([]);
-  const [, setIsChanged] = useState(false);
+interface DesignerInfoSectionProps {
+  onInfoChange: () => void;
+}
+
+const DesignerInfoSection = ({ onInfoChange }: DesignerInfoSectionProps) => {
+  const [isClicked] = useState<string[]>(['', '', '', '', '', '']);
+
   const [, setToastOpen] = useState(false);
   const [, setProfileImgInfo] = useState<ProfileImgInfoProps | null>(null);
 
@@ -29,7 +33,7 @@ const DesignerInfoSection = () => {
   };
 
   const handleInfoChange = () => {
-    setIsChanged(true);
+    onInfoChange();
   };
   return (
     <>
@@ -68,10 +72,10 @@ const DesignerInfoSection = () => {
 
       <TitleField text="주소" isEssential={true} />
 
-      <S.InputLayout>
-        <S.Input placeholder="헤어샵 주소를 입력해주세요" />
+      <S.InputBox>
+        <p>강서구 내발산동</p>
         <IcSearch />
-      </S.InputLayout>
+      </S.InputBox>
 
       <Input placeholderText="상세 주소를 입력해주세요" initialValue="333동" onChangeFn={handleInfoChange} />
       <TitleField text="휴무" isEssential={false} />
@@ -181,37 +185,25 @@ const S = {
     margin-bottom: 0.8rem;
   `,
 
-  InputLayout: styled.div`
-    position: relative;
+  InputBox: styled.div`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 
-    width: 100%;
-
-    & > svg {
-      position: absolute;
-      top: 0.9rem;
-      right: 1.3rem;
-    }
-  `,
-  Input: styled.input`
     width: 100%;
     margin-bottom: 0.8rem;
     padding: 1.2rem 1.6rem;
     border: 1.5px solid ${({ theme }) => theme.colors.moddy_gray20};
     border-radius: 8px;
 
-    color: ${({ theme }) => theme.colors.moddy_bk};
-    ${({ theme }) => theme.fonts.Body02};
-
-    &::placeholder {
-      color: ${({ theme }) => theme.colors.moddy_gray50};
+    & > svg {
+      top: 0.9rem;
+      right: 1.3rem;
     }
 
-    &:focus {
-      outline: 1.5px solid ${({ theme }) => theme.colors.moddy_blue};
-    }
-
-    &:focus + svg {
-      display: none;
+    & > p {
+      color: ${({ theme }) => theme.colors.moddy_bk};
+      ${({ theme }) => theme.fonts.Body02};
     }
   `,
 };
