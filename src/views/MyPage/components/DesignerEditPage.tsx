@@ -9,9 +9,30 @@ import TextArea200 from '@/views/@common/components/TextArea200';
 import { DAYS } from '../constants/days';
 import { MESSAGE } from '../constants/message';
 import ProfileUpload from '@/views/@common/components/ProfileUpload';
+import { IcSearch } from '@/views/SignUpPage/assets/icons';
+
+interface ProfileImgInfoProps {
+  imgUrl: string;
+  imgObj: File;
+}
 
 const DesignerEditPage = () => {
   const [isClicked, setIsClicked] = useState<string[]>([]);
+  const [isChanged, setIsChanged] = useState(false);
+  const [isToastOpen, setToastOpen] = useState(false);
+  const [profileImgInfo, setProfileImgInfo] = useState<ProfileImgInfoProps | null>(null);
+
+  const handleImageUpload = (imgUrl: string, imgObj: File) => {
+    setProfileImgInfo({
+      imgUrl,
+      imgObj,
+    });
+  };
+
+  const handleInfoChange = () => {
+    setIsChanged(true);
+  };
+
   return (
     <>
       <Header title="프로필 수정" isBackBtnExist={true} />
@@ -21,9 +42,10 @@ const DesignerEditPage = () => {
         <TextArea200
           placeholderText="자신에 대한 소개를 입력해주세요 예시) 경력, 자격증, 강점 등"
           initialValue="이런걸 원해요"
+          onChangeFn={handleInfoChange}
         />
         <TitleField text="디자이너명" isEssential={true} />
-        <Input placeholderText="디자이너명" initialValue="원하연" />
+        <Input placeholderText="디자이너명" initialValue="원하연" onChangeFn={handleInfoChange} />
         <S.SubTextBox>
           <IcInformation />
           <p>{MESSAGE.DESIGNER_NAME}</p>
@@ -36,12 +58,26 @@ const DesignerEditPage = () => {
           <S.GenderTypeLabel>남성</S.GenderTypeLabel>
         </S.GenderSelectBox>
         <TitleField text="전화번호" isEssential={true} />
-        <Input placeholderText="전화번호를 입력해주세요 (‘-’ 제외)" initialValue="010-4747-3094" />
+        <Input
+          placeholderText="전화번호를 입력해주세요 (‘-’ 제외)"
+          initialValue="010-4747-3094"
+          onChangeFn={handleInfoChange}
+        />
         <TitleField text="소속" isEssential={true} />
-        <Input placeholderText="소속되어 있는 헤어샵(지점명)을 입력해주세요" initialValue="010-4747-3094" />
+        <Input
+          placeholderText="소속되어 있는 헤어샵(지점명)을 입력해주세요"
+          initialValue="010-4747-3094"
+          onChangeFn={handleInfoChange}
+        />
+
         <TitleField text="주소" isEssential={true} />
-        <Input placeholderText="헤어샵 주소를 입력해주세요" initialValue="강서구 내발산동" />
-        <Input placeholderText="상세 주소를 입력해주세요" initialValue="333동" />
+
+        <S.InputLayout>
+          <S.Input placeholder="헤어샵 주소를 입력해주세요" />
+          <IcSearch />
+        </S.InputLayout>
+
+        <Input placeholderText="상세 주소를 입력해주세요" initialValue="333동" onChangeFn={handleInfoChange} />
         <TitleField text="휴무" isEssential={false} />
         <S.DayOffWrapperBox>
           {Object.keys(DAYS).map((day, index) => (
@@ -51,11 +87,21 @@ const DesignerEditPage = () => {
           ))}
         </S.DayOffWrapperBox>
         <TitleField text="포트폴리오" isEssential={true} />
-        <Input placeholderText="인스타그램 링크를 입력해주세요" initialValue="강서구 내발산동" />
-        <Input placeholderText="네이버 플레이스 링크를 입력해주세요" initialValue="333동" />
+        <S.InputWrapper>
+          <Input
+            placeholderText="인스타그램 링크를 입력해주세요"
+            initialValue="강서구 내발산동"
+            onChangeFn={handleInfoChange}
+          />
+        </S.InputWrapper>
+        <Input
+          placeholderText="네이버 플레이스 링크를 입력해주세요"
+          initialValue="333동"
+          onChangeFn={handleInfoChange}
+        />
         <TitleField text="오픈채팅방 링크" isEssential={true} />
 
-        <Input placeholderText="오픈채팅방 링크를 입력해주세요" initialValue="333동" />
+        <Input placeholderText="오픈채팅방 링크를 입력해주세요" initialValue="333동" onChangeFn={handleInfoChange} />
         <S.SubTextBox>
           <IcInformation />
           <p>{MESSAGE.OPENCHAT_ENTER}</p>
@@ -67,7 +113,7 @@ const DesignerEditPage = () => {
 
 const S = {
   InfoSection: styled.div`
-    margin: 12.2rem 0 15rem;
+    margin: 6.7rem 0 15rem;
     padding: 0 1.6rem;
   `,
 
@@ -142,6 +188,44 @@ const S = {
 
       color: ${({ theme }) => theme.colors.moddy_blue2};
       ${({ theme }) => theme.fonts.Body04};
+    }
+  `,
+
+  InputWrapper: styled.div`
+    margin-bottom: 0.8rem;
+  `,
+
+  InputLayout: styled.div`
+    position: relative;
+
+    width: 100%;
+
+    & > svg {
+      position: absolute;
+      top: 0.9rem;
+      right: 1.3rem;
+    }
+  `,
+  Input: styled.input`
+    width: 100%;
+    margin-bottom: 0.8rem;
+    padding: 1.2rem 1.6rem;
+    border: 1.5px solid ${({ theme }) => theme.colors.moddy_gray20};
+    border-radius: 8px;
+
+    color: ${({ theme }) => theme.colors.moddy_bk};
+    ${({ theme }) => theme.fonts.Body02};
+
+    &::placeholder {
+      color: ${({ theme }) => theme.colors.moddy_gray50};
+    }
+
+    &:focus {
+      outline: 1.5px solid ${({ theme }) => theme.colors.moddy_blue};
+    }
+
+    &:focus + svg {
+      display: none;
     }
   `,
 };
