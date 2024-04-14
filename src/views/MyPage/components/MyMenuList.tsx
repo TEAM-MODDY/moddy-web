@@ -39,10 +39,8 @@ const MyMenuList = ({ setModalOpen, isModel }: MyMenuListProps) => {
         </>
       )}
       <S.MyMenuListBox>
-        <S.MyMenuListParagraph>고객센터</S.MyMenuListParagraph>
-        <a href={LINK.CONTACT}>
-          <MyMenuItem icon={<IcContactus1 />} text="문의하기" />
-        </a>
+        <S.MyMenuListParagraph>내 정보</S.MyMenuListParagraph>
+        <MyMenuItem icon={<IcContactus1 />} text="프로필 수정" onClickFn={() => navigate('/edit-profile')} />
       </S.MyMenuListBox>
       <S.MyMenuListLine />
       <S.MyMenuListBox>
@@ -52,6 +50,9 @@ const MyMenuList = ({ setModalOpen, isModel }: MyMenuListProps) => {
         </a>
         <a href={LINK.VERSION}>
           <MyMenuItem icon={<IcContactus />} text="버전 정보" />
+        </a>
+        <a href={LINK.CONTACT}>
+          <MyMenuItem icon={<IcContactus1 />} text="문의하기" />
         </a>
       </S.MyMenuListBox>
       <S.MyMenuListLine />
