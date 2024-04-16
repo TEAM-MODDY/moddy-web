@@ -38,13 +38,7 @@ const MyMenuList = ({ setModalOpen, isModel }: MyMenuListProps) => {
           <S.MyMenuListLine />
         </>
       )}
-      <S.MyMenuListBox>
-        <S.MyMenuListParagraph>고객센터</S.MyMenuListParagraph>
-        <a href={LINK.CONTACT}>
-          <MyMenuItem icon={<IcContactus1 />} text="문의하기" />
-        </a>
-      </S.MyMenuListBox>
-      <S.MyMenuListLine />
+
       <S.MyMenuListBox>
         <S.MyMenuListParagraph>서비스 정보</S.MyMenuListParagraph>
         <a href={LINK.TERM}>
@@ -52,6 +46,9 @@ const MyMenuList = ({ setModalOpen, isModel }: MyMenuListProps) => {
         </a>
         <a href={LINK.VERSION}>
           <MyMenuItem icon={<IcContactus />} text="버전 정보" />
+        </a>
+        <a href={LINK.CONTACT}>
+          <MyMenuItem icon={<IcContactus1 />} text="문의하기" />
         </a>
       </S.MyMenuListBox>
       <S.MyMenuListLine />

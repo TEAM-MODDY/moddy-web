@@ -21,6 +21,7 @@ import LoginCallback from './views/LoginPage/components/LoginCallback';
 import OfferSentCompletePage from './views/ModelInfoPage/components/OfferSentCompletePage';
 import MyAccountPage from './views/MyPage/components/MyAccountPage';
 import CheckOfferPage from './views/OfferInfoPage/components/CheckOfferPage';
+import EditInfoPage from './views/MyPage/components/EditInfoPage';
 
 const router = createBrowserRouter([
   {
@@ -44,6 +45,7 @@ const router = createBrowserRouter([
       { path: '/error', element: <ErrorPage /> },
       { path: '/agreement', element: <AgreementPage /> },
       { path: '/my-account', element: <MyAccountPage /> },
+      { path: '/edit-profile', element: <EditInfoPage /> },
     ],
   },
 ]);
