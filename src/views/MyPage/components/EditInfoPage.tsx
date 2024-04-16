@@ -94,7 +94,6 @@ const EditInfoPage = () => {
 const S = {
   InfoSection: styled.div`
     margin: 6.7rem 0 15rem;
-    padding: 0 1.6rem;
   `,
 
   SaveBtn: styled.p`
