@@ -20,18 +20,22 @@ interface ProfileImgInfoProps {
 
 interface DesignerInfoSectionProps {
   onInfoChange: () => void;
-  onDataChange: (newData: any) => void;
 }
 
-const DesignerInfoSection = ({ onInfoChange, onDataChange }: DesignerInfoSectionProps) => {
+const DesignerInfoSection = ({ onInfoChange }: DesignerInfoSectionProps) => {
   const { introduction, designerInfo } = DUMMY_DATA.data;
+  const [intro, setIntro] = useState(introduction);
   const [name, setName] = useState(designerInfo.name);
   const [gender, setGender] = useState(designerInfo.gender);
   const [shopName, setShopName] = useState(designerInfo.hairShop.name);
   const [Address, setAddress] = useState(designerInfo.hairShop.address);
   const [AddressModal, setAddressModal] = useState(false);
+  const [dayOff, setDayOff] = useState(designerInfo.dayOffs);
+  const [isClicked, setIsClicked] = useState<string[]>(dayOff);
   const [DetailAddress, setDetailAddress] = useState(designerInfo.hairShop.detailAddress);
-  const [dayOff] = useState(designerInfo.dayOffs);
+  const [instagramUrl, setInstagramUrl] = useState(designerInfo.portfolio.instagramUrl);
+  const [naverPlaceUrl, setNaverPlaceUrl] = useState(designerInfo.portfolio.naverPlaceUrl);
+  const [OpenChatUrl, setOpenChatUrl] = useState(designerInfo.kakaoOpenChatUrl);
 
   const [, setToastOpen] = useState(false);
   const [, setProfileImgInfo] = useState<ProfileImgInfoProps | null>(null);
@@ -43,37 +47,71 @@ const DesignerInfoSection = ({ onInfoChange, onDataChange }: DesignerInfoSection
     });
   };
 
+  const handleIntro = (value: string) => {
+    setIntro(value);
+    onInfoChange();
+  };
+
   const handleName = (value: string) => {
     setName(value);
-    console.log(gender, name, shopName);
+    onInfoChange();
   };
 
   const handleGender = (e: React.ChangeEvent<HTMLInputElement>) => {
     setGender(e.target.id);
-    console.log(gender, name, shopName);
+    onInfoChange();
   };
 
   const handleShopName = (value: string) => {
     setShopName(value);
-    console.log(gender, name, shopName);
+    onInfoChange();
   };
 
   const handleAddress = (value: string) => {
-    setAddress(value);
+    setAddress(value); // 수정 필요
+
+    onInfoChange();
   };
 
   const handleAddressModal = () => {
     setAddressModal((prev) => !prev);
+    onInfoChange();
   };
 
   const handleDetailAddress = (value: string) => {
     setDetailAddress(value);
-    console.log(gender, name, shopName, Address, DetailAddress);
+    onInfoChange();
+    console.log(intro, name, gender, shopName, Address, DetailAddress, isClicked, dayOff);
   };
 
-  const handleInfoChange = () => {
+  const handleInstagramUrl = (value: string) => {
+    setInstagramUrl(value);
     onInfoChange();
-    onDataChange;
+  };
+
+  const handleNaverPlaceUrl = (value: string) => {
+    setNaverPlaceUrl(value);
+    onInfoChange();
+  };
+
+  const handleOpenChatUrl = (value: string) => {
+    setOpenChatUrl(value);
+    onInfoChange();
+  };
+
+  const handleDayOffClick = (event: React.MouseEvent<HTMLButtonElement>, index: number) => {
+    const dayValue = event.currentTarget.value;
+
+    const tempClicked = [...isClicked];
+    if (tempClicked[index] === '') {
+      tempClicked[index] = DAYS[dayValue as keyof typeof DAYS];
+    } else {
+      tempClicked[index] = '';
+    }
+    setDayOff((prevClickedInfo) => ({
+      ...prevClickedInfo,
+    }));
+    setIsClicked(tempClicked);
   };
 
   const FormattedPhoneNum = designerInfo.phoneNumber.replace(/^(\d{3})(\d{4})(\d{4})$/, '$1-$2-$3');
@@ -94,7 +132,7 @@ const DesignerInfoSection = ({ onInfoChange, onDataChange }: DesignerInfoSection
         <TextArea200
           placeholderText="자신에 대한 소개를 입력해주세요 예시) 경력, 자격증, 강점 등"
           initialValue={introduction}
-          onChangeFn={handleInfoChange}
+          onChangeFn={handleIntro}
         />
 
         <S.TitleFieldBox>
@@ -150,7 +188,11 @@ const DesignerInfoSection = ({ onInfoChange, onDataChange }: DesignerInfoSection
 
         <S.DayOffWrapperBox>
           {Object.keys(DAYS).map((day, index) => (
-            <S.DayOffButton key={day} value={day} $isClicked={dayOff[index]}>
+            <S.DayOffButton
+              key={day}
+              value={day}
+              onClick={(e) => handleDayOffClick(e, index)}
+              $isClicked={isClicked[index]}>
               {day}
             </S.DayOffButton>
           ))}
@@ -161,14 +203,14 @@ const DesignerInfoSection = ({ onInfoChange, onDataChange }: DesignerInfoSection
         <S.InputWrapper>
           <Input
             placeholderText="인스타그램 링크를 입력해주세요"
-            initialValue={designerInfo.portfolio.instagramUrl}
-            onChangeFn={handleInfoChange}
+            initialValue={instagramUrl}
+            onChangeFn={handleInstagramUrl}
           />
         </S.InputWrapper>
         <Input
           placeholderText="네이버 플레이스 링크를 입력해주세요"
-          initialValue={designerInfo.portfolio.naverPlaceUrl}
-          onChangeFn={handleInfoChange}
+          initialValue={naverPlaceUrl}
+          onChangeFn={handleNaverPlaceUrl}
         />
         <S.TitleFieldBox>
           <TitleField text="오픈채팅방 링크" isEssential={true} />
@@ -176,8 +218,8 @@ const DesignerInfoSection = ({ onInfoChange, onDataChange }: DesignerInfoSection
 
         <Input
           placeholderText="오픈채팅방 링크를 입력해주세요"
-          initialValue={designerInfo.kakaoOpenChatUrl}
-          onChangeFn={handleInfoChange}
+          initialValue={OpenChatUrl}
+          onChangeFn={handleOpenChatUrl}
         />
         <S.SubTextBox>
           <IcInformation />
