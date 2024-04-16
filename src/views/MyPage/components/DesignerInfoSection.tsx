@@ -9,6 +9,7 @@ import { IcInformation } from '@/views/@common/assets/icons';
 import { IcSearch } from '@/views/SignUpPage/assets/icons';
 import { MESSAGE } from '../constants/message';
 import { DAYS } from '@/views/@common/constants/days';
+import { DUMMY_DATA } from '../constants/dummy';
 
 interface ProfileImgInfoProps {
   imgUrl: string;
@@ -17,10 +18,17 @@ interface ProfileImgInfoProps {
 
 interface DesignerInfoSectionProps {
   onInfoChange: () => void;
+  onDataChange: (newData: any) => void;
 }
 
-const DesignerInfoSection = ({ onInfoChange }: DesignerInfoSectionProps) => {
-  const [isClicked] = useState<string[]>(['', '', '', '', '', '']);
+const DesignerInfoSection = ({ onInfoChange, onDataChange }: DesignerInfoSectionProps) => {
+  const { introduction, designerInfo } = DUMMY_DATA.data;
+  const [name, setName] = useState(designerInfo.name);
+  const [gender, setGender] = useState(designerInfo.gender);
+  const [shopName, setShopName] = useState(designerInfo.hairShop.name);
+  const [Address] = useState(designerInfo.hairShop.address);
+  const [DetailAddress, setDetailAddress] = useState(designerInfo.hairShop.detailAddress);
+  const [dayOff] = useState(designerInfo.dayOffs);
 
   const [, setToastOpen] = useState(false);
   const [, setProfileImgInfo] = useState<ProfileImgInfoProps | null>(null);
@@ -32,9 +40,33 @@ const DesignerInfoSection = ({ onInfoChange }: DesignerInfoSectionProps) => {
     });
   };
 
+  const handleName = (value: string) => {
+    setName(value);
+    console.log(gender, name, shopName);
+  };
+
+  const handleGender = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setGender(e.target.id);
+    console.log(gender, name, shopName);
+  };
+
+  const handleShopName = (value: string) => {
+    setShopName(value);
+    console.log(gender, name, shopName);
+  };
+
+  const handleDetailAddress = (value: string) => {
+    setDetailAddress(value);
+    console.log(gender, name, shopName, DetailAddress);
+  };
+
   const handleInfoChange = () => {
     onInfoChange();
+    onDataChange;
   };
+
+  const FormattedPhoneNum = designerInfo.phoneNumber.replace(/^(\d{3})(\d{4})(\d{4})$/, '$1-$2-$3');
+
   return (
     <>
       <ProfileUpload onImageUpload={handleImageUpload} setToastOpen={setToastOpen} />
@@ -43,14 +75,14 @@ const DesignerInfoSection = ({ onInfoChange }: DesignerInfoSectionProps) => {
       </S.TitleFieldBox>
       <TextArea200
         placeholderText="자신에 대한 소개를 입력해주세요 예시) 경력, 자격증, 강점 등"
-        initialValue="이런걸 원해요"
+        initialValue={introduction}
         onChangeFn={handleInfoChange}
       />
 
       <S.TitleFieldBox>
         <TitleField text="디자이너명" isEssential={true} />
       </S.TitleFieldBox>
-      <Input placeholderText="디자이너명" initialValue="원하연" onChangeFn={handleInfoChange} />
+      <Input placeholderText="디자이너명" initialValue={name} onChangeFn={handleName} />
       <S.SubTextBox>
         <IcInformation />
         <p>{MESSAGE.DESIGNER_NAME}</p>
@@ -58,46 +90,45 @@ const DesignerInfoSection = ({ onInfoChange }: DesignerInfoSectionProps) => {
       <S.TitleFieldBox>
         <TitleField text="성별" isEssential={true} />
       </S.TitleFieldBox>
+
       <S.GenderSelectBox>
-        <S.RadioInput type="radio" />
-        <S.GenderTypeLabel>여성</S.GenderTypeLabel>
-        <S.RadioInput type="radio" />
-        <S.GenderTypeLabel>남성</S.GenderTypeLabel>
+        <S.RadioInput id="FEMALE" type="radio" checked={gender === 'FEMALE'} onChange={handleGender} />
+        <S.GenderTypeLabel htmlFor="FEMALE">여성</S.GenderTypeLabel>
+        <S.RadioInput id="MALE" type="radio" checked={gender === 'MALE'} onChange={handleGender} />
+        <S.GenderTypeLabel htmlFor="MALE">남성</S.GenderTypeLabel>
       </S.GenderSelectBox>
       <S.TitleFieldBox>
         <TitleField text="전화번호" isEssential={true} />
       </S.TitleFieldBox>
-      <Input
-        placeholderText="전화번호를 입력해주세요 (‘-’ 제외)"
-        initialValue="010-4747-3094"
-        onChangeFn={handleInfoChange}
-      />
+      <S.InputBox $isDisabled={true}>
+        <p>{FormattedPhoneNum}</p>
+      </S.InputBox>
       <S.TitleFieldBox>
         <TitleField text="소속" isEssential={true} />
       </S.TitleFieldBox>
       <Input
         placeholderText="소속되어 있는 헤어샵(지점명)을 입력해주세요"
-        initialValue="010-4747-3094"
-        onChangeFn={handleInfoChange}
+        initialValue={shopName}
+        onChangeFn={handleShopName}
       />
 
       <S.TitleFieldBox>
         <TitleField text="주소" isEssential={true} />
       </S.TitleFieldBox>
 
-      <S.InputBox>
-        <p>강서구 내발산동</p>
+      <S.InputBox $isDisabled={false}>
+        <p>{Address}</p>
         <IcSearch />
       </S.InputBox>
 
-      <Input placeholderText="상세 주소를 입력해주세요" initialValue="333동" onChangeFn={handleInfoChange} />
+      <Input placeholderText="상세 주소를 입력해주세요" initialValue={DetailAddress} onChangeFn={handleDetailAddress} />
       <S.TitleFieldBox>
         <TitleField text="휴무" isEssential={false} />
       </S.TitleFieldBox>
 
       <S.DayOffWrapperBox>
         {Object.keys(DAYS).map((day, index) => (
-          <S.DayOffButton key={day} value={day} $isClicked={isClicked[index]}>
+          <S.DayOffButton key={day} value={day} $isClicked={dayOff[index]}>
             {day}
           </S.DayOffButton>
         ))}
@@ -108,16 +139,24 @@ const DesignerInfoSection = ({ onInfoChange }: DesignerInfoSectionProps) => {
       <S.InputWrapper>
         <Input
           placeholderText="인스타그램 링크를 입력해주세요"
-          initialValue="강서구 내발산동"
+          initialValue={designerInfo.portfolio.instagramUrl}
           onChangeFn={handleInfoChange}
         />
       </S.InputWrapper>
-      <Input placeholderText="네이버 플레이스 링크를 입력해주세요" initialValue="333동" onChangeFn={handleInfoChange} />
+      <Input
+        placeholderText="네이버 플레이스 링크를 입력해주세요"
+        initialValue={designerInfo.portfolio.naverPlaceUrl}
+        onChangeFn={handleInfoChange}
+      />
       <S.TitleFieldBox>
         <TitleField text="오픈채팅방 링크" isEssential={true} />
       </S.TitleFieldBox>
 
-      <Input placeholderText="오픈채팅방 링크를 입력해주세요" initialValue="333동" onChangeFn={handleInfoChange} />
+      <Input
+        placeholderText="오픈채팅방 링크를 입력해주세요"
+        initialValue={designerInfo.kakaoOpenChatUrl}
+        onChangeFn={handleInfoChange}
+      />
       <S.SubTextBox>
         <IcInformation />
         <p>{MESSAGE.OPENCHAT_ENTER}</p>
@@ -205,7 +244,7 @@ const S = {
     margin-bottom: 0.8rem;
   `,
 
-  InputBox: styled.div`
+  InputBox: styled.div<{ $isDisabled: boolean }>`
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -216,13 +255,15 @@ const S = {
     border: 1.5px solid ${({ theme }) => theme.colors.moddy_gray20};
     border-radius: 8px;
 
+    background-color: ${({ theme, $isDisabled }) => ($isDisabled ? theme.colors.moddy_gray05 : theme.colors.moddy_wt)};
+
     & > svg {
       top: 0.9rem;
       right: 1.3rem;
     }
 
     & > p {
-      color: ${({ theme }) => theme.colors.moddy_bk};
+      color: ${({ theme, $isDisabled }) => ($isDisabled ? theme.colors.moddy_gray50 : theme.colors.moddy_bk)};
       ${({ theme }) => theme.fonts.Body02};
     }
   `,

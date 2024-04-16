@@ -45,7 +45,7 @@ const EditInfoPage = () => {
 
   //이후 put으로 변경될 예정
   const handleSaveInfo = () => {
-    console.log('저장');
+    console.log('Data');
   };
 
   return (
@@ -53,12 +53,16 @@ const EditInfoPage = () => {
       <Header
         title="프로필 수정"
         isBackBtnExist={true}
-        rightBtn={<S.SaveBtn type="button">저장</S.SaveBtn>}
+        rightBtn={<S.SaveBtn>저장</S.SaveBtn>}
         rightFn={handleSaveBtn}
         backFn={handleBackBtn}
       />
       <S.InfoSection>
-        {isModel.state ? <div>가콩 여기야</div> : <DesignerInfoSection onInfoChange={handleInfoChange} />}
+        {isModel.state ? (
+          <div>가콩 여기야</div>
+        ) : (
+          <DesignerInfoSection onInfoChange={handleInfoChange} onDataChange={handleSaveInfo} />
+        )}
       </S.InfoSection>
 
       {isSaveModalOpen && (
@@ -93,7 +97,7 @@ const S = {
     padding: 0 1.6rem;
   `,
 
-  SaveBtn: styled.button`
+  SaveBtn: styled.p`
     cursor: pointer;
     ${({ theme }) => theme.fonts.Body02};
   `,
