@@ -3,7 +3,7 @@ import { useRecoilState } from 'recoil';
 import { styled } from 'styled-components';
 
 import { IcSearch } from '../../assets/icons';
-import { DAYS } from '../../constants/days';
+import { DAYS } from '@/views/@common/constants/days';
 import { HELPER_MESSAGE } from '../../constants/message';
 import { TOTAL_STEP } from '../../constants/step';
 import { EnterProfileProp } from '../../utils/enterProfileProp';

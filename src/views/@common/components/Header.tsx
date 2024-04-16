@@ -15,7 +15,6 @@ interface HeaderProps {
   isNoModal?: boolean;
   rightBtn?: ReactElement;
   rightFn?: () => void;
-  rightBtnText?: string;
 }
 
 const Header = ({
@@ -27,7 +26,6 @@ const Header = ({
   isNoModal,
   rightBtn,
   rightFn,
-  rightBtnText,
 }: HeaderProps) => {
   const navigate = useNavigate();
   const [isOpenModal, setOpenModal] = useState(false);
@@ -51,10 +49,6 @@ const Header = ({
           </button>
         ) : rightBtn ? (
           <button onClick={rightFn}>{rightBtn}</button>
-        ) : rightBtnText ? ( // 새로운 조건 추가
-          <button onClick={rightFn}>
-            <S.RightBtnText>{rightBtnText}</S.RightBtnText>
-          </button>
         ) : (
           <S.HeaderBlankBox />
         )}
@@ -98,9 +92,5 @@ const S = {
   HeaderBlankBox: styled.div`
     width: 2.4rem;
     height: 2.4rem;
-  `,
-
-  RightBtnText: styled.h1`
-    ${({ theme }) => theme.fonts.Body02};
   `,
 };

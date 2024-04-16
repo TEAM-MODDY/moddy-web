@@ -53,7 +53,7 @@ const EditInfoPage = () => {
       <Header
         title="프로필 수정"
         isBackBtnExist={true}
-        rightBtnText="저장"
+        rightBtn={<S.SaveBtn type="button">저장</S.SaveBtn>}
         rightFn={handleSaveBtn}
         backFn={handleBackBtn}
       />
@@ -91,6 +91,11 @@ const S = {
   InfoSection: styled.div`
     margin: 6.7rem 0 15rem;
     padding: 0 1.6rem;
+  `,
+
+  SaveBtn: styled.button`
+    cursor: pointer;
+    ${({ theme }) => theme.fonts.Body02};
   `,
 };
 

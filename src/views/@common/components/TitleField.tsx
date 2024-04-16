@@ -20,13 +20,6 @@ const TitleField = (props: TitleFieldProp) => {
 const S = {
   FieldBox: styled.div`
     display: flex;
-
-    margin-top: 3.6rem;
-    margin-bottom: 1.1rem;
-
-    &:first-child {
-      margin-top: 0;
-    }
   `,
 
   FieldSpan: styled.span`

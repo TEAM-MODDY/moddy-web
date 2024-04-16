@@ -1,22 +1,29 @@
 import { styled } from 'styled-components';
 
 import { UserProps } from '../hooks/type';
-
+import { IcRightGrey } from '@/views/@common/assets/icons';
 import ImgMdModel from '@images/img_mdprofile.png';
 import ImgMyLogo from '@images/img_mylogo.png';
+import { useNavigate } from 'react-router-dom';
 
 interface MyInfoProps {
   data: UserProps;
   isModel: boolean;
 }
 const MyInfo = ({ data, isModel }: MyInfoProps) => {
+  const navigate = useNavigate();
   return (
     <S.MyInfoLayout>
       <S.MyInfoBox>
         <img src={data ? data.profileImgUrl : ImgMdModel} alt="마이페이지 프로필" />
         {data && (
           <S.MyInfoTextBox>
-            <h1>{data.name}님, 안녕하세요!</h1>
+            <S.NameTextBox>
+              <h1>{data.name}님, 안녕하세요!</h1>
+              <button type="button" onClick={() => navigate('/edit-profile', { state: isModel })}>
+                <IcRightGrey />
+              </button>
+            </S.NameTextBox>
             <p>헤어 {isModel ? '모델' : '디자이너'}</p>
           </S.MyInfoTextBox>
         )}
@@ -67,14 +74,21 @@ const S = {
     flex-direction: column;
     gap: 0.4rem;
 
-    & > h1 {
-      color: ${({ theme }) => theme.colors.moddy_blue};
-      ${({ theme }) => theme.fonts.Title03};
-    }
+    width: 100%;
 
     & > p {
       color: ${({ theme }) => theme.colors.moddy_gray50};
       ${({ theme }) => theme.fonts.Body01};
+    }
+  `,
+
+  NameTextBox: styled.div`
+    display: flex;
+    justify-content: space-between;
+
+    & > h1 {
+      color: ${({ theme }) => theme.colors.moddy_blue};
+      ${({ theme }) => theme.fonts.Title03};
     }
   `,
 };

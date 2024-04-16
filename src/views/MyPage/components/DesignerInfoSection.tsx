@@ -8,7 +8,7 @@ import Input from '@/views/@common/components/Input';
 import { IcInformation } from '@/views/@common/assets/icons';
 import { IcSearch } from '@/views/SignUpPage/assets/icons';
 import { MESSAGE } from '../constants/message';
-import { DAYS } from '../constants/days';
+import { DAYS } from '@/views/@common/constants/days';
 
 interface ProfileImgInfoProps {
   imgUrl: string;
@@ -38,39 +38,52 @@ const DesignerInfoSection = ({ onInfoChange }: DesignerInfoSectionProps) => {
   return (
     <>
       <ProfileUpload onImageUpload={handleImageUpload} setToastOpen={setToastOpen} />
-      <TitleField text="디자이너 소개" isEssential={true} />
+      <S.TitleFieldBox>
+        <TitleField text="디자이너 소개" isEssential={true} />
+      </S.TitleFieldBox>
       <TextArea200
         placeholderText="자신에 대한 소개를 입력해주세요 예시) 경력, 자격증, 강점 등"
         initialValue="이런걸 원해요"
         onChangeFn={handleInfoChange}
       />
-      <TitleField text="디자이너명" isEssential={true} />
+
+      <S.TitleFieldBox>
+        <TitleField text="디자이너명" isEssential={true} />
+      </S.TitleFieldBox>
       <Input placeholderText="디자이너명" initialValue="원하연" onChangeFn={handleInfoChange} />
       <S.SubTextBox>
         <IcInformation />
         <p>{MESSAGE.DESIGNER_NAME}</p>
       </S.SubTextBox>
-      <TitleField text="성별" isEssential={true} />
+      <S.TitleFieldBox>
+        <TitleField text="성별" isEssential={true} />
+      </S.TitleFieldBox>
       <S.GenderSelectBox>
         <S.RadioInput type="radio" />
         <S.GenderTypeLabel>여성</S.GenderTypeLabel>
         <S.RadioInput type="radio" />
         <S.GenderTypeLabel>남성</S.GenderTypeLabel>
       </S.GenderSelectBox>
-      <TitleField text="전화번호" isEssential={true} />
+      <S.TitleFieldBox>
+        <TitleField text="전화번호" isEssential={true} />
+      </S.TitleFieldBox>
       <Input
         placeholderText="전화번호를 입력해주세요 (‘-’ 제외)"
         initialValue="010-4747-3094"
         onChangeFn={handleInfoChange}
       />
-      <TitleField text="소속" isEssential={true} />
+      <S.TitleFieldBox>
+        <TitleField text="소속" isEssential={true} />
+      </S.TitleFieldBox>
       <Input
         placeholderText="소속되어 있는 헤어샵(지점명)을 입력해주세요"
         initialValue="010-4747-3094"
         onChangeFn={handleInfoChange}
       />
 
-      <TitleField text="주소" isEssential={true} />
+      <S.TitleFieldBox>
+        <TitleField text="주소" isEssential={true} />
+      </S.TitleFieldBox>
 
       <S.InputBox>
         <p>강서구 내발산동</p>
@@ -78,7 +91,10 @@ const DesignerInfoSection = ({ onInfoChange }: DesignerInfoSectionProps) => {
       </S.InputBox>
 
       <Input placeholderText="상세 주소를 입력해주세요" initialValue="333동" onChangeFn={handleInfoChange} />
-      <TitleField text="휴무" isEssential={false} />
+      <S.TitleFieldBox>
+        <TitleField text="휴무" isEssential={false} />
+      </S.TitleFieldBox>
+
       <S.DayOffWrapperBox>
         {Object.keys(DAYS).map((day, index) => (
           <S.DayOffButton key={day} value={day} $isClicked={isClicked[index]}>
@@ -86,7 +102,9 @@ const DesignerInfoSection = ({ onInfoChange }: DesignerInfoSectionProps) => {
           </S.DayOffButton>
         ))}
       </S.DayOffWrapperBox>
-      <TitleField text="포트폴리오" isEssential={true} />
+      <S.TitleFieldBox>
+        <TitleField text="포트폴리오" isEssential={true} />
+      </S.TitleFieldBox>
       <S.InputWrapper>
         <Input
           placeholderText="인스타그램 링크를 입력해주세요"
@@ -95,7 +113,9 @@ const DesignerInfoSection = ({ onInfoChange }: DesignerInfoSectionProps) => {
         />
       </S.InputWrapper>
       <Input placeholderText="네이버 플레이스 링크를 입력해주세요" initialValue="333동" onChangeFn={handleInfoChange} />
-      <TitleField text="오픈채팅방 링크" isEssential={true} />
+      <S.TitleFieldBox>
+        <TitleField text="오픈채팅방 링크" isEssential={true} />
+      </S.TitleFieldBox>
 
       <Input placeholderText="오픈채팅방 링크를 입력해주세요" initialValue="333동" onChangeFn={handleInfoChange} />
       <S.SubTextBox>
@@ -205,6 +225,9 @@ const S = {
       color: ${({ theme }) => theme.colors.moddy_bk};
       ${({ theme }) => theme.fonts.Body02};
     }
+  `,
+  TitleFieldBox: styled.div`
+    margin: 3.6rem 0 1rem;
   `,
 };
 
