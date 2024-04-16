@@ -2,7 +2,8 @@ export const DUMMY_DATA = {
   code: 200,
   message: '디자이너 상세프로필 조회성공',
   data: {
-    profileImg: '디자이너이미지',
+    profileImg:
+      'https://i.namu.wiki/i/VUT80yXnrgs2FZ-5pEUniya1bXuf6iv3z8DaT7xSFw7eaZsMkV0TeFQR49DaEBTM_XjlBPVTbyA0CpTf3UFju8yHQafQ8a-bVkXSPuXXFbCbkG42CC1nhxQrb6yHo-br8GKSet0CtZwehPQiuJqxew.webp',
     introduction: '여기에는 설명이 들어가요',
     designerInfo: {
       name: '강민서',

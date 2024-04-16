@@ -13,17 +13,18 @@ import { DAYS } from '@/views/@common/constants/days';
 import { DUMMY_DATA } from '../constants/dummy';
 import Header from '@/views/@common/components/Header';
 
-interface ProfileImgInfoProps {
-  imgUrl: string;
-  imgObj: File;
-}
+// interface ProfileImgInfoProps {
+//   imgUrl: string;
+//   imgObj: File;
+// }
 
 interface DesignerInfoSectionProps {
   onInfoChange: () => void;
 }
 
 const DesignerInfoSection = ({ onInfoChange }: DesignerInfoSectionProps) => {
-  const { introduction, designerInfo } = DUMMY_DATA.data;
+  const { profileImg, introduction, designerInfo } = DUMMY_DATA.data;
+  const [, setProfileImage] = useState(profileImg);
   const [intro, setIntro] = useState(introduction);
   const [name, setName] = useState(designerInfo.name);
   const [gender, setGender] = useState(designerInfo.gender);
@@ -38,14 +39,6 @@ const DesignerInfoSection = ({ onInfoChange }: DesignerInfoSectionProps) => {
   const [OpenChatUrl, setOpenChatUrl] = useState(designerInfo.kakaoOpenChatUrl);
 
   const [, setToastOpen] = useState(false);
-  const [, setProfileImgInfo] = useState<ProfileImgInfoProps | null>(null);
-
-  const handleImageUpload = (imgUrl: string, imgObj: File) => {
-    setProfileImgInfo({
-      imgUrl,
-      imgObj,
-    });
-  };
 
   const handleIntro = (value: string) => {
     setIntro(value);
@@ -99,6 +92,10 @@ const DesignerInfoSection = ({ onInfoChange }: DesignerInfoSectionProps) => {
     onInfoChange();
   };
 
+  const handleImageUpload = (imgUrl: string) => {
+    setProfileImage(imgUrl);
+  };
+
   const handleDayOffClick = (event: React.MouseEvent<HTMLButtonElement>, index: number) => {
     const dayValue = event.currentTarget.value;
 
@@ -125,7 +122,7 @@ const DesignerInfoSection = ({ onInfoChange }: DesignerInfoSectionProps) => {
         </S.PostCodeBox>
       )}
       <S.DesignerInfoSectionBox>
-        <ProfileUpload onImageUpload={handleImageUpload} setToastOpen={setToastOpen} />
+        <ProfileUpload onImageUpload={handleImageUpload} setToastOpen={setToastOpen} profileImg={profileImg} />
         <S.TitleFieldBox>
           <TitleField text="디자이너 소개" isEssential={true} />
         </S.TitleFieldBox>
