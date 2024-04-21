@@ -72,7 +72,8 @@ const DesignerInfoSection = ({ onInfoChange }: DesignerInfoSectionProps) => {
 
   useEffect(() => {
     onInfoChange();
-  }, [info, onInfoChange]);
+    console.log(info);
+  }, [info]);
 
   return (
     <>
