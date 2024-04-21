@@ -5,9 +5,10 @@ interface TextArea200Props {
   placeholderText: string;
   initialValue?: string;
   onChangeFn: (value: string) => void;
+  id?: string;
 }
 
-const TextArea200 = ({ placeholderText, initialValue, onChangeFn }: TextArea200Props) => {
+const TextArea200 = ({ placeholderText, initialValue, onChangeFn, id }: TextArea200Props) => {
   const [textLength, setTextLength] = useState(initialValue ? initialValue.length : 0);
   const [name, setName] = useState(initialValue ? initialValue : '');
 
@@ -22,6 +23,7 @@ const TextArea200 = ({ placeholderText, initialValue, onChangeFn }: TextArea200P
           onChangeFn(e.target.value);
         }}
         maxLength={200}
+        id={id}
       />
       <S.TextAreaSpan>
         <S.TextAreaCountSpan $isZero={textLength === 0}>{textLength}</S.TextAreaCountSpan> / 200

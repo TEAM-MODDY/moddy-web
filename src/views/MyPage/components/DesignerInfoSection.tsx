@@ -12,14 +12,17 @@ import { MESSAGE } from '../constants/message';
 import { DAYS } from '@/views/@common/constants/days';
 import { DUMMY_DATA } from '../constants/dummy';
 import Header from '@/views/@common/components/Header';
+import ToastMessage from '@/views/@common/components/ToastMessage';
 
 interface DesignerInfoSectionProps {
   onInfoChange: () => void;
+  onErrorFieldChange: (errors: string[]) => void;
 }
 
-const DesignerInfoSection = ({ onInfoChange }: DesignerInfoSectionProps) => {
+const DesignerInfoSection = ({ onInfoChange, onErrorFieldChange }: DesignerInfoSectionProps) => {
   const { profileImg, introduction, designerInfo } = DUMMY_DATA.data;
   const [AddressModal, setAddressModal] = useState(false);
+  const [Imgtoast, setImgToast] = useState(false);
 
   const [info, setInfo] = useState({
     profileImg: profileImg,
@@ -70,13 +73,45 @@ const DesignerInfoSection = ({ onInfoChange }: DesignerInfoSectionProps) => {
     }));
   };
 
+  const checkErrorField = () => {
+    const errors: string[] = [];
+    if (!info.name) {
+      errors.push('name');
+    }
+    if (!info.shopName) {
+      errors.push('shopName');
+    }
+    if (!info.introduction) {
+      errors.push('intro');
+    }
+    if (!info.shopName) {
+      errors.push('shopname');
+    }
+    if (!info.DetailAddress) {
+      errors.push('detailAddress');
+    }
+    if (!info.instagramUrl) {
+      errors.push('portfolio');
+    }
+    if (!info.naverPlaceUrl) {
+      errors.push('portfolio');
+    }
+    if (!info.OpenChatUrl) {
+      errors.push('openChat');
+    }
+    onErrorFieldChange(errors);
+  };
+
   useEffect(() => {
+    checkErrorField();
     onInfoChange();
-    console.log(info);
   }, [info]);
 
   return (
     <>
+      {Imgtoast && (
+        <ToastMessage text="사진 용량이 너무 커요!" subtext="5MB 이하의 사진을 올려주세요" setter={setImgToast} />
+      )}
       {AddressModal && (
         <S.PostCodeBox>
           <Header title="주소 검색" isBackBtnExist={true} backFn={handleAddressModal} />
@@ -87,7 +122,7 @@ const DesignerInfoSection = ({ onInfoChange }: DesignerInfoSectionProps) => {
         </S.PostCodeBox>
       )}
       <S.DesignerInfoSectionBox>
-        <ProfileUpload onImageUpload={handleImageUpload} setToastOpen={() => {}} profileImg={info.profileImg} />
+        <ProfileUpload onImageUpload={handleImageUpload} setToastOpen={setImgToast} profileImg={info.profileImg} />
         <S.TitleFieldBox>
           <TitleField text="디자이너 소개" isEssential={true} />
         </S.TitleFieldBox>
@@ -104,6 +139,8 @@ const DesignerInfoSection = ({ onInfoChange }: DesignerInfoSectionProps) => {
           placeholderText="디자이너명"
           initialValue={info.name}
           onChangeFn={(value) => handleInputChange('name', value)}
+          maxLength={5}
+          id="name"
         />
         <S.SubTextBox>
           <IcInformation />
@@ -142,6 +179,8 @@ const DesignerInfoSection = ({ onInfoChange }: DesignerInfoSectionProps) => {
           placeholderText="소속되어 있는 헤어샵(지점명)을 입력해주세요"
           initialValue={info.shopName}
           onChangeFn={(value) => handleInputChange('shopName', value)}
+          id="shop"
+          maxLength={25}
         />
 
         <S.TitleFieldBox>
@@ -157,6 +196,8 @@ const DesignerInfoSection = ({ onInfoChange }: DesignerInfoSectionProps) => {
           placeholderText="상세 주소를 입력해주세요"
           initialValue={info.DetailAddress}
           onChangeFn={(value) => handleInputChange('DetailAddress', value)}
+          id="detailAddress"
+          maxLength={30}
         />
         <S.TitleFieldBox>
           <TitleField text="휴무" isEssential={false} />
@@ -181,12 +222,14 @@ const DesignerInfoSection = ({ onInfoChange }: DesignerInfoSectionProps) => {
             placeholderText="인스타그램 링크를 입력해주세요"
             initialValue={info.instagramUrl}
             onChangeFn={(value) => handleInputChange('instagramUrl', value)}
+            id="portfolio"
           />
         </S.InputWrapper>
         <Input
           placeholderText="네이버 플레이스 링크를 입력해주세요"
           initialValue={info.naverPlaceUrl}
           onChangeFn={(value) => handleInputChange('naverPlaceUrl', value)}
+          id="portfolio"
         />
         <S.TitleFieldBox>
           <TitleField text="오픈채팅방 링크" isEssential={true} />
@@ -196,6 +239,7 @@ const DesignerInfoSection = ({ onInfoChange }: DesignerInfoSectionProps) => {
           placeholderText="오픈채팅방 링크를 입력해주세요"
           initialValue={info.OpenChatUrl}
           onChangeFn={(value) => handleInputChange('OpenChatUrl', value)}
+          id="openChat"
         />
         <S.SubTextBox>
           <IcInformation />

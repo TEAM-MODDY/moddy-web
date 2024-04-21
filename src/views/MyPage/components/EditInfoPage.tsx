@@ -4,6 +4,8 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import DesignerInfoSection from './DesignerInfoSection';
 import Modal from '@/views/@common/components/Modal';
+import ToastMessage from '@/views/@common/components/ToastMessage';
+import { TOAST_MESSAGE } from '../constants/message';
 
 const EditInfoPage = () => {
   const isModel = useLocation();
@@ -11,16 +13,32 @@ const EditInfoPage = () => {
   const [isChanged, setIsChanged] = useState(false);
   const [isSaveModalOpen, setSaveModalOpen] = useState(false);
   const [isBackModalOpen, setBackModalOpen] = useState(false);
+  const [toastOpen, setToastOpen] = useState(false);
+  const [errorField, setErrorField] = useState<string[]>([]);
+  const [toastMessage, setToastMessage] = useState('');
 
   //정보 변경시에 동작
   const handleInfoChange = () => {
     setIsChanged(true);
   };
+  const handleErrorChange = (errors: string[]) => {
+    setErrorField(errors);
+    console.log(errors);
+  };
 
   //오른쪽 저장클릭시 동작
   const handleSaveBtn = () => {
     if (isChanged) {
-      setSaveModalOpen(true);
+      if (errorField.length > 0) {
+        const firstError = errorField[0];
+        const toastMessage = TOAST_MESSAGE[firstError];
+        if (toastMessage) {
+          setToastMessage(toastMessage);
+          setToastOpen(true);
+        }
+      } else {
+        setBackModalOpen(true);
+      }
     } else {
       navigate('/my-page');
     }
@@ -50,6 +68,7 @@ const EditInfoPage = () => {
 
   return (
     <>
+      {toastOpen && <ToastMessage key={errorField[0]} text={toastMessage} setter={setToastOpen} />}
       <Header
         title="프로필 수정"
         isBackBtnExist={true}
@@ -58,7 +77,11 @@ const EditInfoPage = () => {
         backFn={handleBackBtn}
       />
       <S.InfoSection>
-        {isModel.state ? <div>가콩 여기야</div> : <DesignerInfoSection onInfoChange={handleInfoChange} />}
+        {isModel.state ? (
+          <div>가콩 여기야</div>
+        ) : (
+          <DesignerInfoSection onInfoChange={handleInfoChange} onErrorFieldChange={handleErrorChange} />
+        )}
       </S.InfoSection>
 
       {isSaveModalOpen && (
