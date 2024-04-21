@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import ProfileUpload from '@/views/@common/components/ProfileUpload';
 import TitleField from '@/views/@common/components/TitleField';
@@ -39,15 +39,14 @@ const DesignerInfoSection = ({ onInfoChange }: DesignerInfoSectionProps) => {
     const dayValue = event.currentTarget.value;
 
     setInfo((prevInfo) => {
-      const tempClicked = [...prevInfo.dayOff];
+      // 업데이트된 값을 가진 새로운 배열 생성
+      const tempClicked = prevInfo.dayOff.map((day, idx) => {
+        if (idx === index) {
+          return day === '' ? DAYS[dayValue as keyof typeof DAYS] : '';
+        }
+        return day;
+      });
 
-      if (tempClicked[index] === '') {
-        tempClicked[index] = DAYS[dayValue as keyof typeof DAYS];
-      } else {
-        tempClicked[index] = '';
-      }
-
-      console.log(tempClicked); // 변경된 상태를 로깅
       return {
         ...prevInfo,
         dayOff: tempClicked,
@@ -69,10 +68,11 @@ const DesignerInfoSection = ({ onInfoChange }: DesignerInfoSectionProps) => {
       ...prevInfo,
       [key]: value,
     }));
-
-    onInfoChange();
-    console.log(info);
   };
+
+  useEffect(() => {
+    onInfoChange();
+  }, [info, onInfoChange]);
 
   return (
     <>
