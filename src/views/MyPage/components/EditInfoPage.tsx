@@ -23,7 +23,6 @@ const EditInfoPage = () => {
   };
   const handleErrorChange = (errors: string[]) => {
     setErrorField(errors);
-    console.log(errors);
   };
 
   //오른쪽 저장클릭시 동작
