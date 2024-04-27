@@ -1,6 +1,9 @@
-import styled from 'styled-components';
+import { useEffect, useRef, useState } from 'react';
+import { styled } from 'styled-components';
 
+import { IcDownGrey, IcInformation, IcUpBlue } from '@/views/@common/assets/icons';
 import Input from '@/views/@common/components/Input';
+import RegionItem from '@/views/@common/components/RegionItem';
 import TitleField from '@/views/@common/components/TitleField';
 
 interface ModelInfoSectionProps {
@@ -8,6 +11,43 @@ interface ModelInfoSectionProps {
 }
 
 const ModelInfoSection = ({ onInfoChange }: ModelInfoSectionProps) => {
+  const regionList = [
+    { id: 0, name: '전체' },
+    { id: 1, name: '강남구' },
+    { id: 2, name: '서초구' },
+    { id: 3, name: '관악구' },
+    { id: 4, name: '종로구' },
+    { id: 5, name: '광진구' },
+    { id: 6, name: '송파구' },
+  ];
+  const [isShowCategory, setIsShowCategory] = useState(false);
+  const categoryRef = useRef<HTMLDivElement>(null);
+  const selectorBoxRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    // 특정 영역 외 클릭 시 발생하는 이벤트
+    const handleFocus = (e: MouseEvent) => {
+      if (
+        categoryRef.current &&
+        !categoryRef.current.contains(e.target as Node) &&
+        selectorBoxRef.current &&
+        !selectorBoxRef.current.contains(e.target as Node)
+      ) {
+        setIsShowCategory(false);
+      }
+    };
+
+    document.addEventListener('mouseup', handleFocus);
+
+    return () => {
+      document.removeEventListener('mouseup', handleFocus);
+    };
+  }, [categoryRef]);
+
+  const handleShowCategory = () => {
+    setIsShowCategory((prev) => !prev);
+  };
+
   return (
     <S.ModelInfoSectionLayout>
       <S.InputBox>
@@ -33,7 +73,27 @@ const ModelInfoSection = ({ onInfoChange }: ModelInfoSectionProps) => {
       </S.InputBox>
       <S.InputBox>
         <TitleField text="시술희망 지역" isEssential={true} />
-        <Input placeholderText="정보" onChangeFn={onInfoChange} />
+        <S.SelectorBox $isShowChecked={isShowCategory.toString()} onClick={handleShowCategory} ref={selectorBoxRef}>
+          희망 지역 선택 안내
+          {!isShowCategory ? <IcDownGrey /> : <IcUpBlue />}
+        </S.SelectorBox>
+        {!isShowCategory ? (
+          <S.HelperBox>
+            <IcInformation />
+            <S.HelperSpan>지금은 서울특별시에서만 운영하고 있어요.</S.HelperSpan>
+          </S.HelperBox>
+        ) : (
+          <S.CategoryBox ref={categoryRef}>
+            <S.InnerBox>
+              <S.CitySpan>서울특별시</S.CitySpan>
+              <S.RegionList>
+                {regionList.map((region, index) => (
+                  <RegionItem key={index} region={region.name} index={region.id} regionList={regionList} />
+                ))}
+              </S.RegionList>
+            </S.InnerBox>
+          </S.CategoryBox>
+        )}
       </S.InputBox>
     </S.ModelInfoSectionLayout>
   );
@@ -93,6 +153,69 @@ const S = {
 
     color: ${({ theme }) => theme.colors.moddy_gray50};
     ${({ theme }) => theme.fonts.Body02};
+  `,
+  SelectorBox: styled.div<{ $isShowChecked: string }>`
+    position: relative;
+
+    width: 100%;
+    padding: 1.2rem 1.6rem;
+    border: 1.5px solid
+      ${({ theme, $isShowChecked }) =>
+        $isShowChecked === 'true' ? theme.colors.moddy_blue : theme.colors.moddy_gray20};
+    ${({ theme }) => theme.colors.moddy_gray20};
+
+    border-radius: 8px;
+    ${({ theme }) => theme.fonts.Body02};
+
+    color: ${({ theme }) => theme.colors.moddy_gray50};
+
+    & > svg {
+      position: absolute;
+      top: 1.1rem;
+      right: 1.3rem;
+    }
+  `,
+
+  HelperBox: styled.div`
+    display: flex;
+    gap: 0.4rem;
+
+    margin-top: 0.8rem;
+  `,
+
+  HelperSpan: styled.span`
+    color: ${({ theme }) => theme.colors.moddy_blue2};
+    ${({ theme }) => theme.fonts.Body04};
+  `,
+
+  CategoryBox: styled.div`
+    display: flex;
+    flex-direction: column;
+    z-index: 1;
+
+    width: 100%;
+    height: 25.8rem;
+    margin-top: 0.4rem;
+    padding: 1.2rem;
+    border-radius: 8px;
+
+    background: ${({ theme }) => theme.colors.moddy_wt};
+    box-shadow: ${({ theme }) => theme.effects.shadow4};
+  `,
+  InnerBox: styled.div`
+    width: 100%;
+
+    ${({ theme }) => theme.commons.scrollbar};
+  `,
+
+  CitySpan: styled.span`
+    color: ${({ theme }) => theme.colors.moddy_blue2};
+    ${({ theme }) => theme.fonts.Body03};
+  `,
+
+  RegionList: styled.ul`
+    margin-top: 0.4rem;
+    padding: 0.6rem 2rem;
   `,
 };
 
