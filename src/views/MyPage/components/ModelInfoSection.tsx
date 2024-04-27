@@ -1,7 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
+import { useRecoilValue } from 'recoil';
 import { styled } from 'styled-components';
 
-import { IcDownGrey, IcInformation, IcUpBlue } from '@/views/@common/assets/icons';
+import { preferRegionState } from '@/recoil/atoms/signUpState';
+import { IcCloseSmBlue, IcDownGrey, IcInformation, IcUpBlue } from '@/views/@common/assets/icons';
 import Input from '@/views/@common/components/Input';
 import RegionItem from '@/views/@common/components/RegionItem';
 import TitleField from '@/views/@common/components/TitleField';
@@ -20,9 +22,12 @@ const ModelInfoSection = ({ onInfoChange }: ModelInfoSectionProps) => {
     { id: 5, name: '광진구' },
     { id: 6, name: '송파구' },
   ];
+  const isRegionList = useRecoilValue(preferRegionState);
   const [isShowCategory, setIsShowCategory] = useState(false);
   const categoryRef = useRef<HTMLDivElement>(null);
   const selectorBoxRef = useRef<HTMLDivElement>(null);
+
+  const isRegionSelected = isRegionList.every((region) => !region);
 
   useEffect(() => {
     // 특정 영역 외 클릭 시 발생하는 이벤트
@@ -53,6 +58,10 @@ const ModelInfoSection = ({ onInfoChange }: ModelInfoSectionProps) => {
       <S.InputBox>
         <TitleField text="이름" isEssential={true} />
         <Input placeholderText="정보" onChangeFn={onInfoChange} />
+        <S.HelperBox>
+          <IcInformation />
+          <S.HelperSpan>실명을 입력해주세요</S.HelperSpan>
+        </S.HelperBox>
       </S.InputBox>
       <S.InputBox>
         <TitleField text="출생 연도" isEssential={true} />
@@ -73,8 +82,21 @@ const ModelInfoSection = ({ onInfoChange }: ModelInfoSectionProps) => {
       </S.InputBox>
       <S.InputBox>
         <TitleField text="시술희망 지역" isEssential={true} />
-        <S.SelectorBox $isShowChecked={isShowCategory.toString()} onClick={handleShowCategory} ref={selectorBoxRef}>
-          희망 지역 선택 안내
+        <S.SelectorBox
+          $isShowChecked={isShowCategory.toString()}
+          $isRegionSelected={isRegionSelected}
+          onClick={handleShowCategory}
+          ref={selectorBoxRef}>
+          {isRegionSelected
+            ? '희망 지역 선택 안내'
+            : isRegionList.map((region, index) =>
+                region ? (
+                  <S.SelectedRegionBox key={index}>
+                    <S.RegionName>{regionList[index].name}</S.RegionName>
+                    <IcCloseSmBlue />
+                  </S.SelectedRegionBox>
+                ) : null,
+              )}
           {!isShowCategory ? <IcDownGrey /> : <IcUpBlue />}
         </S.SelectorBox>
         {!isShowCategory ? (
@@ -154,11 +176,14 @@ const S = {
     color: ${({ theme }) => theme.colors.moddy_gray50};
     ${({ theme }) => theme.fonts.Body02};
   `,
-  SelectorBox: styled.div<{ $isShowChecked: string }>`
+
+  SelectorBox: styled.div<{ $isShowChecked: string; $isRegionSelected: boolean }>`
+    display: flex;
+    gap: 1rem;
     position: relative;
 
     width: 100%;
-    padding: 1.2rem 1.6rem;
+    padding: ${({ $isRegionSelected }) => ($isRegionSelected ? '1.2rem 1.6rem' : '0.4rem')};
     border: 1.5px solid
       ${({ theme, $isShowChecked }) =>
         $isShowChecked === 'true' ? theme.colors.moddy_blue : theme.colors.moddy_gray20};
@@ -176,11 +201,30 @@ const S = {
     }
   `,
 
+  SelectedRegionBox: styled.div`
+    display: flex;
+    gap: 0.4rem;
+    align-items: center;
+
+    width: fit-content;
+    padding: 0.7rem 1.2rem;
+    border: 1.5px solid ${({ theme }) => theme.colors.moddy_blue};
+    border-radius: 6px;
+
+    background-color: ${({ theme }) => theme.colors.moddy_blue4};
+  `,
+  RegionName: styled.span`
+    height: fit-content;
+
+    color: ${({ theme }) => theme.colors.moddy_blue};
+    ${({ theme }) => theme.fonts.Headline04};
+  `,
+
   HelperBox: styled.div`
     display: flex;
     gap: 0.4rem;
 
-    margin-top: 0.8rem;
+    margin-top: -0.4rem;
   `,
 
   HelperSpan: styled.span`

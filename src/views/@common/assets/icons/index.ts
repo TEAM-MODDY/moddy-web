@@ -7,6 +7,7 @@ import IcCheckboxGrey from './ic_checkbox_grey.svg';
 import IcCloseBlack from './ic_close_black.svg';
 import IcCloseBlue from './ic_close_blue.svg';
 import IcCloseGrey from './ic_close_grey.svg';
+import IcCloseSmBlue from './ic_close_smblue.svg';
 import IcDownBlack from './ic_down_black.svg';
 import IcDownBlue from './ic_down_blue.svg';
 import IcDownGrey from './ic_down_grey.svg';
@@ -36,6 +37,7 @@ export {
   IcCloseBlack,
   IcCloseBlue,
   IcCloseGrey,
+  IcCloseSmBlue,
   IcDownBlack,
   IcDownBlue,
   IcDownGrey,
