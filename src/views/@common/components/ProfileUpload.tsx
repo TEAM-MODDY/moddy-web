@@ -15,7 +15,7 @@ interface ProfileUpLoadProps {
 }
 
 const ProfileUpload = ({ onImageUpload, setToastOpen, profileImg }: ProfileUpLoadProps) => {
-  const [previewimgUrl, setPreviewImgUrl] = useState<string>();
+  const [previewImgUrl, setPreviewImgUrl] = useState<string>();
   const inputRef = useRef<HTMLInputElement>(null);
   const [profileImgInfo] = useRecoilState(profileImgState);
 
@@ -47,7 +47,7 @@ const ProfileUpload = ({ onImageUpload, setToastOpen, profileImg }: ProfileUpLoa
           onClick={() => {
             inputRef.current?.click();
           }}>
-          <S.Profile src={profileImg || previewimgUrl || beforeUpload} alt="profileImg" id="profileImg" />
+          <S.Profile src={previewImgUrl || profileImg || beforeUpload} alt="profileImg" id="profileImg" />
           <input
             id="uploadButton"
             name="uploadButton"

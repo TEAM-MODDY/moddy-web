@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import { styled } from 'styled-components';
 import { useState, useEffect } from 'react';
 
 import ProfileUpload from '@/views/@common/components/ProfileUpload';
@@ -6,12 +6,13 @@ import TitleField from '@/views/@common/components/TitleField';
 import TextArea200 from '@/views/@common/components/TextArea200';
 import Input from '@/views/@common/components/Input';
 import PostCode from '@/views/@common/components/PostCode';
+import Header from '@/views/@common/components/Header';
+
 import { IcInformation } from '@/views/@common/assets/icons';
 import { IcSearch } from '@/views/SignUpPage/assets/icons';
 import { MESSAGE } from '../constants/message';
 import { DAYS } from '@/views/@common/constants/days';
 import { DUMMY_DATA } from '../constants/dummy';
-import Header from '@/views/@common/components/Header';
 
 interface DesignerInfoSectionProps {
   onInfoChange: () => void;
