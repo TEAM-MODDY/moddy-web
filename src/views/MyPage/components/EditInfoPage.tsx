@@ -61,7 +61,11 @@ const EditInfoPage = () => {
         backFn={handleBackBtn}
       />
       <S.InfoSection>
-        {isModel.state ? <ModelInfoSection /> : <DesignerInfoSection onInfoChange={handleInfoChange} />}
+        {isModel.state ? (
+          <ModelInfoSection onInfoChange={handleInfoChange} />
+        ) : (
+          <DesignerInfoSection onInfoChange={handleInfoChange} />
+        )}
       </S.InfoSection>
 
       {isSaveModalOpen && (
