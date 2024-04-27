@@ -15,6 +15,7 @@ import TextArea200 from '@/views/@common/components/TextArea200';
 import TitleField from '@/views/@common/components/TitleField';
 import ToastMessage from '@/views/@common/components/ToastMessage';
 import { DAYS } from '@/views/@common/constants/days';
+import { REGEX } from '@/views/@common/utils/regex';
 import { IcSearch } from '@/views/SignUpPage/assets/icons';
 
 const DesignerEditInfoSection = () => {
@@ -203,6 +204,7 @@ const DesignerEditInfoSection = () => {
           placeholderText="디자이너명"
           initialValue={info.name}
           onChangeFn={(value) => handleInputChange('name', value)}
+          regex={REGEX.NAME}
         />
         <S.SubTextBox>
           <IcInformation />
@@ -232,7 +234,7 @@ const DesignerEditInfoSection = () => {
           <TitleField text="전화번호" isEssential={true} />
         </S.TitleFieldBox>
         <S.InputBox $isDisabled={true}>
-          <p>{designerInfo.phoneNumber.replace(/^(\d{3})(\d{4})(\d{4})$/, '$1-$2-$3')}</p>
+          <p>{designerInfo.phoneNumber}</p>
         </S.InputBox>
         <S.TitleFieldBox>
           <TitleField text="소속" isEssential={true} />
@@ -241,6 +243,7 @@ const DesignerEditInfoSection = () => {
           placeholderText="소속되어 있는 헤어샵(지점명)을 입력해주세요"
           initialValue={info.shopName}
           onChangeFn={(value) => handleInputChange('shopName', value)}
+          maxLength={25}
         />
 
         <S.TitleFieldBox>
@@ -256,6 +259,7 @@ const DesignerEditInfoSection = () => {
           placeholderText="상세 주소를 입력해주세요"
           initialValue={info.DetailAddress}
           onChangeFn={(value) => handleInputChange('DetailAddress', value)}
+          maxLength={30}
         />
         <S.TitleFieldBox>
           <TitleField text="휴무" isEssential={false} />
@@ -280,12 +284,14 @@ const DesignerEditInfoSection = () => {
             placeholderText="인스타그램 링크를 입력해주세요"
             initialValue={info.instagramUrl}
             onChangeFn={(value) => handleInputChange('instagramUrl', value)}
+            regex={REGEX.INSTAGRAM_ID}
           />
         </S.InputWrapper>
         <Input
           placeholderText="네이버 플레이스 링크를 입력해주세요"
           initialValue={info.naverPlaceUrl}
           onChangeFn={(value) => handleInputChange('naverPlaceUrl', value)}
+          maxLength={255}
         />
         <S.TitleFieldBox>
           <TitleField text="오픈채팅방 링크" isEssential={true} />
@@ -295,6 +301,7 @@ const DesignerEditInfoSection = () => {
           placeholderText="오픈채팅방 링크를 입력해주세요"
           initialValue={info.OpenChatUrl}
           onChangeFn={(value) => handleInputChange('OpenChatUrl', value)}
+          maxLength={255}
         />
         <S.SubTextBox>
           <IcInformation />
