@@ -52,7 +52,7 @@ const DesignerEditInfoSection = () => {
 
   //이후 put으로 변경될 예정
   const handleSaveInfo = () => {
-    console.log('저장');
+    console.log('ㅇㅇ');
   };
 
   const [info, setInfo] = useState({
