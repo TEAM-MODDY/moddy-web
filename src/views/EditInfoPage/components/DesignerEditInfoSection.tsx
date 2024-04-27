@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
 
 import { DUMMY_DATA } from '../constants/dummy';
@@ -7,6 +8,7 @@ import { MESSAGE } from '../constants/message';
 import { IcInformation } from '@/views/@common/assets/icons';
 import Header from '@/views/@common/components/Header';
 import Input from '@/views/@common/components/Input';
+import Modal from '@/views/@common/components/Modal';
 import PostCode from '@/views/@common/components/PostCode';
 import ProfileUpload from '@/views/@common/components/ProfileUpload';
 import TextArea200 from '@/views/@common/components/TextArea200';
@@ -14,13 +16,44 @@ import TitleField from '@/views/@common/components/TitleField';
 import { DAYS } from '@/views/@common/constants/days';
 import { IcSearch } from '@/views/SignUpPage/assets/icons';
 
-interface DesignerInfoSectionProps {
-  onInfoChange: () => void;
-}
-
-const DesignerInfoSection = ({ onInfoChange }: DesignerInfoSectionProps) => {
+const DesignerEditInfoSection = () => {
   const { profileImg, introduction, designerInfo } = DUMMY_DATA.data;
   const [AddressModal, setAddressModal] = useState(false);
+  const [isSaveModalOpen, setSaveModalOpen] = useState(false);
+  const [isBackModalOpen, setBackModalOpen] = useState(false);
+  const navigate = useNavigate();
+  const [isChanged] = useState(false);
+
+  //오른쪽 저장클릭시 동작
+  const handleSaveBtn = () => {
+    if (isChanged) {
+      setSaveModalOpen(true);
+    } else {
+      navigate('/my-page');
+    }
+  };
+
+  const handleCloseSaveModal = () => {
+    setSaveModalOpen(false);
+  };
+
+  //왼쪽 이전으로 버튼 클릭시 동작
+  const handleBackBtn = () => {
+    if (isChanged) {
+      setBackModalOpen(true);
+    } else {
+      navigate(-1);
+    }
+  };
+
+  const handleCloseBackModal = () => {
+    setBackModalOpen(false);
+  };
+
+  //이후 put으로 변경될 예정
+  const handleSaveInfo = () => {
+    console.log('저장');
+  };
 
   const [info, setInfo] = useState({
     profileImg: profileImg,
@@ -71,12 +104,38 @@ const DesignerInfoSection = ({ onInfoChange }: DesignerInfoSectionProps) => {
     }));
   };
 
-  useEffect(() => {
-    onInfoChange();
-  }, [info]);
-
   return (
     <>
+      <Header
+        title="프로필 수정"
+        isBackBtnExist={true}
+        rightBtn={<S.SaveBtn>저장</S.SaveBtn>}
+        rightFn={handleSaveBtn}
+        backFn={handleBackBtn}
+      />
+      {isSaveModalOpen && (
+        <Modal
+          title="프로필을 수정할까요?"
+          description="이전에 작성했던 내용은 사라져요"
+          leftBtnText="취소"
+          leftBtnFn={handleCloseSaveModal}
+          rightBtnText="확인"
+          rightBtnFn={handleSaveInfo}
+        />
+      )}
+      {isBackModalOpen && (
+        <Modal
+          title="수정을 취소할까요?"
+          description="저장을 누르지 않으면 <br/>수정 중인 내용이 사라져요."
+          leftBtnText="계속하기"
+          leftBtnFn={handleCloseBackModal}
+          rightBtnText="취소하기"
+          rightBtnFn={() => {
+            navigate(-1);
+          }}
+        />
+      )}
+
       {AddressModal && (
         <S.PostCodeBox>
           <Header title="주소 검색" isBackBtnExist={true} backFn={handleAddressModal} />
@@ -208,6 +267,7 @@ const DesignerInfoSection = ({ onInfoChange }: DesignerInfoSectionProps) => {
 
 const S = {
   DesignerInfoSectionBox: styled.div`
+    margin: 6.7rem 0 10rem;
     padding: 0 1.6rem;
   `,
   PostCodeBox: styled.div`
@@ -233,6 +293,11 @@ const S = {
 
       color: ${({ theme }) => theme.colors.moddy_bk};
     }
+  `,
+
+  SaveBtn: styled.p`
+    cursor: pointer;
+    ${({ theme }) => theme.fonts.Body02};
   `,
 
   GenderTypeLabel: styled.label`
@@ -324,4 +389,4 @@ const S = {
   `,
 };
 
-export default DesignerInfoSection;
+export default DesignerEditInfoSection;
