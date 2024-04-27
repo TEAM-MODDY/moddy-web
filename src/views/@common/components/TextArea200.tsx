@@ -5,7 +5,6 @@ interface TextArea200Props {
   placeholderText: string;
   initialValue?: string;
   onChangeFn: (value: string) => void;
-  id?: string;
 }
 
 const TextArea200 = ({ placeholderText, initialValue, onChangeFn }: TextArea200Props) => {
