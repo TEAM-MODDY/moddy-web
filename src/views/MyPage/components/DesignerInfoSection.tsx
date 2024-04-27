@@ -1,18 +1,18 @@
-import { styled } from 'styled-components';
 import { useState, useEffect } from 'react';
+import { styled } from 'styled-components';
 
-import ProfileUpload from '@/views/@common/components/ProfileUpload';
-import TitleField from '@/views/@common/components/TitleField';
-import TextArea200 from '@/views/@common/components/TextArea200';
-import Input from '@/views/@common/components/Input';
-import PostCode from '@/views/@common/components/PostCode';
-import Header from '@/views/@common/components/Header';
+import { DUMMY_DATA } from '../constants/dummy';
+import { MESSAGE } from '../constants/message';
 
 import { IcInformation } from '@/views/@common/assets/icons';
-import { IcSearch } from '@/views/SignUpPage/assets/icons';
-import { MESSAGE } from '../constants/message';
+import Header from '@/views/@common/components/Header';
+import Input from '@/views/@common/components/Input';
+import PostCode from '@/views/@common/components/PostCode';
+import ProfileUpload from '@/views/@common/components/ProfileUpload';
+import TextArea200 from '@/views/@common/components/TextArea200';
+import TitleField from '@/views/@common/components/TitleField';
 import { DAYS } from '@/views/@common/constants/days';
-import { DUMMY_DATA } from '../constants/dummy';
+import { IcSearch } from '@/views/SignUpPage/assets/icons';
 
 interface DesignerInfoSectionProps {
   onInfoChange: () => void;
@@ -73,7 +73,6 @@ const DesignerInfoSection = ({ onInfoChange }: DesignerInfoSectionProps) => {
 
   useEffect(() => {
     onInfoChange();
-    console.log(info);
   }, [info]);
 
   return (

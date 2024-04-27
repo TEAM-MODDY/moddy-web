@@ -1,8 +1,10 @@
-import Header from '@/views/@common/components/Header';
-import { useLocation, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-import styled from 'styled-components';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { styled } from 'styled-components';
+
 import DesignerInfoSection from './DesignerInfoSection';
+
+import Header from '@/views/@common/components/Header';
 import Modal from '@/views/@common/components/Modal';
 
 const EditInfoPage = () => {
@@ -44,9 +46,7 @@ const EditInfoPage = () => {
   };
 
   //이후 put으로 변경될 예정
-  const handleSaveInfo = () => {
-    console.log('Data');
-  };
+  const handleSaveInfo = () => {};
 
   return (
     <>
