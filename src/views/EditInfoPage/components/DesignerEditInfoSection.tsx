@@ -284,6 +284,7 @@ const DesignerEditInfoSection = () => {
             placeholderText="인스타그램 링크를 입력해주세요"
             initialValue={info.instagramUrl}
             onChangeFn={(value) => handleInputChange('instagramUrl', value)}
+            maxLength={255}
             regex={REGEX.INSTAGRAM_ID}
           />
         </S.InputWrapper>
@@ -292,6 +293,7 @@ const DesignerEditInfoSection = () => {
           initialValue={info.naverPlaceUrl}
           onChangeFn={(value) => handleInputChange('naverPlaceUrl', value)}
           maxLength={255}
+          regex={REGEX.ONLY_ENG_CHARACTER_NUM}
         />
         <S.TitleFieldBox>
           <TitleField text="오픈채팅방 링크" isEssential={true} />
@@ -302,6 +304,7 @@ const DesignerEditInfoSection = () => {
           initialValue={info.OpenChatUrl}
           onChangeFn={(value) => handleInputChange('OpenChatUrl', value)}
           maxLength={255}
+          regex={REGEX.ONLY_ENG_CHARACTER_NUM}
         />
         <S.SubTextBox>
           <IcInformation />
