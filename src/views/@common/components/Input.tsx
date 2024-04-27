@@ -12,7 +12,6 @@ interface InputProps {
   maxLength?: number;
   onlyNumber?: boolean;
   onChangeFn: (value: string) => void;
-  id?: string;
 }
 
 const Input = (props: InputProps) => {
@@ -23,7 +22,6 @@ const Input = (props: InputProps) => {
     regex = REGEX.NOT_EMPTY,
     onlyNumber = false,
     onChangeFn,
-    id,
   } = props;
 
   const [text, setText] = useState(initialValue);
@@ -53,7 +51,6 @@ const Input = (props: InputProps) => {
         value={text}
         onChange={handleInputChange}
         type={onlyNumber ? 'tel' : 'text'}
-        id={id}
       />
       {regex.test(text) && <IcCheckBlue />}
     </S.InputLayout>
