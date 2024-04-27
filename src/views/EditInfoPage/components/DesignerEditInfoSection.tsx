@@ -1,28 +1,48 @@
-import styled from 'styled-components';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { styled } from 'styled-components';
 
-import ProfileUpload from '@/views/@common/components/ProfileUpload';
-import TitleField from '@/views/@common/components/TitleField';
-import TextArea200 from '@/views/@common/components/TextArea200';
-import Input from '@/views/@common/components/Input';
-import PostCode from '@/views/@common/components/PostCode';
-import { IcInformation } from '@/views/@common/assets/icons';
-import { IcSearch } from '@/views/SignUpPage/assets/icons';
-import { MESSAGE } from '../constants/message';
-import { DAYS } from '@/views/@common/constants/days';
 import { DUMMY_DATA } from '../constants/dummy';
+import { MESSAGE, TOAST_MESSAGE } from '../constants/message';
+
+import { IcInformation } from '@/views/@common/assets/icons';
 import Header from '@/views/@common/components/Header';
+import Input from '@/views/@common/components/Input';
+import Modal from '@/views/@common/components/Modal';
+import PostCode from '@/views/@common/components/PostCode';
+import ProfileUpload from '@/views/@common/components/ProfileUpload';
+import TextArea200 from '@/views/@common/components/TextArea200';
+import TitleField from '@/views/@common/components/TitleField';
 import ToastMessage from '@/views/@common/components/ToastMessage';
+import { DAYS } from '@/views/@common/constants/days';
+import { IcSearch } from '@/views/SignUpPage/assets/icons';
 
-interface DesignerInfoSectionProps {
-  onInfoChange: () => void;
-  onErrorFieldChange: (errors: string[]) => void;
-}
-
-const DesignerInfoSection = ({ onInfoChange, onErrorFieldChange }: DesignerInfoSectionProps) => {
+const DesignerEditInfoSection = () => {
+  const navigate = useNavigate();
   const { profileImg, introduction, designerInfo } = DUMMY_DATA.data;
   const [AddressModal, setAddressModal] = useState(false);
-  const [Imgtoast, setImgToast] = useState(false);
+  const [isSaveModalOpen, setSaveModalOpen] = useState(false);
+  const [isBackModalOpen, setBackModalOpen] = useState(false);
+  const [ToastMessageText, setToastMessageText] = useState('');
+  const [isToastOpen, setToastOpen] = useState(false);
+  const [isChanged, setChanged] = useState(false);
+
+  const handleCloseSaveModal = () => {
+    setSaveModalOpen(false);
+  };
+
+  //왼쪽 이전으로 버튼 클릭시 동작
+  const handleBackBtn = () => {
+    if (isChanged) {
+      setBackModalOpen(true);
+    } else {
+      navigate(-1);
+    }
+  };
+
+  const handleCloseBackModal = () => {
+    setBackModalOpen(false);
+  };
 
   const [info, setInfo] = useState({
     profileImg: profileImg,
@@ -71,47 +91,91 @@ const DesignerInfoSection = ({ onInfoChange, onErrorFieldChange }: DesignerInfoS
       ...prevInfo,
       [key]: value,
     }));
+    setChanged(true);
   };
 
-  const checkErrorField = () => {
-    const errors: string[] = [];
-    if (!info.name) {
-      errors.push('name');
-    }
-    if (!info.shopName) {
-      errors.push('shopName');
-    }
+  const checkInputValues = () => {
+    // 각 input값을 검증하고, 비어 있다면 토스트를 띄움
     if (!info.introduction) {
-      errors.push('intro');
+      setToastMessageText(TOAST_MESSAGE.intro);
+      setToastOpen(true);
+      return;
+    }
+    if (!info.name) {
+      setToastMessageText(TOAST_MESSAGE.name);
+      setToastOpen(true);
+      return;
     }
     if (!info.shopName) {
-      errors.push('shopname');
+      setToastMessageText(TOAST_MESSAGE.shopName);
+      setToastOpen(true);
+      return;
+    }
+    if (!info.Address) {
+      setToastMessageText(TOAST_MESSAGE.address);
+      setToastOpen(true);
+      return;
     }
     if (!info.DetailAddress) {
-      errors.push('detailAddress');
+      setToastMessageText(TOAST_MESSAGE.detailAddress);
+      setToastOpen(true);
+      return;
     }
-    if (!info.instagramUrl) {
-      errors.push('portfolio');
+
+    if (!info.instagramUrl || !info.naverPlaceUrl) {
+      setToastMessageText(TOAST_MESSAGE.portfolio);
+      setToastOpen(true);
+      return;
     }
-    if (!info.naverPlaceUrl) {
-      errors.push('portfolio');
-    }
+
     if (!info.OpenChatUrl) {
-      errors.push('openChat');
+      setToastMessageText(TOAST_MESSAGE.OpenChat);
+      setToastOpen(true);
+      return;
+    } else if (isChanged) {
+      setSaveModalOpen(true);
+    } else {
+      navigate('/my-page');
     }
-    onErrorFieldChange(errors);
   };
 
-  useEffect(() => {
-    checkErrorField();
-    onInfoChange();
-  }, [info]);
+  const handleSaveInfo = () => {
+    console.log('put 들어갈 자리');
+  };
 
   return (
     <>
-      {Imgtoast && (
-        <ToastMessage text="사진 용량이 너무 커요!" subtext="5MB 이하의 사진을 올려주세요" setter={setImgToast} />
+      {isToastOpen && <ToastMessage text={ToastMessageText} setter={setToastOpen} />}
+      <Header
+        title="프로필 수정"
+        isBackBtnExist={true}
+        rightBtn={<S.SaveBtn>저장</S.SaveBtn>}
+        rightFn={checkInputValues}
+        backFn={handleBackBtn}
+      />
+      {isSaveModalOpen && (
+        <Modal
+          title="프로필을 수정할까요?"
+          description="이전에 작성했던 내용은 사라져요"
+          leftBtnText="취소"
+          leftBtnFn={handleCloseSaveModal}
+          rightBtnText="확인"
+          rightBtnFn={handleSaveInfo}
+        />
       )}
+      {isBackModalOpen && (
+        <Modal
+          title="수정을 취소할까요?"
+          description="저장을 누르지 않으면 <br/>수정 중인 내용이 사라져요."
+          leftBtnText="계속하기"
+          leftBtnFn={handleCloseBackModal}
+          rightBtnText="취소하기"
+          rightBtnFn={() => {
+            navigate(-1);
+          }}
+        />
+      )}
+
       {AddressModal && (
         <S.PostCodeBox>
           <Header title="주소 검색" isBackBtnExist={true} backFn={handleAddressModal} />
@@ -122,7 +186,7 @@ const DesignerInfoSection = ({ onInfoChange, onErrorFieldChange }: DesignerInfoS
         </S.PostCodeBox>
       )}
       <S.DesignerInfoSectionBox>
-        <ProfileUpload onImageUpload={handleImageUpload} setToastOpen={setImgToast} profileImg={info.profileImg} />
+        <ProfileUpload onImageUpload={handleImageUpload} setToastOpen={() => {}} profileImg={info.profileImg} />
         <S.TitleFieldBox>
           <TitleField text="디자이너 소개" isEssential={true} />
         </S.TitleFieldBox>
@@ -139,8 +203,6 @@ const DesignerInfoSection = ({ onInfoChange, onErrorFieldChange }: DesignerInfoS
           placeholderText="디자이너명"
           initialValue={info.name}
           onChangeFn={(value) => handleInputChange('name', value)}
-          maxLength={5}
-          id="name"
         />
         <S.SubTextBox>
           <IcInformation />
@@ -179,8 +241,6 @@ const DesignerInfoSection = ({ onInfoChange, onErrorFieldChange }: DesignerInfoS
           placeholderText="소속되어 있는 헤어샵(지점명)을 입력해주세요"
           initialValue={info.shopName}
           onChangeFn={(value) => handleInputChange('shopName', value)}
-          id="shop"
-          maxLength={25}
         />
 
         <S.TitleFieldBox>
@@ -196,8 +256,6 @@ const DesignerInfoSection = ({ onInfoChange, onErrorFieldChange }: DesignerInfoS
           placeholderText="상세 주소를 입력해주세요"
           initialValue={info.DetailAddress}
           onChangeFn={(value) => handleInputChange('DetailAddress', value)}
-          id="detailAddress"
-          maxLength={30}
         />
         <S.TitleFieldBox>
           <TitleField text="휴무" isEssential={false} />
@@ -222,14 +280,12 @@ const DesignerInfoSection = ({ onInfoChange, onErrorFieldChange }: DesignerInfoS
             placeholderText="인스타그램 링크를 입력해주세요"
             initialValue={info.instagramUrl}
             onChangeFn={(value) => handleInputChange('instagramUrl', value)}
-            id="portfolio"
           />
         </S.InputWrapper>
         <Input
           placeholderText="네이버 플레이스 링크를 입력해주세요"
           initialValue={info.naverPlaceUrl}
           onChangeFn={(value) => handleInputChange('naverPlaceUrl', value)}
-          id="portfolio"
         />
         <S.TitleFieldBox>
           <TitleField text="오픈채팅방 링크" isEssential={true} />
@@ -239,7 +295,6 @@ const DesignerInfoSection = ({ onInfoChange, onErrorFieldChange }: DesignerInfoS
           placeholderText="오픈채팅방 링크를 입력해주세요"
           initialValue={info.OpenChatUrl}
           onChangeFn={(value) => handleInputChange('OpenChatUrl', value)}
-          id="openChat"
         />
         <S.SubTextBox>
           <IcInformation />
@@ -252,6 +307,7 @@ const DesignerInfoSection = ({ onInfoChange, onErrorFieldChange }: DesignerInfoS
 
 const S = {
   DesignerInfoSectionBox: styled.div`
+    margin: 6.7rem 0 10rem;
     padding: 0 1.6rem;
   `,
   PostCodeBox: styled.div`
@@ -277,6 +333,11 @@ const S = {
 
       color: ${({ theme }) => theme.colors.moddy_bk};
     }
+  `,
+
+  SaveBtn: styled.p`
+    cursor: pointer;
+    ${({ theme }) => theme.fonts.Body02};
   `,
 
   GenderTypeLabel: styled.label`
@@ -368,4 +429,4 @@ const S = {
   `,
 };
 
-export default DesignerInfoSection;
+export default DesignerEditInfoSection;
