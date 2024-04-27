@@ -1,8 +1,11 @@
-import Header from '@/views/@common/components/Header';
-import { useLocation, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-import styled from 'styled-components';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { styled } from 'styled-components';
+
 import DesignerInfoSection from './DesignerInfoSection';
+import ModelInfoSection from './ModelInfoSection';
+
+import Header from '@/views/@common/components/Header';
 import Modal from '@/views/@common/components/Modal';
 
 const EditInfoPage = () => {
@@ -58,7 +61,7 @@ const EditInfoPage = () => {
         backFn={handleBackBtn}
       />
       <S.InfoSection>
-        {isModel.state ? <div>가콩 여기야</div> : <DesignerInfoSection onInfoChange={handleInfoChange} />}
+        {isModel.state ? <ModelInfoSection /> : <DesignerInfoSection onInfoChange={handleInfoChange} />}
       </S.InfoSection>
 
       {isSaveModalOpen && (
