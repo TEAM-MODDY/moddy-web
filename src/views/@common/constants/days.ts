@@ -1,4 +1,4 @@
-export const DAYS = {
+export const DAYS: { [key: string]: string } = {
   월: 'MON',
   화: 'TUE',
   수: 'WED',

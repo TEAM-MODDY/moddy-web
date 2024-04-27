@@ -5,6 +5,7 @@ import { ThemeProvider } from 'styled-components';
 import AgreementPage from './pages/AgreementPage';
 import ApplicationConfirmPage from './pages/ApplicationConfirmPage';
 import ApplicationPage from './pages/ApplicationPage';
+import EditInfoPage from './pages/EditInfoPage';
 import ErrorPage from './pages/ErrorPage';
 import LoginPage from './pages/LoginPage';
 import MainPage from './pages/MainPage';
@@ -21,7 +22,6 @@ import LoginCallback from './views/LoginPage/components/LoginCallback';
 import OfferSentCompletePage from './views/ModelInfoPage/components/OfferSentCompletePage';
 import MyAccountPage from './views/MyPage/components/MyAccountPage';
 import CheckOfferPage from './views/OfferInfoPage/components/CheckOfferPage';
-import EditInfoPage from './views/MyPage/components/EditInfoPage';
 
 const router = createBrowserRouter([
   {
