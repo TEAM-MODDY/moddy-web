@@ -18,6 +18,7 @@ import IcLeftGrey from './ic_left_grey.svg';
 import IcRightBlack from './ic_right_black.svg';
 import IcRightBlue from './ic_right_blue.svg';
 import IcRightGrey from './ic_right_grey.svg';
+import IcRightGrey30 from './ic_right_grey30.svg';
 import IcScissors from './ic_scissors.svg';
 import IcStepDone from './ic_step_done.svg';
 import IcStepOngoing from './ic_step_ongoing.svg';
@@ -47,6 +48,7 @@ export {
   IcRightBlack,
   IcRightBlue,
   IcRightGrey,
+  IcRightGrey30,
   IcScissors,
   IcStepDone,
   IcStepOngoing,
