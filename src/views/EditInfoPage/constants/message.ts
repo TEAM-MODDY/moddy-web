@@ -12,3 +12,9 @@ export const TOAST_MESSAGE: { [key: string]: string } = {
   portfolio: '포트폴리오 링크를 정확히 입력해주세요.',
   openChat: '오픈채팅방 링크를 정확히 입력해주세요.',
 };
+
+export const MODEL_TOAST_MESSAGE = {
+  NAME: '이름을 1-5자로 입력해주세요.',
+  BIRTH_YEAR: '출생 연도를 정확히 입력해주세요.',
+  REGION: '시술희망 지역을 1곳 이상 선택해주세요.',
+};
