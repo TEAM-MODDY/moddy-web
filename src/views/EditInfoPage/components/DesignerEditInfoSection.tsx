@@ -27,7 +27,6 @@ const DesignerEditInfoSection = () => {
   const [ToastMessageText, setToastMessageText] = useState('');
   const [isToastOpen, setToastOpen] = useState(false);
   const [isChanged, setChanged] = useState(false);
-  const [isClicked, setIsClicked] = useState(dayOff);
 
   const handleCloseSaveModal = () => {
     setSaveModalOpen(false);
@@ -63,14 +62,14 @@ const DesignerEditInfoSection = () => {
   const handleDayOffClick = (event: React.MouseEvent<HTMLButtonElement>, index: number) => {
     const dayValue = event.currentTarget.value;
 
-    const tempClicked = [...isClicked];
+    const tempClicked = [...dayOff];
     if (tempClicked[index] === '') {
       tempClicked[index] = DAYS[dayValue as keyof typeof DAYS];
     } else {
       tempClicked[index] = '';
     }
-
-    setIsClicked(tempClicked);
+    handleInputChange('dayOff', tempClicked);
+    console.log(tempClicked);
   };
 
   const handleAddressModal = () => {
@@ -87,9 +86,8 @@ const DesignerEditInfoSection = () => {
       ...prevInfo,
       [key]: value,
     }));
+
     setChanged(true);
-    console.log(inputData);
-    console.log(dayOff);
   };
 
   const checkInputValues = () => {
@@ -275,7 +273,7 @@ const DesignerEditInfoSection = () => {
                 key={day}
                 value={day}
                 onClick={(e) => handleDayOffClick(e, index)}
-                $isClicked={isClicked[index]}>
+                $isClicked={dayOff[index]}>
                 {day}
               </S.DayOffButton>
             ))}
