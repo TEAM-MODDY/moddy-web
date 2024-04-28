@@ -87,8 +87,8 @@ const ModelInfo = ({ setIsChanged, setToastMsg }: ModelInfoProps) => {
     };
   }, [categoryRef]);
 
-  const handleInputChange = (key: string, value: string | React.MouseEvent<HTMLLabelElement, MouseEvent>) => {
-    const newValue = typeof value === 'string' ? value : value.currentTarget.innerText;
+  const handleInputChange = (key: string, value: string | React.ChangeEvent<HTMLInputElement>) => {
+    const newValue = typeof value === 'string' ? value : value.target.id;
     setInfo((prevInfo) => ({
       ...prevInfo,
       [key]: newValue,
@@ -107,6 +107,14 @@ const ModelInfo = ({ setIsChanged, setToastMsg }: ModelInfoProps) => {
     } else {
       setToastMsg('');
     }
+  };
+
+  const deleteRegion = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>, region: string) => {
+    setInfo((prevInfo) => ({
+      ...prevInfo,
+      preferRegions: prevInfo.preferRegions.filter((r) => r !== region),
+    }));
+    event.stopPropagation();
   };
 
   const handleShowCategory = () => {
@@ -141,14 +149,22 @@ const ModelInfo = ({ setIsChanged, setToastMsg }: ModelInfoProps) => {
       <S.InputBox>
         <TitleField text="성별" isEssential={true} />
         <S.GenderSelectBox>
-          <S.GenderRadio type="radio" id="FEMALE" name="gender-type" checked={info.gender === '여성'} />
-          <S.GenderLabel htmlFor="FEMALE" onClick={(value) => handleInputChange('gender', value)}>
-            여성
-          </S.GenderLabel>
-          <S.GenderRadio type="radio" id="MALE" name="gender-type" checked={info.gender === '남성'} />
-          <S.GenderLabel htmlFor="MALE" onClick={(value) => handleInputChange('gender', value)}>
-            남성
-          </S.GenderLabel>
+          <S.GenderRadio
+            type="radio"
+            id="여성"
+            name="gender-type"
+            checked={info.gender === '여성'}
+            onChange={(value) => handleInputChange('gender', value)}
+          />
+          <S.GenderLabel htmlFor="여성">여성</S.GenderLabel>
+          <S.GenderRadio
+            type="radio"
+            id="남성"
+            name="gender-type"
+            checked={info.gender === '남성'}
+            onChange={(value) => handleInputChange('gender', value)}
+          />
+          <S.GenderLabel htmlFor="남성">남성</S.GenderLabel>
         </S.GenderSelectBox>
       </S.InputBox>
       <S.InputBox>
@@ -166,7 +182,9 @@ const ModelInfo = ({ setIsChanged, setToastMsg }: ModelInfoProps) => {
             ? info.preferRegions.map((region) => (
                 <S.SelectedRegionBox key={region}>
                   <S.RegionName>{region}</S.RegionName>
-                  <IcCloseSmBlue />
+                  <button type="button" onClick={(event) => deleteRegion(event, region)}>
+                    <IcCloseSmBlue />
+                  </button>
                 </S.SelectedRegionBox>
               ))
             : PLACE_HOLDER_MESSAGE.SELECT_PREFER_REGION}
