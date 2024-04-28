@@ -12,9 +12,10 @@ interface RegionItemProps {
     name: string;
   };
   setInfo: React.Dispatch<React.SetStateAction<UserInfo>>;
+  setIsChanged: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const RegionList = ({ currentRegions, region, setInfo }: RegionItemProps) => {
+const RegionList = ({ currentRegions, region, setInfo, setIsChanged }: RegionItemProps) => {
   const SELECT_ALL = 0;
   const [isActivated, setIsActivated] = useState(false);
 
@@ -59,6 +60,8 @@ const RegionList = ({ currentRegions, region, setInfo }: RegionItemProps) => {
   };
 
   const handleCheck = () => {
+    setIsChanged(true);
+
     // 전체선택을 누르면
     if (region.id === SELECT_ALL) {
       전체선택_또는_전체해제();
@@ -78,17 +81,15 @@ const RegionList = ({ currentRegions, region, setInfo }: RegionItemProps) => {
   };
 
   return (
-    <S.CategoryItem>
-      <button type="button" onClick={handleCheck}>
-        {isActivated ? <IcCheckboxBlue /> : <IcCheckboxGrey />}
-      </button>
+    <S.RegionButton type="button" onClick={handleCheck}>
+      {isActivated ? <IcCheckboxBlue /> : <IcCheckboxGrey />}
       <S.RegionSpan $isChecked={true.toString()}>{region.name}</S.RegionSpan>
-    </S.CategoryItem>
+    </S.RegionButton>
   );
 };
 
 const S = {
-  CategoryItem: styled.li`
+  RegionButton: styled.button`
     display: flex;
     gap: 0.8rem;
     align-items: center;
@@ -96,6 +97,9 @@ const S = {
     padding: 0.6rem 0;
   `,
   RegionSpan: styled.span<{ $isChecked: string }>`
+    display: flex;
+    flex: 1;
+
     color: ${({ theme, $isChecked }) => ($isChecked === 'true' ? theme.colors.moddy_bk : theme.colors.moddy_gray50)};
     ${({ theme }) => theme.fonts.Headline04};
   `,

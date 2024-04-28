@@ -69,6 +69,22 @@ const ModelInfo = ({ setIsChanged, setToastMsg }: ModelInfoProps) => {
   ];
 
   useEffect(() => {
+    const checkVerified = () => {
+      if (!REGEX.NAME.test(info.name)) {
+        setToastMsg(MODEL_TOAST_MESSAGE.NAME);
+      } else if (!REGEX.BIRTH_YEAR.test(info.year)) {
+        setToastMsg(MODEL_TOAST_MESSAGE.BIRTH_YEAR);
+      } else if (!info.preferRegions.length) {
+        setToastMsg(MODEL_TOAST_MESSAGE.REGION);
+      } else {
+        setToastMsg('');
+      }
+    };
+
+    checkVerified();
+  }, [info]);
+
+  useEffect(() => {
     // 특정 영역 외 클릭 시 발생하는 이벤트
     const handleFocus = (e: MouseEvent) => {
       if (
@@ -93,20 +109,7 @@ const ModelInfo = ({ setIsChanged, setToastMsg }: ModelInfoProps) => {
       ...prevInfo,
       [key]: newValue,
     }));
-    checkVerified(key, newValue);
     setIsChanged(true);
-  };
-
-  const checkVerified = (key: string, value: string) => {
-    if (!REGEX.NAME.test(info.name) || (key === 'name' && !REGEX.NAME.test(value))) {
-      setToastMsg(MODEL_TOAST_MESSAGE.NAME);
-    } else if (!REGEX.NAME.test(info.year) || (key === 'birthYear' && !REGEX.BIRTH_YEAR.test(value))) {
-      setToastMsg(MODEL_TOAST_MESSAGE.BIRTH_YEAR);
-    } else if (!info.preferRegions.length) {
-      setToastMsg(MODEL_TOAST_MESSAGE.REGION);
-    } else {
-      setToastMsg('');
-    }
   };
 
   const deleteRegion = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>, region: string) => {
@@ -114,6 +117,7 @@ const ModelInfo = ({ setIsChanged, setToastMsg }: ModelInfoProps) => {
       ...prevInfo,
       preferRegions: prevInfo.preferRegions.filter((r) => r !== region),
     }));
+    setIsChanged(true);
     event.stopPropagation();
   };
 
@@ -141,7 +145,7 @@ const ModelInfo = ({ setIsChanged, setToastMsg }: ModelInfoProps) => {
         <Input
           placeholderText={PLACE_HOLDER_MESSAGE.INPUT_BIRTH_YEAR}
           initialValue={info.year}
-          onChangeFn={(value) => handleInputChange('birthYear', value)}
+          onChangeFn={(value) => handleInputChange('year', value)}
           regex={REGEX.BIRTH_YEAR}
           maxLength={BIRTH_YEAR_LENGTH}
         />
@@ -201,7 +205,13 @@ const ModelInfo = ({ setIsChanged, setToastMsg }: ModelInfoProps) => {
               <S.CitySpan>서울특별시</S.CitySpan>
               <S.RegionList>
                 {regionList.map((region) => (
-                  <RegionList key={region.name} currentRegions={info.preferRegions} region={region} setInfo={setInfo} />
+                  <RegionList
+                    key={region.name}
+                    currentRegions={info.preferRegions}
+                    region={region}
+                    setInfo={setInfo}
+                    setIsChanged={setIsChanged}
+                  />
                 ))}
               </S.RegionList>
             </S.InnerBox>
