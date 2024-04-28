@@ -60,8 +60,7 @@ const ModelEditInfoSection = () => {
       {isSaveModalOpen && (
         <Modal
           title="프로필을 수정할까요?"
-          description="이전에 작성했던 내용은 사라
-          져요"
+          description="이전에 작성했던 내용은 사라져요"
           leftBtnText="취소"
           leftBtnFn={handleCloseSaveModal}
           rightBtnText="확인"

@@ -93,14 +93,14 @@ const ModelInfo = ({ setIsChanged, setToastMsg }: ModelInfoProps) => {
       ...prevInfo,
       [key]: newValue,
     }));
-    checkVerified();
+    checkVerified(key, newValue);
     setIsChanged(true);
   };
 
-  const checkVerified = () => {
-    if (!REGEX.NAME.test(info.name)) {
+  const checkVerified = (key: string, value: string) => {
+    if (!REGEX.NAME.test(info.name) || (key === 'name' && !REGEX.NAME.test(value))) {
       setToastMsg(MODEL_TOAST_MESSAGE.NAME);
-    } else if (!REGEX.BIRTH_YEAR.test(info.year)) {
+    } else if (!REGEX.NAME.test(info.year) || (key === 'birthYear' && !REGEX.BIRTH_YEAR.test(value))) {
       setToastMsg(MODEL_TOAST_MESSAGE.BIRTH_YEAR);
     } else if (!info.preferRegions.length) {
       setToastMsg(MODEL_TOAST_MESSAGE.REGION);
