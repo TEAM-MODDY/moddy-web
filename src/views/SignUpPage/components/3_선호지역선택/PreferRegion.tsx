@@ -2,17 +2,15 @@ import { useEffect, useRef, useState } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { styled } from 'styled-components';
 
-import { IcDownGrey, IcInformation, IcUpBlue } from '../../../@common/assets/icons';
+import { IcDownGrey, IcInformation, IcUpBlue, IcCloseSmBlue } from '../../../@common/assets/icons';
 import Button from '../../../@common/components/Button';
 import ProgressBar from '../../../@common/components/ProgressBar';
-import { IcCloseSmblue } from '../../assets/icons';
+import RegionItem from '../../../@common/components/RegionItem';
 import { PREFER_REGION_MIN_COUNT } from '../../constants/constants';
 import { HELPER_MESSAGE, PLACE_HOLDER_MESSAGE } from '../../constants/message';
 import useGetRegion from '../../hooks/useGetRegion';
 import usePostModelSignUp from '../../hooks/usePostModelSignUp';
 import Field from '../@common/Field';
-
-import RegionItem from './RegionItem';
 
 import { preferRegionState, regionState } from '@/recoil/atoms/signUpState';
 import Modal from '@/views/@common/components/Modal';
@@ -109,7 +107,7 @@ const PreferRegion = () => {
                   <S.SelectedRegionBox key={index}>
                     <SelectedRegionSpan>{regionList[index].name}</SelectedRegionSpan>
                     <button onClick={() => handleSelectedList(index)}>
-                      <IcCloseSmblue />
+                      <IcCloseSmBlue />
                     </button>
                   </S.SelectedRegionBox>
                 );
