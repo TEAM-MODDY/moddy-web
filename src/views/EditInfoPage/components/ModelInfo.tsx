@@ -3,9 +3,10 @@ import { styled } from 'styled-components';
 
 import { MODEL_TOAST_MESSAGE } from '../constants/message';
 
+import RegionList from './RegionList';
+
 import { IcCloseSmBlue, IcDownGrey, IcInformation, IcUpBlue } from '@/views/@common/assets/icons';
 import Input from '@/views/@common/components/Input';
-import RegionItem from '@/views/@common/components/RegionItem';
 import TitleField from '@/views/@common/components/TitleField';
 import { REGEX } from '@/views/@common/utils/regex';
 import { BIRTH_YEAR_LENGTH, NAME_MAX_LENGTH } from '@/views/SignUpPage/constants/constants';
@@ -16,12 +17,20 @@ interface ModelInfoProps {
   setToastMsg: React.Dispatch<React.SetStateAction<string>>;
 }
 
+export interface UserInfo {
+  name: string;
+  year: string;
+  gender: string;
+  phoneNumber: string;
+  preferRegions: string[];
+}
+
 const ModelInfo = ({ setIsChanged, setToastMsg }: ModelInfoProps) => {
   const [isShowCategory, setIsShowCategory] = useState(false);
   const categoryRef = useRef<HTMLDivElement>(null);
   const selectorBoxRef = useRef<HTMLDivElement>(null);
 
-  const [info, setInfo] = useState({
+  const [info, setInfo] = useState<UserInfo>({
     name: '안현주',
     year: '2000',
     gender: '여성',
@@ -32,12 +41,31 @@ const ModelInfo = ({ setIsChanged, setToastMsg }: ModelInfoProps) => {
   //get api로 리스트 받아올 예정
   const regionList = [
     { id: 0, name: '전체' },
-    { id: 1, name: '강남구' },
-    { id: 2, name: '서초구' },
-    { id: 3, name: '관악구' },
-    { id: 4, name: '종로구' },
-    { id: 5, name: '광진구' },
-    { id: 6, name: '송파구' },
+    { id: 1, name: '관악구' },
+    { id: 2, name: '동작구' },
+    { id: 3, name: '강남구' },
+    { id: 4, name: '강동구' },
+    { id: 5, name: '강북구' },
+    { id: 6, name: '강서구' },
+    { id: 7, name: '광진구' },
+    { id: 8, name: '구로구' },
+    { id: 9, name: '금천구' },
+    { id: 10, name: '노원구' },
+    { id: 11, name: '도봉구' },
+    { id: 12, name: '동대문구' },
+    { id: 13, name: '마포구' },
+    { id: 14, name: '서대문구' },
+    { id: 15, name: '서초구' },
+    { id: 16, name: '성동구' },
+    { id: 17, name: '성북구' },
+    { id: 18, name: '송파구' },
+    { id: 19, name: '양천구' },
+    { id: 20, name: '영등포구' },
+    { id: 21, name: '용산구' },
+    { id: 22, name: '은평구' },
+    { id: 23, name: '종로구' },
+    { id: 24, name: '중구' },
+    { id: 25, name: '중랑구' },
   ];
 
   useEffect(() => {
@@ -61,7 +89,6 @@ const ModelInfo = ({ setIsChanged, setToastMsg }: ModelInfoProps) => {
 
   const handleInputChange = (key: string, value: string | React.MouseEvent<HTMLLabelElement, MouseEvent>) => {
     const newValue = typeof value === 'string' ? value : value.currentTarget.innerText;
-    console.log(newValue);
     setInfo((prevInfo) => ({
       ...prevInfo,
       [key]: newValue,
@@ -136,13 +163,13 @@ const ModelInfo = ({ setIsChanged, setToastMsg }: ModelInfoProps) => {
           onClick={handleShowCategory}
           ref={selectorBoxRef}>
           {info.preferRegions.length
-            ? PLACE_HOLDER_MESSAGE.SELECT_PREFER_REGION
-            : info.preferRegions.map((region) => (
+            ? info.preferRegions.map((region) => (
                 <S.SelectedRegionBox key={region}>
                   <S.RegionName>{region}</S.RegionName>
                   <IcCloseSmBlue />
                 </S.SelectedRegionBox>
-              ))}
+              ))
+            : PLACE_HOLDER_MESSAGE.SELECT_PREFER_REGION}
           {!isShowCategory ? <IcDownGrey /> : <IcUpBlue />}
         </S.SelectorBox>
         {!isShowCategory ? (
@@ -155,8 +182,8 @@ const ModelInfo = ({ setIsChanged, setToastMsg }: ModelInfoProps) => {
             <S.InnerBox>
               <S.CitySpan>서울특별시</S.CitySpan>
               <S.RegionList>
-                {regionList.map((region, index) => (
-                  <RegionItem key={index} region={region.name} index={region.id} regionList={regionList} />
+                {regionList.map((region) => (
+                  <RegionList key={region.name} currentRegions={info.preferRegions} region={region} setInfo={setInfo} />
                 ))}
               </S.RegionList>
             </S.InnerBox>
@@ -229,7 +256,7 @@ const S = {
     position: relative;
 
     width: 100%;
-    padding: ${({ $isRegionSelected }) => ($isRegionSelected ? '1.2rem 1.6rem' : '0.4rem')};
+    padding: ${({ $isRegionSelected }) => ($isRegionSelected ? '0.4rem' : '1.2rem 1.6rem')};
     border: 1.5px solid
       ${({ theme, $isShowChecked }) =>
         $isShowChecked === 'true' ? theme.colors.moddy_blue : theme.colors.moddy_gray20};
