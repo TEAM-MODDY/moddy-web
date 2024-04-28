@@ -241,6 +241,7 @@ const DesignerEditInfoSection = () => {
             initialValue={inputData?.name}
             onChangeFn={(value) => handleInputChange('name', value)}
             regex={REGEX.NAME}
+            maxLength={5}
           />
           <S.SubTextBox>
             <IcInformation />
