@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
 
 import { DUMMY_DATA } from '../constants/dummy';
-import { MESSAGE } from '../constants/message';
+import { MESSAGE, TOAST_MESSAGE } from '../constants/message';
 
 import { IcInformation } from '@/views/@common/assets/icons';
 import Header from '@/views/@common/components/Header';
@@ -13,25 +13,20 @@ import PostCode from '@/views/@common/components/PostCode';
 import ProfileUpload from '@/views/@common/components/ProfileUpload';
 import TextArea200 from '@/views/@common/components/TextArea200';
 import TitleField from '@/views/@common/components/TitleField';
+import ToastMessage from '@/views/@common/components/ToastMessage';
 import { DAYS } from '@/views/@common/constants/days';
+import { REGEX } from '@/views/@common/utils/regex';
 import { IcSearch } from '@/views/SignUpPage/assets/icons';
 
 const DesignerEditInfoSection = () => {
+  const navigate = useNavigate();
   const { profileImg, introduction, designerInfo } = DUMMY_DATA.data;
   const [AddressModal, setAddressModal] = useState(false);
   const [isSaveModalOpen, setSaveModalOpen] = useState(false);
   const [isBackModalOpen, setBackModalOpen] = useState(false);
-  const navigate = useNavigate();
-  const [isChanged] = useState(false);
-
-  //오른쪽 저장클릭시 동작
-  const handleSaveBtn = () => {
-    if (isChanged) {
-      setSaveModalOpen(true);
-    } else {
-      navigate('/my-page');
-    }
-  };
+  const [ToastMessageText, setToastMessageText] = useState('');
+  const [isToastOpen, setToastOpen] = useState(false);
+  const [isChanged, setChanged] = useState(false);
 
   const handleCloseSaveModal = () => {
     setSaveModalOpen(false);
@@ -48,11 +43,6 @@ const DesignerEditInfoSection = () => {
 
   const handleCloseBackModal = () => {
     setBackModalOpen(false);
-  };
-
-  //이후 put으로 변경될 예정
-  const handleSaveInfo = () => {
-    console.log('ㅇㅇ');
   };
 
   const [info, setInfo] = useState({
@@ -102,15 +92,66 @@ const DesignerEditInfoSection = () => {
       ...prevInfo,
       [key]: value,
     }));
+    setChanged(true);
+  };
+
+  const checkInputValues = () => {
+    // 각 input값을 검증하고, 비어 있다면 토스트를 띄움
+    if (!info.introduction) {
+      setToastMessageText(TOAST_MESSAGE.intro);
+      setToastOpen(true);
+      return;
+    }
+    if (!info.name) {
+      setToastMessageText(TOAST_MESSAGE.name);
+      setToastOpen(true);
+      return;
+    }
+    if (!info.shopName) {
+      setToastMessageText(TOAST_MESSAGE.shopName);
+      setToastOpen(true);
+      return;
+    }
+    if (!info.Address) {
+      setToastMessageText(TOAST_MESSAGE.address);
+      setToastOpen(true);
+      return;
+    }
+    if (!info.DetailAddress) {
+      setToastMessageText(TOAST_MESSAGE.detailAddress);
+      setToastOpen(true);
+      return;
+    }
+
+    if (!info.instagramUrl || !info.naverPlaceUrl) {
+      setToastMessageText(TOAST_MESSAGE.portfolio);
+      setToastOpen(true);
+      return;
+    }
+
+    if (!info.OpenChatUrl) {
+      setToastMessageText(TOAST_MESSAGE.OpenChat);
+      setToastOpen(true);
+      return;
+    } else if (isChanged) {
+      setSaveModalOpen(true);
+    } else {
+      navigate('/my-page');
+    }
+  };
+
+  const handleSaveInfo = () => {
+    console.log('put 들어갈 자리');
   };
 
   return (
     <>
+      {isToastOpen && <ToastMessage text={ToastMessageText} setter={setToastOpen} />}
       <Header
         title="프로필 수정"
         isBackBtnExist={true}
         rightBtn={<S.SaveBtn>저장</S.SaveBtn>}
-        rightFn={handleSaveBtn}
+        rightFn={checkInputValues}
         backFn={handleBackBtn}
       />
       {isSaveModalOpen && (
@@ -163,6 +204,7 @@ const DesignerEditInfoSection = () => {
           placeholderText="디자이너명"
           initialValue={info.name}
           onChangeFn={(value) => handleInputChange('name', value)}
+          regex={REGEX.NAME}
         />
         <S.SubTextBox>
           <IcInformation />
@@ -192,7 +234,7 @@ const DesignerEditInfoSection = () => {
           <TitleField text="전화번호" isEssential={true} />
         </S.TitleFieldBox>
         <S.InputBox $isDisabled={true}>
-          <p>{designerInfo.phoneNumber.replace(/^(\d{3})(\d{4})(\d{4})$/, '$1-$2-$3')}</p>
+          <p>{designerInfo.phoneNumber}</p>
         </S.InputBox>
         <S.TitleFieldBox>
           <TitleField text="소속" isEssential={true} />
@@ -201,6 +243,7 @@ const DesignerEditInfoSection = () => {
           placeholderText="소속되어 있는 헤어샵(지점명)을 입력해주세요"
           initialValue={info.shopName}
           onChangeFn={(value) => handleInputChange('shopName', value)}
+          maxLength={25}
         />
 
         <S.TitleFieldBox>
@@ -216,6 +259,7 @@ const DesignerEditInfoSection = () => {
           placeholderText="상세 주소를 입력해주세요"
           initialValue={info.DetailAddress}
           onChangeFn={(value) => handleInputChange('DetailAddress', value)}
+          maxLength={30}
         />
         <S.TitleFieldBox>
           <TitleField text="휴무" isEssential={false} />
@@ -240,12 +284,16 @@ const DesignerEditInfoSection = () => {
             placeholderText="인스타그램 링크를 입력해주세요"
             initialValue={info.instagramUrl}
             onChangeFn={(value) => handleInputChange('instagramUrl', value)}
+            maxLength={255}
+            regex={REGEX.INSTAGRAM_ID}
           />
         </S.InputWrapper>
         <Input
           placeholderText="네이버 플레이스 링크를 입력해주세요"
           initialValue={info.naverPlaceUrl}
           onChangeFn={(value) => handleInputChange('naverPlaceUrl', value)}
+          maxLength={255}
+          regex={REGEX.ONLY_ENG_CHARACTER_NUM}
         />
         <S.TitleFieldBox>
           <TitleField text="오픈채팅방 링크" isEssential={true} />
@@ -255,6 +303,8 @@ const DesignerEditInfoSection = () => {
           placeholderText="오픈채팅방 링크를 입력해주세요"
           initialValue={info.OpenChatUrl}
           onChangeFn={(value) => handleInputChange('OpenChatUrl', value)}
+          maxLength={255}
+          regex={REGEX.ONLY_ENG_CHARACTER_NUM}
         />
         <S.SubTextBox>
           <IcInformation />
