@@ -4,6 +4,7 @@ import { styled } from 'styled-components';
 
 import { MESSAGE, TOAST_MESSAGE } from '../constants/message';
 import useGetDesignerEdit from '../hooks/useGetDesignerEdit';
+import usePutDesignerEdit from '../hooks/usePutDesignerEdit';
 
 import { IcInformation } from '@/views/@common/assets/icons';
 import Header from '@/views/@common/components/Header';
@@ -20,13 +21,31 @@ import { IcSearch } from '@/views/SignUpPage/assets/icons';
 
 const DesignerEditInfoSection = () => {
   const navigate = useNavigate();
+
   const { inputData, gender, dayOff } = useGetDesignerEdit();
-  const [AddressModal, setAddressModal] = useState(false);
+  const [addressModal, setAddressModal] = useState(false);
   const [isSaveModalOpen, setSaveModalOpen] = useState(false);
   const [isBackModalOpen, setBackModalOpen] = useState(false);
-  const [ToastMessageText, setToastMessageText] = useState('');
+  const [toastMessageText, setToastMessageText] = useState('');
+  const [imgFile, setImgFile] = useState<File | null>(null);
   const [isToastOpen, setToastOpen] = useState(false);
+  const [isImageToast, setImageToast] = useState(false);
   const [isChanged, setChanged] = useState(false);
+  const [info, setInfo] = useState({
+    profileImg: '',
+    introduction: '',
+    name: '',
+    gender: '',
+    shopName: '',
+    address: '',
+    dayOff: Array(7).fill(''),
+    detailAddress: '',
+    instagramUrl: '',
+    naverPlaceUrl: '',
+    OpenChatUrl: '',
+  });
+  const { putInfo } = usePutDesignerEdit(imgFile, info);
+  const [addressText, setAddressText] = useState(info.address);
 
   const handleCloseSaveModal = () => {
     setSaveModalOpen(false);
@@ -44,7 +63,6 @@ const DesignerEditInfoSection = () => {
   const handleCloseBackModal = () => {
     setBackModalOpen(false);
   };
-
   useEffect(() => {
     if (inputData) {
       setInfo({
@@ -53,9 +71,9 @@ const DesignerEditInfoSection = () => {
         name: inputData.name,
         gender: gender,
         shopName: inputData.hairShop.name,
-        Address: inputData.hairShop.address,
+        address: inputData.hairShop.address,
         dayOff: dayOff,
-        DetailAddress: inputData.hairShop.detailAddress,
+        detailAddress: inputData.hairShop.detailAddress,
         instagramUrl: inputData.portfolio.instagramUrl,
         naverPlaceUrl: inputData.portfolio.naverPlaceUrl,
         OpenChatUrl: inputData.kakaoOpenChatUrl,
@@ -63,20 +81,7 @@ const DesignerEditInfoSection = () => {
     }
   }, [inputData, gender, dayOff]);
 
-  const [info, setInfo] = useState({
-    profileImg: '',
-    introduction: '',
-    name: '',
-    gender: '',
-    shopName: '',
-    Address: '',
-    dayOff: Array(7).fill(''),
-    DetailAddress: '',
-    instagramUrl: '',
-    naverPlaceUrl: '',
-    OpenChatUrl: '',
-  });
-
+  // 날짜 클릭
   const handleDayOffClick = (event: React.MouseEvent<HTMLButtonElement>, index: number) => {
     const dayValue = event.currentTarget.value;
     const tempClicked = [...info.dayOff];
@@ -94,15 +99,18 @@ const DesignerEditInfoSection = () => {
     setChanged(true);
   };
 
-  const handleAddressModal = () => {
+  //주소 모달
+  const handleaddressModal = () => {
     setAddressModal((prev) => !prev);
   };
 
+  //이미지 업로드
   const handleImageUpload = (imgUrl: string, imgObj: File) => {
-    handleInputChange('profileFile', imgObj);
+    setImgFile(imgObj);
     handleInputChange('profileImg', imgUrl);
   };
 
+  //변경 시 info에 저장
   const handleInputChange = (key: string, value: string | File | string[]) => {
     setInfo((prevInfo) => ({
       ...prevInfo,
@@ -112,8 +120,8 @@ const DesignerEditInfoSection = () => {
     setChanged(true);
   };
 
+  // 각 input값을 검증하고, 비어 있다면 토스트를 띄움
   const checkInputValues = () => {
-    // 각 input값을 검증하고, 비어 있다면 토스트를 띄움
     if (!info.introduction) {
       setToastMessageText(TOAST_MESSAGE.intro);
       setToastOpen(true);
@@ -129,12 +137,12 @@ const DesignerEditInfoSection = () => {
       setToastOpen(true);
       return;
     }
-    if (!info.Address) {
+    if (!info.address) {
       setToastMessageText(TOAST_MESSAGE.address);
       setToastOpen(true);
       return;
     }
-    if (!info.DetailAddress) {
+    if (!info.detailAddress) {
       setToastMessageText(TOAST_MESSAGE.detailAddress);
       setToastOpen(true);
       return;
@@ -156,9 +164,8 @@ const DesignerEditInfoSection = () => {
       navigate('/my-page');
     }
   };
-
   const handleSaveInfo = () => {
-    console.log('put 들어갈 자리');
+    putInfo();
   };
 
   return (
@@ -166,7 +173,10 @@ const DesignerEditInfoSection = () => {
     dayOff &&
     gender && (
       <>
-        {isToastOpen && <ToastMessage text={ToastMessageText} setter={setToastOpen} />}
+        {isToastOpen && <ToastMessage text={toastMessageText} setter={setToastOpen} />}
+        {isImageToast && (
+          <ToastMessage text="사진 용량이 너무 커요!" subtext="5MB 이하의 사진을 올려주세요" setter={setImageToast} />
+        )}
         <Header
           title="프로필 수정"
           isBackBtnExist={true}
@@ -191,25 +201,27 @@ const DesignerEditInfoSection = () => {
             leftBtnText="계속하기"
             leftBtnFn={handleCloseBackModal}
             rightBtnText="취소하기"
-            rightBtnFn={() => {
-              navigate(-1);
-            }}
+            rightBtnFn={() => navigate('/my-page')}
           />
         )}
 
-        {AddressModal && (
+        {addressModal && (
           <S.PostCodeBox>
-            <Header title="주소 검색" isBackBtnExist={true} backFn={handleAddressModal} />
+            <Header title="주소 검색" isBackBtnExist={true} backFn={handleaddressModal} />
             <PostCode
-              setIsAddressModal={handleAddressModal}
-              setAddress={(value) => handleInputChange('Address', value)}
+              setIsAddressModal={handleaddressModal}
+              setAddress={(value) => {
+                setAddressText(value), handleInputChange('address', value), setAddressModal(false);
+              }}
             />
           </S.PostCodeBox>
         )}
         <S.DesignerInfoSectionBox>
           <ProfileUpload
             onImageUpload={handleImageUpload}
-            setToastOpen={() => {}}
+            setToastOpen={() => {
+              setImageToast(true);
+            }}
             profileImg={inputData.profileImgUrl}
           />
           <S.TitleFieldBox>
@@ -274,15 +286,15 @@ const DesignerEditInfoSection = () => {
             <TitleField text="주소" isEssential={true} />
           </S.TitleFieldBox>
 
-          <S.InputBox $isDisabled={false} onClick={handleAddressModal}>
-            <p>{inputData?.hairShop.address}</p>
+          <S.InputBox $isDisabled={false} onClick={handleaddressModal}>
+            <p>{addressText || inputData?.hairShop.address}</p>
             <IcSearch />
           </S.InputBox>
 
           <Input
             placeholderText="상세 주소를 입력해주세요"
             initialValue={inputData?.hairShop.detailAddress}
-            onChangeFn={(value) => handleInputChange('DetailAddress', value)}
+            onChangeFn={(value) => handleInputChange('detailAddress', value)}
             maxLength={30}
           />
           <S.TitleFieldBox>
@@ -293,7 +305,7 @@ const DesignerEditInfoSection = () => {
             {Object.keys(DAYS).map((day, index) => (
               <S.DayOffButton
                 key={day}
-                value={day}
+                value={DAYS[day]}
                 onClick={(e) => handleDayOffClick(e, index)}
                 $isClicked={info.dayOff[index]}>
                 {day}
@@ -447,6 +459,8 @@ const S = {
     border-radius: 8px;
 
     background-color: ${({ theme, $isDisabled }) => ($isDisabled ? theme.colors.moddy_gray05 : theme.colors.moddy_wt)};
+
+    cursor: pointer;
 
     & > svg {
       top: 0.9rem;

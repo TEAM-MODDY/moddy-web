@@ -3,18 +3,17 @@ import { useRecoilState } from 'recoil';
 import { styled } from 'styled-components';
 
 import { IcSearch } from '../../assets/icons';
-import { DAYS } from '@/views/@common/constants/days';
 import { HELPER_MESSAGE } from '../../constants/message';
 import { TOTAL_STEP } from '../../constants/step';
 import { EnterProfileProp } from '../../utils/enterProfileProp';
 import Field from '../@common/Field';
 
-import PostCode from '@/views/@common/components/PostCode';
-
 import { shopInfoState, addressState, detailShopInfoState, dateState } from '@/recoil/atoms/signUpState';
 import Button from '@/views/@common/components/Button';
 import Input from '@/views/@common/components/Input';
+import PostCode from '@/views/@common/components/PostCode';
 import ProgressBar from '@/views/@common/components/ProgressBar';
+import { DAYS } from '@/views/@common/constants/days';
 
 const ShopInfo = ({ setStep }: EnterProfileProp) => {
   //recoil 적용 CTA 클릭시 저장
