@@ -17,6 +17,7 @@ const colors = {
   moddy_bk: '#1d2330',
   moddy_wt: '#ffffff',
   moddy_gray50: '#8e9197',
+  moddy_gray30: '#afb3b8',
   moddy_gray20: '#d2d3d6',
   moddy_gray10: '#e8e9ea',
   moddy_gray05: '#f4f4f5',
