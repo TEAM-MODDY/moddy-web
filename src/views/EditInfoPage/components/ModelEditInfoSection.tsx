@@ -1,18 +1,17 @@
 import { useEffect, useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import { styled } from 'styled-components';
 
 import { preferRegionState } from '@/recoil/atoms/signUpState';
 import { IcCloseSmBlue, IcDownGrey, IcInformation, IcUpBlue } from '@/views/@common/assets/icons';
+import Header from '@/views/@common/components/Header';
 import Input from '@/views/@common/components/Input';
+import Modal from '@/views/@common/components/Modal';
 import RegionItem from '@/views/@common/components/RegionItem';
 import TitleField from '@/views/@common/components/TitleField';
 
-interface ModelInfoSectionProps {
-  onInfoChange: () => void;
-}
-
-const ModelInfoSection = ({ onInfoChange }: ModelInfoSectionProps) => {
+const ModelEditInfoSection = () => {
   const regionList = [
     { id: 0, name: '전체' },
     { id: 1, name: '강남구' },
@@ -26,6 +25,10 @@ const ModelInfoSection = ({ onInfoChange }: ModelInfoSectionProps) => {
   const [isShowCategory, setIsShowCategory] = useState(false);
   const categoryRef = useRef<HTMLDivElement>(null);
   const selectorBoxRef = useRef<HTMLDivElement>(null);
+  const [isSaveModalOpen, setSaveModalOpen] = useState(false);
+  const [isBackModalOpen, setBackModalOpen] = useState(false);
+  const navigate = useNavigate();
+  const [isChanged] = useState(false);
 
   const isRegionSelected = isRegionList.every((region) => !region);
 
@@ -49,80 +52,158 @@ const ModelInfoSection = ({ onInfoChange }: ModelInfoSectionProps) => {
     };
   }, [categoryRef]);
 
+  //오른쪽 저장클릭시 동작
+  const handleSaveBtn = () => {
+    if (isChanged) {
+      setSaveModalOpen(true);
+    } else {
+      navigate('/my-page');
+    }
+  };
+
+  const handleCloseSaveModal = () => {
+    setSaveModalOpen(false);
+  };
+
+  //왼쪽 이전으로 버튼 클릭시 동작
+  const handleBackBtn = () => {
+    if (isChanged) {
+      setBackModalOpen(true);
+    } else {
+      navigate(-1);
+    }
+  };
+
+  const handleCloseBackModal = () => {
+    setBackModalOpen(false);
+  };
+
+  //이후 put으로 변경될 예정
+  const handleSaveInfo = () => {
+    console.log('ㅇㅇ');
+  };
+
   const handleShowCategory = () => {
     setIsShowCategory((prev) => !prev);
   };
 
+  const handleInputChange = (key: string, value: string) => {
+    console.log(key, value);
+  };
+
   return (
-    <S.ModelInfoSectionLayout>
-      <S.InputBox>
-        <TitleField text="이름" isEssential={true} />
-        <Input placeholderText="정보" onChangeFn={onInfoChange} />
-        <S.HelperBox>
-          <IcInformation />
-          <S.HelperSpan>실명을 입력해주세요</S.HelperSpan>
-        </S.HelperBox>
-      </S.InputBox>
-      <S.InputBox>
-        <TitleField text="출생 연도" isEssential={true} />
-        <Input placeholderText="정보" onChangeFn={onInfoChange} />
-      </S.InputBox>
-      <S.InputBox>
-        <TitleField text="성별" isEssential={true} />
-        <S.GenderSelectBox>
-          <S.GenderRadio type="radio" />
-          <S.GenderLabel>여성</S.GenderLabel>
-          <S.GenderRadio type="radio" />
-          <S.GenderLabel>남성</S.GenderLabel>
-        </S.GenderSelectBox>
-      </S.InputBox>
-      <S.InputBox>
-        <TitleField text="전화번호" isEssential={true} />
-        <S.DisabledInputBox>정보</S.DisabledInputBox>
-      </S.InputBox>
-      <S.InputBox>
-        <TitleField text="시술희망 지역" isEssential={true} />
-        <S.SelectorBox
-          $isShowChecked={isShowCategory.toString()}
-          $isRegionSelected={isRegionSelected}
-          onClick={handleShowCategory}
-          ref={selectorBoxRef}>
-          {isRegionSelected
-            ? '희망 지역 선택 안내'
-            : isRegionList.map((region, index) =>
-                region ? (
-                  <S.SelectedRegionBox key={index}>
-                    <S.RegionName>{regionList[index].name}</S.RegionName>
-                    <IcCloseSmBlue />
-                  </S.SelectedRegionBox>
-                ) : null,
-              )}
-          {!isShowCategory ? <IcDownGrey /> : <IcUpBlue />}
-        </S.SelectorBox>
-        {!isShowCategory ? (
+    <S.ModelEditInfoSectionLayout>
+      <Header
+        title="프로필 수정"
+        isBackBtnExist={true}
+        rightBtn={<S.SaveBtn>저장</S.SaveBtn>}
+        rightFn={handleSaveBtn}
+        backFn={handleBackBtn}
+      />
+      {isSaveModalOpen && (
+        <Modal
+          title="프로필을 수정할까요?"
+          description="이전에 작성했던 내용은 사라져요"
+          leftBtnText="취소"
+          leftBtnFn={handleCloseSaveModal}
+          rightBtnText="확인"
+          rightBtnFn={handleSaveInfo}
+        />
+      )}
+      {isBackModalOpen && (
+        <Modal
+          title="수정을 취소할까요?"
+          description="저장을 누르지 않으면 <br/>수정 중인 내용이 사라져요."
+          leftBtnText="계속하기"
+          leftBtnFn={handleCloseBackModal}
+          rightBtnText="취소하기"
+          rightBtnFn={() => {
+            navigate(-1);
+          }}
+        />
+      )}
+
+      <S.ModelInfoSection>
+        <S.InputBox>
+          <TitleField text="이름" isEssential={true} />
+          <Input placeholderText="정보" onChangeFn={(value) => handleInputChange('name', value)} />
           <S.HelperBox>
             <IcInformation />
-            <S.HelperSpan>지금은 서울특별시에서만 운영하고 있어요.</S.HelperSpan>
+            <S.HelperSpan>실명을 입력해주세요</S.HelperSpan>
           </S.HelperBox>
-        ) : (
-          <S.CategoryBox ref={categoryRef}>
-            <S.InnerBox>
-              <S.CitySpan>서울특별시</S.CitySpan>
-              <S.RegionList>
-                {regionList.map((region, index) => (
-                  <RegionItem key={index} region={region.name} index={region.id} regionList={regionList} />
-                ))}
-              </S.RegionList>
-            </S.InnerBox>
-          </S.CategoryBox>
-        )}
-      </S.InputBox>
-    </S.ModelInfoSectionLayout>
+        </S.InputBox>
+        <S.InputBox>
+          <TitleField text="출생 연도" isEssential={true} />
+          <Input placeholderText="정보" onChangeFn={(value) => handleInputChange('birthYear', value)} />
+        </S.InputBox>
+        <S.InputBox>
+          <TitleField text="성별" isEssential={true} />
+          <S.GenderSelectBox>
+            <S.GenderRadio type="radio" />
+            <S.GenderLabel>여성</S.GenderLabel>
+            <S.GenderRadio type="radio" />
+            <S.GenderLabel>남성</S.GenderLabel>
+          </S.GenderSelectBox>
+        </S.InputBox>
+        <S.InputBox>
+          <TitleField text="전화번호" isEssential={true} />
+          <S.DisabledInputBox>정보</S.DisabledInputBox>
+        </S.InputBox>
+        <S.InputBox>
+          <TitleField text="시술희망 지역" isEssential={true} />
+          <S.SelectorBox
+            $isShowChecked={isShowCategory.toString()}
+            $isRegionSelected={isRegionSelected}
+            onClick={handleShowCategory}
+            ref={selectorBoxRef}>
+            {isRegionSelected
+              ? '희망 지역 선택 안내'
+              : isRegionList.map((region, index) =>
+                  region ? (
+                    <S.SelectedRegionBox key={index}>
+                      <S.RegionName>{regionList[index].name}</S.RegionName>
+                      <IcCloseSmBlue />
+                    </S.SelectedRegionBox>
+                  ) : null,
+                )}
+            {!isShowCategory ? <IcDownGrey /> : <IcUpBlue />}
+          </S.SelectorBox>
+          {!isShowCategory ? (
+            <S.HelperBox>
+              <IcInformation />
+              <S.HelperSpan>지금은 서울특별시에서만 운영하고 있어요.</S.HelperSpan>
+            </S.HelperBox>
+          ) : (
+            <S.CategoryBox ref={categoryRef}>
+              <S.InnerBox>
+                <S.CitySpan>서울특별시</S.CitySpan>
+                <S.RegionList>
+                  {regionList.map((region, index) => (
+                    <RegionItem key={index} region={region.name} index={region.id} regionList={regionList} />
+                  ))}
+                </S.RegionList>
+              </S.InnerBox>
+            </S.CategoryBox>
+          )}
+        </S.InputBox>
+      </S.ModelInfoSection>
+    </S.ModelEditInfoSectionLayout>
   );
 };
 
 const S = {
-  ModelInfoSectionLayout: styled.section`
+  ModelEditInfoSectionLayout: styled.section`
+    display: flex;
+    justify-content: center;
+
+    margin: 6.7rem 0 15rem;
+    padding: 0 1.6rem;
+  `,
+  SaveBtn: styled.span`
+    cursor: pointer;
+    ${({ theme }) => theme.fonts.Body02};
+  `,
+  ModelInfoSection: styled.section`
     display: flex;
     flex-direction: column;
     gap: 3.6rem;
@@ -263,4 +344,4 @@ const S = {
   `,
 };
 
-export default ModelInfoSection;
+export default ModelEditInfoSection;
