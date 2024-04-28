@@ -2,23 +2,31 @@ import { AxiosError } from 'axios';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import api from '@/views/@common/hooks/api';
-import { UseGetDesignerProps } from '@/views/SignUpPage/type';
+import { UseGetDesignerProps } from '../utils/type';
 
-const useGetUserEdit = () => {
+import { DAYS } from '@/views/@common/constants/days';
+import api from '@/views/@common/hooks/api';
+
+const useGetDesignerEdit = () => {
   const navigate = useNavigate();
-  const [input, setInput] = useState<UseGetDesignerProps>();
+  const [inputData, setInputData] = useState<UseGetDesignerProps>();
   const [gender, setGender] = useState('');
-  const [dayOff, setDayOff] = useState('');
+  const [dayOff, setDayOff] = useState(Array(7).fill(''));
   const [isLoading, setLoading] = useState(true);
   const [isError, setError] = useState<AxiosError>();
 
   const getEditResponse = async () => {
     try {
       const response = await api.get(`/designer`);
-      setInput(response.data.data);
+      setInputData(response.data.data);
       setGender(response.data.data.gender === '여성' ? 'FEMALE' : 'MALE');
-      setDayOff(response.data.data.dayOffs);
+      setDayOff(
+        Array(7)
+          .fill('')
+          .map((_, index) =>
+            response.data.data.dayOffs.includes(Object.keys(DAYS)[index]) ? Object.keys(DAYS)[index] : '',
+          ),
+      );
     } catch (err) {
       if (err instanceof AxiosError) setError(err);
       else {
@@ -32,7 +40,7 @@ const useGetUserEdit = () => {
   useEffect(() => {
     getEditResponse();
   }, []);
-  return { input, gender, dayOff, isLoading, isError };
+  return { inputData, gender, dayOff, isLoading, isError };
 };
 
-export default useGetUserEdit;
+export default useGetDesignerEdit;

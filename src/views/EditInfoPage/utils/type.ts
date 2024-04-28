@@ -9,7 +9,7 @@ interface Portfolio {
   naverPlaceUrl: string;
 }
 
-export interface UseGetUserProps {
+export interface UseGetDesignerProps {
   profileImgUrl: string;
   introduction: string;
   name: string;
