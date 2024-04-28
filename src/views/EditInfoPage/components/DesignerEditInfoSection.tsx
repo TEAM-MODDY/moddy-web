@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
 
@@ -45,6 +45,24 @@ const DesignerEditInfoSection = () => {
     setBackModalOpen(false);
   };
 
+  useEffect(() => {
+    if (inputData) {
+      setInfo({
+        profileImg: inputData.profileImgUrl,
+        introduction: inputData.introduction,
+        name: inputData.name,
+        gender: gender,
+        shopName: inputData.hairShop.name,
+        Address: inputData.hairShop.address,
+        dayOff: dayOff,
+        DetailAddress: inputData.hairShop.detailAddress,
+        instagramUrl: inputData.portfolio.instagramUrl,
+        naverPlaceUrl: inputData.portfolio.naverPlaceUrl,
+        OpenChatUrl: inputData.kakaoOpenChatUrl,
+      });
+    }
+  }, [inputData, gender, dayOff]);
+
   const [info, setInfo] = useState({
     profileImg: '',
     introduction: '',
@@ -52,7 +70,7 @@ const DesignerEditInfoSection = () => {
     gender: '',
     shopName: '',
     Address: '',
-    dayOff: [],
+    dayOff: Array(7).fill(''),
     DetailAddress: '',
     instagramUrl: '',
     naverPlaceUrl: '',
@@ -61,15 +79,19 @@ const DesignerEditInfoSection = () => {
 
   const handleDayOffClick = (event: React.MouseEvent<HTMLButtonElement>, index: number) => {
     const dayValue = event.currentTarget.value;
+    const tempClicked = [...info.dayOff];
 
-    const tempClicked = [...dayOff];
     if (tempClicked[index] === '') {
-      tempClicked[index] = DAYS[dayValue as keyof typeof DAYS];
+      tempClicked[index] = dayValue;
     } else {
       tempClicked[index] = '';
     }
-    handleInputChange('dayOff', tempClicked);
-    console.log(tempClicked);
+
+    setInfo((prevInfo) => ({
+      ...prevInfo,
+      dayOff: tempClicked,
+    }));
+    setChanged(true);
   };
 
   const handleAddressModal = () => {
@@ -220,14 +242,14 @@ const DesignerEditInfoSection = () => {
             <S.RadioInput
               id="FEMALE"
               type="radio"
-              checked={gender === 'FEMALE'}
+              checked={info.gender === 'FEMALE'}
               onChange={() => handleInputChange('gender', 'FEMALE')}
             />
             <S.GenderTypeLabel htmlFor="FEMALE">여성</S.GenderTypeLabel>
             <S.RadioInput
               id="MALE"
               type="radio"
-              checked={gender === 'MALE'}
+              checked={info.gender === 'MALE'}
               onChange={() => handleInputChange('gender', 'MALE')}
             />
             <S.GenderTypeLabel htmlFor="MALE">남성</S.GenderTypeLabel>
@@ -273,7 +295,7 @@ const DesignerEditInfoSection = () => {
                 key={day}
                 value={day}
                 onClick={(e) => handleDayOffClick(e, index)}
-                $isClicked={dayOff[index]}>
+                $isClicked={info.dayOff[index]}>
                 {day}
               </S.DayOffButton>
             ))}

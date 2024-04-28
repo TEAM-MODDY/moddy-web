@@ -24,7 +24,7 @@ const useGetDesignerEdit = () => {
         Array(7)
           .fill('')
           .map((_, index) =>
-            response.data.data.dayOffs.includes(Object.keys(DAYS)[index]) ? DAYS[Object.keys(DAYS)[index]] : '',
+            response.data.data.dayOffs.includes(Object.keys(DAYS)[index]) ? Object.keys(DAYS)[index] : '',
           ),
       );
     } catch (err) {
