@@ -5,6 +5,7 @@ import { styled } from 'styled-components';
 import { MODEL_TOAST_MESSAGE } from '../constants/message';
 import { ModelUserInfo } from '../hooks/type';
 import useGetModelUser from '../hooks/useGetModelUser';
+import useGetRegionList from '../hooks/useGetRegionList';
 import usePutModelUser from '../hooks/usePutModelUser';
 
 import ModelInfo from './ModelInfo';
@@ -29,7 +30,9 @@ const ModelEditInfoSection = () => {
   });
   const [isChanged, setIsChanged] = useState(false);
 
+  const regionList = useGetRegionList();
   const isLoading = useGetModelUser(setInfo);
+  const putModelInfo = usePutModelUser(info, regionList);
 
   useEffect(() => {
     const checkVerified = () => {
@@ -78,7 +81,7 @@ const ModelEditInfoSection = () => {
   };
 
   const handleSaveInfo = () => {
-    // usePutModelUser();
+    putModelInfo();
   };
 
   return (
@@ -115,7 +118,7 @@ const ModelEditInfoSection = () => {
             }}
           />
         )}
-        <ModelInfo info={info} setInfo={setInfo} setIsChanged={setIsChanged} />
+        <ModelInfo regionList={regionList} info={info} setInfo={setInfo} setIsChanged={setIsChanged} />
       </S.ModelEditInfoSectionLayout>
     )
   );

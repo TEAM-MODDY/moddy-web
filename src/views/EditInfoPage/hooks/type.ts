@@ -22,3 +22,10 @@ export interface ModelUserInfoResponse {
     data: ModelUserInfo;
   };
 }
+
+export interface ModelUserRequestBody {
+  name: string;
+  year: string;
+  gender: string;
+  preferRegions: string[];
+}

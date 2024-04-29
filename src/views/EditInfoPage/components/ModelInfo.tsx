@@ -1,8 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { styled } from 'styled-components';
 
-import { ModelUserInfo } from '../hooks/type';
-import useGetRegionList from '../hooks/useGetRegionList';
+import { ModelUserInfo, RegionData } from '../hooks/type';
 
 import RegionList from './RegionList';
 
@@ -14,17 +13,16 @@ import { BIRTH_YEAR_LENGTH, NAME_MAX_LENGTH } from '@/views/SignUpPage/constants
 import { PLACE_HOLDER_MESSAGE } from '@/views/SignUpPage/constants/message';
 
 interface ModelInfoProps {
+  regionList: RegionData[];
   info: ModelUserInfo;
   setInfo: React.Dispatch<React.SetStateAction<ModelUserInfo>>;
   setIsChanged: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const ModelInfo = ({ info, setInfo, setIsChanged }: ModelInfoProps) => {
+const ModelInfo = ({ regionList, info, setInfo, setIsChanged }: ModelInfoProps) => {
   const [isShowCategory, setIsShowCategory] = useState(false);
   const categoryRef = useRef<HTMLDivElement>(null);
   const selectorBoxRef = useRef<HTMLDivElement>(null);
-
-  const regionList = useGetRegionList();
 
   useEffect(() => {
     // 특정 영역 외 클릭 시 발생하는 이벤트
