@@ -1,8 +1,18 @@
+export interface RegionData {
+  id: number;
+  name: string;
+}
+
 export interface RegionListResponse {
   data: {
-    data: {
-      id: number;
-      name: string;
-    }[];
+    data: RegionData[];
   };
+}
+
+export interface UserInfo {
+  name: string;
+  year: string;
+  gender: string;
+  phoneNumber: string;
+  preferRegions: string[];
 }

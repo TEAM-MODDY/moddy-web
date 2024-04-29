@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { styled } from 'styled-components';
 
-import { UserInfo } from './ModelInfo';
+import { UserInfo } from '../hooks/type';
 
 import { IcCheckboxBlue, IcCheckboxGrey } from '@/views/@common/assets/icons';
 

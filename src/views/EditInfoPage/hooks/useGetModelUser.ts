@@ -1,18 +1,18 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { RegionData, RegionListResponse } from './type';
+import { UserInfo } from './type';
 
 import api from '@/views/@common/hooks/api';
 
-const useGetRegionList = () => {
+const useGetModelUser = () => {
   const navigate = useNavigate();
-  const [regionList, setRegionList] = useState<RegionData[]>([]);
+  const [userInfo, setUserInfo] = useState<UserInfo>();
 
   const fetchData = async () => {
     try {
-      const response: RegionListResponse = await api.get('/model/regions');
-      setRegionList(response.data.data);
+      const response = await api.get('/model');
+      setUserInfo(response.data.data);
     } catch (err) {
       navigate('/error');
     }
@@ -22,7 +22,7 @@ const useGetRegionList = () => {
     fetchData();
   }, []);
 
-  return regionList;
+  return userInfo;
 };
 
-export default useGetRegionList;
+export default useGetModelUser;

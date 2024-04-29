@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { styled } from 'styled-components';
 
 import { MODEL_TOAST_MESSAGE } from '../constants/message';
+import { UserInfo } from '../hooks/type';
 import useGetRegionList from '../hooks/useGetRegionList';
 
 import RegionList from './RegionList';
@@ -14,32 +15,19 @@ import { BIRTH_YEAR_LENGTH, NAME_MAX_LENGTH } from '@/views/SignUpPage/constants
 import { PLACE_HOLDER_MESSAGE } from '@/views/SignUpPage/constants/message';
 
 interface ModelInfoProps {
+  initialInfo: UserInfo;
   setIsChanged: React.Dispatch<React.SetStateAction<boolean>>;
   setToastMsg: React.Dispatch<React.SetStateAction<string>>;
 }
 
-export interface UserInfo {
-  name: string;
-  year: string;
-  gender: string;
-  phoneNumber: string;
-  preferRegions: string[];
-}
-
-const ModelInfo = ({ setIsChanged, setToastMsg }: ModelInfoProps) => {
+const ModelInfo = ({ initialInfo, setIsChanged, setToastMsg }: ModelInfoProps) => {
   const [isShowCategory, setIsShowCategory] = useState(false);
   const categoryRef = useRef<HTMLDivElement>(null);
   const selectorBoxRef = useRef<HTMLDivElement>(null);
 
-  const [info, setInfo] = useState<UserInfo>({
-    name: '안현주',
-    year: '2000',
-    gender: '여성',
-    phoneNumber: '010-1234-5678',
-    preferRegions: ['강남구', '도봉구'],
-  });
-
   const regionList = useGetRegionList();
+
+  const [info, setInfo] = useState<UserInfo>(initialInfo);
 
   useEffect(() => {
     const checkVerified = () => {
@@ -99,99 +87,101 @@ const ModelInfo = ({ setIsChanged, setToastMsg }: ModelInfoProps) => {
   };
 
   return (
-    <S.ModelInfoSectionLayout>
-      <S.InputBox>
-        <TitleField text="이름" isEssential={true} />
-        <Input
-          placeholderText={PLACE_HOLDER_MESSAGE.INPUT_NAME}
-          initialValue={info.name}
-          onChangeFn={(value) => handleInputChange('name', value)}
-          maxLength={NAME_MAX_LENGTH}
-        />
-        <S.HelperBox>
-          <IcInformation />
-          <S.HelperSpan>실명을 입력해주세요</S.HelperSpan>
-        </S.HelperBox>
-      </S.InputBox>
-      <S.InputBox>
-        <TitleField text="출생 연도" isEssential={true} />
-        <Input
-          placeholderText={PLACE_HOLDER_MESSAGE.INPUT_BIRTH_YEAR}
-          initialValue={info.year}
-          onChangeFn={(value) => handleInputChange('year', value)}
-          regex={REGEX.BIRTH_YEAR}
-          maxLength={BIRTH_YEAR_LENGTH}
-        />
-      </S.InputBox>
-      <S.InputBox>
-        <TitleField text="성별" isEssential={true} />
-        <S.GenderSelectBox>
-          <S.GenderRadio
-            type="radio"
-            id="여성"
-            name="gender-type"
-            checked={info.gender === '여성'}
-            onChange={(value) => handleInputChange('gender', value)}
+    initialInfo && (
+      <S.ModelInfoSectionLayout>
+        <S.InputBox>
+          <TitleField text="이름" isEssential={true} />
+          <Input
+            placeholderText={PLACE_HOLDER_MESSAGE.INPUT_NAME}
+            initialValue={info.name}
+            onChangeFn={(value) => handleInputChange('name', value)}
+            maxLength={NAME_MAX_LENGTH}
           />
-          <S.GenderLabel htmlFor="여성">여성</S.GenderLabel>
-          <S.GenderRadio
-            type="radio"
-            id="남성"
-            name="gender-type"
-            checked={info.gender === '남성'}
-            onChange={(value) => handleInputChange('gender', value)}
-          />
-          <S.GenderLabel htmlFor="남성">남성</S.GenderLabel>
-        </S.GenderSelectBox>
-      </S.InputBox>
-      <S.InputBox>
-        <TitleField text="전화번호" isEssential={true} />
-        <S.DisabledInputBox>{info.phoneNumber}</S.DisabledInputBox>
-      </S.InputBox>
-      <S.InputBox>
-        <TitleField text="시술희망 지역" isEssential={true} />
-        <S.SelectorBox
-          $isShowChecked={isShowCategory.toString()}
-          $isRegionSelected={info.preferRegions.length}
-          onClick={handleShowCategory}
-          ref={selectorBoxRef}>
-          {info.preferRegions.length
-            ? info.preferRegions.map((region) => (
-                <S.SelectedRegionBox key={region}>
-                  <S.RegionName>{region}</S.RegionName>
-                  <button type="button" onClick={(event) => deleteRegion(event, region)}>
-                    <IcCloseSmBlue />
-                  </button>
-                </S.SelectedRegionBox>
-              ))
-            : PLACE_HOLDER_MESSAGE.SELECT_PREFER_REGION}
-          {!isShowCategory ? <IcDownGrey /> : <IcUpBlue />}
-        </S.SelectorBox>
-        {!isShowCategory ? (
           <S.HelperBox>
             <IcInformation />
-            <S.HelperSpan>지금은 서울특별시에서만 운영하고 있어요.</S.HelperSpan>
+            <S.HelperSpan>실명을 입력해주세요</S.HelperSpan>
           </S.HelperBox>
-        ) : (
-          <S.CategoryBox ref={categoryRef}>
-            <S.InnerBox>
-              <S.CitySpan>서울특별시</S.CitySpan>
-              <S.RegionList>
-                {regionList.map((region) => (
-                  <RegionList
-                    key={region.name}
-                    currentRegions={info.preferRegions}
-                    region={region}
-                    setInfo={setInfo}
-                    setIsChanged={setIsChanged}
-                  />
-                ))}
-              </S.RegionList>
-            </S.InnerBox>
-          </S.CategoryBox>
-        )}
-      </S.InputBox>
-    </S.ModelInfoSectionLayout>
+        </S.InputBox>
+        <S.InputBox>
+          <TitleField text="출생 연도" isEssential={true} />
+          <Input
+            placeholderText={PLACE_HOLDER_MESSAGE.INPUT_BIRTH_YEAR}
+            initialValue={info.year}
+            onChangeFn={(value) => handleInputChange('year', value)}
+            regex={REGEX.BIRTH_YEAR}
+            maxLength={BIRTH_YEAR_LENGTH}
+          />
+        </S.InputBox>
+        <S.InputBox>
+          <TitleField text="성별" isEssential={true} />
+          <S.GenderSelectBox>
+            <S.GenderRadio
+              type="radio"
+              id="여성"
+              name="gender-type"
+              checked={info.gender === '여성'}
+              onChange={(value) => handleInputChange('gender', value)}
+            />
+            <S.GenderLabel htmlFor="여성">여성</S.GenderLabel>
+            <S.GenderRadio
+              type="radio"
+              id="남성"
+              name="gender-type"
+              checked={info.gender === '남성'}
+              onChange={(value) => handleInputChange('gender', value)}
+            />
+            <S.GenderLabel htmlFor="남성">남성</S.GenderLabel>
+          </S.GenderSelectBox>
+        </S.InputBox>
+        <S.InputBox>
+          <TitleField text="전화번호" isEssential={true} />
+          <S.DisabledInputBox>{info.phoneNumber}</S.DisabledInputBox>
+        </S.InputBox>
+        <S.InputBox>
+          <TitleField text="시술희망 지역" isEssential={true} />
+          <S.SelectorBox
+            $isShowChecked={isShowCategory.toString()}
+            $isRegionSelected={info.preferRegions.length}
+            onClick={handleShowCategory}
+            ref={selectorBoxRef}>
+            {info.preferRegions.length
+              ? info.preferRegions.map((region) => (
+                  <S.SelectedRegionBox key={region}>
+                    <S.RegionName>{region}</S.RegionName>
+                    <button type="button" onClick={(event) => deleteRegion(event, region)}>
+                      <IcCloseSmBlue />
+                    </button>
+                  </S.SelectedRegionBox>
+                ))
+              : PLACE_HOLDER_MESSAGE.SELECT_PREFER_REGION}
+            {!isShowCategory ? <IcDownGrey /> : <IcUpBlue />}
+          </S.SelectorBox>
+          {!isShowCategory ? (
+            <S.HelperBox>
+              <IcInformation />
+              <S.HelperSpan>지금은 서울특별시에서만 운영하고 있어요.</S.HelperSpan>
+            </S.HelperBox>
+          ) : (
+            <S.CategoryBox ref={categoryRef}>
+              <S.InnerBox>
+                <S.CitySpan>서울특별시</S.CitySpan>
+                <S.RegionList>
+                  {regionList.map((region) => (
+                    <RegionList
+                      key={region.name}
+                      currentRegions={info.preferRegions}
+                      region={region}
+                      setInfo={setInfo}
+                      setIsChanged={setIsChanged}
+                    />
+                  ))}
+                </S.RegionList>
+              </S.InnerBox>
+            </S.CategoryBox>
+          )}
+        </S.InputBox>
+      </S.ModelInfoSectionLayout>
+    )
   );
 };
 
@@ -253,7 +243,7 @@ const S = {
 
   SelectorBox: styled.div<{ $isShowChecked: string; $isRegionSelected: number }>`
     display: flex;
-    gap: 1rem;
+    gap: 0.65rem;
     position: relative;
 
     width: 100%;
@@ -281,7 +271,7 @@ const S = {
     align-items: center;
 
     width: fit-content;
-    padding: 0.7rem 1.2rem;
+    padding: 0.6rem 0.5rem 0.6rem 1rem;
     border: 1.5px solid ${({ theme }) => theme.colors.moddy_blue};
     border-radius: 6px;
 
