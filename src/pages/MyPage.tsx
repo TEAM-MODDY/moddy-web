@@ -20,13 +20,7 @@ const MyPage = () => {
   return (
     data && (
       <S.MyPageLayout>
-        <Header
-          title="마이페이지"
-          isBackBtnExist
-          backFn={() => {
-            navigate(-1);
-          }}
-        />
+        <Header title="마이페이지" isBackBtnExist backFn={() => navigate('/')} />
         <MyInfo data={data} isModel={isModel} />
         <MyMenuList setModalOpen={setModalOpen} isModel={isModel} />
         <MyFooter />
