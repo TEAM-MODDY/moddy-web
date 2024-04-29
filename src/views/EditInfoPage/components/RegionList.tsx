@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { styled } from 'styled-components';
 
-import { UserInfo } from '../hooks/type';
+import { ModelUserInfo } from '../hooks/type';
 
 import { IcCheckboxBlue, IcCheckboxGrey } from '@/views/@common/assets/icons';
 
@@ -11,7 +11,7 @@ interface RegionItemProps {
     id: number;
     name: string;
   };
-  setInfo: React.Dispatch<React.SetStateAction<UserInfo>>;
+  setInfo: React.Dispatch<React.SetStateAction<ModelUserInfo>>;
   setIsChanged: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
