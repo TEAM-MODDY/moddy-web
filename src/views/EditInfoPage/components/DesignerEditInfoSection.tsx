@@ -1,9 +1,10 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
 
-import { DUMMY_DATA } from '../constants/dummy';
 import { MESSAGE, TOAST_MESSAGE } from '../constants/message';
+import useGetDesignerEdit from '../hooks/useGetDesignerEdit';
+import usePutDesignerEdit from '../hooks/usePutDesignerEdit';
 
 import { IcInformation } from '@/views/@common/assets/icons';
 import Header from '@/views/@common/components/Header';
@@ -20,13 +21,31 @@ import { IcSearch } from '@/views/SignUpPage/assets/icons';
 
 const DesignerEditInfoSection = () => {
   const navigate = useNavigate();
-  const { profileImg, introduction, designerInfo } = DUMMY_DATA.data;
-  const [AddressModal, setAddressModal] = useState(false);
+
+  const { inputData, gender, dayOff } = useGetDesignerEdit();
+  const [addressModal, setAddressModal] = useState(false);
   const [isSaveModalOpen, setSaveModalOpen] = useState(false);
   const [isBackModalOpen, setBackModalOpen] = useState(false);
-  const [ToastMessageText, setToastMessageText] = useState('');
+  const [toastMessageText, setToastMessageText] = useState('');
+  const [imgFile, setImgFile] = useState<File | null>(null);
   const [isToastOpen, setToastOpen] = useState(false);
+  const [isImageToast, setImageToast] = useState(false);
   const [isChanged, setChanged] = useState(false);
+  const [info, setInfo] = useState({
+    profileImg: '',
+    introduction: '',
+    name: '',
+    gender: '',
+    shopName: '',
+    address: '',
+    dayOff: Array(7).fill(''),
+    detailAddress: '',
+    instagramUrl: '',
+    naverPlaceUrl: '',
+    OpenChatUrl: '',
+  });
+  const { putInfo } = usePutDesignerEdit(imgFile, info);
+  const [addressText, setAddressText] = useState(info.address);
 
   const handleCloseSaveModal = () => {
     setSaveModalOpen(false);
@@ -44,59 +63,65 @@ const DesignerEditInfoSection = () => {
   const handleCloseBackModal = () => {
     setBackModalOpen(false);
   };
+  useEffect(() => {
+    if (inputData) {
+      setInfo({
+        profileImg: inputData.profileImgUrl,
+        introduction: inputData.introduction,
+        name: inputData.name,
+        gender: gender,
+        shopName: inputData.hairShop.name,
+        address: inputData.hairShop.address,
+        dayOff: dayOff,
+        detailAddress: inputData.hairShop.detailAddress,
+        instagramUrl: inputData.portfolio.instagramUrl,
+        naverPlaceUrl: inputData.portfolio.naverPlaceUrl,
+        OpenChatUrl: inputData.kakaoOpenChatUrl,
+      });
+    }
+  }, [inputData, gender, dayOff]);
 
-  const [info, setInfo] = useState({
-    profileImg: profileImg,
-    introduction: introduction,
-    name: designerInfo.name,
-    gender: designerInfo.gender,
-    shopName: designerInfo.hairShop.name,
-    Address: designerInfo.hairShop.address,
-    dayOff: Object.keys(DAYS).map((day) => (designerInfo.dayOffs.includes(DAYS[day]) ? DAYS[day] : '')),
-    DetailAddress: designerInfo.hairShop.detailAddress,
-    instagramUrl: designerInfo.portfolio.instagramUrl,
-    naverPlaceUrl: designerInfo.portfolio.naverPlaceUrl,
-    OpenChatUrl: designerInfo.kakaoOpenChatUrl,
-  });
-
+  // 날짜 클릭
   const handleDayOffClick = (event: React.MouseEvent<HTMLButtonElement>, index: number) => {
     const dayValue = event.currentTarget.value;
+    const tempClicked = [...info.dayOff];
 
-    setInfo((prevInfo) => {
-      // 업데이트된 값을 가진 새로운 배열 생성
-      const tempClicked = prevInfo.dayOff.map((day, idx) => {
-        if (idx === index) {
-          return day === '' ? DAYS[dayValue as keyof typeof DAYS] : '';
-        }
-        return day;
-      });
+    if (tempClicked[index] === '') {
+      tempClicked[index] = dayValue;
+    } else {
+      tempClicked[index] = '';
+    }
 
-      return {
-        ...prevInfo,
-        dayOff: tempClicked,
-      };
-    });
+    setInfo((prevInfo) => ({
+      ...prevInfo,
+      dayOff: tempClicked,
+    }));
+    setChanged(true);
   };
 
-  const handleAddressModal = () => {
+  //주소 모달
+  const handleaddressModal = () => {
     setAddressModal((prev) => !prev);
   };
 
+  //이미지 업로드
   const handleImageUpload = (imgUrl: string, imgObj: File) => {
-    handleInputChange('profileFile', imgObj);
+    setImgFile(imgObj);
     handleInputChange('profileImg', imgUrl);
   };
 
+  //변경 시 info에 저장
   const handleInputChange = (key: string, value: string | File | string[]) => {
     setInfo((prevInfo) => ({
       ...prevInfo,
       [key]: value,
     }));
+
     setChanged(true);
   };
 
+  // 각 input값을 검증하고, 비어 있다면 토스트를 띄움
   const checkInputValues = () => {
-    // 각 input값을 검증하고, 비어 있다면 토스트를 띄움
     if (!info.introduction) {
       setToastMessageText(TOAST_MESSAGE.intro);
       setToastOpen(true);
@@ -112,12 +137,12 @@ const DesignerEditInfoSection = () => {
       setToastOpen(true);
       return;
     }
-    if (!info.Address) {
+    if (!info.address) {
       setToastMessageText(TOAST_MESSAGE.address);
       setToastOpen(true);
       return;
     }
-    if (!info.DetailAddress) {
+    if (!info.detailAddress) {
       setToastMessageText(TOAST_MESSAGE.detailAddress);
       setToastOpen(true);
       return;
@@ -139,179 +164,192 @@ const DesignerEditInfoSection = () => {
       navigate('/my-page');
     }
   };
-
   const handleSaveInfo = () => {
-    console.log('put 들어갈 자리');
+    putInfo();
   };
 
   return (
-    <>
-      {isToastOpen && <ToastMessage text={ToastMessageText} setter={setToastOpen} />}
-      <Header
-        title="프로필 수정"
-        isBackBtnExist={true}
-        rightBtn={<S.SaveBtn>저장</S.SaveBtn>}
-        rightFn={checkInputValues}
-        backFn={handleBackBtn}
-      />
-      {isSaveModalOpen && (
-        <Modal
-          title="프로필을 수정할까요?"
-          description="이전에 작성했던 내용은 사라져요"
-          leftBtnText="취소"
-          leftBtnFn={handleCloseSaveModal}
-          rightBtnText="확인"
-          rightBtnFn={handleSaveInfo}
+    inputData &&
+    dayOff &&
+    gender && (
+      <>
+        {isToastOpen && <ToastMessage text={toastMessageText} setter={setToastOpen} />}
+        {isImageToast && (
+          <ToastMessage text="사진 용량이 너무 커요!" subtext="5MB 이하의 사진을 올려주세요" setter={setImageToast} />
+        )}
+        <Header
+          title="프로필 수정"
+          isBackBtnExist={true}
+          rightBtn={<S.SaveBtn>저장</S.SaveBtn>}
+          rightFn={checkInputValues}
+          backFn={handleBackBtn}
         />
-      )}
-      {isBackModalOpen && (
-        <Modal
-          title="수정을 취소할까요?"
-          description="저장을 누르지 않으면 <br/>수정 중인 내용이 사라져요."
-          leftBtnText="계속하기"
-          leftBtnFn={handleCloseBackModal}
-          rightBtnText="취소하기"
-          rightBtnFn={() => {
-            navigate(-1);
-          }}
-        />
-      )}
-
-      {AddressModal && (
-        <S.PostCodeBox>
-          <Header title="주소 검색" isBackBtnExist={true} backFn={handleAddressModal} />
-          <PostCode
-            setIsAddressModal={handleAddressModal}
-            setAddress={(value) => handleInputChange('Address', value)}
+        {isSaveModalOpen && (
+          <Modal
+            title="프로필을 수정할까요?"
+            description="이전에 작성했던 내용은 사라져요"
+            leftBtnText="취소"
+            leftBtnFn={handleCloseSaveModal}
+            rightBtnText="확인"
+            rightBtnFn={handleSaveInfo}
           />
-        </S.PostCodeBox>
-      )}
-      <S.DesignerInfoSectionBox>
-        <ProfileUpload onImageUpload={handleImageUpload} setToastOpen={() => {}} profileImg={info.profileImg} />
-        <S.TitleFieldBox>
-          <TitleField text="디자이너 소개" isEssential={true} />
-        </S.TitleFieldBox>
-        <TextArea200
-          placeholderText="자신에 대한 소개를 입력해주세요 예시) 경력, 자격증, 강점 등"
-          initialValue={info.introduction}
-          onChangeFn={(value) => handleInputChange('introduction', value)}
-        />
-
-        <S.TitleFieldBox>
-          <TitleField text="디자이너명" isEssential={true} />
-        </S.TitleFieldBox>
-        <Input
-          placeholderText="디자이너명"
-          initialValue={info.name}
-          onChangeFn={(value) => handleInputChange('name', value)}
-          regex={REGEX.NAME}
-        />
-        <S.SubTextBox>
-          <IcInformation />
-          <p>{MESSAGE.DESIGNER_NAME}</p>
-        </S.SubTextBox>
-        <S.TitleFieldBox>
-          <TitleField text="성별" isEssential={true} />
-        </S.TitleFieldBox>
-
-        <S.GenderSelectBox>
-          <S.RadioInput
-            id="FEMALE"
-            type="radio"
-            checked={info.gender === 'FEMALE'}
-            onChange={() => handleInputChange('gender', 'FEMALE')}
+        )}
+        {isBackModalOpen && (
+          <Modal
+            title="수정을 취소할까요?"
+            description="저장을 누르지 않으면 <br/>수정 중인 내용이 사라져요."
+            leftBtnText="계속하기"
+            leftBtnFn={handleCloseBackModal}
+            rightBtnText="취소하기"
+            rightBtnFn={() => navigate('/my-page')}
           />
-          <S.GenderTypeLabel htmlFor="FEMALE">여성</S.GenderTypeLabel>
-          <S.RadioInput
-            id="MALE"
-            type="radio"
-            checked={info.gender === 'MALE'}
-            onChange={() => handleInputChange('gender', 'MALE')}
+        )}
+
+        {addressModal && (
+          <S.PostCodeBox>
+            <Header title="주소 검색" isBackBtnExist={true} backFn={handleaddressModal} />
+            <PostCode
+              setIsAddressModal={handleaddressModal}
+              setAddress={(value) => {
+                setAddressText(value), handleInputChange('address', value), setAddressModal(false);
+              }}
+            />
+          </S.PostCodeBox>
+        )}
+        <S.DesignerInfoSectionBox>
+          <ProfileUpload
+            onImageUpload={handleImageUpload}
+            setToastOpen={() => {
+              setImageToast(true);
+            }}
+            profileImg={inputData.profileImgUrl}
           />
-          <S.GenderTypeLabel htmlFor="MALE">남성</S.GenderTypeLabel>
-        </S.GenderSelectBox>
-        <S.TitleFieldBox>
-          <TitleField text="전화번호" isEssential={true} />
-        </S.TitleFieldBox>
-        <S.InputBox $isDisabled={true}>
-          <p>{designerInfo.phoneNumber}</p>
-        </S.InputBox>
-        <S.TitleFieldBox>
-          <TitleField text="소속" isEssential={true} />
-        </S.TitleFieldBox>
-        <Input
-          placeholderText="소속되어 있는 헤어샵(지점명)을 입력해주세요"
-          initialValue={info.shopName}
-          onChangeFn={(value) => handleInputChange('shopName', value)}
-          maxLength={25}
-        />
+          <S.TitleFieldBox>
+            <TitleField text="디자이너 소개" isEssential={true} />
+          </S.TitleFieldBox>
+          <TextArea200
+            placeholderText="자신에 대한 소개를 입력해주세요 예시) 경력, 자격증, 강점 등"
+            initialValue={inputData?.introduction}
+            onChangeFn={(value) => handleInputChange('introduction', value)}
+          />
 
-        <S.TitleFieldBox>
-          <TitleField text="주소" isEssential={true} />
-        </S.TitleFieldBox>
-
-        <S.InputBox $isDisabled={false} onClick={handleAddressModal}>
-          <p>{info.Address}</p>
-          <IcSearch />
-        </S.InputBox>
-
-        <Input
-          placeholderText="상세 주소를 입력해주세요"
-          initialValue={info.DetailAddress}
-          onChangeFn={(value) => handleInputChange('DetailAddress', value)}
-          maxLength={30}
-        />
-        <S.TitleFieldBox>
-          <TitleField text="휴무" isEssential={false} />
-        </S.TitleFieldBox>
-
-        <S.DayOffWrapperBox>
-          {Object.keys(DAYS).map((day, index) => (
-            <S.DayOffButton
-              key={day}
-              value={day}
-              onClick={(e) => handleDayOffClick(e, index)}
-              $isClicked={info.dayOff[index]}>
-              {day}
-            </S.DayOffButton>
-          ))}
-        </S.DayOffWrapperBox>
-        <S.TitleFieldBox>
-          <TitleField text="포트폴리오" isEssential={true} />
-        </S.TitleFieldBox>
-        <S.InputWrapper>
+          <S.TitleFieldBox>
+            <TitleField text="디자이너명" isEssential={true} />
+          </S.TitleFieldBox>
           <Input
-            placeholderText="인스타그램 링크를 입력해주세요"
-            initialValue={info.instagramUrl}
-            onChangeFn={(value) => handleInputChange('instagramUrl', value)}
-            maxLength={255}
-            regex={REGEX.INSTAGRAM_ID}
+            placeholderText="디자이너명"
+            initialValue={inputData?.name}
+            onChangeFn={(value) => handleInputChange('name', value)}
+            regex={REGEX.NAME}
+            maxLength={5}
           />
-        </S.InputWrapper>
-        <Input
-          placeholderText="네이버 플레이스 링크를 입력해주세요"
-          initialValue={info.naverPlaceUrl}
-          onChangeFn={(value) => handleInputChange('naverPlaceUrl', value)}
-          maxLength={255}
-          regex={REGEX.ONLY_ENG_CHARACTER_NUM}
-        />
-        <S.TitleFieldBox>
-          <TitleField text="오픈채팅방 링크" isEssential={true} />
-        </S.TitleFieldBox>
+          <S.SubTextBox>
+            <IcInformation />
+            <p>{MESSAGE.DESIGNER_NAME}</p>
+          </S.SubTextBox>
+          <S.TitleFieldBox>
+            <TitleField text="성별" isEssential={true} />
+          </S.TitleFieldBox>
 
-        <Input
-          placeholderText="오픈채팅방 링크를 입력해주세요"
-          initialValue={info.OpenChatUrl}
-          onChangeFn={(value) => handleInputChange('OpenChatUrl', value)}
-          maxLength={255}
-          regex={REGEX.ONLY_ENG_CHARACTER_NUM}
-        />
-        <S.SubTextBox>
-          <IcInformation />
-          <p>{MESSAGE.OPENCHAT_ENTER}</p>
-        </S.SubTextBox>
-      </S.DesignerInfoSectionBox>
-    </>
+          <S.GenderSelectBox>
+            <S.RadioInput
+              id="FEMALE"
+              type="radio"
+              checked={info.gender === 'FEMALE'}
+              onChange={() => handleInputChange('gender', 'FEMALE')}
+            />
+            <S.GenderTypeLabel htmlFor="FEMALE">여성</S.GenderTypeLabel>
+            <S.RadioInput
+              id="MALE"
+              type="radio"
+              checked={info.gender === 'MALE'}
+              onChange={() => handleInputChange('gender', 'MALE')}
+            />
+            <S.GenderTypeLabel htmlFor="MALE">남성</S.GenderTypeLabel>
+          </S.GenderSelectBox>
+          <S.TitleFieldBox>
+            <TitleField text="전화번호" isEssential={true} />
+          </S.TitleFieldBox>
+          <S.InputBox $isDisabled={true}>
+            <p>{inputData?.phoneNumber}</p>
+          </S.InputBox>
+          <S.TitleFieldBox>
+            <TitleField text="소속" isEssential={true} />
+          </S.TitleFieldBox>
+          <Input
+            placeholderText="소속되어 있는 헤어샵(지점명)을 입력해주세요"
+            initialValue={inputData.hairShop.name}
+            onChangeFn={(value) => handleInputChange('shopName', value)}
+            maxLength={25}
+          />
+
+          <S.TitleFieldBox>
+            <TitleField text="주소" isEssential={true} />
+          </S.TitleFieldBox>
+
+          <S.InputBox $isDisabled={false} onClick={handleaddressModal}>
+            <p>{addressText || inputData?.hairShop.address}</p>
+            <IcSearch />
+          </S.InputBox>
+
+          <Input
+            placeholderText="상세 주소를 입력해주세요"
+            initialValue={inputData?.hairShop.detailAddress}
+            onChangeFn={(value) => handleInputChange('detailAddress', value)}
+            maxLength={30}
+          />
+          <S.TitleFieldBox>
+            <TitleField text="휴무" isEssential={false} />
+          </S.TitleFieldBox>
+
+          <S.DayOffWrapperBox>
+            {Object.keys(DAYS).map((day, index) => (
+              <S.DayOffButton
+                key={day}
+                value={DAYS[day]}
+                onClick={(e) => handleDayOffClick(e, index)}
+                $isClicked={info.dayOff[index]}>
+                {day}
+              </S.DayOffButton>
+            ))}
+          </S.DayOffWrapperBox>
+          <S.TitleFieldBox>
+            <TitleField text="포트폴리오" isEssential={true} />
+          </S.TitleFieldBox>
+          <S.InputWrapper>
+            <Input
+              placeholderText="인스타그램 링크를 입력해주세요"
+              initialValue={inputData.portfolio.instagramUrl}
+              onChangeFn={(value) => handleInputChange('instagramUrl', value)}
+              maxLength={255}
+              regex={REGEX.INSTAGRAM_ID}
+            />
+          </S.InputWrapper>
+          <Input
+            placeholderText="네이버 플레이스 링크를 입력해주세요"
+            initialValue={inputData.portfolio.naverPlaceUrl}
+            onChangeFn={(value) => handleInputChange('naverPlaceUrl', value)}
+            maxLength={255}
+            regex={REGEX.ONLY_ENG_CHARACTER_NUM}
+          />
+          <S.TitleFieldBox>
+            <TitleField text="오픈채팅방 링크" isEssential={true} />
+          </S.TitleFieldBox>
+
+          <Input
+            placeholderText="오픈채팅방 링크를 입력해주세요"
+            initialValue={inputData?.kakaoOpenChatUrl}
+            onChangeFn={(value) => handleInputChange('OpenChatUrl', value)}
+            maxLength={255}
+            regex={REGEX.ONLY_ENG_CHARACTER_NUM}
+          />
+          <S.SubTextBox>
+            <IcInformation />
+            <p>{MESSAGE.OPENCHAT_ENTER}</p>
+          </S.SubTextBox>
+        </S.DesignerInfoSectionBox>
+      </>
+    )
   );
 };
 
@@ -422,6 +460,8 @@ const S = {
     border-radius: 8px;
 
     background-color: ${({ theme, $isDisabled }) => ($isDisabled ? theme.colors.moddy_gray05 : theme.colors.moddy_wt)};
+
+    cursor: pointer;
 
     & > svg {
       top: 0.9rem;

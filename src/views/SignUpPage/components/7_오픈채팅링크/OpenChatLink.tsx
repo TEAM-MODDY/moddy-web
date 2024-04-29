@@ -8,7 +8,7 @@ import usePostDesignerSignUp from '../../hooks/usePostDesignerSignUp';
 import Field from '../@common/Field';
 
 import { openLinkState } from '@/recoil/atoms/signUpState';
-import { IcInformation } from '@/views/@common/assets/icons';
+import { IcInformation, IcRightGrey30 } from '@/views/@common/assets/icons';
 import Button from '@/views/@common/components/Button';
 import Input from '@/views/@common/components/Input';
 import Modal from '@/views/@common/components/Modal';
@@ -33,6 +33,7 @@ const OpenChatLink = () => {
       <ProgressBar whole={TOTAL_STEP.DESIGNER_VIEW} current={6} />
       <S.OpenChatLinkLayout>
         <Field name="1:1 오픈채팅방 링크" isEssential={true} />
+        <S.HelperTextBox>{HELPER_MESSAGE.INPUT_OPEN_CHAT_LINK}</S.HelperTextBox>
 
         <Input
           placeholderText={HELPER_MESSAGE.INPUT_OPENCHAT_LINK}
@@ -41,8 +42,17 @@ const OpenChatLink = () => {
         />
         <S.HelperBox>
           <IcInformation />
-          <S.HelperSpan>{HELPER_MESSAGE.INPUT_DETAIL_ADRESS}</S.HelperSpan>
+          <S.HelperSpan>{HELPER_MESSAGE.ENTER_WITH_VALID_NAME}</S.HelperSpan>
         </S.HelperBox>
+        <S.MoreAboutBox>
+          <S.MoreAboutOpenChatButton
+            onClick={() => {
+              window.open('https://moddy.notion.site/4171266fa09042ccaf80bcf7991f9f88?pvs=4');
+            }}>
+            1:1 오픈채팅방에 대해 알고싶다면? 더 알아보기 <IcRightGrey30 />
+            <S.UnderLineBox />
+          </S.MoreAboutOpenChatButton>
+        </S.MoreAboutBox>
       </S.OpenChatLinkLayout>
       <Button
         id="ga-open-chat-btn"
@@ -85,6 +95,44 @@ const S = {
     color: ${({ theme }) => theme.colors.moddy_blue2};
     ${({ theme }) => theme.fonts.Body04};
   `,
+
+  MoreAboutOpenChatButton: styled.button`
+    display: flex;
+    align-items: center;
+    position: relative;
+
+    color: ${({ theme }) => theme.colors.moddy_gray30};
+    ${({ theme }) => theme.fonts.Body04};
+
+    & > svg {
+      position: absolute;
+      right: -2rem;
+    }
+  `,
+
+  UnderLineBox: styled.div`
+    position: absolute;
+    bottom: 0;
+
+    width: 23.1rem;
+    height: 0.1rem;
+
+    background-color: ${({ theme }) => theme.colors.moddy_gray30};
+  `,
+
+  MoreAboutBox: styled.div`
+    display: flex;
+    justify-content: center;
+
+    margin-top: 1.8rem;
+  `,
+  HelperTextBox: styled.p`
+    margin-bottom: 0.8rem;
+
+    color: ${({ theme }) => theme.colors.moddy_gray50};
+    ${({ theme }) => theme.fonts.Body02};
+  `,
+
   OpenChatLinkLayout: styled.div`
     margin-top: 8.6rem;
     padding: 0 1.6rem;
