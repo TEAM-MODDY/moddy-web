@@ -1,27 +1,53 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
 
+import { MODEL_TOAST_MESSAGE } from '../constants/message';
+import { ModelUserInfo } from '../hooks/type';
 import useGetModelUser from '../hooks/useGetModelUser';
+import usePutModelUser from '../hooks/usePutModelUser';
 
 import ModelInfo from './ModelInfo';
 
 import Header from '@/views/@common/components/Header';
 import Modal from '@/views/@common/components/Modal';
 import ToastMessage from '@/views/@common/components/ToastMessage';
+import { REGEX } from '@/views/@common/utils/regex';
 
 const ModelEditInfoSection = () => {
   const [isSaveModalOpen, setSaveModalOpen] = useState(false);
   const [isBackModalOpen, setBackModalOpen] = useState(false);
-  const [isChanged, setIsChanged] = useState(false);
   const [isToastOpen, setIsToastOpen] = useState(false);
   const [toastMsg, setToastMsg] = useState('');
+
+  const [info, setInfo] = useState<ModelUserInfo>({
+    name: '',
+    year: '',
+    gender: '',
+    phoneNumber: '',
+    preferRegions: [],
+  });
+  const [isChanged, setIsChanged] = useState(false);
+
+  const isLoading = useGetModelUser(setInfo);
+
+  useEffect(() => {
+    const checkVerified = () => {
+      if (!REGEX.NAME.test(info.name)) {
+        setToastMsg(MODEL_TOAST_MESSAGE.NAME);
+      } else if (!REGEX.BIRTH_YEAR.test(info.year)) {
+        setToastMsg(MODEL_TOAST_MESSAGE.BIRTH_YEAR);
+      } else if (!info.preferRegions.length) {
+        setToastMsg(MODEL_TOAST_MESSAGE.REGION);
+      } else {
+        setToastMsg('');
+      }
+    };
+
+    checkVerified();
+  }, [info]);
+
   const navigate = useNavigate();
-
-  const initialInfo = useGetModelUser();
-
-  //이후 put으로 변경될 예정
-  const handleSaveInfo = () => {};
 
   //왼쪽 이전으로 버튼 클릭시 동작
   const handleBackBtn = () => {
@@ -51,16 +77,21 @@ const ModelEditInfoSection = () => {
     setSaveModalOpen(false);
   };
 
+  const handleSaveInfo = () => {
+    // usePutModelUser();
+  };
+
   return (
-    initialInfo && (
+    !isLoading &&
+    info && (
       <S.ModelEditInfoSectionLayout>
         {isToastOpen && <ToastMessage text={toastMsg} setter={setIsToastOpen} />}
         <Header
           title="프로필 수정"
           isBackBtnExist={true}
           rightBtn={<S.SaveBtn>저장</S.SaveBtn>}
-          rightFn={handleSaveBtn}
           backFn={handleBackBtn}
+          rightFn={handleSaveBtn}
         />
         {isSaveModalOpen && (
           <Modal
@@ -84,7 +115,7 @@ const ModelEditInfoSection = () => {
             }}
           />
         )}
-        <ModelInfo initialInfo={initialInfo} setIsChanged={setIsChanged} setToastMsg={setToastMsg} />
+        <ModelInfo info={info} setInfo={setInfo} setIsChanged={setIsChanged} />
       </S.ModelEditInfoSectionLayout>
     )
   );

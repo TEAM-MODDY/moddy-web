@@ -1,28 +1,29 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { UserInfo } from './type';
+import { ModelUserInfoResponse, ModelUserInfo } from './type';
 
 import api from '@/views/@common/hooks/api';
 
-const useGetModelUser = () => {
+const useGetModelUser = (setInfo: React.Dispatch<React.SetStateAction<ModelUserInfo>>) => {
   const navigate = useNavigate();
-  const [userInfo, setUserInfo] = useState<UserInfo>();
+  const [isLoading, setLoading] = useState(true);
 
   const fetchData = async () => {
     try {
-      const response = await api.get('/model');
-      setUserInfo(response.data.data);
+      const response: ModelUserInfoResponse = await api.get('/model');
+      setInfo(response.data.data);
     } catch (err) {
       navigate('/error');
     }
+    setLoading(false);
   };
 
   useEffect(() => {
     fetchData();
   }, []);
 
-  return userInfo;
+  return isLoading;
 };
 
 export default useGetModelUser;

@@ -9,10 +9,16 @@ export interface RegionListResponse {
   };
 }
 
-export interface UserInfo {
+export interface ModelUserInfo {
   name: string;
   year: string;
   gender: string;
   phoneNumber: string;
   preferRegions: string[];
+}
+
+export interface ModelUserInfoResponse {
+  data: {
+    data: ModelUserInfo;
+  };
 }
