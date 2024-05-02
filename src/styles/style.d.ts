@@ -19,6 +19,7 @@ declare module 'styled-components' {
       moddy_bk: string;
       moddy_wt: string;
       moddy_gray50: string;
+      moddy_gray30: string;
       moddy_gray20: string;
       moddy_gray10: string;
       moddy_gray05: string;

@@ -9,4 +9,5 @@ export const REGEX = {
   VERIFY_CODE: /^[0-9\b]{0,6}$/,
   PHONE_NUMBER_PATTERN: /(\d{3})(\d{4})(\d{4})/,
   ALL_HYPHEN: /-/g,
+  ONLY_ENG_CHARACTER_NUM: /^[a-z0-9_.]+$/,
 };

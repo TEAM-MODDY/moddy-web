@@ -11,9 +11,10 @@ import { IcPencilcircle } from '@/views/ApplicationPage/assets/icons';
 interface ProfileUpLoadProps {
   onImageUpload: (imgUrl: string, imgObj: File) => void;
   setToastOpen: (isOpen: boolean) => void;
+  profileImg?: string;
 }
 
-const ProfileUpload = ({ onImageUpload, setToastOpen }: ProfileUpLoadProps) => {
+const ProfileUpload = ({ onImageUpload, setToastOpen, profileImg }: ProfileUpLoadProps) => {
   const [previewimgUrl, setPreviewImgUrl] = useState<string>();
   const inputRef = useRef<HTMLInputElement>(null);
   const [profileImgInfo] = useRecoilState(profileImgState);
@@ -46,7 +47,7 @@ const ProfileUpload = ({ onImageUpload, setToastOpen }: ProfileUpLoadProps) => {
           onClick={() => {
             inputRef.current?.click();
           }}>
-          <S.Profile src={previewimgUrl || beforeUpload} alt="profileImg" id="profileImg" />
+          <S.Profile src={profileImg || previewimgUrl || beforeUpload} alt="profileImg" id="profileImg" />
           <input
             id="uploadButton"
             name="uploadButton"

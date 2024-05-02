@@ -5,6 +5,7 @@ import { ThemeProvider } from 'styled-components';
 import AgreementPage from './pages/AgreementPage';
 import ApplicationConfirmPage from './pages/ApplicationConfirmPage';
 import ApplicationPage from './pages/ApplicationPage';
+import EditInfoPage from './pages/EditInfoPage';
 import ErrorPage from './pages/ErrorPage';
 import LoginPage from './pages/LoginPage';
 import MainPage from './pages/MainPage';
@@ -44,6 +45,7 @@ const router = createBrowserRouter([
       { path: '/error', element: <ErrorPage /> },
       { path: '/agreement', element: <AgreementPage /> },
       { path: '/my-account', element: <MyAccountPage /> },
+      { path: '/edit-profile', element: <EditInfoPage /> },
     ],
   },
 ]);

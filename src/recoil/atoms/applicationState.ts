@@ -44,16 +44,12 @@ export interface historyDetailProps {
 
 export interface historyType {
   hairServiceRecords: historyDetailProps[];
-  hairService: string;
-  hairServiceTerm: string;
 }
 
 export const historyState = atom<historyType>({
   key: 'history',
   default: {
     hairServiceRecords: [],
-    hairService: '',
-    hairServiceTerm: '',
   },
 });
 
