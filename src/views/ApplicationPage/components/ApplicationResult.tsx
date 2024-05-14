@@ -7,6 +7,7 @@ import Button from '../../@common/components/Button';
 import Header from '../../@common/components/Header';
 import { INFO_MESSAGE } from '../constants/message';
 import usePostApplication from '../hooks/usePostApplication';
+import useResetApplicationRecoil from '../hooks/useResetApplicationRecoil';
 
 import CaptureSection from './CaptureSection';
 
@@ -15,7 +16,9 @@ import { applyStepState } from '@/recoil/atoms/applicationState';
 const ApplicationResult = () => {
   const [step, setStep] = useRecoilState(applyStepState);
   const navigate = useNavigate();
+  const resetFunc = useResetApplicationRecoil();
   const postApplication = usePostApplication();
+
   const handleApplication = async () => {
     try {
       await postApplication();
@@ -33,6 +36,7 @@ const ApplicationResult = () => {
           setStep({ ...step, current: step.current - 1 });
         }}
         closeFn={() => {
+          resetFunc();
           navigate(`/`);
         }}
       />

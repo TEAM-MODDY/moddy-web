@@ -9,6 +9,7 @@ import Header from '../../@common/components/Header';
 import ProgressBar from '../../@common/components/ProgressBar';
 import { INFO_MESSAGE } from '../constants/message';
 import { SELECT_LENGTH, SELECT_STYLE } from '../constants/select';
+import useResetApplicationRecoil from '../hooks/useResetApplicationRecoil';
 
 import HairTypeInput from './HairTypeInput';
 import StyleButton from './StyleButton';
@@ -20,6 +21,7 @@ const DefaultInfo = () => {
   const selectedStyle = useRecoilValue(hairStyleState);
   const [isAllVerified, setIsAllVerified] = useState(false);
   const navigate = useNavigate();
+  const resetFunc = useResetApplicationRecoil();
 
   useEffect(() => {
     const checkVerify = () => {
@@ -39,6 +41,10 @@ const DefaultInfo = () => {
         title={INFO_MESSAGE.TITLE}
         isBackBtnExist={true}
         isCloseBtnExist={false}
+        backFn={() => {
+          resetFunc();
+          navigate(-1);
+        }}
         closeFn={() => {
           navigate(`/`);
         }}

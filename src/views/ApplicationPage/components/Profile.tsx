@@ -9,6 +9,7 @@ import Header from '../../@common/components/Header';
 import Input from '../../@common/components/Input';
 import ProgressBar from '../../@common/components/ProgressBar';
 import { INFO_MESSAGE } from '../constants/message';
+import useResetApplicationRecoil from '../hooks/useResetApplicationRecoil';
 
 import { applyStepState, profileState } from '@/recoil/atoms/applicationState';
 import ProfileUpload from '@/views/@common/components/ProfileUpload';
@@ -21,6 +22,7 @@ const Profile = () => {
   const [profileData, setProfileData] = useRecoilState(profileState);
   const [isAllVerified, setIsAllVerified] = useState(false);
   const navigate = useNavigate();
+  const resetFunc = useResetApplicationRecoil();
 
   const handleProfileImg = (imgUrl: string, imgObj: File) => {
     setProfileData({
@@ -48,6 +50,7 @@ const Profile = () => {
           setStep({ ...step, current: step.current - 1 });
         }}
         closeFn={() => {
+          resetFunc();
           navigate(`/`);
         }}
       />
