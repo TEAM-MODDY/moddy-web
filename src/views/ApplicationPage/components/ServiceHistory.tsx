@@ -6,6 +6,7 @@ import { styled } from 'styled-components';
 import Button from '../../@common/components/Button';
 import Header from '../../@common/components/Header';
 import { INFO_MESSAGE } from '../constants/message';
+import useResetApplicationRecoil from '../hooks/useResetApplicationRecoil';
 
 import ServiceHistoryListItem from './ServiceHistoryListItem';
 
@@ -20,6 +21,7 @@ const ServiceHistory = () => {
   const [step, setStep] = useRecoilState(applyStepState);
   const [serviceHistory, setServiceHistory] = useRecoilState(historyState);
   const navigate = useNavigate();
+  const resetFunc = useResetApplicationRecoil();
 
   const addHistory = () => {
     setServiceHistory((prev) => ({
@@ -48,6 +50,7 @@ const ServiceHistory = () => {
           setStep({ ...step, current: step.current - 1 });
         }}
         closeFn={() => {
+          resetFunc();
           navigate(`/`);
         }}
       />
