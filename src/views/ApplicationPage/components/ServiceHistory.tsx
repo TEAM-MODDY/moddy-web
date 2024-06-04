@@ -24,10 +24,7 @@ const ServiceHistory = () => {
   const addHistory = () => {
     setServiceHistory((prev) => ({
       ...prev,
-      hairServiceRecords:
-        prev.hairServiceRecords.length < MAX_LENGTH
-          ? [...prev.hairServiceRecords, { hairService: '', hairServiceTerm: '' }]
-          : prev.hairServiceRecords,
+      hairServiceRecords: [...prev.hairServiceRecords, { hairService: '', hairServiceTerm: '' }],
     }));
   };
 
@@ -61,9 +58,11 @@ const ServiceHistory = () => {
           <ServiceHistoryListItem key={'history' + item.hairService + item.hairServiceTerm + idx} idx={idx} />
         ))}
       </S.ServiceHistoryList>
-      <S.AddHistoryBtn type="button" onClick={addHistory}>
-        {INFO_MESSAGE.ADD_HISTORY}
-      </S.AddHistoryBtn>
+      {serviceHistory.hairServiceRecords.length < MAX_LENGTH && (
+        <S.AddHistoryBtn type="button" onClick={addHistory}>
+          {INFO_MESSAGE.ADD_HISTORY}
+        </S.AddHistoryBtn>
+      )}
       <Button
         text={INFO_MESSAGE.NEXT}
         isFixed={true}
