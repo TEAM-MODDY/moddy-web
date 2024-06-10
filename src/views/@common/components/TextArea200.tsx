@@ -8,8 +8,18 @@ interface TextArea200Props {
 }
 
 const TextArea200 = ({ placeholderText, initialValue, onChangeFn }: TextArea200Props) => {
+  const MAX_LENGTH = 200;
+
   const [textLength, setTextLength] = useState(initialValue ? initialValue.length : 0);
   const [name, setName] = useState(initialValue ? initialValue : '');
+
+  const textChangeFn = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const text = e.target.value.length > MAX_LENGTH ? e.target.value.slice(0, MAX_LENGTH) : e.target.value;
+
+    setTextLength(text.length);
+    setName(text);
+    onChangeFn(text);
+  };
 
   return (
     <S.TextAreaLayout>
@@ -17,9 +27,7 @@ const TextArea200 = ({ placeholderText, initialValue, onChangeFn }: TextArea200P
         placeholder={placeholderText}
         defaultValue={name}
         onChange={(e) => {
-          setTextLength(e.target.value.length);
-          setName(e.target.value);
-          onChangeFn(e.target.value);
+          textChangeFn(e);
         }}
         maxLength={200}
       />
