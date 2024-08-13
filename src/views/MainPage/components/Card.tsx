@@ -36,7 +36,7 @@ interface OptionTagProps {
   options: string[];
 }
 
-const ProfileImg = ({ imgUrl, alt }: ProfileImgProps) => <S.ProfileImageBox $img={imgUrl} title={alt} />;
+const ProfileImg = ({ imgUrl, alt }: ProfileImgProps) => <S.ProfileImage src={imgUrl} alt={alt} loading="lazy" />;
 
 const ContentsBox = ({ children }: Props) => <S.InfoBox>{children}</S.InfoBox>;
 
@@ -80,18 +80,14 @@ const CardLayout = styled.div<{ $isExpired: boolean }>`
   opacity: ${({ $isExpired }) => ($isExpired ? '0.3' : '1')};
 `;
 
-const ProfileImageBox = styled.div<{ $img: string }>`
+const ProfileImage = styled.img`
   overflow: hidden;
 
+  width: 100%;
   min-width: 16.4rem;
   height: 16.4rem;
   border-radius: 12px 12px 0 0;
-
-  background: center/cover ${({ $img }) => `url(${$img})`} no-repeat;
-
-  & > img {
-    width: 100%;
-  }
+  object-fit: cover;
 `;
 
 const InfoBox = styled.div`
@@ -161,7 +157,7 @@ const NewTagBox = styled.div`
 
 const S = {
   CardLayout,
-  ProfileImageBox,
+  ProfileImage,
   InfoBox,
   FlexBox,
   NameSpan,
