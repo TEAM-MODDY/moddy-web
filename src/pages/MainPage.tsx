@@ -3,10 +3,11 @@ import { useRecoilValue } from 'recoil';
 import { styled } from 'styled-components';
 
 import Banner from '../views/MainPage/components/Banner';
-import GuestContents from '../views/MainPage/components/GuestContents';
 import StatusBarForiOS from '../views/MainPage/components/StatusBarForiOS';
 import TopSheet from '../views/MainPage/components/TopSheet';
 import { DesignerContents, ModelContents } from '../views/MainPage/components/UserContents';
+
+import OnboardingPage from './OnboardingPage';
 
 import { userTypeState } from '@/recoil/atoms/signUpState';
 import { USER_TYPE } from '@/views/@common/constants/userType';
@@ -21,10 +22,11 @@ const MainPage = () => {
   const [page, setPage] = useState(INITIAL_PAGE);
   const { modelData, designerData } = useGetMain({ user: userType, page: page });
 
+  if (userType === USER_TYPE.GUEST) {
+    return <OnboardingPage />;
+  }
+
   const Contents = {
-    [USER_TYPE.GUEST]: {
-      mainContent: <GuestContents />,
-    },
     [USER_TYPE.DESIGNER]: {
       mainContent: <DesignerContents data={designerData} setPage={setPage} />,
       name: designerData?.name,
