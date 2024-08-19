@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import { styled } from 'styled-components';
 
@@ -6,8 +7,6 @@ import Banner from '../views/MainPage/components/Banner';
 import StatusBarForiOS from '../views/MainPage/components/StatusBarForiOS';
 import TopSheet from '../views/MainPage/components/TopSheet';
 import { DesignerContents, ModelContents } from '../views/MainPage/components/UserContents';
-
-import OnboardingPage from './OnboardingPage';
 
 import { userTypeState } from '@/recoil/atoms/signUpState';
 import { USER_TYPE } from '@/views/@common/constants/userType';
@@ -22,8 +21,9 @@ const MainPage = () => {
   const [page, setPage] = useState(INITIAL_PAGE);
   const { modelData, designerData } = useGetMain({ user: userType, page: page });
 
+  const navigate = useNavigate();
   if (userType === USER_TYPE.GUEST) {
-    return <OnboardingPage />;
+    navigate('/login');
   }
 
   const Contents = {

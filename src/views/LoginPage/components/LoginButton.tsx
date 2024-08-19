@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { ImgKakaotalk } from '../assets/images';
+import { ImgKakaotalk } from '../assets';
 import { KAKAO_LINK } from '../constants/kakaoLink';
 
 const LoginButton = () => {

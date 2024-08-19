@@ -1,20 +1,13 @@
-import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
-import Header from '../views/@common/components/Header';
-import LoginText from '../views/LoginPage/components/LoginText';
+import ImgBackground from '@/views/LoginPage/assets/images/img_Background.png';
+import LoginButton from '@/views/LoginPage/components/LoginButton';
+import OnboardingStep1 from '@/views/LoginPage/components/OnboardingStep1';
 const LoginPage = () => {
-  const navigate = useNavigate();
   return (
     <S.LoginPageLayout>
-      <Header
-        title=""
-        isBackBtnExist
-        backFn={() => {
-          navigate('/');
-        }}
-      />
-      <LoginText />
+      <OnboardingStep1 />
+      <LoginButton />
     </S.LoginPageLayout>
   );
 };
@@ -26,7 +19,10 @@ const S = {
     display: flex;
     flex-direction: column;
 
+    width: 100%;
     height: 100dvh;
-    padding-top: 9.1rem;
+
+    background-image: url(${ImgBackground});
+    background-size: cover;
   `,
 };
