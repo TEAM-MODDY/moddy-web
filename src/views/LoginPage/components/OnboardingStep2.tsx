@@ -73,7 +73,7 @@ const S = {
     flex-direction: column;
     gap: 2.4rem;
   `,
-  LoginWrapper: styled.p`
+  LoginWrapper: styled.div`
     display: flex;
     flex-direction: column;
     gap: 0.4rem;
