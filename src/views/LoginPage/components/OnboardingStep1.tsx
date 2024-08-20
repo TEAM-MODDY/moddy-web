@@ -14,7 +14,7 @@ const OnboardingStep1 = () => {
         콘서트 예매했어요!
       </S.LoginTextH1>
 
-      <img src={ImgOnboarding1} alt="로그인 이미지" />
+      <img src={ImgOnboarding1} alt="" />
       <S.LoginTextParagraph>{`원하는 헤어스타일 실력있는 디자이너에게\n헤어 모델로 시술 받기`}</S.LoginTextParagraph>
     </S.LoginTextLayout>
   );

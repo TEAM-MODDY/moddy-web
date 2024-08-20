@@ -22,8 +22,9 @@ const MainPage = () => {
   const { modelData, designerData } = useGetMain({ user: userType, page: page });
 
   const navigate = useNavigate();
-  if (userType === USER_TYPE.GUEST) {
+  if (userType === USER_TYPE.GUEST || !userType) {
     navigate('/login');
+    return;
   }
 
   const Contents = {
