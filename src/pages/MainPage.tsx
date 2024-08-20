@@ -25,7 +25,6 @@ const MainPage = () => {
   const Contents = {
     [USER_TYPE.GUEST]: {
       mainContent: <Navigate to={'/login'} />,
-      name: designerData?.name,
     },
     [USER_TYPE.DESIGNER]: {
       mainContent: <DesignerContents data={designerData} setPage={setPage} />,
