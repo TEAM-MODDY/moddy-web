@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import { styled } from 'styled-components';
 
@@ -18,16 +18,15 @@ const MainPage = () => {
   UsePreventGoBack();
 
   const userType = useRecoilValue(userTypeState);
+
   const [page, setPage] = useState(INITIAL_PAGE);
   const { modelData, designerData } = useGetMain({ user: userType, page: page });
 
-  const navigate = useNavigate();
-  if (userType === USER_TYPE.GUEST || !userType) {
-    navigate('/login');
-    return;
-  }
-
   const Contents = {
+    [USER_TYPE.GUEST]: {
+      mainContent: <Navigate to={'/login'} />,
+      name: designerData?.name,
+    },
     [USER_TYPE.DESIGNER]: {
       mainContent: <DesignerContents data={designerData} setPage={setPage} />,
       name: designerData?.name,
