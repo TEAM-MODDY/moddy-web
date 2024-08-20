@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { ImgKakaotalk } from '../assets/images';
+import { ImgKakaotalk } from '../assets';
 import { KAKAO_LINK } from '../constants/kakaoLink';
 
 const LoginButton = () => {
@@ -30,7 +30,7 @@ const S = {
     justify-content: center;
 
     width: 100%;
-    padding: 0 1.5rem 4rem 1.6rem;
+    padding: 0 1.5rem;
   `,
   LoginButtonBtn: styled.button`
     display: flex;
