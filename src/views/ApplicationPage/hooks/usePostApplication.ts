@@ -70,6 +70,7 @@ const usePostApplication = () => {
         state: {
           expirationDate: data.data.expirationDate,
         },
+        replace: true,
       });
     } catch (err) {
       if (err instanceof AxiosError) navigate('/error');

@@ -6,6 +6,7 @@ import { styled } from 'styled-components';
 import Button from '../../@common/components/Button';
 import Header from '../../@common/components/Header';
 import { INFO_MESSAGE } from '../constants/message';
+import useResetApplicationRecoil from '../hooks/useResetApplicationRecoil';
 
 import ServiceHistoryListItem from './ServiceHistoryListItem';
 
@@ -20,14 +21,12 @@ const ServiceHistory = () => {
   const [step, setStep] = useRecoilState(applyStepState);
   const [serviceHistory, setServiceHistory] = useRecoilState(historyState);
   const navigate = useNavigate();
+  const resetFunc = useResetApplicationRecoil();
 
   const addHistory = () => {
     setServiceHistory((prev) => ({
       ...prev,
-      hairServiceRecords:
-        prev.hairServiceRecords.length < MAX_LENGTH
-          ? [...prev.hairServiceRecords, { hairService: '', hairServiceTerm: '' }]
-          : prev.hairServiceRecords,
+      hairServiceRecords: [...prev.hairServiceRecords, { hairService: '', hairServiceTerm: '' }],
     }));
   };
 
@@ -48,6 +47,7 @@ const ServiceHistory = () => {
           setStep({ ...step, current: step.current - 1 });
         }}
         closeFn={() => {
+          resetFunc();
           navigate(`/`);
         }}
       />
@@ -61,9 +61,11 @@ const ServiceHistory = () => {
           <ServiceHistoryListItem key={'history' + item.hairService + item.hairServiceTerm + idx} idx={idx} />
         ))}
       </S.ServiceHistoryList>
-      <S.AddHistoryBtn type="button" onClick={addHistory}>
-        {INFO_MESSAGE.ADD_HISTORY}
-      </S.AddHistoryBtn>
+      {serviceHistory.hairServiceRecords.length < MAX_LENGTH && (
+        <S.AddHistoryBtn type="button" onClick={addHistory}>
+          {INFO_MESSAGE.ADD_HISTORY}
+        </S.AddHistoryBtn>
+      )}
       <Button
         text={INFO_MESSAGE.NEXT}
         isFixed={true}

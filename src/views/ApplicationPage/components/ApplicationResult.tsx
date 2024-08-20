@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { useRecoilState, useResetRecoilState } from 'recoil';
+import { useRecoilState } from 'recoil';
 import { styled } from 'styled-components';
 
 import applyImg from '../../@common/assets/images/img_applylogo.png';
@@ -7,43 +7,21 @@ import Button from '../../@common/components/Button';
 import Header from '../../@common/components/Header';
 import { INFO_MESSAGE } from '../constants/message';
 import usePostApplication from '../hooks/usePostApplication';
+import useResetApplicationRecoil from '../hooks/useResetApplicationRecoil';
 
 import CaptureSection from './CaptureSection';
 
-import {
-  applicationCaptureImgUrlState,
-  applyStepState,
-  deatiledStyleState,
-  hairStyleState,
-  historyState,
-  profileState,
-} from '@/recoil/atoms/applicationState';
+import { applyStepState } from '@/recoil/atoms/applicationState';
 
 const ApplicationResult = () => {
   const [step, setStep] = useRecoilState(applyStepState);
   const navigate = useNavigate();
+  const resetFunc = useResetApplicationRecoil();
   const postApplication = usePostApplication();
-  //state 초기화
-  const stepReset = useResetRecoilState(applyStepState);
-  const styleReset = useResetRecoilState(hairStyleState);
-  const detailedStyleReset = useResetRecoilState(deatiledStyleState);
-  const historyReset = useResetRecoilState(historyState);
-  const profileReset = useResetRecoilState(profileState);
-  const imgUrlReset = useResetRecoilState(applicationCaptureImgUrlState);
-
-  const resetAtom = () => {
-    stepReset();
-    styleReset();
-    detailedStyleReset();
-    historyReset();
-    profileReset();
-    imgUrlReset();
-  };
 
   const handleApplication = async () => {
     try {
       await postApplication();
-      resetAtom();
     } catch (err) {
       navigate('/error');
     }
@@ -58,6 +36,7 @@ const ApplicationResult = () => {
           setStep({ ...step, current: step.current - 1 });
         }}
         closeFn={() => {
+          resetFunc();
           navigate(`/`);
         }}
       />

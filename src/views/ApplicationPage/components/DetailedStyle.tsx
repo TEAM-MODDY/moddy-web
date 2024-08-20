@@ -7,6 +7,7 @@ import Header from '../../@common/components/Header';
 import ProgressBar from '../../@common/components/ProgressBar';
 import TextArea200 from '../../@common/components/TextArea200';
 import { INFO_MESSAGE } from '../constants/message';
+import useResetApplicationRecoil from '../hooks/useResetApplicationRecoil';
 
 import { applyStepState, deatiledStyleState } from '@/recoil/atoms/applicationState';
 
@@ -14,6 +15,7 @@ const DetailedStyle = () => {
   const [step, setStep] = useRecoilState(applyStepState);
   const [hairDetail, setHairDetail] = useRecoilState(deatiledStyleState);
   const navigate = useNavigate();
+  const resetFunc = useResetApplicationRecoil();
 
   return (
     <S.ServiceHistoryLayout>
@@ -25,6 +27,7 @@ const DetailedStyle = () => {
           setStep({ ...step, current: step.current - 1 });
         }}
         closeFn={() => {
+          resetFunc();
           navigate(`/`);
         }}
       />

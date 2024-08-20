@@ -1,9 +1,9 @@
 import { useState } from 'react';
+import { Navigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import { styled } from 'styled-components';
 
 import Banner from '../views/MainPage/components/Banner';
-import GuestContents from '../views/MainPage/components/GuestContents';
 import StatusBarForiOS from '../views/MainPage/components/StatusBarForiOS';
 import TopSheet from '../views/MainPage/components/TopSheet';
 import { DesignerContents, ModelContents } from '../views/MainPage/components/UserContents';
@@ -18,12 +18,13 @@ const MainPage = () => {
   UsePreventGoBack();
 
   const userType = useRecoilValue(userTypeState);
+
   const [page, setPage] = useState(INITIAL_PAGE);
   const { modelData, designerData } = useGetMain({ user: userType, page: page });
 
   const Contents = {
     [USER_TYPE.GUEST]: {
-      mainContent: <GuestContents />,
+      mainContent: <Navigate to={'/login'} />,
     },
     [USER_TYPE.DESIGNER]: {
       mainContent: <DesignerContents data={designerData} setPage={setPage} />,
