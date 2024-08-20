@@ -50,7 +50,11 @@ const S = {
     background-size: cover;
 
     & .slick-slider {
+      display: flex;
+      align-items: center;
+
       height: 100%;
+      padding-bottom: 3.4rem;
     }
 
     & .slick-slide {
