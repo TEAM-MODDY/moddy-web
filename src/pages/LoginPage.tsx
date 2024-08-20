@@ -11,6 +11,8 @@ const LoginPage = () => {
     dots: true,
     arrows: false,
     speed: 500,
+    autoplay: true,
+    autoplaySpeed: 3750,
     slidesToShow: 1,
     slidesToScroll: 1,
     draggable: true,
