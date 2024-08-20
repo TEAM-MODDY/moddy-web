@@ -23,7 +23,7 @@ const S = {
 
     width: 100%;
     height: 100%;
-    margin-top: 7.6rem;
+    margin-top: 19rem;
 
     & > img {
       width: 18.8rem;

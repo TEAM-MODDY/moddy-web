@@ -30,7 +30,6 @@ const S = {
 
     width: 100%;
     height: 100%;
-    margin-top: 7.6rem;
 
     & > img {
       width: 24rem;
