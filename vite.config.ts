@@ -6,4 +6,13 @@ import tsconfigPaths from 'vite-tsconfig-paths';
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react(), svgr({ include: '**/*.svg' }), tsconfigPaths()],
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: function (id) {
+          if (id.includes('html2canvas')) return 'html2canvas';
+        },
+      },
+    },
+  },
 });
