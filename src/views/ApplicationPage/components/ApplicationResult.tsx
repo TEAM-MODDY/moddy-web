@@ -46,7 +46,7 @@ const ApplicationResult = () => {
           <img src={applyImg} alt="로고이미지" />
         </S.ContentSection>
       </S.MainContent>
-      <Button id="ga-application-complete-btn" text={INFO_MESSAGE.FINAL} isFixed={true} onClickFn={handleApplication} />
+      <Button text={INFO_MESSAGE.FINAL} isFixed={true} onClickFn={handleApplication} />
     </S.ApplicationResultLayout>
   );
 };

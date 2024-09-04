@@ -75,7 +75,7 @@ const ModelOfferPage = () => {
           />
         </S.ModelOfferBox>
       </S.ModelOfferLayout>
-      <Button id="ga-offer-complete-btn" text="완료" isFixed={true} onClickFn={handleModal} disabled={!isActive} />
+      <Button text="완료" isFixed={true} onClickFn={handleModal} disabled={!isActive} />
 
       {isModalOpen && (
         <Modal

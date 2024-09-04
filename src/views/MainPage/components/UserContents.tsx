@@ -60,7 +60,6 @@ const ModelContents = ({ data, setPage }: ModelContentsProps) => {
   const renderOffers = () =>
     data.offers.map((offer, index) => (
       <Card
-        analyticsId="ga-offer-card"
         navigateTo="/offer-info"
         id={offer.offerId}
         key={index}
@@ -105,7 +104,7 @@ const DesignerContents = ({ data, setPage }: DesignerContentsProps) => {
 
   const renderApplications = () =>
     data.hairModelApplications.map((application, index) => (
-      <Card analyticsId="ga-application-card" navigateTo="/model-info" id={application.applicationId} key={index}>
+      <Card navigateTo="/model-info" id={application.applicationId} key={index}>
         <Card.ProfileImg imgUrl={application.imgUrl} alt="지원서 프로필 사진" />
         <Card.ContentsBox>
           <S.FlexBox>
