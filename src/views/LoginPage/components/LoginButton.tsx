@@ -4,14 +4,11 @@ import styled from 'styled-components';
 import { ImgKakaotalk } from '../assets';
 import { KAKAO_LINK } from '../constants/kakaoLink';
 
+import { gaEvent } from '@/views/@common/utils/ga';
+
 const LoginButton = () => {
   const handleLogin = () => {
-    // ReactGA.event({
-    //   category: '/login',
-    //   action: 'button_click',
-    //   label: '카카오로그인 클릭',
-    // });
-
+    gaEvent('온보딩 전환', 'login');
     window.location.href = KAKAO_LINK;
   };
   return (

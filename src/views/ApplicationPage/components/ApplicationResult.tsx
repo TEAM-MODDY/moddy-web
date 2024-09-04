@@ -12,6 +12,7 @@ import useResetApplicationRecoil from '../hooks/useResetApplicationRecoil';
 import CaptureSection from './CaptureSection';
 
 import { applyStepState } from '@/recoil/atoms/applicationState';
+import { gaEvent } from '@/views/@common/utils/ga';
 
 const ApplicationResult = () => {
   const [step, setStep] = useRecoilState(applyStepState);
@@ -20,6 +21,7 @@ const ApplicationResult = () => {
   const postApplication = usePostApplication();
 
   const handleApplication = async () => {
+    gaEvent('지원 전환', 'apply_clear');
     try {
       await postApplication();
     } catch (err) {

@@ -13,6 +13,7 @@ import Button from '@/views/@common/components/Button';
 import Input from '@/views/@common/components/Input';
 import Modal from '@/views/@common/components/Modal';
 import ProgressBar from '@/views/@common/components/ProgressBar';
+import { gaEvent } from '@/views/@common/utils/ga';
 
 const OpenChatLink = () => {
   const [isOpenModal, setOpenModal] = useState(false);
@@ -25,6 +26,7 @@ const OpenChatLink = () => {
 
   const isActive = LinkInfo !== '';
   const handleSignUp = async () => {
+    gaEvent('가입 전환', 'join_complete');
     await postModelSignUp();
   };
 
@@ -69,7 +71,7 @@ const OpenChatLink = () => {
           leftBtnText="취소"
           rightBtnText="확인"
           leftBtnFn={() => setOpenModal(false)}
-          rightBtnFn={() => handleSignUp()}
+          rightBtnFn={handleSignUp}
         />
       )}
     </>

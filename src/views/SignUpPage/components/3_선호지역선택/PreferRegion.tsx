@@ -15,6 +15,7 @@ import RegionItem from './RegionItem';
 
 import { preferRegionState, regionState } from '@/recoil/atoms/signUpState';
 import Modal from '@/views/@common/components/Modal';
+import { gaEvent } from '@/views/@common/utils/ga';
 
 const PreferRegion = () => {
   useGetRegion();
@@ -30,6 +31,7 @@ const PreferRegion = () => {
   const selectorBoxRef = useRef<HTMLDivElement>(null);
 
   const handleSignUp = async () => {
+    gaEvent('가입 전환', 'join_complete');
     await postModelSignUp();
   };
 
@@ -131,7 +133,7 @@ const PreferRegion = () => {
           leftBtnText="돌아가기"
           rightBtnText="확인"
           leftBtnFn={() => setOpenModal(false)}
-          rightBtnFn={() => handleSignUp()}
+          rightBtnFn={handleSignUp}
         />
       )}
     </>
