@@ -21,7 +21,7 @@ const ApplicationResult = () => {
   const postApplication = usePostApplication();
 
   const handleApplication = async () => {
-    gaEvent('지원 전환', 'apply_clear');
+    gaEvent('지원 전환', 'apply_complete');
     try {
       await postApplication();
     } catch (err) {
