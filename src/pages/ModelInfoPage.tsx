@@ -57,7 +57,6 @@ const ModelInfoPage = () => {
           <ExpirationFooter dateInfo={dateInfo} />
         ) : (
           <Button
-            id="ga-offer-btn"
             text={isSend ? '제안완료' : '제안하기'}
             isFixed={false}
             onClickFn={handleOnClickOffer}

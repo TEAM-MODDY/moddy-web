@@ -1,16 +1,19 @@
+// import ReactGA from 'react-ga4';
 import styled from 'styled-components';
 
 import { ImgKakaotalk } from '../assets';
 import { KAKAO_LINK } from '../constants/kakaoLink';
 
+import { gaEvent } from '@/views/@common/utils/ga';
+
 const LoginButton = () => {
   const handleLogin = () => {
+    gaEvent('온보딩 전환', 'login');
     window.location.href = KAKAO_LINK;
   };
   return (
     <S.LoginButtonLayout>
       <S.LoginButtonBtn
-        id="ga-kakao-btn"
         type="button"
         onClick={() => {
           handleLogin();
