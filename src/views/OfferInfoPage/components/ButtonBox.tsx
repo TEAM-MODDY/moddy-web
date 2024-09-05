@@ -21,7 +21,7 @@ const ButtonBox = ({ onClick, kakaoUrl }: ButtonBoxProps) => {
         <S.Caption>지원 내역을 복사 / 저장 후 오픈 채팅방에 전달해주세요</S.Caption>
       </S.ButtonWrapper>
       <S.ButtonWrapper>
-        <Button id="ga-start-open-chat-btn" text="오픈 채팅방 입장하기" onClickFn={handleClickChat} icon={<IcLink />} />
+        <Button text="오픈 채팅방 입장하기" onClickFn={handleClickChat} icon={<IcLink />} />
         <S.Caption>정확하고 편한 소통을 위해 ‘실명 입장’을 부탁드려요</S.Caption>
       </S.ButtonWrapper>
     </div>

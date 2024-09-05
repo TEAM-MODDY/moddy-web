@@ -12,6 +12,7 @@ import useResetApplicationRecoil from '../hooks/useResetApplicationRecoil';
 import CaptureSection from './CaptureSection';
 
 import { applyStepState } from '@/recoil/atoms/applicationState';
+import { gaEvent } from '@/views/@common/utils/ga';
 
 const ApplicationResult = () => {
   const [step, setStep] = useRecoilState(applyStepState);
@@ -20,6 +21,7 @@ const ApplicationResult = () => {
   const postApplication = usePostApplication();
 
   const handleApplication = async () => {
+    gaEvent('지원 전환', 'apply_complete');
     try {
       await postApplication();
     } catch (err) {
@@ -46,7 +48,7 @@ const ApplicationResult = () => {
           <img src={applyImg} alt="로고이미지" />
         </S.ContentSection>
       </S.MainContent>
-      <Button id="ga-application-complete-btn" text={INFO_MESSAGE.FINAL} isFixed={true} onClickFn={handleApplication} />
+      <Button text={INFO_MESSAGE.FINAL} isFixed={true} onClickFn={handleApplication} />
     </S.ApplicationResultLayout>
   );
 };

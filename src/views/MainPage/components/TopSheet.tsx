@@ -8,6 +8,7 @@ import { APPLY_STATUS } from '../constants/status';
 import Modal from '@/views/@common/components/Modal';
 import { USER_TYPE } from '@/views/@common/constants/userType';
 import useGetCheckApplication from '@/views/@common/hooks/useGetCheckApplication';
+import { gaEvent } from '@/views/@common/utils/ga';
 
 interface TopSheetProps {
   userType: string;
@@ -63,7 +64,7 @@ const TopSheet = (props: TopSheetProps) => {
   };
 
   const LoginButton = () => (
-    <S.LoginButton id="ga-top-login-btn" type="button" onClick={() => navigate('/login')}>
+    <S.LoginButton type="button" onClick={() => navigate('/login')}>
       <S.LoginSpan>로그인하기</S.LoginSpan>
       <IcRightWhite />
     </S.LoginButton>
@@ -85,6 +86,7 @@ const TopSheet = (props: TopSheetProps) => {
   };
 
   const handleNavigate = async () => {
+    gaEvent('메인 뷰 전환', 'apply');
     if (userType === USER_TYPE.MODEL) {
       const isValidApplication = await checkApplicationStatus();
       isValidApplication ? setIsOpenModal(true) : navigate('/application');
@@ -94,10 +96,7 @@ const TopSheet = (props: TopSheetProps) => {
   };
 
   const StartButton = () => (
-    <S.StartButton
-      id={userType === USER_TYPE.GUEST ? 'ga-login-btn' : 'ga-application-btn'}
-      type="button"
-      onClick={() => handleNavigate()}>
+    <S.StartButton type="button" onClick={handleNavigate}>
       <S.StartButtonSpan>헤어 모델 지원하기{userType === USER_TYPE.GUEST && ' / 제안하기'}</S.StartButtonSpan>
       <IcRightWhite />
     </S.StartButton>

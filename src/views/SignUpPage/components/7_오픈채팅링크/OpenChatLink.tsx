@@ -13,6 +13,7 @@ import Button from '@/views/@common/components/Button';
 import Input from '@/views/@common/components/Input';
 import Modal from '@/views/@common/components/Modal';
 import ProgressBar from '@/views/@common/components/ProgressBar';
+import { gaEvent } from '@/views/@common/utils/ga';
 
 const OpenChatLink = () => {
   const [isOpenModal, setOpenModal] = useState(false);
@@ -25,6 +26,7 @@ const OpenChatLink = () => {
 
   const isActive = LinkInfo !== '';
   const handleSignUp = async () => {
+    gaEvent('가입 전환', 'join_complete');
     await postModelSignUp();
   };
 
@@ -55,7 +57,6 @@ const OpenChatLink = () => {
         </S.MoreAboutBox>
       </S.OpenChatLinkLayout>
       <Button
-        id="ga-open-chat-btn"
         text="완료"
         isFixed={true}
         disabled={!isActive}
@@ -65,13 +66,12 @@ const OpenChatLink = () => {
       />
       {isOpenModal && (
         <Modal
-          id="ga-designer-sign-up-btn"
           title="프로필 작성을 완료할까요?"
           description="저장 후에는 수정이 어려워요"
           leftBtnText="취소"
           rightBtnText="확인"
           leftBtnFn={() => setOpenModal(false)}
-          rightBtnFn={() => handleSignUp()}
+          rightBtnFn={handleSignUp}
         />
       )}
     </>

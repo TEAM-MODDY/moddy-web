@@ -51,7 +51,7 @@ const OfferInfoPage = () => {
             {OFFER_INFO_TEXT.AGREE_TO_ASSIGNMENT}
           </S.AgreementBox>
         </S.OfferInfoLayout>
-        <Button id="ga-accept-btn" text="수락하기" isFixed={false} onClickFn={handleModalOpen} disabled={!isChecked} />
+        <Button text="수락하기" isFixed={false} onClickFn={handleModalOpen} disabled={!isChecked} />
       </>
     )
   );

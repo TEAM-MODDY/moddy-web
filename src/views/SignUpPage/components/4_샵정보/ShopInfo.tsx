@@ -121,7 +121,6 @@ const ShopInfo = ({ setStep }: EnterProfileProp) => {
         </S.DayOffWrapperBox>
       </S.ShopInfoLayout>
       <Button
-        id="ga-shop-info-btn"
         text="다음"
         isFixed={true}
         disabled={!isActive}

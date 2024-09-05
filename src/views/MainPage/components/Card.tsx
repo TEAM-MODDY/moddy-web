@@ -3,14 +3,13 @@ import { styled } from 'styled-components';
 
 import { ImgNew } from '../assets/images';
 interface CardProps {
-  analyticsId: string;
   id: number;
   navigateTo: string;
   isExpired?: boolean;
   children: React.ReactNode;
 }
 
-const CardMain = ({ analyticsId, navigateTo, id, children, isExpired = false }: CardProps) => {
+const CardMain = ({ navigateTo, id, children, isExpired = false }: CardProps) => {
   const navigate = useNavigate();
   const navigateState = {
     state: {
@@ -20,7 +19,7 @@ const CardMain = ({ analyticsId, navigateTo, id, children, isExpired = false }: 
   };
 
   return (
-    <S.CardLayout id={analyticsId} onClick={() => navigate(navigateTo, navigateState)} $isExpired={isExpired}>
+    <S.CardLayout onClick={() => navigate(navigateTo, navigateState)} $isExpired={isExpired}>
       {children}
     </S.CardLayout>
   );
