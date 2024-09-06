@@ -15,6 +15,7 @@ import RegionItem from './RegionItem';
 
 import { preferRegionState, regionState } from '@/recoil/atoms/signUpState';
 import Modal from '@/views/@common/components/Modal';
+import { gaEvent } from '@/views/@common/utils/ga';
 
 const PreferRegion = () => {
   useGetRegion();
@@ -30,6 +31,7 @@ const PreferRegion = () => {
   const selectorBoxRef = useRef<HTMLDivElement>(null);
 
   const handleSignUp = async () => {
+    gaEvent('가입 전환', 'join_complete');
     await postModelSignUp();
   };
 
@@ -117,7 +119,6 @@ const PreferRegion = () => {
         </S.BottomSheetBox>
       </S.SelectPreferRegionLayout>
       <Button
-        id="ga-prefer-region-btn"
         text="완료"
         isFixed={true}
         onClickFn={() => {
@@ -127,13 +128,12 @@ const PreferRegion = () => {
       />
       {isOpenModal && (
         <Modal
-          id="ga-model-sign-up-btn"
           title="이대로 가입하시겠어요?"
           description="가입 후에는 수정이 어려워요"
           leftBtnText="돌아가기"
           rightBtnText="확인"
           leftBtnFn={() => setOpenModal(false)}
-          rightBtnFn={() => handleSignUp()}
+          rightBtnFn={handleSignUp}
         />
       )}
     </>

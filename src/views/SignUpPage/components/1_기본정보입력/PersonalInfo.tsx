@@ -108,13 +108,7 @@ const PersonalInfo = ({ setStep }: EnterProfileProp) => {
           </S.GenderSelectBox>
         </S.FormBox>
       </S.PersonalInfoLayout>
-      <Button
-        id="ga-personal-info-btn"
-        text="다음"
-        isFixed={true}
-        onClickFn={() => setStep((prev) => prev + 1)}
-        disabled={!isAllVerified}
-      />
+      <Button text="다음" isFixed={true} onClickFn={() => setStep((prev) => prev + 1)} disabled={!isAllVerified} />
       {isToastOpen && <ToastMessage text={TOAST_MESSAGE.INPUT_EXACT_BIRTH_YEAR} setter={setToastOpen} />}
     </>
   );
