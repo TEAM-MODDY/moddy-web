@@ -20,7 +20,6 @@ const Profile = () => {
   const [isToastOpen, setToastOpen] = useState(false);
   const [step, setStep] = useRecoilState(applyStepState);
   const [profileData, setProfileData] = useRecoilState(profileState);
-  const [isAllVerified, setIsAllVerified] = useState(false);
   const navigate = useNavigate();
   const resetFunc = useResetApplicationRecoil();
 
@@ -30,14 +29,12 @@ const Profile = () => {
       modelImgUrl: imgUrl,
       modelImgData: imgObj,
     });
-    setIsAllVerified(true);
   };
 
   const handleInstagramId = (e: string) => {
     if (REGEX.INSTAGRAM_ID.test(e) || !e) {
       setProfileData({ ...profileData, instagramId: e });
-      setIsAllVerified(true);
-    } else setIsAllVerified(false);
+    }
   };
 
   return (
@@ -66,7 +63,11 @@ const Profile = () => {
             ))}
           </S.Title>
           <S.ProfileBtnBox>
-            <ProfileUpload onImageUpload={handleProfileImg} setToastOpen={setToastOpen} />
+            <ProfileUpload
+              onImageUpload={handleProfileImg}
+              setToastOpen={setToastOpen}
+              profileImg={profileData.modelImgUrl}
+            />
           </S.ProfileBtnBox>
         </S.ProfilePhotoSection>
         <S.ProfileInstaSection>
@@ -87,7 +88,7 @@ const Profile = () => {
         onClickFn={() => {
           setStep({ ...step, current: step.current + 1 });
         }}
-        disabled={!isAllVerified}
+        disabled={!profileData.modelImgUrl}
       />
       {isToastOpen && (
         <ToastMessage
