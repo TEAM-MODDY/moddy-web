@@ -2,6 +2,8 @@ import { useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
 
 import { ImgNew } from '../assets/images';
+
+import { gaEvent } from '@/views/@common/utils/ga';
 interface CardProps {
   id: number;
   navigateTo: string;
@@ -18,8 +20,13 @@ const CardMain = ({ navigateTo, id, children, isExpired = false }: CardProps) =>
     },
   };
 
+  const handleClickCard = () => {
+    gaEvent('제안 알림 전환', 'proposal');
+    navigate(navigateTo, navigateState);
+  };
+
   return (
-    <S.CardLayout onClick={() => navigate(navigateTo, navigateState)} $isExpired={isExpired}>
+    <S.CardLayout onClick={handleClickCard} $isExpired={isExpired}>
       {children}
     </S.CardLayout>
   );
