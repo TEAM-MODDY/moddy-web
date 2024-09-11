@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
 
 import Header from '@/views/@common/components/Header';
+import useTrackPageView from '@/views/@common/hooks/useTrackPageView';
 import { removeToken } from '@/views/@common/utils/token';
 import {
   DesignerInfo,
@@ -19,6 +20,7 @@ import { STEP } from '@/views/SignUpPage/constants/step';
 const SignUpPage = () => {
   const navigate = useNavigate();
   const [step, setStep] = useState(STEP.USER_TYPE);
+  useTrackPageView(step);
 
   const handleChurn = () => {
     removeToken();
