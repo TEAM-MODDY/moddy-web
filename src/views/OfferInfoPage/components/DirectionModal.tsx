@@ -5,6 +5,8 @@ import { IcCloseBlack } from '../../@common/assets/icons';
 import { IcFlowiconImage, IcFlowiconLink, IcFlowiconPeople, IcFlowdot } from '../assets/icons';
 import usePutOfferModel from '../hooks/usePutOfferModel';
 
+import { gaEvent } from '@/views/@common/utils/ga';
+
 interface DirectionModalProps {
   isModal?: boolean;
   onClose: () => void;
@@ -19,6 +21,7 @@ const DirectionModal = ({ isModal, onClose, offerId, applicationId, designerId }
   const { postOffer } = usePutOfferModel(offerId);
 
   const handleOnClickContinue = () => {
+    gaEvent('제안서 전환', 'accept');
     postOffer();
     navigate('/offer-info/check-offer', {
       state: { applicationId, designerId },

@@ -2,6 +2,7 @@ import { useRecoilValue } from 'recoil';
 import { styled } from 'styled-components';
 
 import { applyStepState } from '@/recoil/atoms/applicationState';
+import useTrackPageView from '@/views/@common/hooks/useTrackPageView';
 import ApplicationResult from '@/views/ApplicationPage/components/ApplicationResult';
 import DefaultInfo from '@/views/ApplicationPage/components/DefaultInfo';
 import DetailedStyle from '@/views/ApplicationPage/components/DetailedStyle';
@@ -11,6 +12,7 @@ import { STEP } from '@/views/ApplicationPage/constants/step';
 
 const ApplicationPage = () => {
   const step = useRecoilValue(applyStepState);
+  useTrackPageView(step.current);
 
   const Contents = () => {
     switch (step.current) {

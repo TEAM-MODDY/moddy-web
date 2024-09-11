@@ -10,10 +10,22 @@ interface EventParams {
   event_category?: string | undefined;
   transport_type?: 'image' | 'xhr' | 'beacon' | undefined;
 }
+interface ConfigParams {
+  page_title?: string | undefined;
+  page_location?: string | undefined;
+  page_path?: string | undefined;
+  send_page_view?: boolean | undefined;
+}
+
+interface GtagCommands {
+  config: [targetId: string, config?: EventParams | ConfigParams | CustomParams];
+  event: [eventName: 'page_view' | string, eventParams?: EventParams | CustomParams];
+}
+
+interface Gtag {
+  <Command extends keyof GtagCommands>(command: Command, ...args: GtagCommands[Command]): void;
+}
 
 interface Window {
-  gtag: (
-    command: 'event',
-    ...args: [eventName: 'page_view' | string, eventParams?: EventParams | CustomParams]
-  ) => void;
+  gtag: Gtag;
 }
