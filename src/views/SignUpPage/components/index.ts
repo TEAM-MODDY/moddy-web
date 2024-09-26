@@ -6,3 +6,4 @@ export { default as ShopInfo } from './4_샵정보/ShopInfo';
 export { default as Profile } from './5_디자이너프로필/Profile';
 export { default as DesignerInfo } from './6_디자이너소개/DesignerInfo';
 export { default as OpenChatLink } from './7_오픈채팅링크/OpenChatLink';
+export { default as DesignerCode } from './디자이너코드/Code';
