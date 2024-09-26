@@ -15,6 +15,7 @@ import {
   ShopInfo,
   UserType,
 } from '@/views/SignUpPage/components';
+import Code from '@/views/SignUpPage/components/디자이너코드/Code';
 import { STEP } from '@/views/SignUpPage/constants/step';
 
 const SignUpPage = () => {
@@ -30,6 +31,8 @@ const SignUpPage = () => {
     switch (step) {
       case STEP.USER_TYPE:
         return <UserType setStep={setStep} />;
+      case STEP.DESIGNER.CODE:
+        return <Code setStep={setStep} />;
       case STEP.PERSONAL_INFO:
         return <PersonalInfo setStep={setStep} />;
       case STEP.PHONE_NUMBER_VERIFICATION:

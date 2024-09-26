@@ -20,7 +20,7 @@ import { STEP, TOTAL_STEP } from '../../constants/step';
 import useInterval from '../../hooks/useInterval';
 import usePostPhoneNumber from '../../hooks/usePostPhoneNumber';
 import usePostVerifyPhoneNumber from '../../hooks/usePostVerifyPhoneNumber';
-import { EnterProfileProp } from '../../utils/enterProfileProp';
+import { EnterProfileProp } from '../../enterProfileProp';
 import Field from '../@common/Field';
 
 import { phoneNumberState, tempUserTypeState, verifyCodeState } from '@/recoil/atoms/signUpState';

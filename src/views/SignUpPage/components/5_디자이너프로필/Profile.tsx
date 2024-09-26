@@ -4,7 +4,7 @@ import { styled } from 'styled-components';
 
 import { HELPER_MESSAGE } from '../../constants/message';
 import { TOTAL_STEP } from '../../constants/step';
-import { EnterProfileProp } from '../../utils/enterProfileProp';
+import { EnterProfileProp } from '../../enterProfileProp';
 import Field from '../@common/Field';
 
 import { instagramLinkState, naverPlaceState, profileImgState } from '@/recoil/atoms/signUpState';

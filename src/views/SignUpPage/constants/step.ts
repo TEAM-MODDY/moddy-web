@@ -3,6 +3,7 @@ export const STEP = {
   PERSONAL_INFO: 1,
   PHONE_NUMBER_VERIFICATION: 2,
   DESIGNER: {
+    CODE: 0.5,
     SHOP_INFO: 4,
     PROFILE: 5,
     DESIGNER_INFO: 6,

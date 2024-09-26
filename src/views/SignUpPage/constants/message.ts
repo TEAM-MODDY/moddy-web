@@ -1,4 +1,5 @@
 export const HELPER_MESSAGE = {
+  INPUT_DESIGNER_CODE: '사전에 전달받은 확인 코드를 입력해 주세요',
   INPUT_DESIGNER_NAME: '디자이너 활동명을 입력해주세요',
   INPUT_REAL_NAME: '실명을 입력해주세요',
   VERIFY_PHONE_NUMBER: '본인 확인을 위해 휴대폰 인증을 진행해주세요',
@@ -28,4 +29,5 @@ export const PLACE_HOLDER_MESSAGE = {
   INPUT_PHONE_NUMBER: '전화번호를 입력해주세요 (‘-’ 제외)',
   SELECT_PREFER_REGION: '희망 지역을 선택해주세요 (최대 3개)',
   INPUT_VERIFY_CODE: '인증번호 6자리를 입력해주세요',
+  INPUT_DESIGNER_CODE: '코드를 입력해주세요',
 };
