@@ -6,7 +6,7 @@ import Button from '../../../@common/components/Button';
 import Header from '../../../@common/components/Header';
 import { HELPER_MESSAGE } from '../../constants/message';
 import { ON_BOARDING_TEXT } from '../../constants/text';
-import { EnterProfileProp } from '../../utils/enterProfileProp';
+import { EnterProfileProp } from '../../enterProfileProp';
 
 import { tempUserTypeState } from '@/recoil/atoms/signUpState';
 import designerImg from '@images/img_designer.png';
@@ -74,7 +74,12 @@ const UserType = ({ setStep }: EnterProfileProp) => {
           </S.UserTypeBoxLabel>
         </S.RadioBox>
       </S.SelectUserTypeLayout>
-      <Button text="다음" isFixed={true} onClickFn={() => setStep((prev) => prev + 1)} disabled={!userType} />
+      <Button
+        text="다음"
+        isFixed={true}
+        onClickFn={() => setStep((prev) => (userType === 'model' ? prev + 1 : prev + 0.5))}
+        disabled={!userType}
+      />
     </>
   );
 };

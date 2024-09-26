@@ -3,7 +3,7 @@ import { useRecoilState } from 'recoil';
 import { styled } from 'styled-components';
 
 import { TOTAL_STEP } from '../../constants/step';
-import { EnterProfileProp } from '../../utils/enterProfileProp';
+import { EnterProfileProp } from '../../enterProfileProp';
 import DesignerTextArea from '../@common/DesignerTextArea';
 import Field from '../@common/Field';
 
