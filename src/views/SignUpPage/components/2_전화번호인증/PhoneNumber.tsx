@@ -17,10 +17,10 @@ import {
 import { HELPER_MESSAGE, PLACE_HOLDER_MESSAGE, TOAST_MESSAGE } from '../../constants/message';
 import { STATUS } from '../../constants/requestStatus';
 import { STEP, TOTAL_STEP } from '../../constants/step';
+import { EnterProfileProp } from '../../enterProfileProp';
 import useInterval from '../../hooks/useInterval';
 import usePostPhoneNumber from '../../hooks/usePostPhoneNumber';
 import usePostVerifyPhoneNumber from '../../hooks/usePostVerifyPhoneNumber';
-import { EnterProfileProp } from '../../enterProfileProp';
 import Field from '../@common/Field';
 
 import { phoneNumberState, tempUserTypeState, verifyCodeState } from '@/recoil/atoms/signUpState';
