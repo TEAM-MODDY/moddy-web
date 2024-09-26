@@ -51,6 +51,8 @@ const SignUpPage = () => {
   };
   const StepHeader = () => {
     switch (step) {
+      case STEP.DESIGNER.CODE:
+        return <Header title="" isBackBtnExist backFn={() => setStep((prev) => prev - 0.5)} />;
       case STEP.DESIGNER.SHOP_INFO:
         return (
           <Header
