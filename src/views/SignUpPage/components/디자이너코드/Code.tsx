@@ -2,16 +2,19 @@ import { ChangeEvent, useState } from 'react';
 import styled from 'styled-components';
 
 import { IcRightBlueThin } from '../../assets/icons';
-import { HELPER_MESSAGE, PLACE_HOLDER_MESSAGE } from '../../constants/message';
+import { HELPER_MESSAGE, PLACE_HOLDER_MESSAGE, TOAST_MESSAGE } from '../../constants/message';
 import { EnterProfileProp } from '../../enterProfileProp';
 import Field from '../@common/Field';
 
 import { IcInformation } from '@/views/@common/assets/icons';
 import Button from '@/views/@common/components/Button';
+import ToastMessage from '@/views/@common/components/ToastMessage';
 
 const Code = ({ setStep }: EnterProfileProp) => {
   const [code, setCode] = useState('');
   const [isValid, setIsValid] = useState(false);
+  const [isToastOpen, setToastOpen] = useState(false);
+
   const handleCodeChange = (e: ChangeEvent<HTMLInputElement>) => {
     setCode(e.currentTarget.value);
     setIsValid(false);
@@ -19,6 +22,8 @@ const Code = ({ setStep }: EnterProfileProp) => {
   const handleClickCodeVerify = () => {
     if (code === 'ADMODY') {
       setIsValid(true);
+    } else {
+      setToastOpen(true);
     }
   };
 
@@ -60,6 +65,7 @@ const Code = ({ setStep }: EnterProfileProp) => {
           setStep((prev) => prev + 0.5);
         }}
       />
+      {isToastOpen && <ToastMessage text={TOAST_MESSAGE.INPUT_EXACT_DESIGNER_CODE} setter={setToastOpen} />}
     </>
   );
 };
@@ -166,5 +172,9 @@ const S = {
   RequestButton: styled.button<{ $isValid: boolean }>`
     color: ${({ theme, $isValid }) => ($isValid ? theme.colors.moddy_blue : theme.colors.moddy_gray20)};
     ${({ theme }) => theme.fonts.Body01};
+
+    &:disabled {
+      cursor: not-allowed;
+    }
   `,
 };

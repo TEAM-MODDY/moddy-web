@@ -21,6 +21,7 @@ export const HELPER_MESSAGE = {
 export const TOAST_MESSAGE = {
   INPUT_EXACT_BIRTH_YEAR: '출생 연도를 정확하게 입력해 주세요',
   INPUT_EXACT_VERIFY_NUMBER: '인증번호를 정확하게 입력해주세요',
+  INPUT_EXACT_DESIGNER_CODE: '확인 코드를 정확하게 입력해 주세요.',
 };
 
 export const PLACE_HOLDER_MESSAGE = {
