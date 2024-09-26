@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 
+import { IcRightBlueThin } from '../../assets/icons';
 import { HELPER_MESSAGE, PLACE_HOLDER_MESSAGE } from '../../constants/message';
 import { EnterProfileProp } from '../../enterProfileProp';
 import Field from '../@common/Field';
 
-import { IcInformation, IcRightBlue, IcRightGrey30 } from '@/views/@common/assets/icons';
+import { IcInformation, IcRightBlue } from '@/views/@common/assets/icons';
 import Button from '@/views/@common/components/Button';
 import Input from '@/views/@common/components/Input';
 
@@ -30,13 +31,13 @@ const Code = ({ setStep }: EnterProfileProp) => {
         <S.HelperBox>
           <IcInformation />
           <S.HelperSpan>
-            아직 코드를 받지 못했다면?
+            아직 코드를 받지 못했다면? &nbsp;
             <S.MoreAboutOpenChatButton
               onClick={() => {
                 window.open('https://open.kakao.com/o/s82rmvQg');
               }}>
               여기로 문의해주세요
-              <IcRightGrey30 />
+              <IcRightBlueThin />
             </S.MoreAboutOpenChatButton>
           </S.HelperSpan>
         </S.HelperBox>
@@ -72,17 +73,15 @@ const S = {
     ${({ theme }) => theme.fonts.Body04};
   `,
 
-  MoreAboutOpenChatButton: styled.button`
-    display: flex;
-    align-items: center;
-    position: relative;
+  MoreAboutOpenChatButton: styled.a`
+    border-bottom: 1px solid ${({ theme }) => theme.colors.moddy_blue2};
 
-    color: ${({ theme }) => theme.colors.moddy_gray30};
+    color: ${({ theme }) => theme.colors.moddy_blue2};
     ${({ theme }) => theme.fonts.Body04};
 
     & > svg {
-      position: absolute;
-      right: -2rem;
+      height: 0.9rem;
+      margin-left: 0.3rem;
     }
   `,
 
