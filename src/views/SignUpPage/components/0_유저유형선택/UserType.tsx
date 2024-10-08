@@ -10,7 +10,9 @@ import { EnterProfileProp } from '../../utils/enterProfileProp';
 
 import { tempUserTypeState } from '@/recoil/atoms/signUpState';
 import designerImg from '@images/img_designer.png';
+import designerWebp from '@images/img_designer.webp';
 import modelImg from '@images/img_model.png';
+import modelWebp from '@images/img_model.webp';
 
 const UserType = ({ setStep }: EnterProfileProp) => {
   const navigate = useNavigate();
@@ -44,7 +46,10 @@ const UserType = ({ setStep }: EnterProfileProp) => {
           />
           <S.UserTypeBoxLabel htmlFor="designer" id="ga-designer-btn">
             <S.ImageBox>
-              <img src={designerImg} width="100%" alt="디자이너" />
+              <picture>
+                <source srcSet={designerWebp} type="image/webp" />
+                <img src={designerImg} width="100%" alt="디자이너" />
+              </picture>
             </S.ImageBox>
             <S.UserTypeSpan>헤어 디자이너</S.UserTypeSpan>
             <S.UserTypeInfoSpan>
@@ -63,7 +68,10 @@ const UserType = ({ setStep }: EnterProfileProp) => {
           />
           <S.UserTypeBoxLabel htmlFor="model" id="ga-model-btn">
             <S.ImageBox>
-              <img src={modelImg} width="100%" alt="모델" />
+              <picture>
+                <source srcSet={modelWebp} media="(min-width: 350px)" type="image/webp" />
+                <img src={modelImg} width="100%" alt="모델" />
+              </picture>
             </S.ImageBox>
             <S.UserTypeSpan>일반인/모델</S.UserTypeSpan>
             <S.UserTypeInfoSpan>
