@@ -29,9 +29,6 @@ const useGetDesignerEdit = () => {
       );
     } catch (err) {
       if (err instanceof AxiosError) setError(err);
-      else {
-        console.log(err);
-      }
       navigate('/error');
     }
     setLoading(false);

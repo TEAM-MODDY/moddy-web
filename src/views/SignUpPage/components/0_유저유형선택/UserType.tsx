@@ -6,7 +6,7 @@ import Button from '../../../@common/components/Button';
 import Header from '../../../@common/components/Header';
 import { HELPER_MESSAGE } from '../../constants/message';
 import { ON_BOARDING_TEXT } from '../../constants/text';
-import { EnterProfileProp } from '../../enterProfileProp';
+import { EnterProfileProp } from '../../types/enterProfileProp';
 
 import { tempUserTypeState } from '@/recoil/atoms/signUpState';
 import designerImg from '@images/img_designer.png';

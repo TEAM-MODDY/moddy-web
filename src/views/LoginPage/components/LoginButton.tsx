@@ -1,5 +1,5 @@
 // import ReactGA from 'react-ga4';
-import styled from 'styled-components';
+import { styled } from 'styled-components';
 
 import { ImgKakaotalk } from '../assets';
 import { KAKAO_LINK } from '../constants/kakaoLink';

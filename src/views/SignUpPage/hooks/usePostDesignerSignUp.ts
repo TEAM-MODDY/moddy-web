@@ -76,7 +76,6 @@ const usePostDesignerSignUp = () => {
       setSessionUserType(tempUserType);
       navigate('/');
     } catch (err) {
-      console.log(err);
       navigate('/error');
     }
   };

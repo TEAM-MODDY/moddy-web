@@ -20,7 +20,6 @@ const usePostApplication = (applicationId: number, offerDetail: string, preferOf
       navigate('/model-info/model-offer/sent-complete', { replace: true });
     } catch (err) {
       navigate('/error');
-      console.log(err);
     }
   };
 

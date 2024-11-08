@@ -17,7 +17,7 @@ import {
 import { HELPER_MESSAGE, PLACE_HOLDER_MESSAGE, TOAST_MESSAGE } from '../../constants/message';
 import { STATUS } from '../../constants/requestStatus';
 import { STEP, TOTAL_STEP } from '../../constants/step';
-import { EnterProfileProp } from '../../enterProfileProp';
+import { EnterProfileProp } from '../../types/enterProfileProp';
 import useInterval from '../../hooks/useInterval';
 import usePostPhoneNumber from '../../hooks/usePostPhoneNumber';
 import usePostVerifyPhoneNumber from '../../hooks/usePostVerifyPhoneNumber';
