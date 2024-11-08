@@ -1,10 +1,11 @@
+import { useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
 
 import { UserProps } from '../hooks/type';
+
 import { IcRightGrey } from '@/views/@common/assets/icons';
 import ImgMdModel from '@images/img_mdprofile.png';
 import ImgMyLogo from '@images/img_mylogo.png';
-import { useNavigate } from 'react-router-dom';
 
 interface MyInfoProps {
   data: UserProps;
@@ -12,6 +13,7 @@ interface MyInfoProps {
 }
 const MyInfo = ({ data, isModel }: MyInfoProps) => {
   const navigate = useNavigate();
+
   return (
     <S.MyInfoLayout>
       <S.MyInfoBox>

@@ -5,7 +5,7 @@ import { styled } from 'styled-components';
 import { IcSearch } from '../../assets/icons';
 import { HELPER_MESSAGE } from '../../constants/message';
 import { TOTAL_STEP } from '../../constants/step';
-import { EnterProfileProp } from '../../enterProfileProp';
+import { EnterProfileProp } from '../../types/enterProfileProp';
 import Field from '../@common/Field';
 
 import { shopInfoState, addressState, detailShopInfoState, dateState } from '@/recoil/atoms/signUpState';
