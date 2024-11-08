@@ -11,7 +11,6 @@ const usePostLogout = () => {
       removeToken();
       navigate('/');
     } catch (err) {
-      console.log(err);
       navigate('/error');
     }
   };

@@ -15,7 +15,6 @@ import ProgressBar from '@/views/@common/components/ProgressBar';
 import ToastMessage from '@/views/@common/components/ToastMessage';
 
 const Profile = ({ setStep }: EnterProfileProp) => {
-  //Recoil
   const [isToastOpen, setToastOpen] = useState(false);
   const [instaIdInfo, setInstaIdInfo] = useRecoilState(instagramLinkState);
   const [naverPlaceInfo, setNaverPlaceInfo] = useRecoilState(naverPlaceState);
