@@ -11,12 +11,18 @@ interface CardProps {
   children: React.ReactNode;
 }
 
-const CardMain = ({ navigateTo, children, isExpired = false }: CardProps) => {
+const CardMain = ({ navigateTo, id, children, isExpired = false }: CardProps) => {
   const navigate = useNavigate();
+  const navigateState = {
+    state: {
+      applicationId: id,
+      from: location.pathname,
+    },
+  };
 
   const handleClickCard = () => {
     gaEvent('제안 알림 전환', 'proposal');
-    navigate(navigateTo);
+    navigate(navigateTo, navigateState);
   };
 
   return (
