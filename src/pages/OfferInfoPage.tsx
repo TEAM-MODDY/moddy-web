@@ -14,7 +14,7 @@ import useGetOfferModel from '@/views/OfferInfoPage/hooks/useGetOfferModel';
 
 const OfferInfoPage = () => {
   const { state } = useLocation();
-  const offerId = state;
+  const offerId = state.applicationId;
   const { data } = useGetOfferModel(offerId);
 
   // 체크 표시 클릭시 CTA 버튼 활성화

@@ -54,7 +54,6 @@ const usePutDesignerEdit = (imgFile: File | null, info: infoProps) => {
       });
       navigate('/my-page');
     } catch (err) {
-      console.log(err);
       navigate('/error');
     }
   };
