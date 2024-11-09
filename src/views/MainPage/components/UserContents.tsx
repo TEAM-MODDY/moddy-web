@@ -59,7 +59,7 @@ const ModelContents = ({ data, setPage }: ModelContentsProps) => {
 
   const renderOffers = () =>
     data.offers.map((offer, index) => {
-      const navigateTo = `/offer-info/${offer.offerId}`;
+      const navigateTo = '/offer-info';
 
       return (
         <Card
