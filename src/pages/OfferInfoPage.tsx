@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { styled } from 'styled-components';
 
 import { IcCheckboxGrey, IcCheckboxBlue } from '../views/@common/assets/icons';
@@ -13,9 +13,15 @@ import { OFFER_INFO_TEXT } from '@/views/OfferInfoPage/constants/message';
 import useGetOfferModel from '@/views/OfferInfoPage/hooks/useGetOfferModel';
 
 const OfferInfoPage = () => {
-  const { state } = useLocation();
-  const offerId = state;
-  const { data } = useGetOfferModel(offerId);
+  const { offerId } = useParams();
+  const navigate = useNavigate();
+
+  // offerId가 없으면 에러 페이지로 리디렉션
+  if (!offerId) {
+    navigate('/error');
+  }
+
+  const { data } = useGetOfferModel(Number(offerId));
 
   // 체크 표시 클릭시 CTA 버튼 활성화
   const [isChecked, setIsChecked] = useState(false);
@@ -35,7 +41,7 @@ const OfferInfoPage = () => {
         <DirectionModal
           isModal={isModal}
           onClose={() => setIsModal(false)}
-          offerId={offerId}
+          offerId={Number(offerId)}
           applicationId={data.applicationInfo.applicationId}
           designerId={data.designerInfo.designerId}
         />

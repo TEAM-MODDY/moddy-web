@@ -58,23 +58,27 @@ const ModelContents = ({ data, setPage }: ModelContentsProps) => {
   if (!data) return;
 
   const renderOffers = () =>
-    data.offers.map((offer, index) => (
-      <Card
-        navigateTo="/offer-info"
-        id={offer.offerId}
-        key={index}
-        isExpired={offer.status === APPLICATION_STATUS.EXPIRED}>
-        {offer.status === APPLICATION_STATUS.UNCLICKED && <Card.NewIcon />}
-        <Card.ProfileImg imgUrl={offer.imgUrl} alt="제안서 프로필 사진" />
-        <Card.ContentsBox>
-          <S.FlexBox>
-            <Card.Name>{offer.name}</Card.Name>
-            <Card.Detail>{offer.shopName}</Card.Detail>
-          </S.FlexBox>
-          <Card.OptionTag options={offer.conditions} />
-        </Card.ContentsBox>
-      </Card>
-    ));
+    data.offers.map((offer, index) => {
+      const navigateTo = `/offer-info/${offer.offerId}`;
+
+      return (
+        <Card
+          navigateTo={navigateTo}
+          id={offer.offerId}
+          key={index}
+          isExpired={offer.status === APPLICATION_STATUS.EXPIRED}>
+          {offer.status === APPLICATION_STATUS.UNCLICKED && <Card.NewIcon />}
+          <Card.ProfileImg imgUrl={offer.imgUrl} alt="제안서 프로필 사진" />
+          <Card.ContentsBox>
+            <S.FlexBox>
+              <Card.Name>{offer.name}</Card.Name>
+              <Card.Detail>{offer.shopName}</Card.Detail>
+            </S.FlexBox>
+            <Card.OptionTag options={offer.conditions} />
+          </Card.ContentsBox>
+        </Card>
+      );
+    });
 
   const renderEmptyBox = () => (
     <S.EmptyBox>
